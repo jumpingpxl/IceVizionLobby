@@ -1,0 +1,13 @@
+name: Lobby
+version: 1.0.0
+api-version: 1.13
+main: de.cosmiqglow.lobby.Lobby
+
+author: theEvilReaper
+
+depends: [Aves]
+
+commands:
+  set:
+    usage:
+    description:
