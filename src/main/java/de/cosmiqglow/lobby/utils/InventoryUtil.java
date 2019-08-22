@@ -14,20 +14,19 @@ public class InventoryUtil {
 
     private final ItemUtil itemUtil;
     private final Map<Player, Inventory> panelCache;
-    private final Inventory teleporter;
+    private Inventory teleporter;
 
     public InventoryUtil(ItemUtil itemUtil) {
         this.itemUtil = itemUtil;
         this.panelCache = new HashMap<>();
-        this.teleporter = loadTeleporter();
+        this.loadTeleporter();
     }
 
-    public Inventory loadTeleporter() {
-        Inventory inventory = Bukkit.createInventory(null, 27, "Minispiele");
-        inventory.setItem(10, new ItemBuilder(Material.GOLDEN_APPLE).setDisplayName("§eMiniUHC").build());
-        inventory.setItem(13, new ItemBuilder(Material.MAGMA_CREAM).setDisplayName("§aSpawn").build());
-        inventory.setItem(16, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
-        return inventory;
+    public void loadTeleporter() {
+        this.teleporter = Bukkit.createInventory(null, 27, "Minispiele");
+        teleporter.setItem(10, new ItemBuilder(Material.GOLDEN_APPLE).setDisplayName("§eMiniUHC").build());
+        teleporter.setItem(13, new ItemBuilder(Material.MAGMA_CREAM).setDisplayName("§aSpawn").build());
+        teleporter.setItem(16, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
     }
 
     private Inventory createPanelInventory() {
