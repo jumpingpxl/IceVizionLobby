@@ -31,11 +31,16 @@ public class ItemUtil {
     private HashMap<Integer, ItemStack> loadLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>(5);
         layout.put(0, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("Privatnachrichten").build());
+        layout.put(1, new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(9, new ItemBuilder(Material.FIREWORK_ROCKET).setDisplayName("Party").build());
+        layout.put(10, new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(18, new ItemBuilder(Material.GOLDEN_HELMET).setDisplayName("Freunde").
                 addItemFlag(ItemFlag.HIDE_ATTRIBUTES).build());
+        layout.put(19, new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(27, new ItemBuilder(Material.SLIME_BALL).setDisplayName("Nachspringen").build());
+        layout.put(28, new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(36, new ItemBuilder(Material.PORKCHOP).setDisplayName("Spieler in Schweine verwandeln").build());
+        layout.put(37, new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(53, new ItemBuilder(Material.DARK_OAK_DOOR).setDisplayName("§cSchließen").build());
         return layout;
     }
