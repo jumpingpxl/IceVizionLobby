@@ -1,6 +1,5 @@
 package de.cosmiqglow.lobby.utils;
 
-import de.cosmiqglow.aves.item.BookBuilder;
 import de.cosmiqglow.aves.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
