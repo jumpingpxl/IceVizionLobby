@@ -1,6 +1,7 @@
 package de.cosmiqglow.lobby.listener;
 
 import de.cosmiqglow.lobby.Lobby;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -40,8 +41,8 @@ public class PlayerInventoryListener implements Listener {
                 player.sendMessage("Settings");
                 break;
             case "Minispiele":
-                player.sendMessage("Teleporter");
-                break;
+                String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
+                player.teleport(plugin.getMapService().getLocation(locationName));
         }
     }
 }

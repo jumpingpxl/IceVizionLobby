@@ -26,6 +26,22 @@ public class MapService {
         loadMap();
     }
 
+    public Location getLocation(String name) {
+        if (lobbyMap.isPresent()) {
+            switch (name.toLowerCase(Locale.ENGLISH)) {
+                case "spawn":
+                    return lobbyMap.get().getSpawn();
+                case "knockbackffa":
+                    return lobbyMap.get().getKBFFA();
+                case "miniuhc":
+                    return lobbyMap.get().getUHC();
+                case "daily":
+                    return lobbyMap.get().getDailyReward();
+            }
+        }
+        return null;
+    }
+
     private void loadMap() {
         this.file = new File(Bukkit.getWorlds().get(0).getWorldFolder(), "map.json");
         if (file.exists()) {
@@ -65,10 +81,6 @@ public class MapService {
                 lobbyMap.setDailyReward(location);
                 break;
         }
-    }
-
-    public Optional<LobbyMap> getLobbyMap() {
-        return lobbyMap;
     }
 
     public Gson getGson() {
