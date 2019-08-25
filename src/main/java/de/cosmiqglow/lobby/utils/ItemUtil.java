@@ -29,7 +29,7 @@ public class ItemUtil {
     }
 
     private HashMap<Integer, ItemStack> loadLayout() {
-        HashMap<Integer, ItemStack> layout = new HashMap<>(5);
+        HashMap<Integer, ItemStack> layout = new HashMap<>();
         layout.put(0, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("Privatnachrichten").build());
         layout.put(1, new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(9, new ItemBuilder(Material.FIREWORK_ROCKET).setDisplayName("Party").build());
