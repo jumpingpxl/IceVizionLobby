@@ -8,6 +8,7 @@ import org.bukkit.plugin.Plugin;
 public class VisibilityUtil {
 
     public void changeVisibility(Plugin plugin, int value, Player player) {
+        Preconditions.checkArgument(plugin == null, "The plugin can not be null");
         Preconditions.checkArgument(value >= 0, "The value can not be negative");
         switch (value) {
             case 0:
@@ -19,7 +20,6 @@ public class VisibilityUtil {
                 }
                 break;
             case 1:
-                //TODO: Freunde, Party etc....
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     if (online == player) continue;
                     if (player.canSee(online)) {
@@ -30,9 +30,7 @@ public class VisibilityUtil {
             case 2:
                 //TODO: Schweine
                 break;
-            default:
-                break;
         }
+        //Cloud.getInstance().getPlayer(player).setSetting(105,value);
     }
-
 }
