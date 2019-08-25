@@ -32,15 +32,27 @@ public class ItemUtil {
         HashMap<Integer, ItemStack> layout = new HashMap<>();
         layout.put(0, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("Privatnachrichten").build());
         layout.put(1, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
+        layout.put(2, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
+        layout.put(3, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
+        layout.put(4, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(9, new ItemBuilder(Material.FIREWORK_ROCKET).setDisplayName("Party").build());
         layout.put(10, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
+        layout.put(11, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
+        layout.put(12, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
+        layout.put(13, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(18, new ItemBuilder(Material.GOLDEN_HELMET).setDisplayName("Freunde").
                 addItemFlag(ItemFlag.HIDE_ATTRIBUTES).build());
         layout.put(19, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
+        layout.put(20, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
+        layout.put(21, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
+        layout.put(22, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(27, new ItemBuilder(Material.SLIME_BALL).setDisplayName("Nachspringen").build());
         layout.put(28, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(36, new ItemBuilder(Material.PORKCHOP).setDisplayName("Spieler in Schweine verwandeln").build());
         layout.put(37, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
+        layout.put(38, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
+        layout.put(39, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
+        layout.put(40, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(53, new ItemBuilder(Material.DARK_OAK_DOOR).setDisplayName("§cSchließen").build());
         return layout;
     }
