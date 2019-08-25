@@ -1,6 +1,9 @@
 package de.cosmiqglow.lobby.utils;
 
 import de.cosmiqglow.aves.item.ItemBuilder;
+import de.cosmiqglow.lobby.Lobby;
+import net.titan.spigot.Cloud;
+import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -29,16 +32,27 @@ public class InventoryUtil {
         teleporter.setItem(16, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
     }
 
-    private Inventory createPanelInventory() {
+    private Inventory createPanelInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "Einstellungen");
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getSettingsLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
+
+        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+
+        int privatMessage = cloudPlayer.getSetting(Lobby.PRIVAT_MESSAGE);
+        int party = cloudPlayer.getSetting(Lobby.PARTY);
+        int friend = cloudPlayer.getSetting(Lobby.FRIENDS);
+        int jump = cloudPlayer.getSetting(Lobby.JUMP);
+
+
+
+
         return inventory;
     }
 
     public Inventory getPanel(Player player) {
-        return getPanelCache().containsKey(player) ? getPanelCache().get(player) : createPanelInventory();
+        return getPanelCache().containsKey(player) ? getPanelCache().get(player) : createPanelInventory(player);
     }
 
     public Inventory getTeleporter() {
