@@ -47,30 +47,30 @@ public class InventoryUtil {
 
         inventory.setItem(3, privatMessage == 0 ? new ItemBuilder(Material.LIME_DYE)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
-        inventory.setItem(4, privatMessage == 0 ? new ItemBuilder(Material.ORANGE_DYE)
+        inventory.setItem(4, privatMessage == 1 ? new ItemBuilder(Material.ORANGE_DYE)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
-        inventory.setItem(5, privatMessage == 0 ? new ItemBuilder(Material.ROSE_RED)
+        inventory.setItem(5, privatMessage == 2 ? new ItemBuilder(Material.ROSE_RED)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
 
         inventory.setItem(12, party == 0 ? new ItemBuilder(Material.LIME_DYE)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
-        inventory.setItem(13, party == 0 ? new ItemBuilder(Material.ORANGE_DYE)
+        inventory.setItem(13, party == 1 ? new ItemBuilder(Material.ORANGE_DYE)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
-        inventory.setItem(14, party == 0 ? new ItemBuilder(Material.ROSE_RED)
+        inventory.setItem(14, party == 2 ? new ItemBuilder(Material.ROSE_RED)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
 
         inventory.setItem(21, friend == 0 ? new ItemBuilder(Material.LIME_DYE)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
-        inventory.setItem(22, friend == 0 ? new ItemBuilder(Material.ORANGE_DYE)
+        inventory.setItem(22, friend == 1 ? new ItemBuilder(Material.ORANGE_DYE)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
-        inventory.setItem(23, friend == 0 ? new ItemBuilder(Material.ROSE_RED)
+        inventory.setItem(23, friend == 2 ? new ItemBuilder(Material.ROSE_RED)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
 
         inventory.setItem(30, jump == 0 ? new ItemBuilder(Material.LIME_DYE)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
-        inventory.setItem(31, jump == 0 ? new ItemBuilder(Material.ORANGE_DYE)
+        inventory.setItem(31, jump == 1 ? new ItemBuilder(Material.ORANGE_DYE)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
-        inventory.setItem(32, jump == 0 ? new ItemBuilder(Material.ROSE_RED)
+        inventory.setItem(32, jump == 2 ? new ItemBuilder(Material.ROSE_RED)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
         return inventory;
     }
