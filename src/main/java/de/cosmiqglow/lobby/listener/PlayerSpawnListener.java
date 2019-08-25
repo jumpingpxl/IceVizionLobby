@@ -15,6 +15,10 @@ public class PlayerSpawnListener implements Listener {
 
     @EventHandler
     public void onSpawn(PlayerSpawnLocationEvent event) {
-        event.setSpawnLocation(event.getPlayer().getWorld().getSpawnLocation());
+        mapService.getLobbyMap().ifPresent(map -> {
+            if (map.getSpawn() != null) {
+                event.setSpawnLocation(map.getSpawn());
+            }
+        });
     }
 }
