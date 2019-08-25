@@ -1,10 +1,13 @@
 package de.cosmiqglow.lobby;
 
+import de.cosmiqglow.lobby.commands.SetCommand;
 import de.cosmiqglow.lobby.listener.*;
 import de.cosmiqglow.lobby.map.MapService;
 import de.cosmiqglow.lobby.utils.CooldownUtil;
 import de.cosmiqglow.lobby.utils.InventoryUtil;
 import de.cosmiqglow.lobby.utils.ItemUtil;
+import net.titan.lib.network.spigot.SpigotState;
+import net.titan.spigot.Cloud;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Lobby extends JavaPlugin {
@@ -18,6 +21,10 @@ public class Lobby extends JavaPlugin {
     public void onEnable() {
         load();
         registerListener();
+        registerCommands();
+
+        Cloud.getInstance().setSpigotState(SpigotState.AVAILABLE);
+
         super.onEnable();
     }
 
@@ -45,6 +52,10 @@ public class Lobby extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerSpawnListener(mapService), this);
         getServer().getPluginManager().registerEvents(new WeatherListener(), this);
+    }
+
+    private void registerCommands() {
+        getCommand("set").setExecutor(new SetCommand(mapService));
     }
 
     public InventoryUtil getInventoryUtil() {
