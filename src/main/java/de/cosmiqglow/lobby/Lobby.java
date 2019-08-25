@@ -55,7 +55,7 @@ public class Lobby extends JavaPlugin {
     }
 
     private void registerCommands() {
-        getCommand("set").setExecutor(new SetCommand(mapService));
+        getCommand("location").setExecutor(new SetCommand(mapService));
     }
 
     public InventoryUtil getInventoryUtil() {

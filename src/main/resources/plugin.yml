@@ -8,6 +8,6 @@ author: theEvilReaper
 depends: [Aves]
 
 commands:
-  set:
+  location:
     usage:
     description:
