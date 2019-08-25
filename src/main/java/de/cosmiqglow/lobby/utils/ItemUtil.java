@@ -48,6 +48,9 @@ public class ItemUtil {
         layout.put(22, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(27, new ItemBuilder(Material.SLIME_BALL).setDisplayName("Nachspringen").build());
         layout.put(28, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
+        layout.put(29, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
+        layout.put(30, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
+        layout.put(31, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(36, new ItemBuilder(Material.PORKCHOP).setDisplayName("Spieler in Schweine verwandeln").build());
         layout.put(37, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(38, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
