@@ -7,29 +7,71 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 import java.io.File;
+import java.util.Locale;
 import java.util.Optional;
 
 public class MapService {
 
     private final Gson gson;
-    private LobbyMap lobbyMap;
+    private Optional<LobbyMap> lobbyMap;
+    private File file;
 
     public MapService() {
-        this.gson = new GsonBuilder().registerTypeAdapter(Location.class, new LocationTypeAdapter()).create();
+        this.gson = new GsonBuilder().
+                serializeNulls().
+                setPrettyPrinting().
+                registerTypeAdapter(Location.class, new LocationTypeAdapter()).
+                create();
+
+        loadMap();
     }
 
     private void loadMap() {
-        File file = new File(Bukkit.getWorlds().get(0).getWorldFolder(), "map.json");
-        Optional<LobbyMap> lobby = JsonFileLoader.load(file, LobbyMap.class, gson);
-
-        if (lobby.isPresent()) {
-            lobbyMap = lobby.get();
+        this.file = new File(Bukkit.getWorlds().get(0).getWorldFolder(), "map.json");
+        if (file.exists()) {
+            lobbyMap = JsonFileLoader.load(file, LobbyMap.class, gson);
+            Bukkit.getConsoleSender().sendMessage("Daten wurden geladen");
         } else {
-            Bukkit.getConsoleSender().sendMessage("§cEs wurde keine map.json gefunden");
+            lobbyMap = Optional.of(new LobbyMap());
+            JsonFileLoader.save(file,lobbyMap.get(),gson);
         }
     }
 
-    public LobbyMap getLobbyMap() {
+    public boolean setValue(String type,Location location) {
+        if(lobbyMap.isPresent()) {
+            setData(lobbyMap.get(), type, location);
+            JsonFileLoader.save(file,lobbyMap.get(),gson);
+            return true;
+        } else {
+            lobbyMap = Optional.of(new LobbyMap());
+            setData(lobbyMap.get(), type, location);
+            JsonFileLoader.save(file,lobbyMap.get(),gson);
+            return true;
+        }
+    }
+
+    private void setData(LobbyMap lobbyMap, String type, Location location) {
+        switch (type.toLowerCase(Locale.ENGLISH)) {
+            case "spawn":
+                lobbyMap.setSpawn(location);
+                break;
+            case "uhc":
+                lobbyMap.setUHC(location);
+                break;
+            case "kbffa":
+                lobbyMap.setKBFFA(location);
+                break;
+            case "daily":
+                lobbyMap.setDailyReward(location);
+                break;
+        }
+    }
+
+    public Optional<LobbyMap> getLobbyMap() {
         return lobbyMap;
+    }
+
+    public Gson getGson() {
+        return gson;
     }
 }
