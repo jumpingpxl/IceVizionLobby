@@ -12,6 +12,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Lobby extends JavaPlugin {
 
+    public static final int PRIVAT_MESSAGE = 100;
+    public static final int PARTY = 101;
+    public static final int FRIENDS = 102;
+    public static final int JUMP = 103;
+    public static final int VISIBILITY = 104;
+
     private MapService mapService;
     private CooldownUtil cooldownUtil;
     private InventoryUtil inventoryUtil;
