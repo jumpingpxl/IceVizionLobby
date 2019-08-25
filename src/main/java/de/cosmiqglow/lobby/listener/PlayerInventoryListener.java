@@ -43,6 +43,8 @@ public class PlayerInventoryListener implements Listener {
             case "Minispiele":
                 String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
                 player.teleport(plugin.getMapService().getLocation(locationName));
+                player.closeInventory();
+                break;
         }
     }
 }
