@@ -8,7 +8,6 @@ import org.bukkit.plugin.Plugin;
 public class VisibilityUtil {
 
     public void changeVisibility(Plugin plugin, int value, Player player) {
-        Preconditions.checkArgument(plugin == null, "The plugin can not be null");
         Preconditions.checkArgument(value >= 0, "The value can not be negative");
         switch (value) {
             case 0:
