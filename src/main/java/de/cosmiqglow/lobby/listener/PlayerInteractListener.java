@@ -39,7 +39,7 @@ public class PlayerInteractListener implements Listener {
                     } else {
                         player.getInventory().remove(event.getItem());
                         player.getInventory().setItem(4, plugin.getItemUtil().getPorkchop());
-                        plugin.getCooldownUtil().addCooldown(player, System.currentTimeMillis() + 3000L);
+                        plugin.getCooldownUtil().addCooldown(player, 3000L);
                     }
                     player.sendMessage("§cBald");
                     break;
@@ -50,7 +50,7 @@ public class PlayerInteractListener implements Listener {
                     } else {
                         player.getInventory().remove(event.getItem());
                         player.getInventory().setItem(4, plugin.getItemUtil().getSlime());
-                        plugin.getCooldownUtil().addCooldown(player, System.currentTimeMillis() + 3000L);
+                        plugin.getCooldownUtil().addCooldown(player, 3000L);
                     }
                     player.sendMessage("Tests");
                     break;
@@ -61,7 +61,7 @@ public class PlayerInteractListener implements Listener {
                     } else {
                         player.getInventory().remove(event.getItem());
                         player.getInventory().setItem(4, plugin.getItemUtil().getTNT());
-                        plugin.getCooldownUtil().addCooldown(player, System.currentTimeMillis() + 3000L);
+                        plugin.getCooldownUtil().addCooldown(player, 3000L);
                     }
                     player.sendMessage("Testss");
                     break;
