@@ -18,7 +18,15 @@ public class CooldownUtil {
     }
 
     public boolean hasCooldown(Player player) {
-        return this.cooldowns.containsKey(player);
+        if (this.cooldowns.containsKey(player)) {
+            if (cooldowns.get(player) >= System.currentTimeMillis()) {
+                return true;
+            } else {
+                this.cooldowns.remove(player);
+                return false;
+            }
+        }
+        return false;
     }
 
     public Map<Player, Long> getCooldowns() {
