@@ -1,6 +1,7 @@
 package de.cosmiqglow.lobby.listener;
 
 import de.cosmiqglow.lobby.Lobby;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,6 +38,7 @@ public class PlayerInteractListener implements Listener {
                         player.sendMessage("§cBitte warte noch kurz");
                         return;
                     } else {
+                        Bukkit.broadcastMessage("Plugin == null? " + String.valueOf(plugin == null));
                         player.getInventory().remove(event.getItem());
                         player.getInventory().setItem(4, plugin.getItemUtil().getPorkchop());
                         plugin.getCooldownUtil().addCooldown(player, 3000L);
