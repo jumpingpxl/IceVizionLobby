@@ -12,9 +12,9 @@ public class VisibilityUtil {
         switch (value) {
             case 0:
                 for (Player online : Bukkit.getOnlinePlayers()) {
-                    if (online == player) continue;
+                    if (player == online) continue;
                     if (!player.canSee(online)) {
-                        player.showPlayer(plugin, player);
+                        player.showPlayer(plugin, online);
                     }
                 }
                 break;
@@ -22,11 +22,10 @@ public class VisibilityUtil {
                 //TODO: Schweine
                 break;
             case 2:
-                //TODO: Schweine
                 for (Player online : Bukkit.getOnlinePlayers()) {
-                    if (online == player) continue;
+                    if (player == online) continue;
                     if (player.canSee(online)) {
-                        player.hidePlayer(plugin, player);
+                        player.hidePlayer(plugin, online);
                     }
                 }
                 break;
