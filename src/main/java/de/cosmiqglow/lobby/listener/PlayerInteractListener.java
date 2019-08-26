@@ -33,12 +33,36 @@ public class PlayerInteractListener implements Listener {
                     player.openInventory(plugin.getInventoryUtil().getPanel(player));
                     break;
                 case "§e✦ §cBombe":
+                    if (plugin.getCooldownUtil().hasCooldown(player)) {
+                        player.sendMessage("§cBitte warte noch kurz");
+                        return;
+                    } else {
+                        player.getInventory().remove(event.getItem());
+                        player.getInventory().setItem(4, plugin.getItemUtil().getPorkchop());
+                        plugin.getCooldownUtil().addCooldown(player, System.currentTimeMillis() + 3000L);
+                    }
                     player.sendMessage("§cBald");
                     break;
                 case "§e✦ §dSpielerschweinchen":
+                    if (plugin.getCooldownUtil().hasCooldown(player)) {
+                        player.sendMessage("§cBitte warte noch kurz");
+                        return;
+                    } else {
+                        player.getInventory().remove(event.getItem());
+                        player.getInventory().setItem(4, plugin.getItemUtil().getSlime());
+                        plugin.getCooldownUtil().addCooldown(player, System.currentTimeMillis() + 3000L);
+                    }
                     player.sendMessage("Tests");
                     break;
                 case "§e✦ §aLade Spieler":
+                    if (plugin.getCooldownUtil().hasCooldown(player)) {
+                        player.sendMessage("§cBitte warte noch kurz");
+                        return;
+                    } else {
+                        player.getInventory().remove(event.getItem());
+                        player.getInventory().setItem(4, plugin.getItemUtil().getTNT());
+                        plugin.getCooldownUtil().addCooldown(player, System.currentTimeMillis() + 3000L);
+                    }
                     player.sendMessage("Testss");
                     break;
                 default:
