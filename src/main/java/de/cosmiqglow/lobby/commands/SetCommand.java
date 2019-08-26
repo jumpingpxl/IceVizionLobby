@@ -22,7 +22,7 @@ public class SetCommand implements CommandExecutor {
         } else {
             Player player = (Player) sender;
             if (args.length != 1) {
-                player.sendMessage("§7Bitte benutze §c/set <spawn,uhc,kbffa,daily>");
+                player.sendMessage("§7Bitte benutze §c/location <spawn,uhc,kbffa,daily>");
                 return  true;
             } else {
                 if (args[0].isEmpty()) {
