@@ -20,15 +20,16 @@ public class VisibilityUtil {
                 }
                 break;
             case 1:
+                //TODO: Schweine
+                break;
+            case 2:
+                //TODO: Schweine
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     if (online == player) continue;
                     if (player.canSee(online)) {
                         player.hidePlayer(plugin, player);
                     }
                 }
-                break;
-            case 2:
-                //TODO: Schweine
                 break;
         }
         //Cloud.getInstance().getPlayer(player).setSetting(105,value);
