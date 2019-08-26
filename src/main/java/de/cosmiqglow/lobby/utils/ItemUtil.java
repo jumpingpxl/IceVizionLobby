@@ -78,4 +78,8 @@ public class ItemUtil {
     public ItemStack getSlime() {
         return slime;
     }
+
+    public ItemStack getTNT() {
+        return tnt;
+    }
 }
