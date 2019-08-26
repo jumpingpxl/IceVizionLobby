@@ -38,7 +38,6 @@ public class PlayerInteractListener implements Listener {
                         player.sendMessage("§cBitte warte noch kurz");
                         return;
                     } else {
-                        Bukkit.broadcastMessage("Plugin == null? " + String.valueOf(plugin == null));
                         player.getInventory().remove(event.getItem());
                         player.getInventory().setItem(4, plugin.getItemUtil().getPorkchop());
                         plugin.getCooldownUtil().addCooldown(player, 3000L);
