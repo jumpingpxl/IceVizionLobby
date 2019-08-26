@@ -42,7 +42,7 @@ public class PlayerInteractListener implements Listener {
                         player.getInventory().remove(event.getItem());
                         player.getInventory().setItem(4, plugin.getItemUtil().getPorkchop());
                         plugin.getCooldownUtil().addCooldown(player, 3000L);
-                        plugin.getVisibilityUtil().changeVisibility(plugin, 0, player);
+                        plugin.getVisibilityUtil().changeVisibility(plugin, 2, player);
                     }
                     player.sendMessage("§cBald");
                     break;
@@ -65,7 +65,7 @@ public class PlayerInteractListener implements Listener {
                         player.getInventory().remove(event.getItem());
                         player.getInventory().setItem(4, plugin.getItemUtil().getTNT());
                         plugin.getCooldownUtil().addCooldown(player, 3000L);
-                        plugin.getVisibilityUtil().changeVisibility(plugin, 2, player);
+                        plugin.getVisibilityUtil().changeVisibility(plugin, 0, player);
                     }
                     player.sendMessage("Testss");
                     break;
