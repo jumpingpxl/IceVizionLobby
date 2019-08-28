@@ -20,18 +20,19 @@ public class SettingsUtil {
         Inventory inventory = event.getInventory();
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer((Player) event.getWhoClicked());
         int currentRow = event.getSlot() / 9;
-        int kat = currentRow * 9;
-        int item = (event.getSlot() - kat) - 3;
+        int cat = currentRow * 9;
+        int newValue = (event.getSlot() - cat) - 3;
         int oldVal = -1;
         for (int i = 0; i < 3; i++) {
-            if (i == item) continue;
-            if (!inventory.getItem(kat + ( 3 + i)).getType().equals(Material.GRAY_DYE)) {
+            if (i == newValue) continue;
+            if (!inventory.getItem(cat + ( 3 + i)).getType().equals(Material.GRAY_DYE)) {
                 oldVal = i;
             }
         }
-        setState(inventory,kat,oldVal, true);
-        setState(inventory,kat,item, false);
+        setState(inventory,cat,oldVal, true);
+        setState(inventory,cat,newValue, false);
         ((Player) event.getWhoClicked()).updateInventory();
+        cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
     }
 
     public void setState(Inventory inv, int kat , int val, boolean gray) {
@@ -51,8 +52,6 @@ public class SettingsUtil {
                 break;
         }
     }
-
-
 
     private int getSettingsID(int row) {
         switch (row) {
