@@ -15,12 +15,14 @@ import java.util.Map;
 
 public class InventoryUtil {
 
+    private final SettingsUtil settingsUtil;
     private final ItemUtil itemUtil;
     private final Map<Player, Inventory> panelCache;
     private Inventory teleporter;
 
-    public InventoryUtil(ItemUtil itemUtil) {
+    public InventoryUtil(ItemUtil itemUtil, SettingsUtil settingsUtil) {
         this.itemUtil = itemUtil;
+        this.settingsUtil = settingsUtil;
         this.panelCache = new HashMap<>();
         this.loadTeleporter();
     }
@@ -45,29 +47,11 @@ public class InventoryUtil {
         int friend = cloudPlayer.getSetting(Lobby.FRIENDS);
         int jump = cloudPlayer.getSetting(Lobby.JUMP);
 
-        setState(inventory, 0, privatMessage);
-        setState(inventory, 9, party);
-        setState(inventory, 18, friend);
-        setState(inventory, 27, jump);
+        settingsUtil.setState(inventory, 0, privatMessage,false);
+        settingsUtil.setState(inventory, 9, party, false);
+        settingsUtil.setState(inventory, 18, friend, false);
+        settingsUtil.setState(inventory, 27, jump, false);
         return inventory;
-    }
-
-    private void setState(Inventory inv, int kat , int val) {
-        ItemStack state;
-        switch (val) {
-            case 0:
-                state = new ItemBuilder(Material.LIME_DYE).setDisplayName("Für alle").build();
-                inv.setItem(kat + ( 3 + val), state);
-                break;
-            case 1:
-                state = new ItemBuilder(Material.ORANGE_DYE).setDisplayName("Für Freunde").build();
-                inv.setItem(kat + ( 3 + val), state);
-                break;
-            case 2:
-                state = new ItemBuilder(Material.ROSE_RED).setDisplayName("Für niemanden").build();
-                inv.setItem(kat + ( 3 + val), state);
-                break;
-        }
     }
 
     public Inventory getPanel(Player player) {
