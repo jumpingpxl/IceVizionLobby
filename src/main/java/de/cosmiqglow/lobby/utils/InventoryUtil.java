@@ -45,7 +45,12 @@ public class InventoryUtil {
         int friend = cloudPlayer.getSetting(Lobby.FRIENDS);
         int jump = cloudPlayer.getSetting(Lobby.JUMP);
 
-        inventory.setItem(3, privatMessage == 0 ? new ItemBuilder(Material.LIME_DYE)
+        setState(inventory, 0, privatMessage);
+        setState(inventory, 18, party);
+        setState(inventory, 27, friend);
+        setState(inventory, 36, jump);
+
+      /*  inventory.setItem(3, privatMessage == 0 ? new ItemBuilder(Material.LIME_DYE)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
         inventory.setItem(4, privatMessage == 1 ? new ItemBuilder(Material.ORANGE_DYE)
                 .setDisplayName(inventory.getItem(4).getItemMeta().getDisplayName()).build() : inventory.getItem(4));
@@ -71,8 +76,26 @@ public class InventoryUtil {
         inventory.setItem(31, jump == 1 ? new ItemBuilder(Material.ORANGE_DYE)
                 .setDisplayName(inventory.getItem(31).getItemMeta().getDisplayName()).build() : inventory.getItem(31));
         inventory.setItem(32, jump == 2 ? new ItemBuilder(Material.ROSE_RED)
-                .setDisplayName(inventory.getItem(32).getItemMeta().getDisplayName()).build() : inventory.getItem(32));
+                .setDisplayName(inventory.getItem(32).getItemMeta().getDisplayName()).build() : inventory.getItem(32));*/
         return inventory;
+    }
+
+    private void setState(Inventory inv, int kat , int val) {
+        ItemStack state;
+        switch (val) {
+            case 0:
+                state = new ItemBuilder(Material.LIME_DYE).setDisplayName("Für alle").build();
+                inv.setItem(kat + ( 3 + val), state);
+                break;
+            case 1:
+                state = new ItemBuilder(Material.ORANGE_DYE).setDisplayName("Für alle").build();
+                inv.setItem(kat + ( 3 + val), state);
+                break;
+            case 2:
+                state = new ItemBuilder(Material.ROSE_RED).setDisplayName("Für alle").build();
+                inv.setItem(kat + ( 3 + val), state);
+                break;
+        }
     }
 
     public Inventory getPanel(Player player) {
