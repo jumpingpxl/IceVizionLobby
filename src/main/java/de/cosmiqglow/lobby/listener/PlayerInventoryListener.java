@@ -36,7 +36,7 @@ public class PlayerInventoryListener implements Listener {
             case "Einstellungen":
                 int currentRow = event.getSlot() / 9;
                 int kat = currentRow * 9;
-                int item = (event.getSlot() - kat);
+                int item = (event.getSlot() - kat) - 3;
                 Bukkit.broadcastMessage("Row " + currentRow);
                 Bukkit.broadcastMessage("Cat " + kat);
                 Bukkit.broadcastMessage("Item " + item);
@@ -44,7 +44,7 @@ public class PlayerInventoryListener implements Listener {
                 if (stack.getItemMeta().getDisplayName().equals("§cSchließen")) {
                     player.closeInventory();
                 } else {
-                    //TODO: Einstellungen machen
+                    plugin.getSettingsUtil().changeSettingsValue(event);
                 }
                 player.sendMessage("Settings");
                 break;
