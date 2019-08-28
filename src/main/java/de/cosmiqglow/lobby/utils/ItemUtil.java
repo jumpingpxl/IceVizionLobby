@@ -51,6 +51,7 @@ public class ItemUtil {
         layout.put(30, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(31, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
         layout.put(32, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
+        layout.put(53, new ItemBuilder(Material.DARK_OAK_DOOR).setDisplayName("§cSchließen").build());
         return layout;
     }
 
