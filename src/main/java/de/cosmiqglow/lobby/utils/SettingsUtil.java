@@ -29,46 +29,29 @@ public class SettingsUtil {
                 oldVal = i;
             }
         }
-        setStateGray(inventory,kat,oldVal);
-        setState(inventory,kat,item);
+        setState(inventory,kat,oldVal, true);
+        setState(inventory,kat,item, false);
         ((Player) event.getWhoClicked()).updateInventory();
     }
 
-    private void setStateGray(Inventory inv, int kat , int val) {
+    public void setState(Inventory inv, int kat , int val, boolean gray) {
         ItemStack state;
         switch (val) {
             case 0:
-                state = new ItemBuilder(Material.GRAY_DYE).setDisplayName("Für alle").build();
+                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("Für alle").build();
                 inv.setItem(kat + ( 3 + val), state);
                 break;
             case 1:
-                state = new ItemBuilder(Material.GRAY_DYE).setDisplayName("Für Freunde").build();
+                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).setDisplayName("Für Freunde").build();
                 inv.setItem(kat + ( 3 + val), state);
                 break;
             case 2:
-                state = new ItemBuilder(Material.GRAY_DYE).setDisplayName("Für niemanden").build();
+                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).setDisplayName("Für niemanden").build();
                 inv.setItem(kat + ( 3 + val), state);
                 break;
         }
     }
 
-    private void setState(Inventory inv, int kat , int val) {
-        ItemStack state;
-        switch (val) {
-            case 0:
-                state = new ItemBuilder(Material.LIME_DYE).setDisplayName("Für alle").build();
-                inv.setItem(kat + ( 3 + val), state);
-                break;
-            case 1:
-                state = new ItemBuilder(Material.ORANGE_DYE).setDisplayName("Für Freunde").build();
-                inv.setItem(kat + ( 3 + val), state);
-                break;
-            case 2:
-                state = new ItemBuilder(Material.ROSE_RED).setDisplayName("Für niemanden").build();
-                inv.setItem(kat + ( 3 + val), state);
-                break;
-        }
-    }
 
 
     private int getSettingsID(int row) {
