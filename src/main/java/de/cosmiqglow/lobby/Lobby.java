@@ -58,7 +58,7 @@ public class Lobby extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerInventoryListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerItemListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
-        getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuitListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerSpawnListener(mapService), this);
         getServer().getPluginManager().registerEvents(new WeatherListener(), this);
     }
