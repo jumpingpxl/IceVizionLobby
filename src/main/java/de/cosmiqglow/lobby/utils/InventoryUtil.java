@@ -46,9 +46,9 @@ public class InventoryUtil {
         int jump = cloudPlayer.getSetting(Lobby.JUMP);
 
         setState(inventory, 0, privatMessage);
-        setState(inventory, 18, party);
-        setState(inventory, 27, friend);
-        setState(inventory, 36, jump);
+        setState(inventory, 9, party);
+        setState(inventory, 18, friend);
+        setState(inventory, 27, jump);
 
       /*  inventory.setItem(3, privatMessage == 0 ? new ItemBuilder(Material.LIME_DYE)
                 .setDisplayName(inventory.getItem(3).getItemMeta().getDisplayName()).build() : inventory.getItem(3));
