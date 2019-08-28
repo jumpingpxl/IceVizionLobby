@@ -3,10 +3,7 @@ package de.cosmiqglow.lobby;
 import de.cosmiqglow.lobby.commands.SetCommand;
 import de.cosmiqglow.lobby.listener.*;
 import de.cosmiqglow.lobby.map.MapService;
-import de.cosmiqglow.lobby.utils.CooldownUtil;
-import de.cosmiqglow.lobby.utils.InventoryUtil;
-import de.cosmiqglow.lobby.utils.ItemUtil;
-import de.cosmiqglow.lobby.utils.VisibilityUtil;
+import de.cosmiqglow.lobby.utils.*;
 import net.titan.lib.network.spigot.SpigotState;
 import net.titan.spigot.Cloud;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,6 +21,7 @@ public class Lobby extends JavaPlugin {
     private InventoryUtil inventoryUtil;
     private ItemUtil itemUtil;
     private VisibilityUtil visibilityUtil;
+    private SettingsUtil settingsUtil;
 
     @Override
     public void onEnable() {
@@ -47,6 +45,7 @@ public class Lobby extends JavaPlugin {
         this.itemUtil = new ItemUtil();
         this.inventoryUtil = new InventoryUtil(itemUtil);
         this.visibilityUtil = new VisibilityUtil();
+        this.settingsUtil = new SettingsUtil();
     }
 
     private void registerListener() {
@@ -85,5 +84,9 @@ public class Lobby extends JavaPlugin {
 
     public VisibilityUtil getVisibilityUtil() {
         return visibilityUtil;
+    }
+
+    public SettingsUtil getSettingsUtil() {
+        return settingsUtil;
     }
 }
