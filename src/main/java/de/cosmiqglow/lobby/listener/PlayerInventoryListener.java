@@ -35,10 +35,11 @@ public class PlayerInventoryListener implements Listener {
         switch (event.getView().getTitle()) {
             case "Einstellungen":
                 int currentRow = event.getSlot() / 9;
-                int currentColumn = event.getSlot() /  (event.getClickedInventory().getSize() / 9);
-
+                int kat = currentRow * 9;
+                int item = (event.getSlot() - kat) + 3;
                 Bukkit.broadcastMessage("Row " + currentRow);
-                Bukkit.broadcastMessage("Column " + currentColumn);
+                Bukkit.broadcastMessage("Cat " + kat);
+                Bukkit.broadcastMessage("Item " + item);
 
                 if (stack.getItemMeta().getDisplayName().equals("§cSchließen")) {
                     player.closeInventory();
