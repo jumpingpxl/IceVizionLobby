@@ -19,20 +19,22 @@ public class SettingsUtil {
     public void changeSettingsValue(InventoryClickEvent event) {
         Inventory inventory = event.getInventory();
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer((Player) event.getWhoClicked());
-        int currentRow = event.getSlot() / 9;
-        int cat = currentRow * 9;
-        int newValue = (event.getSlot() - cat) - 3;
-        int oldVal = -1;
-        for (int i = 0; i < 3; i++) {
-            if (i == newValue) continue;
-            if (!inventory.getItem(cat + ( 3 + i)).getType().equals(Material.GRAY_DYE)) {
-                oldVal = i;
+        if (event.getCurrentItem().getType().equals(Material.GRAY_DYE)) {
+            int currentRow = event.getSlot() / 9;
+            int cat = currentRow * 9;
+            int newValue = (event.getSlot() - cat) - 3;
+            int oldVal = -1;
+            for (int i = 0; i < 3; i++) {
+                if (i == newValue) continue;
+                if (!inventory.getItem(cat + ( 3 + i)).getType().equals(Material.GRAY_DYE)) {
+                    oldVal = i;
+                }
             }
+            setState(inventory,cat,oldVal, true);
+            setState(inventory,cat,newValue, false);
+            ((Player) event.getWhoClicked()).updateInventory();
+            cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
         }
-        setState(inventory,cat,oldVal, true);
-        setState(inventory,cat,newValue, false);
-        ((Player) event.getWhoClicked()).updateInventory();
-        cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
     }
 
     public void setState(Inventory inv, int kat , int val, boolean gray) {
