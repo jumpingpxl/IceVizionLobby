@@ -39,7 +39,6 @@ public class PlayerInventoryListener implements Listener {
                 } else {
                     plugin.getSettingsUtil().changeSettingsValue(event);
                 }
-                player.sendMessage("Settings");
                 break;
             case "Minispiele":
                 String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
