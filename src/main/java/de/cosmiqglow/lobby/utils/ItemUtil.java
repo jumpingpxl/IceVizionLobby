@@ -21,8 +21,8 @@ public class ItemUtil {
                 addLore("§e» §7Passe dein Spielerlebnis an.").build();
         this.tnt = new ItemBuilder(Material.TNT).setDisplayName("§e✦ §cBombe")
                 .addLore("§e» §7Sprenge alle Spieler", "§7in die Luft.").build();
-        this.porkchop = new ItemBuilder(Material.PORKCHOP).setDisplayName("§e✦ §dSpielerschweinchen")
-                .addLore("§e» §7Verwandle alle Spieler ","§7in §dSchweine§7.").build();
+        this.porkchop = new ItemBuilder(Material.BRAIN_CORAL_BLOCK).setDisplayName("§e✦ §dParty 'n Friends™")
+                .addLore("§e» §7Zeige deine Partykumpels ","§7und Freunde an§7.").build();
         this.slime = new ItemBuilder(Material.SLIME_BALL).setDisplayName("§e✦ §aLade Spieler")
                 .addLore("§e» §7Lade wieder alle Spieler§7.").build();
         this.settingsLayout = loadLayout();
@@ -51,12 +51,6 @@ public class ItemUtil {
         layout.put(30, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(31, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
         layout.put(32, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
-        layout.put(36, new ItemBuilder(Material.PORKCHOP).setDisplayName("Spieler in Schweine verwandeln").build());
-        layout.put(37, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
-        layout.put(39, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
-        layout.put(40, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
-        layout.put(41, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
-        layout.put(53, new ItemBuilder(Material.DARK_OAK_DOOR).setDisplayName("§cSchließen").build());
         return layout;
     }
 
