@@ -1,6 +1,7 @@
 package de.cosmiqglow.lobby.listener;
 
 import de.cosmiqglow.lobby.Lobby;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -33,6 +34,12 @@ public class PlayerInventoryListener implements Listener {
 
         switch (event.getView().getTitle()) {
             case "Einstellungen":
+                int currentRow = event.getSlot() / 9;
+                int currentColumn = event.getSlot() /  (event.getClickedInventory().getSize() / 9);
+
+                Bukkit.broadcastMessage("Row " + currentRow);
+                Bukkit.broadcastMessage("Column " + currentColumn);
+
                 if (stack.getItemMeta().getDisplayName().equals("§cSchließen")) {
                     player.closeInventory();
                 } else {
