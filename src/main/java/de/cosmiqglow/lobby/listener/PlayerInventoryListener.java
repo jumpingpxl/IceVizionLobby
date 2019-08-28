@@ -36,7 +36,7 @@ public class PlayerInventoryListener implements Listener {
             case "Einstellungen":
                 int currentRow = event.getSlot() / 9;
                 int kat = currentRow * 9;
-                int item = (event.getSlot() - kat) + 3;
+                int item = (event.getSlot() - kat);
                 Bukkit.broadcastMessage("Row " + currentRow);
                 Bukkit.broadcastMessage("Cat " + kat);
                 Bukkit.broadcastMessage("Item " + item);
