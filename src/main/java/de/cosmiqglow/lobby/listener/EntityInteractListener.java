@@ -1,9 +1,11 @@
 package de.cosmiqglow.lobby.listener;
 
 import de.cosmiqglow.lobby.utils.DailyRewardUtil;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
 public class EntityInteractListener implements Listener {
 
@@ -14,9 +16,15 @@ public class EntityInteractListener implements Listener {
     }
 
     @EventHandler
-    public void onArmorInteract(PlayerArmorStandManipulateEvent event) {
+    public void onArmorInteract(PlayerInteractAtEntityEvent event) {
         event.setCancelled(true);
-        if (!event.getRightClicked().getCustomName().equals("Daily-Reward")) return;
-        dailyRewardUtil.giveReward(event.getPlayer());
+
+        if (!event.getRightClicked().equals(EntityType.ARMOR_STAND)) return;
+
+        ArmorStand armorStand = (ArmorStand) event.getRightClicked();
+
+        if (armorStand.getCustomName().equals("Daily-Reward")) {
+            dailyRewardUtil.giveReward(event.getPlayer());
+        }
     }
 }
