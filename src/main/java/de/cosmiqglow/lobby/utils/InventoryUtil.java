@@ -42,10 +42,10 @@ public class InventoryUtil {
 
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
-        int privatMessage = cloudPlayer.getSetting(Lobby.PRIVAT_MESSAGE);
-        int party = cloudPlayer.getSetting(Lobby.PARTY);
-        int friend = cloudPlayer.getSetting(Lobby.FRIENDS);
-        int jump = cloudPlayer.getSetting(Lobby.JUMP);
+        int privatMessage = cloudPlayer.getSetting(SettingsUtil.PRIVAT_MESSAGE);
+        int party = cloudPlayer.getSetting(SettingsUtil.PARTY);
+        int friend = cloudPlayer.getSetting(SettingsUtil.FRIENDS);
+        int jump = cloudPlayer.getSetting(SettingsUtil.JUMP);
 
         settingsUtil.setState(inventory, 0, privatMessage,false);
         settingsUtil.setState(inventory, 9, party, false);
