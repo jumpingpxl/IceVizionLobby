@@ -45,7 +45,7 @@ public class PlayerInteractListener implements Listener {
                     }
                     player.sendMessage("§cBald");
                     break;
-                case "§e✦ §dSpielerschweinchen":
+                case "§e✦ §dParty 'n Friends™":
                     if (plugin.getCooldownUtil().hasCooldown(player)) {
                         player.sendMessage("§cBitte warte noch kurz");
                         return;
@@ -53,6 +53,7 @@ public class PlayerInteractListener implements Listener {
                         player.getInventory().remove(event.getItem());
                         player.getInventory().setItem(4, plugin.getItemUtil().getSlime());
                         plugin.getCooldownUtil().addCooldown(player, 3000L);
+                        plugin.getVisibilityUtil().changeVisibility(plugin, 1, player);
                     }
                     player.sendMessage("Tests");
                     break;
