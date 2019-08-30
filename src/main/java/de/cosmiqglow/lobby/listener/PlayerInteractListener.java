@@ -55,7 +55,6 @@ public class PlayerInteractListener implements Listener {
                         plugin.getCooldownUtil().addCooldown(player, 3000L);
                         plugin.getVisibilityUtil().changeVisibility(plugin, 1, player);
                     }
-                    player.sendMessage("Tests");
                     break;
                 case "§e✦ §aLade Spieler":
                     if (plugin.getCooldownUtil().hasCooldown(player)) {
@@ -67,7 +66,6 @@ public class PlayerInteractListener implements Listener {
                         plugin.getCooldownUtil().addCooldown(player, 3000L);
                         plugin.getVisibilityUtil().changeVisibility(plugin, 0, player);
                     }
-                    player.sendMessage("Testss");
                     break;
                 default:
                     break;
