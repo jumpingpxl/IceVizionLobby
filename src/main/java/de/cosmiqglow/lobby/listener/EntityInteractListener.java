@@ -5,7 +5,8 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.entity.EntityInteractEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 public class EntityInteractListener implements Listener {
 
@@ -16,7 +17,7 @@ public class EntityInteractListener implements Listener {
     }
 
     @EventHandler
-    public void onArmorInteract(PlayerInteractAtEntityEvent event) {
+    public void onArmorInteract(PlayerInteractEntityEvent event) {
         event.setCancelled(true);
 
         if (!event.getRightClicked().equals(EntityType.ARMOR_STAND)) return;
