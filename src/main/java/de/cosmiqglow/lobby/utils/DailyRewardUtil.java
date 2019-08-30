@@ -21,7 +21,6 @@ public class DailyRewardUtil {
         this.armorStand.setCustomName("Daily-Reward");
         this.armorStand.setGravity(false);
         this.armorStand.setVisible(false);
-        this.armorStand.setSmall(true);
     }
 
     public void despawn() {
