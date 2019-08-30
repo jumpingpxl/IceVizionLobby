@@ -16,6 +16,7 @@ public class Lobby extends JavaPlugin {
     private ItemUtil itemUtil;
     private VisibilityUtil visibilityUtil;
     private SettingsUtil settingsUtil;
+    private DailyRewardUtil dailyRewardUtil;
 
     @Override
     public void onEnable() {
@@ -40,6 +41,7 @@ public class Lobby extends JavaPlugin {
         this.settingsUtil = new SettingsUtil();
         this.inventoryUtil = new InventoryUtil(itemUtil, settingsUtil);
         this.visibilityUtil = new VisibilityUtil();
+        this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
     }
 
     private void registerListener() {
@@ -82,5 +84,9 @@ public class Lobby extends JavaPlugin {
 
     public SettingsUtil getSettingsUtil() {
         return settingsUtil;
+    }
+
+    public DailyRewardUtil getDailyRewardUtil() {
+        return dailyRewardUtil;
     }
 }
