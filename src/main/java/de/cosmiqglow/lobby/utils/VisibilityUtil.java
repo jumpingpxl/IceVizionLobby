@@ -38,14 +38,16 @@ public class VisibilityUtil {
                 Bukkit.broadcastMessage("Friendsize " + profile.getFriends().size());
 
                 if (profile.getFriends().size() == 0) return;
+                if (Bukkit.getOnlinePlayers().size() == 0) return;
 
                 for (Player online : Bukkit.getOnlinePlayers()) {
-                    if (player == online) continue;
-                    if (!profile.getRawFriends().containsKey(online.getUniqueId())) continue;
-                    if (!player.canSee(online)) {
-                        player.showPlayer(plugin, online);
-                    }
+                    if (online == player) continue;
+
+                    Bukkit.broadcastMessage("Contains: " + profile.getRawFriends().containsKey(online.getUniqueId()));
+
+
                 }
+
                 break;
             case 2:
                 for (Player online : Bukkit.getOnlinePlayers()) {
