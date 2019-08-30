@@ -5,7 +5,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
-import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 
 public class EntityListener implements Listener {
 
@@ -16,11 +15,6 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onCreature(EntitySpawnEvent event) {
-        event.setCancelled(true);
-    }
-
-    @EventHandler
-    public void onArmorstand(PlayerArmorStandManipulateEvent event) {
         event.setCancelled(true);
     }
 
