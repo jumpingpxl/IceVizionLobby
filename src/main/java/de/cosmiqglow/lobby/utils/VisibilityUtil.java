@@ -43,7 +43,7 @@ public class VisibilityUtil {
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     if (online == player) continue;
 
-                    Bukkit.broadcastMessage("Contains: " + profile.getRawFriends().containsKey(online.getUniqueId()));
+                    Bukkit.broadcastMessage("Contains: " + profile.getRawFriends().containsKey(online.getUniqueId().toString()));
 
 
                 }
