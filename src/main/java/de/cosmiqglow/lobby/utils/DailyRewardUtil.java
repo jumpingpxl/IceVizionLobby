@@ -28,10 +28,10 @@ public class DailyRewardUtil {
     }
 
     public void giveReward(Player player) {
-        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+        /*CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         int coins = 100;
         cloudPlayer.addCoins(100);
-        cloudPlayer.extradataSet("daily", getRestDayTime());
+        cloudPlayer.extradataSet("daily", getRestDayTime());*/
         player.sendMessage("§7Du hast §e100 §7Glows bekommen");
     }
 
