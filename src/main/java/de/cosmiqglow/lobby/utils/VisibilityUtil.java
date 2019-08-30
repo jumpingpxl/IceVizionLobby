@@ -34,9 +34,12 @@ public class VisibilityUtil {
             case 1:
                 CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
                 FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
+
+                if (profile.getFriends().size() == 0) return;
+
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     if (player == online) continue;
-                    if (profile.getRawFriends().containsKey(player.getUniqueId())) continue;
+                    if (profile.getRawFriends().containsKey(online.getUniqueId())) continue;
                     if (player.canSee(online)) {
                         player.hidePlayer(plugin, online);
                     }
