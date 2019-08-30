@@ -34,12 +34,8 @@ public class VisibilityUtil {
             case 1:
                 CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
                 FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
-
-                Bukkit.broadcastMessage("Friendsize " + profile.getFriends().size());
-
                 if (profile.getFriends().size() == 0) return;
                 if (Bukkit.getOnlinePlayers().size() == 0) return;
-
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     if (online == player) continue;
                     if (!profile.getRawFriends().containsKey(online.getUniqueId().toString())) return;
@@ -47,7 +43,6 @@ public class VisibilityUtil {
                         player.showPlayer(plugin, online);
                     }
                 }
-
                 break;
             case 2:
                 for (Player online : Bukkit.getOnlinePlayers()) {
