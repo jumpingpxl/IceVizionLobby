@@ -1,6 +1,10 @@
 package de.cosmiqglow.lobby.utils;
 
 import com.google.common.base.Preconditions;
+import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
+import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
+import net.titan.spigot.Cloud;
+import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -28,7 +32,15 @@ public class VisibilityUtil {
                 }
                 break;
             case 1:
-                //TODO: Freunde
+                CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+                FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
+                for (Player online : Bukkit.getOnlinePlayers()) {
+                    if (player == online) continue;
+                    if (profile.getRawFriends().containsKey(player.getUniqueId())) continue;
+                    if (player.canSee(online)) {
+                        player.hidePlayer(plugin, online);
+                    }
+                }
                 break;
             case 2:
                 for (Player online : Bukkit.getOnlinePlayers()) {
@@ -39,7 +51,6 @@ public class VisibilityUtil {
                 }
                 break;
         }
-        //Cloud.getInstance().getPlayer(player).setSetting(105,value);
     }
 
     public void addPlayer(Player paramPlayer, int value) {
