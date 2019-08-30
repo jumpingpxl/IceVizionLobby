@@ -34,6 +34,9 @@ public class VisibilityUtil {
             case 1:
                 CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
                 FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
+
+                Bukkit.broadcastMessage("Friendsize " + profile.getFriends().size());
+
                 if (profile.getFriends().size() == 0) return;
 
                 for (Player online : Bukkit.getOnlinePlayers()) {
