@@ -42,10 +42,10 @@ public class VisibilityUtil {
 
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     if (online == player) continue;
-
-                    Bukkit.broadcastMessage("Contains: " + profile.getRawFriends().containsKey(online.getUniqueId().toString()));
-
-
+                    if (!profile.getRawFriends().containsKey(online.getUniqueId().toString())) return;
+                    if (!player.canSee(online)) {
+                        player.showPlayer(plugin, online);
+                    }
                 }
 
                 break;
