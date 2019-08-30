@@ -23,7 +23,7 @@ public class ItemUtil {
                 .addLore("§e» §7Sprenge alle Spieler", "§7in die Luft.").build();
         this.porkchop = new ItemBuilder(Material.BRAIN_CORAL_BLOCK).setDisplayName("§e✦ §dParty 'n Friends™")
                 .addLore("§e» §7Zeige deine Partykumpels ","§7und Freunde an§7.").build();
-        this.slime = new ItemBuilder(Material.SLIME_BALL).setDisplayName("§e✦ §aLade Spieler")
+        this.slime = new ItemBuilder(Material.SLIME_BLOCK).setDisplayName("§e✦ §aLade Spieler")
                 .addLore("§e» §7Lade wieder alle Spieler§7.").build();
         this.settingsLayout = loadLayout();
     }
