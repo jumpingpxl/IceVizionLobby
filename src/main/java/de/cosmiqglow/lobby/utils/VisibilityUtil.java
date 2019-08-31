@@ -31,8 +31,8 @@ public class VisibilityUtil {
                 if (profile.getFriends().size() == 0 ^ party == null) return;
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     if (online == player) continue;
-                    if (!profile.getRawFriends().containsKey(online.getUniqueId().toString())) return;
-                    if (!party.getMemberUUIDs().contains(online.getUniqueId().toString())) return;
+                    if (!profile.getRawFriends().containsKey(online.getUniqueId().toString())) continue;
+                    if (!party.getMemberUUIDs().contains(online.getUniqueId().toString())) continue;
                     if (!player.canSee(online)) {
                         player.showPlayer(plugin, online);
                     }
