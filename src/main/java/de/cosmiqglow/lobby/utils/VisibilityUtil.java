@@ -60,26 +60,20 @@ public class VisibilityUtil {
 
     public void hideOnJoin(Plugin plugin, Player joiningPlayer) {
         if (Bukkit.getOnlinePlayers().size() <= 2) return;
-        Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-            @Override
-            public void run() {
-                for (Map.Entry<Player, LobbyProfile> entrySet : profileCache.getProfiles().entrySet()) {
-                    Bukkit.broadcastMessage(entrySet.getKey().getDisplayName() + " Setting: " +  entrySet.getValue().getHideSettings());
-                    switch (entrySet.getValue().getHideSettings()) {
-                        case 2:
-                            entrySet.getKey().hidePlayer(plugin, joiningPlayer);
-                            break;
-                        case 1:
-                            CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(entrySet.getKey());
-                            FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
-                            if (!profile.getRawFriends().containsKey(joiningPlayer.getUniqueId().toString())) {
-                                entrySet.getKey().hidePlayer(plugin, joiningPlayer);
-                            }
-                            break;
+        for (Map.Entry<Player, LobbyProfile> entrySet : profileCache.getProfiles().entrySet()) {
+            Bukkit.broadcastMessage(entrySet.getKey().getDisplayName() + " Setting: " +  entrySet.getValue().getHideSettings());
+            switch (entrySet.getValue().getHideSettings()) {
+                case 2:
+                    entrySet.getKey().hidePlayer(plugin, joiningPlayer);
+                    break;
+                case 1:
+                    CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(entrySet.getKey());
+                    FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
+                    if (!profile.getRawFriends().containsKey(joiningPlayer.getUniqueId().toString())) {
+                        entrySet.getKey().hidePlayer(plugin, joiningPlayer);
                     }
-                }
+                    break;
             }
-        }, 10);
-
+        }
     }
 }
