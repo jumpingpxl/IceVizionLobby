@@ -65,6 +65,7 @@ public class VisibilityUtil {
     public void hideOnJoin(Plugin plugin, Player joiningPlayer) {
         if (Bukkit.getOnlinePlayers().size() <= 2) return;
         for (Map.Entry<Player, LobbyProfile> entrySet : profileCache.getProfiles().entrySet()) {
+            Bukkit.broadcastMessage(entrySet.getKey().getDisplayName() + " Setting: " +  entrySet.getValue().getHideSettings());
             switch (entrySet.getValue().getHideSettings()) {
                 case 1:
                     entrySet.getKey().hidePlayer(plugin, joiningPlayer);
