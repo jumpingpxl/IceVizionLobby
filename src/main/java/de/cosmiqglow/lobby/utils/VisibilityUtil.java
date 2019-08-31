@@ -3,6 +3,8 @@ package de.cosmiqglow.lobby.utils;
 import com.google.common.base.Preconditions;
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
+import de.cosmiqglow.component.partysystem.spigot.Party;
+import de.cosmiqglow.component.partysystem.spigot.PartySystem;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
@@ -25,11 +27,12 @@ public class VisibilityUtil {
             case 1:
                 CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
                 FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
-                if (profile.getFriends().size() == 0) return;
-                if (Bukkit.getOnlinePlayers().size() == 0) return;
+                Party party = PartySystem.getInstance().getParty(cloudPlayer);
+                if (profile.getFriends().size() == 0 ^ party == null) return;
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     if (online == player) continue;
                     if (!profile.getRawFriends().containsKey(online.getUniqueId().toString())) return;
+                    if (!party.getMemberUUIDs().contains(online.getUniqueId().toString())) return;
                     if (!player.canSee(online)) {
                         player.showPlayer(plugin, online);
                     }
