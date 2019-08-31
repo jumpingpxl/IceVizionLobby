@@ -42,7 +42,7 @@ public class PlayerInteractListener implements Listener {
                     } else {
                         player.getInventory().remove(event.getItem());
                         player.getInventory().setItem(4, plugin.getItemUtil().getPorkchop());
-                        plugin.getCooldownUtil().addCooldown(player, 3000L);
+                        plugin.getCooldownUtil().addCooldown(player, 8000L);
                         plugin.getVisibilityUtil().changeVisibility(plugin, 2, player);
                         TNTPrimed tnt = (TNTPrimed) player.getWorld().spawnEntity(player.getLocation(),
                                 EntityType.PRIMED_TNT);
@@ -58,7 +58,7 @@ public class PlayerInteractListener implements Listener {
                     } else {
                         player.getInventory().remove(event.getItem());
                         player.getInventory().setItem(4, plugin.getItemUtil().getSlime());
-                        plugin.getCooldownUtil().addCooldown(player, 3000L);
+                        plugin.getCooldownUtil().addCooldown(player, 4000L);
                         plugin.getVisibilityUtil().changeVisibility(plugin, 1, player);
                     }
                     break;
@@ -69,7 +69,7 @@ public class PlayerInteractListener implements Listener {
                     } else {
                         player.getInventory().remove(event.getItem());
                         player.getInventory().setItem(4, plugin.getItemUtil().getTNT());
-                        plugin.getCooldownUtil().addCooldown(player, 3000L);
+                        plugin.getCooldownUtil().addCooldown(player, 4000L);
                         plugin.getVisibilityUtil().changeVisibility(plugin, 0, player);
                     }
                     break;
