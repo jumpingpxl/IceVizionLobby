@@ -9,6 +9,11 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 public class DailyRewardUtil {
 
     private final ArmorStand armorStand;
@@ -27,31 +32,35 @@ public class DailyRewardUtil {
         armorStand.remove();
     }
 
-    public void giveReward(Player player) {
-        /*CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
-        int coins = 100;
-        cloudPlayer.addCoins(100);
-        cloudPlayer.extradataSet("daily", getRestDayTime());*/
-        player.sendMessage("§7Du hast §e100 §7Glows bekommen");
-    }
-
-    public boolean checkDailyReward(Player player) {
+    public void checkDailyReward(Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         if (!(cloudPlayer.extradataContains("daily"))) {
-            return false;
+            return;
         } else {
             long timestamp = (long) cloudPlayer.extradataGet("daily");
 
             if (timestamp >= System.currentTimeMillis()) {
                 cloudPlayer.redisExtradataRemove("daily");
-                return false;
+                giveReward(player);
             } else {
-                return true;
+                player.sendMessage("§cBitte komme morgen wieder um einen Reward zu erhalten");
             }
         }
     }
 
-    public long getRestDayTime() {
-        return 0;
+    private void giveReward(Player player) {
+        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+        int coins = 100;
+        cloudPlayer.addCoins(100);
+        cloudPlayer.extradataSet("daily", getRestDayTime());
+        player.sendMessage("§7Du hast §e100 §7Glows bekommen");
+    }
+
+    private long getRestDayTime() {
+        ZoneId zoneId = ZoneId.of("Europe/Berlin");
+        ZonedDateTime now = ZonedDateTime.now(zoneId);
+        LocalDate tomorrow = now.toLocalDate().plusDays(1);
+        ZonedDateTime tomorrowStart = tomorrow.atStartOfDay(zoneId);
+        return Duration.between(now, tomorrowStart).toMillis();
     }
 }

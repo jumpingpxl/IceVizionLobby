@@ -5,9 +5,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 public class EntityInteractListener implements Listener {
 
@@ -25,9 +23,8 @@ public class EntityInteractListener implements Listener {
             ArmorStand armorStand = (ArmorStand) event.getRightClicked();
 
             if (armorStand.getCustomName().equalsIgnoreCase("Daily-Reward")) {
-                dailyRewardUtil.giveReward(event.getPlayer());
+                dailyRewardUtil.checkDailyReward(event.getPlayer());
             }
         }
-
     }
 }
