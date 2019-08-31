@@ -17,8 +17,13 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onCreature(EntitySpawnEvent event) {
-        if (!event.getEntityType().equals(EntityType.FIREWORK))
-        event.setCancelled(true);
+        switch (event.getEntityType()) {
+            case FIREWORK:
+            case PRIMED_TNT:
+                event.setCancelled(false);
+            default:
+                event.setCancelled(true);
+        }
     }
 
     @EventHandler
