@@ -1,5 +1,6 @@
 package de.cosmiqglow.lobby.listener;
 
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
@@ -16,6 +17,7 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onCreature(EntitySpawnEvent event) {
+        if (!event.getEntityType().equals(EntityType.FIREWORK))
         event.setCancelled(true);
     }
 
