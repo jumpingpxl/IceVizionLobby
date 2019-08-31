@@ -30,7 +30,7 @@ public class PlayerJoinListener implements Listener {
         plugin.getItemUtil().setItems(player);
         plugin.getProfileCache().addProfile(player);
 
-
+        plugin.getVisibilityUtil().hideOnJoin(plugin, player);
 
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
