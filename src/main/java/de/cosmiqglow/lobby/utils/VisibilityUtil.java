@@ -44,12 +44,6 @@ public class VisibilityUtil {
                         }
                     }
                 }, 80L);
-                for (Player online : Bukkit.getOnlinePlayers()) {
-                    if (player == online) continue;
-                    if (player.canSee(online)) {
-                        player.hidePlayer(plugin, online);
-                    }
-                }
                 break;
         }
     }
