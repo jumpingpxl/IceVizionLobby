@@ -32,9 +32,8 @@ public class PlayerJoinListener implements Listener {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
         if (cloudPlayer.getFirstLogin() + 5000L >= System.currentTimeMillis()) {
-            Firework firework = (Firework) new FireworkBuilder().addEffect(FireworkEffect.builder().with(FireworkEffect.Type.STAR).
-                    withColor(Color.YELLOW).build()).build();
-            firework.detonate();
+            new FireworkBuilder().addEffect(FireworkEffect.builder().with(FireworkEffect.Type.STAR).
+                    withColor(Color.YELLOW).build()).setPower(1).build();
             player.sendMessage(Messages.CG_HEADER.toString());
             player.sendMessage("§e» §n§7Lobby");
             player.sendMessage(" ");
