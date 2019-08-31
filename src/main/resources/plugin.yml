@@ -5,7 +5,7 @@ main: de.cosmiqglow.lobby.Lobby
 
 author: theEvilReaper
 
-depends: [Aves,CloudSpigot, FriendSystem]
+depends: [Aves,CloudSpigot, FriendSystem, PartySystem]
 
 commands:
   location:
