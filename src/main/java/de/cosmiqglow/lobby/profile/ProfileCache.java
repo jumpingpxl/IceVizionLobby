@@ -21,6 +21,10 @@ public class ProfileCache {
         this.profiles.remove(player);
     }
 
+    public LobbyProfile getProfile(Player player) {
+        return this.profiles.get(player);
+    }
+
     public Map<Player, LobbyProfile> getProfiles() {
         return profiles;
     }
