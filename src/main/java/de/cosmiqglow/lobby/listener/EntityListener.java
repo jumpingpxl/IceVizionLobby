@@ -1,10 +1,9 @@
 package de.cosmiqglow.lobby.listener;
 
-import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 
@@ -16,7 +15,7 @@ public class EntityListener implements Listener {
     }
 
     @EventHandler
-    public void onCreature(EntitySpawnEvent event) {
+    public void onCreature(CreatureSpawnEvent event) {
         switch (event.getEntityType()) {
             case FIREWORK:
             case PRIMED_TNT:
