@@ -2,7 +2,9 @@ package de.cosmiqglow.lobby.listener;
 
 import de.cosmiqglow.lobby.Lobby;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -42,8 +44,12 @@ public class PlayerInteractListener implements Listener {
                         player.getInventory().setItem(4, plugin.getItemUtil().getPorkchop());
                         plugin.getCooldownUtil().addCooldown(player, 3000L);
                         plugin.getVisibilityUtil().changeVisibility(plugin, 2, player);
+                        TNTPrimed tnt = (TNTPrimed) player.getWorld().spawnEntity(player.getLocation(),
+                                EntityType.PRIMED_TNT);
+                        tnt.setFuseTicks(20*4);
+                        tnt.setVelocity(player.getLocation().getDirection().clone().normalize().
+                                multiply(1.5+Math.random()));
                     }
-                    player.sendMessage("§cBald");
                     break;
                 case "§e✦ §dParty 'n Friends™":
                     if (plugin.getCooldownUtil().hasCooldown(player)) {
