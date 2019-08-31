@@ -7,7 +7,6 @@ import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
-import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,7 +28,6 @@ public class PlayerJoinListener implements Listener {
 
         plugin.getItemUtil().setItems(player);
         plugin.getProfileCache().addProfile(player);
-
         plugin.getVisibilityUtil().hideOnJoin(plugin, player);
 
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
