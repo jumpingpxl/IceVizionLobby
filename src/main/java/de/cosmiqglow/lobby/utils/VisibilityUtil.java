@@ -9,16 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class VisibilityUtil {
-
-    private final Map<Player, Integer> hiddenPlayers;
-
-    public VisibilityUtil() {
-        this.hiddenPlayers = new HashMap<>();
-    }
 
     public void changeVisibility(Plugin plugin, int value, Player player) {
         Preconditions.checkArgument(value >= 0, "The value can not be negative");
@@ -45,6 +36,14 @@ public class VisibilityUtil {
                 }
                 break;
             case 2:
+                Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                    for (Player online : Bukkit.getOnlinePlayers()) {
+                        if (player == online) continue;
+                        if (player.canSee(online)) {
+                            player.hidePlayer(plugin, online);
+                        }
+                    }
+                }, 80L);
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     if (player == online) continue;
                     if (player.canSee(online)) {
@@ -53,17 +52,5 @@ public class VisibilityUtil {
                 }
                 break;
         }
-    }
-
-    public void addPlayer(Player paramPlayer, int value) {
-        this.hiddenPlayers.putIfAbsent(paramPlayer, value);
-    }
-
-    public void removePlayer(Player paramPlayer) {
-        this.hiddenPlayers.remove(paramPlayer);
-    }
-
-    public Map<Player, Integer> getHiddenPlayers() {
-        return hiddenPlayers;
     }
 }
