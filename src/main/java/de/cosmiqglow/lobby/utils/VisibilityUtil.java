@@ -5,13 +5,23 @@ import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.cosmiqglow.component.partysystem.spigot.Party;
 import de.cosmiqglow.component.partysystem.spigot.PartySystem;
+import de.cosmiqglow.lobby.profile.LobbyProfile;
+import de.cosmiqglow.lobby.profile.ProfileCache;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Map;
+
 public class VisibilityUtil {
+
+    private final ProfileCache profileCache;
+
+    public VisibilityUtil(ProfileCache profileCache) {
+        this.profileCache = profileCache;
+    }
 
     public void changeVisibility(Plugin plugin, int value, Player player) {
         Preconditions.checkArgument(value >= 0, "The value can not be negative");
@@ -48,6 +58,25 @@ public class VisibilityUtil {
                     }
                 }, 80L);
                 break;
+        }
+        profileCache.getProfiles().get(player).setHideSettings(value);
+    }
+
+    public void hideOnJoin(Plugin plugin, Player joiningPlayer) {
+        if (Bukkit.getOnlinePlayers().size() <= 2) return;
+        for (Map.Entry<Player, LobbyProfile> entrySet : profileCache.getProfiles().entrySet()) {
+            switch (entrySet.getValue().getHideSettings()) {
+                case 1:
+                    entrySet.getKey().hidePlayer(plugin, joiningPlayer);
+                    break;
+                case 2:
+                    CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(entrySet.getKey());
+                    FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
+                    if (!profile.getRawFriends().containsKey(joiningPlayer.getUniqueId().toString())) {
+                        entrySet.getKey().hidePlayer(plugin, joiningPlayer);
+                    }
+                    break;
+            }
         }
     }
 }

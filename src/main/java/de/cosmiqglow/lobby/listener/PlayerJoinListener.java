@@ -28,6 +28,9 @@ public class PlayerJoinListener implements Listener {
         Player player = event.getPlayer();
 
         plugin.getItemUtil().setItems(player);
+        plugin.getProfileCache().addProfile(player);
+
+
 
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 

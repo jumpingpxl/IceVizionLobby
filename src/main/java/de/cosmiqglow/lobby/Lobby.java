@@ -3,6 +3,7 @@ package de.cosmiqglow.lobby;
 import de.cosmiqglow.lobby.commands.SetCommand;
 import de.cosmiqglow.lobby.listener.*;
 import de.cosmiqglow.lobby.map.MapService;
+import de.cosmiqglow.lobby.profile.ProfileCache;
 import de.cosmiqglow.lobby.utils.*;
 import net.titan.lib.network.spigot.SpigotState;
 import net.titan.spigot.Cloud;
@@ -17,6 +18,7 @@ public class Lobby extends JavaPlugin {
     private VisibilityUtil visibilityUtil;
     private SettingsUtil settingsUtil;
     private DailyRewardUtil dailyRewardUtil;
+    private ProfileCache profileCache;
 
     @Override
     public void onEnable() {
@@ -40,7 +42,8 @@ public class Lobby extends JavaPlugin {
         this.itemUtil = new ItemUtil();
         this.settingsUtil = new SettingsUtil();
         this.inventoryUtil = new InventoryUtil(itemUtil, settingsUtil);
-        this.visibilityUtil = new VisibilityUtil();
+        this.profileCache = new ProfileCache();
+        this.visibilityUtil = new VisibilityUtil(profileCache);
         this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
     }
 
@@ -89,5 +92,9 @@ public class Lobby extends JavaPlugin {
 
     public DailyRewardUtil getDailyRewardUtil() {
         return dailyRewardUtil;
+    }
+
+    public ProfileCache getProfileCache() {
+        return profileCache;
     }
 }
