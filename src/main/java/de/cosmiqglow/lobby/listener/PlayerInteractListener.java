@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 
 public class PlayerInteractListener implements Listener {
 
@@ -33,7 +34,14 @@ public class PlayerInteractListener implements Listener {
                     player.openInventory(plugin.getInventoryUtil().getTeleporter());
                     break;
                 case "§e✦ Einstellungen":
-                    player.openInventory(plugin.getInventoryUtil().getPanel(player));
+                    if (plugin.getProfileCache().getProfile(player).getSettingsInventory() == null) {
+                        Inventory inventory = plugin.getInventoryUtil().createPanelInventory(player);
+                        plugin.getProfileCache().getProfile(player).setSettingsInventory(inventory);
+                        player.openInventory(inventory);
+                    } else {
+                        Bukkit.broadcastMessage("Read from Cache");
+                        player.openInventory(plugin.getProfileCache().getProfile(player).getSettingsInventory());
+                    }
                     break;
                 case "§e✦ §cBombe":
                     if (plugin.getCooldownUtil().hasCooldown(player)) {

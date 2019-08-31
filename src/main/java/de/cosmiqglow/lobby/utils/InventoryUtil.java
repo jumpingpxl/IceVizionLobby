@@ -10,20 +10,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class InventoryUtil {
 
-    private final SettingsUtil settingsUtil;
-    private final ItemUtil itemUtil;
-    private final Map<Player, Inventory> panelCache;
+    private final Lobby plugin;
     private Inventory teleporter;
 
-    public InventoryUtil(ItemUtil itemUtil, SettingsUtil settingsUtil) {
-        this.itemUtil = itemUtil;
-        this.settingsUtil = settingsUtil;
-        this.panelCache = new HashMap<>();
+    public InventoryUtil(Lobby plugin) {
+        this.plugin = plugin;
         this.loadTeleporter();
     }
 
@@ -34,9 +29,9 @@ public class InventoryUtil {
         teleporter.setItem(16, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
     }
 
-    private Inventory createPanelInventory(Player player) {
+    public Inventory createPanelInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "Einstellungen");
-        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getSettingsLayout().entrySet()) {
+        for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getSettingsLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
@@ -47,22 +42,14 @@ public class InventoryUtil {
         int friend = cloudPlayer.getSetting(SettingsUtil.FRIENDS);
         int jump = cloudPlayer.getSetting(SettingsUtil.JUMP);
 
-        settingsUtil.setState(inventory, 0, privatMessage,false);
-        settingsUtil.setState(inventory, 9, party, false);
-        settingsUtil.setState(inventory, 18, friend, false);
-        settingsUtil.setState(inventory, 27, jump, false);
+        plugin.getSettingsUtil().setState(inventory, 0, privatMessage,false);
+        plugin.getSettingsUtil().setState(inventory, 9, party, false);
+        plugin.getSettingsUtil().setState(inventory, 18, friend, false);
+        plugin.getSettingsUtil().setState(inventory, 27, jump, false);
         return inventory;
-    }
-
-    public Inventory getPanel(Player player) {
-        return getPanelCache().containsKey(player) ? getPanelCache().get(player) : createPanelInventory(player);
     }
 
     public Inventory getTeleporter() {
         return teleporter;
-    }
-
-    public Map<Player, Inventory> getPanelCache() {
-        return panelCache;
     }
 }
