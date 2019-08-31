@@ -31,6 +31,7 @@ public class VisibilityUtil {
                         player.showPlayer(plugin, online);
                     }
                 }
+                player.sendMessage("§7Du siehs nun §aalle §7Spieler wieder");
                 break;
             case 1:
                 CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
@@ -43,6 +44,7 @@ public class VisibilityUtil {
                         player.showPlayer(plugin, online);
                     }
                 }
+                player.sendMessage("§7Du siehst nur noch deine §eFreunde");
                 break;
             case 2:
                 Bukkit.getScheduler().runTaskLater(plugin, () -> {
@@ -53,6 +55,7 @@ public class VisibilityUtil {
                         }
                     }
                 }, 80L);
+                player.sendMessage("§7Du siehst nun §ckeine §7Spieler mehr");
                 break;
         }
         profileCache.getProfiles().get(player).setHideSettings(value);
