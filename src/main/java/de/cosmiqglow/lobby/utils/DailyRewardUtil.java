@@ -34,7 +34,6 @@ public class DailyRewardUtil {
     }
 
     public void checkDailyReward(Player player) {
-        Bukkit.broadcastMessage("Resttime " + getRestDayTime());
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         if (!cloudPlayer.extradataContains("daily")) {
             giveReward(player);
