@@ -67,10 +67,10 @@ public class VisibilityUtil {
         for (Map.Entry<Player, LobbyProfile> entrySet : profileCache.getProfiles().entrySet()) {
             Bukkit.broadcastMessage(entrySet.getKey().getDisplayName() + " Setting: " +  entrySet.getValue().getHideSettings());
             switch (entrySet.getValue().getHideSettings()) {
-                case 1:
+                case 2:
                     entrySet.getKey().hidePlayer(plugin, joiningPlayer);
                     break;
-                case 2:
+                case 1:
                     CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(entrySet.getKey());
                     FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
                     if (!profile.getRawFriends().containsKey(joiningPlayer.getUniqueId().toString())) {
