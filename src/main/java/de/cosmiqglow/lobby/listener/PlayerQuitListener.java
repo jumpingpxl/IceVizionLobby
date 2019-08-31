@@ -17,6 +17,6 @@ public class PlayerQuitListener implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         event.setQuitMessage(null);
 
-        plugin.getInventoryUtil().getPanelCache().remove(event.getPlayer());
+        plugin.getProfileCache().removeProfile(event.getPlayer());
     }
 }
