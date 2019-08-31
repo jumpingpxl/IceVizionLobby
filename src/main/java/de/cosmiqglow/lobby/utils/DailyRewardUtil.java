@@ -3,6 +3,7 @@ package de.cosmiqglow.lobby.utils;
 import de.cosmiqglow.aves.item.CustomPlayerHeadBuilder;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -33,14 +34,14 @@ public class DailyRewardUtil {
     }
 
     public void checkDailyReward(Player player) {
+        Bukkit.broadcastMessage("Resttime " + getRestDayTime());
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
-        if (!(cloudPlayer.extradataContains("daily"))) {
-            return;
+        if (!cloudPlayer.extradataContains("daily")) {
+            giveReward(player);
         } else {
             long timestamp = (long) cloudPlayer.extradataGet("daily");
 
             if (timestamp >= System.currentTimeMillis()) {
-                cloudPlayer.redisExtradataRemove("daily");
                 giveReward(player);
             } else {
                 player.sendMessage("§cBitte komme morgen wieder um einen Reward zu erhalten");
@@ -50,7 +51,6 @@ public class DailyRewardUtil {
 
     private void giveReward(Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
-        int coins = 100;
         cloudPlayer.addCoins(100);
         cloudPlayer.extradataSet("daily", getRestDayTime());
         player.sendMessage("§7Du hast §e100 §7Glows bekommen");
