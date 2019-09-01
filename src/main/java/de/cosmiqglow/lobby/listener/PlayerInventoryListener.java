@@ -7,6 +7,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
@@ -49,7 +50,7 @@ public class PlayerInventoryListener implements Listener {
     }
 
     @EventHandler
-    public void onIteMove(InventoryMoveItemEvent event) {
+    public void onItemMove(InventoryDragEvent event) {
         event.setCancelled(true);
     }
 }
