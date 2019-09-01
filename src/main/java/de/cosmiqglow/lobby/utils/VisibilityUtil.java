@@ -54,8 +54,8 @@ public class VisibilityUtil {
                             player.hidePlayer(plugin, online);
                         }
                     }
+                    player.sendMessage("§7Du siehst nun §ckeine §7Spieler mehr");
                 }, 80L);
-                player.sendMessage("§7Du siehst nun §ckeine §7Spieler mehr");
                 break;
         }
         profileCache.getProfiles().get(player).setHideSettings(value);
