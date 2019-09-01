@@ -29,17 +29,18 @@ public class PlayerInventoryListener implements Listener {
 
         ItemStack stack = event.getCurrentItem();
 
+        event.setCancelled(true);
+        event.setResult(Event.Result.DENY);
+
+        player.updateInventory();
+
         switch (event.getView().getTitle()) {
             case "Einstellungen":
                 plugin.getSettingsUtil().changeSettingsValue(event);
-                event.setCancelled(true);
-                event.setResult(Event.Result.DENY);
-                break;
+            break;
             case "Minispiele":
                 String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
                 player.teleport(plugin.getMapService().getLocation(locationName));
-                event.setCancelled(true);
-                event.setResult(Event.Result.DENY);
                 break;
         }
     }
