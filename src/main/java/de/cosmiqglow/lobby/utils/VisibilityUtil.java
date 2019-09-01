@@ -31,7 +31,7 @@ public class VisibilityUtil {
                         player.showPlayer(plugin, online);
                     }
                 }
-                player.sendMessage("§7Du siehs nun §aalle §7Spieler wieder");
+                player.sendMessage("§7Du siehst nun §aalle §7Spieler wieder");
                 break;
             case 1:
                 CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
