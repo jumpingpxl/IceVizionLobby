@@ -22,7 +22,6 @@ public class MapService {
                 setPrettyPrinting().
                 registerTypeAdapter(Location.class, new LocationTypeAdapter()).
                 create();
-
         loadMap();
     }
 
