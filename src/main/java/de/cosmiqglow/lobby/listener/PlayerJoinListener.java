@@ -31,7 +31,7 @@ public class PlayerJoinListener implements Listener {
     public PlayerJoinListener(Lobby plugin) {
         this.plugin = plugin;
         try {
-            BufferedImage bufferedImage = ImageIO.read(new URL("https://site.com/image.png"));
+            BufferedImage bufferedImage = ImageIO.read(new URL("https://www.lug2lug.eu/wp-content/uploads/2017/03/say-hello.jpg"));
             item = new RenderMapBuilder(MapBuilder.MapType.MAP).setRenderOnce(true).setImage(bufferedImage)
                     .addText(0, 0, MinecraftFont.Font, "Hello there")
                     .addCursor(20, 20, CursorDirection.EAST, CursorType.WHITE_DOT).build();
