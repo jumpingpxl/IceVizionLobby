@@ -2,7 +2,7 @@
 
 # Permissions
 
-TODO: Permissions hinzufügen
+* Location Command: lobby.location
 
 # Settings-ID
 
