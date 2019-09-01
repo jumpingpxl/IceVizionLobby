@@ -15,29 +15,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.map.MinecraftFont;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 
 public class PlayerJoinListener implements Listener {
 
     private final Lobby plugin;
-    private ItemStack item;
 
     public PlayerJoinListener(Lobby plugin) {
         this.plugin = plugin;
-        try {
-            BufferedImage bufferedImage = ImageIO.read(new URL("https://www.lug2lug.eu/wp-content/uploads/2017/03/say-hello.jpg"));
-            item = new RenderMapBuilder(MapBuilder.MapType.MAP).setRenderOnce(true).setImage(bufferedImage)
-                    .addText(0, 0, MinecraftFont.Font, "Hello there")
-                    .addCursor(20, 20, CursorDirection.EAST, CursorType.WHITE_DOT).build();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @EventHandler
@@ -51,8 +35,6 @@ public class PlayerJoinListener implements Listener {
         plugin.getVisibilityUtil().hideOnJoin(plugin, player);
 
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
-
-        player.getInventory().setItem(0, item);
 
         if (cloudPlayer.getFirstLogin() + 5000L >= System.currentTimeMillis()) {
             new FireworkBuilder().addEffect(FireworkEffect.builder().with(FireworkEffect.Type.STAR).
