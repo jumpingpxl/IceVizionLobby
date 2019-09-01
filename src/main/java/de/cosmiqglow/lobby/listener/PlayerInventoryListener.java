@@ -30,6 +30,7 @@ public class PlayerInventoryListener implements Listener {
         if (event.getClick().equals(ClickType.NUMBER_KEY)) {
             Bukkit.broadcastMessage("Number-Key");
             event.setResult(Event.Result.DENY);
+            event.setCancelled(true);
         }
         Player player = (Player) event.getWhoClicked();
 
