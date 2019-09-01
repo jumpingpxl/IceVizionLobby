@@ -1,14 +1,14 @@
 package de.cosmiqglow.lobby.listener;
 
 import de.cosmiqglow.lobby.Lobby;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
@@ -26,6 +26,11 @@ public class PlayerInventoryListener implements Listener {
         if (event.getSlotType().equals(InventoryType.SlotType.OUTSIDE)) return;
         if (event.getCurrentItem() == null) return;
         if (!event.getCurrentItem().hasItemMeta()) return;
+
+        if (event.getClick().equals(ClickType.NUMBER_KEY)) {
+            Bukkit.broadcastMessage("Number-Key");
+            event.setResult(Event.Result.DENY);
+        }
         Player player = (Player) event.getWhoClicked();
 
         ItemStack stack = event.getCurrentItem();
@@ -47,10 +52,5 @@ public class PlayerInventoryListener implements Listener {
                 player.closeInventory();
                 break;
         }
-    }
-
-    @EventHandler
-    public void onItemMove(InventoryDragEvent event) {
-        event.setCancelled(true);
     }
 }
