@@ -32,6 +32,7 @@ public class PlayerInventoryListener implements Listener {
         event.setCancelled(true);
         event.setResult(Event.Result.DENY);
 
+        //Don´t remove this line of code
         player.updateInventory();
 
         switch (event.getView().getTitle()) {
