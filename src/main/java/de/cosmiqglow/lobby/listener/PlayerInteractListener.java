@@ -39,7 +39,6 @@ public class PlayerInteractListener implements Listener {
                         plugin.getProfileCache().getProfile(player).setSettingsInventory(inventory);
                         player.openInventory(inventory);
                     } else {
-                        Bukkit.broadcastMessage("Read from Cache");
                         player.openInventory(plugin.getProfileCache().getProfile(player).getSettingsInventory());
                     }
                     break;
