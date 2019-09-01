@@ -1,13 +1,11 @@
 package de.cosmiqglow.lobby.listener;
 
 import de.cosmiqglow.lobby.Lobby;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
@@ -31,16 +29,17 @@ public class PlayerInventoryListener implements Listener {
 
         ItemStack stack = event.getCurrentItem();
 
-        event.setCancelled(true);
-        event.setResult(Event.Result.DENY);
-
         switch (event.getView().getTitle()) {
             case "Einstellungen":
                 plugin.getSettingsUtil().changeSettingsValue(event);
+                event.setCancelled(true);
+                event.setResult(Event.Result.DENY);
                 break;
             case "Minispiele":
                 String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
                 player.teleport(plugin.getMapService().getLocation(locationName));
+                event.setCancelled(true);
+                event.setResult(Event.Result.DENY);
                 break;
         }
     }
