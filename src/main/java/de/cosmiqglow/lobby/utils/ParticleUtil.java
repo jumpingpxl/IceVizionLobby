@@ -20,11 +20,10 @@ public class ParticleUtil {
         this.players = new HashSet<>();
     }
 
-
     public void start(Plugin plugin, Location location) {
         task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             for (Player player : getPlayers()) {
-                player.spawnParticle(Particle.REDSTONE, location.clone(), 5, new Particle.DustOptions(Color.YELLOW, 0));
+                player.spawnParticle(Particle.REDSTONE, location.clone(), 5,    new Particle.DustOptions(Color.YELLOW, 0));
             }
         }, 0l, 20l);
     }
