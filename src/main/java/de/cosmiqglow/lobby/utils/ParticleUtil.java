@@ -24,8 +24,8 @@ public class ParticleUtil {
     public void start(Plugin plugin, Location location) {
         task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             for (Player player : players) {
-                player.getWorld().spawnParticle(Particle.REDSTONE, location.clone().add(0,1.5,0), 5, 0, 0, 0, 0.1,
-                        new Particle.DustOptions(Color.YELLOW, 1));
+                player.getWorld().spawnParticle(Particle.REDSTONE, location.clone().add(0,2.0,0), 5, 0, 0, 0, 1,
+                        new Particle.DustOptions(Color.YELLOW, 10));
             }
         }, 0, 8);
     }
