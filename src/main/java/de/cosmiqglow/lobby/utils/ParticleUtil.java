@@ -21,9 +21,7 @@ public class ParticleUtil {
     }
 
     public void start(Plugin plugin, Location location) {
-        System.out.println("Work 1");
         task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
-            System.out.println("Running");
             for (Player player : players) {
                 player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, location, 5);
             }
