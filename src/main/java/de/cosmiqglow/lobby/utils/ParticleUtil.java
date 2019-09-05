@@ -1,6 +1,7 @@
 package de.cosmiqglow.lobby.utils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -23,7 +24,7 @@ public class ParticleUtil {
     public void start(Plugin plugin, Location location) {
         task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             for (Player player : players) {
-                player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, location, 5);
+                player.getWorld().spawnParticle(Particle.REDSTONE, location.add(0,0.4,0), 1, new Particle.DustOptions(Color.RED, 1));
             }
         }, 0, 8);
     }
