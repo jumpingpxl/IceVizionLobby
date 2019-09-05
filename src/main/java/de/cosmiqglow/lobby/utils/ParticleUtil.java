@@ -23,7 +23,7 @@ public class ParticleUtil {
     public void start(Plugin plugin, Location location) {
         task = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             for (Player player : players) {
-                player.getWorld().spawnParticle(Particle.REDSTONE, location, 5, new Particle.DustOptions(Color.YELLOW, 1));
+                player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, location, 5);
             }
         }, 0, 8);
     }
