@@ -24,8 +24,15 @@ public class ParticleUtil {
     public void start(Plugin plugin, Location location) {
         task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             for (Player player : players) {
-                player.getWorld().spawnParticle(Particle.REDSTONE, location.clone().add(0,2.0,0), 5, 0, 0, 0, 1,
-                        new Particle.DustOptions(Color.YELLOW, 10));
+                for (int degree = 0; degree < 360; degree++) {
+                    double radians = Math.toRadians(degree);
+                    double x = Math.cos(radians);
+                    double z = Math.sin(radians);
+                    location.add(x, 0, z);
+                    player.getWorld().spawnParticle(Particle.REDSTONE, location.clone().add(0,2.0,0), 5, 0, 0, 0, 1,
+                            new Particle.DustOptions(Color.YELLOW, 10));
+                    location.subtract(x, 0, z);
+                }
             }
         }, 0, 8);
     }
