@@ -34,6 +34,7 @@ public class Lobby extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        dailyRewardUtil.despawn();
         super.onDisable();
     }
 
