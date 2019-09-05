@@ -15,12 +15,14 @@ public class ParticleUtil {
     private final Set<Player> players;
     private BukkitTask task;
 
-    public ParticleUtil() {
+    public ParticleUtil(Plugin plugin, Location location) {
         this.players = new HashSet<>();
+        start(plugin, location);
     }
 
     public void start(Plugin plugin, Location location) {
-        task = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+        System.out.println("Work 1");
+        task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             System.out.println("Running");
             for (Player player : players) {
                 player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, location, 5);

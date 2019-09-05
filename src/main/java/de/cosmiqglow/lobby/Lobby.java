@@ -47,8 +47,7 @@ public class Lobby extends JavaPlugin {
         this.profileCache = new ProfileCache();
         this.visibilityUtil = new VisibilityUtil(profileCache);
         this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
-        this.particleUtil = new ParticleUtil();
-        particleUtil.start(this, mapService.getLocation("daily"));
+        this.particleUtil = new ParticleUtil(this, mapService.getLocation("daily"));
     }
 
     private void registerListener() {
