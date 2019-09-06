@@ -24,7 +24,7 @@ public class InventoryUtil {
 
     public void loadTeleporter() {
         this.teleporter = Bukkit.createInventory(null, 27, "Minispiele");
-        teleporter.setItem(10, new ItemBuilder(Material.GOLDEN_APPLE).setDisplayName("§eMiniUHC").build());
+        teleporter.setItem(10, new ItemBuilder(Material.CHEST_MINECART).setDisplayName("§eCargoEscort").build());
         teleporter.setItem(13, new ItemBuilder(Material.MAGMA_CREAM).setDisplayName("§aSpawn").build());
         teleporter.setItem(16, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
     }

@@ -32,7 +32,7 @@ public class MapService {
                     return lobbyMap.get().getSpawn();
                 case "knockbackffa":
                     return lobbyMap.get().getKBFFA();
-                case "miniuhc":
+                case "cargoescort":
                     return lobbyMap.get().getUHC();
                 case "daily":
                     return lobbyMap.get().getDailyReward();
