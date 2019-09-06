@@ -16,21 +16,23 @@ import java.time.ZonedDateTime;
 
 public class DailyRewardUtil {
 
-    private final ArmorStand armorStand, description;
+    private final ArmorStand armorStand;
+    private final ArmorStand description = null;
     private final ItemStack head;
 
     public DailyRewardUtil(Location location) {
         this.armorStand = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
-        this.description = (ArmorStand) location.getWorld().spawnEntity(location.add(0, 0.2,0), EntityType.ARMOR_STAND);
+       // this.description = (ArmorStand) location.getWorld().spawnEntity(location.add(0, 0.2,0), EntityType.ARMOR_STAND);
         this.head = new CustomPlayerHeadBuilder().setSkinOverValues("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGM2OTk5YzFmNTk2NDZmZTAxMjFhOTlkOWIwZmVmMzk5NmVkNzhjNmRjNTU1MzFkYWJjY2E3MDhjMWRjZjkxNiJ9fX0=", "").build();
         this.armorStand.setHelmet(head);
-        this.armorStand.setCustomName("Daily-Reward");
+        this.armorStand.setCustomName("Tägliche Belohnung");
         this.armorStand.setGravity(false);
         this.armorStand.setVisible(false);
-        this.description.setGravity(false);
-        this.description.setVisible(false);
-        this.description.setCustomName("Tägliche Belohnung");
-        this.description.setCustomNameVisible(true);
+        this.armorStand.setCustomNameVisible(true);
+       // this.description.setGravity(false);
+       // this.description.setVisible(false);
+       // this.description.setCustomName("Tägliche Belohnung");
+       // this.description.setCustomNameVisible(true);
     }
 
     public void despawn() {

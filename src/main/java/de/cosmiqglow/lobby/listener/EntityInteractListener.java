@@ -22,7 +22,7 @@ public class EntityInteractListener implements Listener {
         if (event.getRightClicked().getType().equals(EntityType.ARMOR_STAND)) {
             ArmorStand armorStand = (ArmorStand) event.getRightClicked();
 
-            if (armorStand.getCustomName().equalsIgnoreCase("Daily-Reward")) {
+            if (armorStand.getCustomName().equalsIgnoreCase("Tägliche Belohnung")) {
                 dailyRewardUtil.checkDailyReward(event.getPlayer());
             }
         }
