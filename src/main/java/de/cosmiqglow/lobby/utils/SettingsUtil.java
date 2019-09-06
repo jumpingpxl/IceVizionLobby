@@ -41,15 +41,15 @@ public class SettingsUtil {
         ItemStack state;
         switch (val) {
             case 0:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("Für alle").build();
+                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§fFür alle").build();
                 inv.setItem(category + ( 3 + val), state);
                 break;
             case 1:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).setDisplayName("Für Freunde").build();
+                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).setDisplayName("§fFür Freunde").build();
                 inv.setItem(category + ( 3 + val), state);
                 break;
             case 2:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).setDisplayName("Für niemanden").build();
+                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).setDisplayName("§fFür niemanden").build();
                 inv.setItem(category + ( 3 + val), state);
                 break;
         }

@@ -30,23 +30,23 @@ public class ItemUtil {
 
     private HashMap<Integer, ItemStack> loadLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>();
-        layout.put(0, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("Privatnachrichten").build());
+        layout.put(0, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("§6Privatnachrichten").build());
         layout.put(1, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(3, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(4, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
         layout.put(5, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
-        layout.put(9, new ItemBuilder(Material.FIREWORK_ROCKET).setDisplayName("Party").build());
+        layout.put(9, new ItemBuilder(Material.FIREWORK_ROCKET).setDisplayName("§eParty").build());
         layout.put(10, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(12, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(13, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
         layout.put(14, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
-        layout.put(18, new ItemBuilder(Material.GOLDEN_HELMET).setDisplayName("Freunde").
+        layout.put(18, new ItemBuilder(Material.GOLDEN_HELMET).setDisplayName("§bFreunde").
                 addItemFlag(ItemFlag.HIDE_ATTRIBUTES).build());
         layout.put(19, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(21, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(22, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
         layout.put(23, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
-        layout.put(27, new ItemBuilder(Material.SLIME_BALL).setDisplayName("Nachspringen").build());
+        layout.put(27, new ItemBuilder(Material.SLIME_BALL).setDisplayName("§aNachspringen").build());
         layout.put(28, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(30, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(31, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
