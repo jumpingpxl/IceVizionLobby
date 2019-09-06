@@ -35,7 +35,7 @@ public class ItemUtil {
         layout.put(3, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(4, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
         layout.put(5, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
-        layout.put(9, new ItemBuilder(Material.FIREWORK_ROCKET).setDisplayName("§eParty").build());
+        layout.put(9, new ItemBuilder(Material.FIREWORK_ROCKET).setDisplayName("§dParty").build());
         layout.put(10, new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build());
         layout.put(12, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(13, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
