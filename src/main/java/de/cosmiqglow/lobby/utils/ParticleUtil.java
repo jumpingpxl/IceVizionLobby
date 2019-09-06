@@ -18,7 +18,7 @@ public class ParticleUtil {
 
     public ParticleUtil(Plugin plugin, Location location) {
         this.players = new HashSet<>();
-        start(plugin, location);
+        //start(plugin, location);
     }
 
     public void start(Plugin plugin, Location location) {
