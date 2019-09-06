@@ -18,7 +18,7 @@ public class ParticleUtil {
 
     public ParticleUtil(Plugin plugin, Location location) {
         this.players = new HashSet<>();
-        start(plugin, location);
+        //start(plugin, location);
     }
 
     public void start(Plugin plugin, Location location) {
@@ -44,8 +44,6 @@ public class ParticleUtil {
                                 location.setX(player.getLocation().getX() + x2);
                                 location.setZ(player.getLocation().getZ() + z2);
 
-                                player.getWorld().spawnParticle(Particle.REDSTONE, location,5, 0, 0, 0, 1,
-                                        new Particle.DustOptions(Color.YELLOW, 0.2f));
 
                             }
                         }
@@ -57,6 +55,9 @@ public class ParticleUtil {
 
     public void addPlayer(Player player) {
         this.players.add(player);
+        /*layer.getWorld().spawnParticle(Particle.REDSTONE, location,5, 0, 0, 0, 1,
+                new Particle.DustOptions(Color.YELLOW, 0.2f));*/
+
     }
 
     public void removePlayer(Player player) {
