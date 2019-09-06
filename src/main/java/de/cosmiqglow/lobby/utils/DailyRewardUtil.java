@@ -21,7 +21,7 @@ public class DailyRewardUtil {
 
     public DailyRewardUtil(Location location) {
         this.armorStand = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
-        this.description = (ArmorStand) location.getWorld().spawnEntity(location.add(0, 2,0), EntityType.ARMOR_STAND);
+        this.description = (ArmorStand) location.getWorld().spawnEntity(location.add(0, 0.2,0), EntityType.ARMOR_STAND);
         this.head = new CustomPlayerHeadBuilder().setSkinOverValues("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGM2OTk5YzFmNTk2NDZmZTAxMjFhOTlkOWIwZmVmMzk5NmVkNzhjNmRjNTU1MzFkYWJjY2E3MDhjMWRjZjkxNiJ9fX0=", "").build();
         this.armorStand.setHelmet(head);
         this.armorStand.setCustomName("Daily-Reward");
