@@ -18,20 +18,38 @@ public class ParticleUtil {
 
     public ParticleUtil(Plugin plugin, Location location) {
         this.players = new HashSet<>();
-        //start(plugin, location);
+        start(plugin, location);
     }
 
     public void start(Plugin plugin, Location location) {
         task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             for (Player player : players) {
-                for (int degree = 0; degree < 360; degree++) {
-                    double radians = Math.toRadians(degree);
-                    double x = Math.cos(radians);
-                    double z = Math.sin(radians);
-                    location.add(x, 0, z);
-                    player.getWorld().spawnParticle(Particle.REDSTONE, location.clone().add(0,2.0,0), 5, 0, 0, 0, 1,
-                            new Particle.DustOptions(Color.YELLOW, 10));
-                    location.subtract(x, 0, z);
+                for (int i = 0; i < 361; i++) {
+                    if (i != 0) {
+                        double angle = Math.PI * i / 180;
+
+                        double x = 3 * Math.cos(angle);
+                        double z = 3 * Math.sin(angle);
+
+                        location.setX(location.getX() + x);
+                        location.setZ(location.getZ() + z);
+
+                        for (int i2 = 0; i2 < 361; i2++) {
+                            if (i != 0) {
+                                double angle2 = Math.PI * i2 / 180;
+
+                                double x2 = 2 * Math.sin(angle2);
+                                double z2 = 2 * -Math.cos(angle2);
+
+                                location.setX(player.getLocation().getX() + x2);
+                                location.setZ(player.getLocation().getZ() + z2);
+
+                                player.getWorld().spawnParticle(Particle.REDSTONE, location,5, 0, 0, 0, 1,
+                                        new Particle.DustOptions(Color.YELLOW, 0.2f));
+
+                            }
+                        }
+                    }
                 }
             }
         }, 0, 8);
