@@ -32,7 +32,7 @@ public class PlayerJoinListener implements Listener {
 
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
-        plugin.getParticleUtil().addPlayer(player);
+        //plugin.getParticleUtil().addPlayer(player);
 
         if (cloudPlayer.getFirstLogin() + 5000L >= System.currentTimeMillis()) {
             new FireworkBuilder().addEffect(FireworkEffect.builder().with(FireworkEffect.Type.STAR).
