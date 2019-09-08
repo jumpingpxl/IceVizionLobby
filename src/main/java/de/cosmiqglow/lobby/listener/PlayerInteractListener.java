@@ -1,7 +1,6 @@
 package de.cosmiqglow.lobby.listener;
 
 import de.cosmiqglow.lobby.Lobby;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
