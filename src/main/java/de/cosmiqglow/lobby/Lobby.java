@@ -1,5 +1,6 @@
 package de.cosmiqglow.lobby;
 
+import de.cosmiqglow.aves.util.LocationUtil;
 import de.cosmiqglow.lobby.commands.SetCommand;
 import de.cosmiqglow.lobby.listener.*;
 import de.cosmiqglow.lobby.map.MapService;
@@ -46,7 +47,7 @@ public class Lobby extends JavaPlugin {
         this.inventoryUtil = new InventoryUtil(this);
         this.profileCache = new ProfileCache();
         this.visibilityUtil = new VisibilityUtil(profileCache);
-        this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
+        this.dailyRewardUtil = new DailyRewardUtil(LocationUtil.getCenter(mapService.getLocation("daily").getBlock()));
       // this.particleUtil = new ParticleUtil(this, mapService.getLocation("daily"));
     }
 
