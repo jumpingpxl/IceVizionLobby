@@ -85,8 +85,4 @@ public class MapService {
     public Optional<LobbyMap> getLobbyMap() {
         return lobbyMap;
     }
-
-    public Gson getGson() {
-        return gson;
-    }
 }
