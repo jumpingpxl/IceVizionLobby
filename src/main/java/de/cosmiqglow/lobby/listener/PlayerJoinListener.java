@@ -1,6 +1,7 @@
 package de.cosmiqglow.lobby.listener;
 
 import de.cosmiqglow.aves.chat.Messages;
+import de.cosmiqglow.aves.item.CustomPlayerHeadBuilder;
 import de.cosmiqglow.aves.item.FireworkBuilder;
 import de.cosmiqglow.lobby.Lobby;
 import net.titan.spigot.Cloud;
@@ -32,7 +33,10 @@ public class PlayerJoinListener implements Listener {
 
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
-        //plugin.getParticleUtil().addPlayer(player);
+        player.getInventory().setItem(7,
+                new CustomPlayerHeadBuilder().
+                        setSkinOverValues(cloudPlayer.getSkinValue(), cloudPlayer.getSkinSignature()).
+                        setDisplayName("§e✦ §aFreunde").build());
 
         if (cloudPlayer.getFirstLogin() + 5000L >= System.currentTimeMillis()) {
             new FireworkBuilder().addEffect(FireworkEffect.builder().with(FireworkEffect.Type.STAR).
