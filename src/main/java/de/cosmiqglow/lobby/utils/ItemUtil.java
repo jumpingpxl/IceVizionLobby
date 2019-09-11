@@ -58,8 +58,8 @@ public class ItemUtil {
     public void setItems(Player player) {
         player.getInventory().clear();
         player.getInventory().setItem(1, teleporter);
-        player.getInventory().setItem(4, tnt);
-        player.getInventory().setItem(7, panel);
+        player.getInventory().setItem(3, tnt);
+        player.getInventory().setItem(5, panel);
     }
 
     public Map<Integer, ItemStack> getSettingsLayout() {
