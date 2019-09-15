@@ -9,5 +9,3 @@ depend: [Aves, CloudSpigot, FriendSystem, PartySystem]
 
 commands:
   location:
-    usage:
-    description:
