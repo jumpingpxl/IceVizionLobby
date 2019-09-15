@@ -1,9 +1,6 @@
 package de.cosmiqglow.lobby.listener;
 
-import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
-import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.cosmiqglow.lobby.Lobby;
-import net.titan.spigot.Cloud;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
