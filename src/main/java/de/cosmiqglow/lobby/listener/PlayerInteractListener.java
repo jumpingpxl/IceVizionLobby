@@ -79,6 +79,15 @@ public class PlayerInteractListener implements Listener {
                         plugin.getVisibilityUtil().changeVisibility(plugin, 0, player);
                     }
                     break;
+                case "§e✦ §aFreunde":
+                    if (plugin.getProfileCache().getProfile(player).getFriendInventory() == null) {
+                        Inventory inventory = plugin.getInventoryUtil().createFriendInvenotory(player);
+                        plugin.getProfileCache().getProfile(player).setSettingsInventory(inventory);
+                        player.openInventory(inventory);
+                    } else {
+                        player.openInventory(plugin.getProfileCache().getProfile(player).getFriendInventory());
+                    }
+                    break;
                 default:
                     break;
             }

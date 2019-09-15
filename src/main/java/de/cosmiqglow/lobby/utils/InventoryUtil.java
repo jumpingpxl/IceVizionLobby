@@ -49,6 +49,11 @@ public class InventoryUtil {
         return inventory;
     }
 
+    public Inventory createFriendInvenotory(Player player) {
+        Inventory inventory = Bukkit.createInventory(null, 54, "Freunde");
+        return inventory;
+    }
+
     public Inventory getTeleporter() {
         return teleporter;
     }

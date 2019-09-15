@@ -7,6 +7,7 @@ public class LobbyProfile {
 
     private final Player player;
     private Inventory settingsInventory;
+    private Inventory friendInventory;
     private int hideSettings;
 
     public LobbyProfile(Player player) {
@@ -15,6 +16,10 @@ public class LobbyProfile {
 
     public void setSettingsInventory(Inventory settingsInventory) {
         this.settingsInventory = settingsInventory;
+    }
+
+    public void setFriendInventory(Inventory friendInventory) {
+        this.friendInventory = friendInventory;
     }
 
     public void setHideSettings(int hideSettings) {
@@ -27,6 +32,10 @@ public class LobbyProfile {
 
     public Inventory getSettingsInventory() {
         return settingsInventory;
+    }
+
+    public Inventory getFriendInventory() {
+        return friendInventory;
     }
 
     public int getHideSettings() {
