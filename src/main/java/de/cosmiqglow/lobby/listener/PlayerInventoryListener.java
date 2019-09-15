@@ -51,8 +51,7 @@ public class PlayerInventoryListener implements Listener {
                 break;
             case "Freunde":
                 if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
-                    String displayName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
-                    player.openInventory(plugin.getInventoryUtil().loadActionInventory(displayName));
+                    player.openInventory(plugin.getInventoryUtil().loadActionInventory(stack.getItemMeta().getDisplayName()));
                 }
                 break;
         }
