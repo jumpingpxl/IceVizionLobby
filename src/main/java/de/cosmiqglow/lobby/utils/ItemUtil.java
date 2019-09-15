@@ -13,6 +13,7 @@ public class ItemUtil {
 
     private final ItemStack teleporter, panel, tnt, porkchop, slime;
     private final Map<Integer, ItemStack> settingsLayout;
+    private final Map<Integer, ItemStack> friendLayout;
 
     public ItemUtil() {
         this.teleporter = new ItemBuilder(Material.PRISMARINE_SHARD).setDisplayName("§e✦ §bMinispiele").
@@ -26,6 +27,7 @@ public class ItemUtil {
         this.slime = new ItemBuilder(Material.SLIME_BLOCK).setDisplayName("§e✦ §aLade Spieler")
                 .addLore("§e» §7Lade wieder alle Spieler§7.").build();
         this.settingsLayout = loadLayout();
+        this.friendLayout = loadFriendLayout();
     }
 
     private HashMap<Integer, ItemStack> loadLayout() {
@@ -55,6 +57,16 @@ public class ItemUtil {
         return layout;
     }
 
+    private HashMap<Integer, ItemStack> loadFriendLayout() {
+        HashMap<Integer, ItemStack> layout = new HashMap<>();
+        ItemStack pane = new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setDisplayName("§0").build();
+        for (int i = 36; i < 45; i++) {
+            layout.put(i, pane);
+        }
+        layout.put(53, new ItemBuilder(Material.DARK_OAK_DOOR).setDisplayName("§cSchließen").build());
+        return layout;
+    }
+
     public void setItems(Player player) {
         player.getInventory().clear();
         player.getInventory().setItem(1, teleporter);
@@ -64,6 +76,10 @@ public class ItemUtil {
 
     public Map<Integer, ItemStack> getSettingsLayout() {
         return settingsLayout;
+    }
+
+    public Map<Integer, ItemStack> getFriendLayout() {
+        return friendLayout;
     }
 
     public ItemStack getPorkchop() {
