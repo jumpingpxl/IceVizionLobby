@@ -19,9 +19,9 @@ import java.util.Map;
 public class InventoryUtil {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
-
     private final Lobby plugin;
     private Inventory teleporter;
+    private Inventory friendAction;
 
     public InventoryUtil(Lobby plugin) {
         this.plugin = plugin;
@@ -81,7 +81,8 @@ public class InventoryUtil {
             if (cloudPlayer.isOnline()) {
                 inventory.addItem(new CustomPlayerHeadBuilder()
                         .setSkinOverValues(cloudPlayer.getSkinValue(), "")
-                        .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName()).build());
+                        .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName())
+                        .addLore("§7Befindet sich auf: §e" + cloudPlayer.getSpigot().getName()).build());
             } else {
                 inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
                         .setDisplayName("§7" + cloudPlayer.getDisplayName())
