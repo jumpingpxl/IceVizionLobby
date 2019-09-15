@@ -35,7 +35,7 @@ public class InventoryUtil {
     }
 
     public Inventory loadActionInventory(String name) {
-        Inventory inventory = Bukkit.createInventory(null, 9, name);
+        Inventory inventory = Bukkit.createInventory(null, 27, "Einstellungen für " + name);
         for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getFriendActionLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
