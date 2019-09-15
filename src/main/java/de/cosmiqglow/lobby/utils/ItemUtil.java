@@ -79,9 +79,9 @@ public class ItemUtil {
     private HashMap<Integer, ItemStack> loadFriendActionLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>(9);
 
-        layout.put(2, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("Nach springen").build());
-        layout.put(4, new ItemBuilder(Material.CAKE).setDisplayName("Party").build());
-        layout.put(6, new ItemBuilder(Material.BARRIER).setDisplayName("Freund entfernen").build());
+        layout.put(11, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("Nach springen").build());
+        layout.put(13, new ItemBuilder(Material.CAKE).setDisplayName("Party").build());
+        layout.put(15, new ItemBuilder(Material.BARRIER).setDisplayName("Freund entfernen").build());
 
         return layout;
     }
