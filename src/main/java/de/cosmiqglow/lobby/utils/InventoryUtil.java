@@ -35,6 +35,10 @@ public class InventoryUtil {
         teleporter.setItem(16, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
     }
 
+    public void loadActionInventory() {
+        this.friendAction = Bukkit.createInventory(null, 9, "Actionen");
+    }
+
     public Inventory createPanelInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "Einstellungen");
         for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getSettingsLayout().entrySet()) {
@@ -81,8 +85,8 @@ public class InventoryUtil {
             if (cloudPlayer.isOnline()) {
                 inventory.addItem(new CustomPlayerHeadBuilder()
                         .setSkinOverValues(cloudPlayer.getSkinValue(), "")
-                        .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName())
-                        .addLore("§7Befindet sich auf: §e" + cloudPlayer.getSpigot().getName()).build());
+                        .addLore("§7Befindet sich auf: §e" + cloudPlayer.getSpigot().getName())
+                        .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName()).build());
             } else {
                 inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
                         .setDisplayName("§7" + cloudPlayer.getDisplayName())
