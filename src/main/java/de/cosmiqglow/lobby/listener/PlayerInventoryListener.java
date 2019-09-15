@@ -1,7 +1,11 @@
 package de.cosmiqglow.lobby.listener;
 
+import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
+import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.cosmiqglow.lobby.Lobby;
+import net.titan.spigot.Cloud;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -46,6 +50,12 @@ public class PlayerInventoryListener implements Listener {
             case "Minispiele":
                 String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
                 player.teleport(plugin.getMapService().getLocation(locationName));
+                break;
+            case "Freunde":
+                if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
+                    String displayName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
+                    player.openInventory(plugin.getInventoryUtil().loadActionInventory(displayName));
+                }
                 break;
         }
     }
