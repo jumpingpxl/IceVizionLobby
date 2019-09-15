@@ -82,7 +82,7 @@ public class PlayerInteractListener implements Listener {
                 case "§e✦ §aFreunde":
                     if (plugin.getProfileCache().getProfile(player).getFriendInventory() == null) {
                         Inventory inventory = plugin.getInventoryUtil().createFriendInvenotory(player);
-                        plugin.getProfileCache().getProfile(player).setSettingsInventory(inventory);
+                        plugin.getProfileCache().getProfile(player).setFriendInventory(inventory);
                         player.openInventory(inventory);
                     } else {
                         player.openInventory(plugin.getProfileCache().getProfile(player).getFriendInventory());
