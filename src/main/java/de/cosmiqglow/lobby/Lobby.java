@@ -94,10 +94,6 @@ public class Lobby extends JavaPlugin {
         return settingsUtil;
     }
 
-    public DailyRewardUtil getDailyRewardUtil() {
-        return dailyRewardUtil;
-    }
-
     public ProfileCache getProfileCache() {
         return profileCache;
     }
