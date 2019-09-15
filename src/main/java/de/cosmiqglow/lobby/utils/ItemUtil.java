@@ -15,6 +15,7 @@ public class ItemUtil {
     private final ItemStack teleporter, panel, tnt, porkchop, slime;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
+    private final Map<Integer, ItemStack> friendActionLayout;
 
     public ItemUtil() {
         this.teleporter = new ItemBuilder(Material.PRISMARINE_SHARD).setDisplayName("§e✦ §bMinispiele").
@@ -29,6 +30,7 @@ public class ItemUtil {
                 .addLore("§e» §7Lade wieder alle Spieler§7.").build();
         this.settingsLayout = loadLayout();
         this.friendLayout = loadFriendLayout();
+        this.friendActionLayout = loadFriendActionLayout();
     }
 
     private HashMap<Integer, ItemStack> loadLayout() {
@@ -74,6 +76,16 @@ public class ItemUtil {
         return layout;
     }
 
+    private HashMap<Integer, ItemStack> loadFriendActionLayout() {
+        HashMap<Integer, ItemStack> layout = new HashMap<>(9);
+
+        layout.put(2, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("Nach springen").build());
+        layout.put(4, new ItemBuilder(Material.CAKE).setDisplayName("Party").build());
+        layout.put(6, new ItemBuilder(Material.BARRIER).setDisplayName("Freund entfernen").build());
+
+        return layout;
+    }
+
     public void setItems(Player player) {
         player.getInventory().clear();
         player.getInventory().setItem(1, teleporter);
@@ -87,6 +99,10 @@ public class ItemUtil {
 
     public Map<Integer, ItemStack> getFriendLayout() {
         return friendLayout;
+    }
+
+    public Map<Integer, ItemStack> getFriendActionLayout() {
+        return friendActionLayout;
     }
 
     public ItemStack getPorkchop() {

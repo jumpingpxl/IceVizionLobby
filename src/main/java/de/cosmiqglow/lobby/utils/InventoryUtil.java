@@ -21,7 +21,6 @@ public class InventoryUtil {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
     private final Lobby plugin;
     private Inventory teleporter;
-    private Inventory friendAction;
 
     public InventoryUtil(Lobby plugin) {
         this.plugin = plugin;
@@ -35,8 +34,12 @@ public class InventoryUtil {
         teleporter.setItem(16, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
     }
 
-    public void loadActionInventory() {
-        this.friendAction = Bukkit.createInventory(null, 9, "Actionen");
+    public Inventory loadActionInventory(String name) {
+        Inventory inventory = Bukkit.createInventory(null, 9, "Actionen");
+        for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getFriendActionLayout().entrySet()) {
+            inventory.setItem(entry.getKey(), entry.getValue());
+        }
+        return inventory;
     }
 
     public Inventory createPanelInventory(Player player) {
