@@ -1,6 +1,7 @@
 package de.cosmiqglow.lobby.listener;
 
 import de.cosmiqglow.lobby.Lobby;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -49,6 +50,7 @@ public class PlayerInventoryListener implements Listener {
                 player.teleport(plugin.getMapService().getLocation(locationName));
                 break;
             case "Freunde":
+                Bukkit.broadcastMessage(stack.getType().name());
                 if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
                     String displayName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
                     player.openInventory(plugin.getInventoryUtil().loadActionInventory(displayName));
