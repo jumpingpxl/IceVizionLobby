@@ -14,10 +14,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 public class InventoryUtil {
+
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
 
     private final Lobby plugin;
     private Inventory teleporter;
@@ -66,7 +67,7 @@ public class InventoryUtil {
         ItemStack stack = inventory.getItem(45);
 
         Bukkit.broadcastMessage("Requests: " + requests);
-
+        /*
         if (requests > 64) {
             inventory.setItem(45, new ItemBuilder(stack).
                     setDisplayName(stack.getItemMeta().getDisplayName()).
@@ -74,7 +75,7 @@ public class InventoryUtil {
         } else {
             inventory.setItem(45, new ItemBuilder(stack).setDisplayName(stack.getItemMeta().getDisplayName()).
                     setAmount(requests).build());
-        }
+        }*/
 
         for (int i = 0; i < 35; i++) {
             for (CloudPlayer cloudPlayer : friendProfile.getFriends()) {
@@ -84,11 +85,9 @@ public class InventoryUtil {
                             .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName())
                             .setAmount(1).build());
                 } else {
-                    long offlineTime = System.currentTimeMillis() - cloudPlayer.getLastLogout();
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy");
                     inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
                             .setDisplayName("§7" + cloudPlayer.getDisplayName())
-                            .addLore("§7Zuletzt Online: §e" + simpleDateFormat.format(offlineTime))
+                            .addLore("§7Zuletzt Online: §e" + DATE_FORMAT.format(cloudPlayer.getLastLogout()))
                             .setAmount(1).build());
                 }
             }
