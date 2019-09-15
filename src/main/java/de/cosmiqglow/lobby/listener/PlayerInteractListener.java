@@ -52,7 +52,7 @@ public class PlayerInteractListener implements Listener {
                         plugin.getVisibilityUtil().changeVisibility(plugin, 2, player);
                         TNTPrimed tnt = (TNTPrimed) player.getWorld().spawnEntity(player.getLocation(),
                                 EntityType.PRIMED_TNT);
-                        tnt.setFuseTicks(20*4);
+                        tnt.setFuseTicks(80);
                         tnt.setVelocity(player.getLocation().getDirection().clone().normalize().
                                 multiply(1.5+Math.random()));
                     }
