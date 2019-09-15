@@ -35,7 +35,7 @@ public class PlayerJoinListener implements Listener {
 
         player.getInventory().setItem(7,
                 new CustomPlayerHeadBuilder().
-                        setSkinOverValues(cloudPlayer.getSkinValue(), cloudPlayer.getSkinSignature()).
+                        setSkinOverValues(cloudPlayer.getSkinValue(), "").
                         setDisplayName("§e✦ §aFreunde").addLore("§e» §7Interagiere mit deinen Freunden§7.").build());
 
         if (cloudPlayer.getFirstLogin() + 5000L >= System.currentTimeMillis()) {
