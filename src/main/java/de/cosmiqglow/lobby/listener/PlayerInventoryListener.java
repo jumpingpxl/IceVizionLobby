@@ -50,7 +50,6 @@ public class PlayerInventoryListener implements Listener {
                 player.teleport(plugin.getMapService().getLocation(locationName));
                 break;
             case "Freunde":
-                Bukkit.broadcastMessage(stack.getType().name());
                 if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
                     String displayName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
                     player.openInventory(plugin.getInventoryUtil().loadActionInventory(displayName));
