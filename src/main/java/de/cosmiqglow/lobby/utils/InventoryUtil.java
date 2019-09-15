@@ -77,15 +77,15 @@ public class InventoryUtil {
         for (int i = 0; i < 35; i++) {
             for (CloudPlayer cloudPlayer : friendProfile.getFriends()) {
                 if (cloudPlayer.isOnline()) {
+                    inventory.addItem(new CustomPlayerHeadBuilder()
+                            .setSkinOverValues(cloudPlayer.getSkinValue(), "")
+                            .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName()).build());
+                } else {
                     long offlineTime = System.currentTimeMillis() - cloudPlayer.getLastLogout();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy");
                     inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
                             .setDisplayName("§7" + cloudPlayer.getDisplayName())
                             .addLore("§7Zuletzt Online: §e" + simpleDateFormat.format(offlineTime)).build());
-                } else {
-                    inventory.addItem(new CustomPlayerHeadBuilder()
-                            .setSkinOverValues(cloudPlayer.getSkinValue(), "")
-                            .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName()).build());
                 }
             }
         }
