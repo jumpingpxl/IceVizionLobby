@@ -85,7 +85,7 @@ public class InventoryUtil {
             if (cloudPlayer.isOnline()) {
                 inventory.addItem(new CustomPlayerHeadBuilder()
                         .setSkinOverValues(cloudPlayer.getSkinValue(), "")
-                        .addLore("§7Befindet sich auf: §e" + cloudPlayer.getSpigot().getName())
+                        .addLore("§7Befindet sich auf: §e" + cloudPlayer.getSpigot().getDisplayName())
                         .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName()).build());
             } else {
                 inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
