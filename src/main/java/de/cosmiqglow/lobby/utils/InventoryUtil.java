@@ -1,6 +1,9 @@
 package de.cosmiqglow.lobby.utils;
 
+import de.cosmiqglow.aves.item.CustomPlayerHeadBuilder;
 import de.cosmiqglow.aves.item.ItemBuilder;
+import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
+import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.cosmiqglow.lobby.Lobby;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
@@ -10,6 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 public class InventoryUtil {
@@ -53,6 +58,36 @@ public class InventoryUtil {
         Inventory inventory = Bukkit.createInventory(null, 54, "Freunde");
         for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getFriendLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
+        }
+
+        FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(Cloud.getInstance().getPlayer(player));
+
+        int requests = friendProfile.getRequests().size();
+        ItemStack stack = inventory.getItem(45);
+
+        if (requests > 64) {
+            inventory.setItem(45, new ItemBuilder(stack).
+                    setDisplayName(stack.getItemMeta().getDisplayName()).
+                    addLore("§cDu hast über 64 Anfragen").setAmount(64).build());
+        } else {
+            inventory.setItem(45, new ItemBuilder(stack).setDisplayName(stack.getItemMeta().getDisplayName()).
+                    setAmount(requests).build());
+        }
+
+        for (int i = 0; i < 35; i++) {
+            for (CloudPlayer cloudPlayer : friendProfile.getFriends()) {
+                if (cloudPlayer.isOnline()) {
+                    long offlineTime = System.currentTimeMillis() - cloudPlayer.getLastLogout();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy");
+                    inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
+                            .setDisplayName("§7" + cloudPlayer.getDisplayName())
+                            .addLore("§7Zuletzt Online: §e" + simpleDateFormat.format(offlineTime)).build());
+                } else {
+                    inventory.addItem(new CustomPlayerHeadBuilder()
+                            .setSkinOverValues(cloudPlayer.getSkinValue(), "")
+                            .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName()).build());
+                }
+            }
         }
         return inventory;
     }
