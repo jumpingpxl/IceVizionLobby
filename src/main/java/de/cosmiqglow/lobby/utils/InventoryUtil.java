@@ -65,6 +65,8 @@ public class InventoryUtil {
         int requests = friendProfile.getRequests().size();
         ItemStack stack = inventory.getItem(45);
 
+        Bukkit.broadcastMessage("Requests: " + requests);
+
         if (requests > 64) {
             inventory.setItem(45, new ItemBuilder(stack).
                     setDisplayName(stack.getItemMeta().getDisplayName()).
@@ -79,13 +81,15 @@ public class InventoryUtil {
                 if (cloudPlayer.isOnline()) {
                     inventory.addItem(new CustomPlayerHeadBuilder()
                             .setSkinOverValues(cloudPlayer.getSkinValue(), "")
-                            .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName()).build());
+                            .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName())
+                            .setAmount(1).build());
                 } else {
                     long offlineTime = System.currentTimeMillis() - cloudPlayer.getLastLogout();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy");
                     inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
                             .setDisplayName("§7" + cloudPlayer.getDisplayName())
-                            .addLore("§7Zuletzt Online: §e" + simpleDateFormat.format(offlineTime)).build());
+                            .addLore("§7Zuletzt Online: §e" + simpleDateFormat.format(offlineTime))
+                            .setAmount(1).build());
                 }
             }
         }
