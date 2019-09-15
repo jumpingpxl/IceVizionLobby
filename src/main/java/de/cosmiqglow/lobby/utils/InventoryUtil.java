@@ -92,7 +92,7 @@ public class InventoryUtil {
                         .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName()).build());
             } else {
                 inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
-                        .setDisplayName("§7" + cloudPlayer.getDisplayName())
+                        .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName())
                         .addLore("§7Zuletzt Online: §e" + DATE_FORMAT.format(cloudPlayer.getLastLogout())).build());
             }
         }
