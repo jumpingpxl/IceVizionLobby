@@ -28,8 +28,4 @@ public class CooldownUtil {
         }
         return false;
     }
-
-    public Map<Player, Long> getCooldowns() {
-        return cooldowns;
-    }
 }
