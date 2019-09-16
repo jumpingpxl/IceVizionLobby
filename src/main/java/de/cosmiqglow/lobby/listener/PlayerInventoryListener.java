@@ -1,6 +1,10 @@
 package de.cosmiqglow.lobby.listener;
 
+import de.cosmiqglow.component.partysystem.spigot.PartySystem;
 import de.cosmiqglow.lobby.Lobby;
+import de.cosmiqglow.lobby.profile.LobbyProfile;
+import net.titan.spigot.Cloud;
+import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -10,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerInventoryListener implements Listener {
@@ -51,9 +56,43 @@ public class PlayerInventoryListener implements Listener {
                 break;
             case "Freunde":
                 if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
-                    player.openInventory(plugin.getInventoryUtil().loadActionInventory(stack.getItemMeta().getDisplayName()));
+                    plugin.getProfileCache().getProfile(player).setClickedFriend(stack.getItemMeta().getDisplayName());
+                    player.openInventory(plugin.getInventoryUtil().
+                            loadActionInventory(stack.getItemMeta().getDisplayName(), stack));
                 }
                 break;
+        }
+
+        if (event.getView().getTitle().equals(plugin.getProfileCache().getProfile(player).getClickedFriend())) {
+            String displayName = stack.getItemMeta().getDisplayName();
+            if (stack.getType().equals(Material.AIR) || displayName == " ") return;
+
+            String name = ChatColor.stripColor(displayName.split(" ")[2]);
+            CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+
+            if (cloudPlayer == null) {
+                player.sendMessage("§cEs trat ein technischer Fehler auf");
+                player.closeInventory();
+                return;
+            } else {
+                switch (stack.getItemMeta().getDisplayName()) {
+                    case "Nach springen":
+                        break;
+                    case "Party":
+                        cloudPlayer.dispatchCommand("party invite", new String[]{name});
+                        break;
+                    case "Freund entfernen":
+                        cloudPlayer.dispatchCommand("friend remove", new String[]{name});
+                        //Inventory updaten
+                        LobbyProfile profile = plugin.getProfileCache().getProfile(player);
+                        profile.getFriendInventory().remove(event.getClickedInventory().getItem(0));
+                        profile.setClickedFriend(null);
+                        player.closeInventory();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
