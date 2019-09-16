@@ -63,10 +63,10 @@ public class PlayerInventoryListener implements Listener {
         }
 
         if (event.getView().getTitle().equals(plugin.getProfileCache().getProfile(player).getClickedFriend())) {
-            String displayName = stack.getItemMeta().getDisplayName();
-            if (stack.getType().equals(Material.AIR) || displayName == " ") return;
+            if (stack.getType().equals(Material.AIR)) return;
 
-            String name = ChatColor.stripColor(displayName.split(" ")[2]);
+            String name = ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName());
+            Bukkit.broadcastMessage(name);
             CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
             if (cloudPlayer == null) {
