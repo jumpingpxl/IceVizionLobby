@@ -4,7 +4,6 @@ import de.cosmiqglow.aves.item.CustomPlayerHeadBuilder;
 import de.cosmiqglow.aves.item.ItemBuilder;
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
-import de.cosmiqglow.lobby.Lobby;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
@@ -38,7 +37,7 @@ public class InventoryUtil {
 
     public Inventory loadActionInventory(String name, ItemStack skull) {
         Inventory inventory = Bukkit.createInventory(null, 27, "Einstellungen für " + name);
-        inventory.setItem(0, skull);
+        inventory.setItem(9, skull);
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendActionLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
