@@ -36,8 +36,9 @@ public class InventoryUtil {
         teleporter.setItem(16, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
     }
 
-    public Inventory loadActionInventory(String name) {
+    public Inventory loadActionInventory(String name, ItemStack skull) {
         Inventory inventory = Bukkit.createInventory(null, 27, "Einstellungen für " + name);
+        inventory.setItem(0, skull);
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendActionLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
