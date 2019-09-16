@@ -27,16 +27,12 @@ public class Lobby extends JavaPlugin {
         load();
         registerListener();
         registerCommands();
-
         Cloud.getInstance().setSpigotState(SpigotState.AVAILABLE);
-
-        super.onEnable();
     }
 
     @Override
     public void onDisable() {
         dailyRewardUtil.despawn();
-        super.onDisable();
     }
 
     private void load() {
@@ -47,7 +43,7 @@ public class Lobby extends JavaPlugin {
         this.inventoryUtil = new InventoryUtil(itemUtil, settingsUtil);
         this.profileCache = new ProfileCache();
         this.visibilityUtil = new VisibilityUtil(profileCache);
-        this.dailyRewardUtil = new DailyRewardUtil(LocationUtil.getCenter(mapService.getLocation("daily").getBlock()));
+        this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
       // this.particleUtil = new ParticleUtil(this, mapService.getLocation("daily"));
     }
 
