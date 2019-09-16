@@ -1,6 +1,5 @@
 package de.cosmiqglow.lobby;
 
-import de.cosmiqglow.aves.util.LocationUtil;
 import de.cosmiqglow.lobby.commands.SetCommand;
 import de.cosmiqglow.lobby.listener.*;
 import de.cosmiqglow.lobby.map.MapService;
