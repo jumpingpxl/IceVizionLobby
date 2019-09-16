@@ -37,20 +37,20 @@ public class SettingsUtil {
         }
     }
 
-    public void setState(Inventory inv, int category , int val, boolean gray) {
+    public void setState(Inventory inv, int category , int value, boolean gray) {
         ItemStack state;
-        switch (val) {
+        switch (value) {
             case 0:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§fVon jedem").build();
-                inv.setItem(category + ( 3 + val), state);
+                inv.setItem(category + ( 3 + value), state);
                 break;
             case 1:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).setDisplayName("§fVon Freunden").build();
-                inv.setItem(category + ( 3 + val), state);
+                inv.setItem(category + ( 3 + value), state);
                 break;
             case 2:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).setDisplayName("§fVon Niemanden").build();
-                inv.setItem(category + ( 3 + val), state);
+                inv.setItem(category + ( 3 + value), state);
                 break;
         }
     }
