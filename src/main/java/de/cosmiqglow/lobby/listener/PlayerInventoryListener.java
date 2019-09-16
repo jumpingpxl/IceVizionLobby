@@ -14,7 +14,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerInventoryListener implements Listener {
@@ -77,21 +76,23 @@ public class PlayerInventoryListener implements Listener {
             } else {
                 switch (stack.getItemMeta().getDisplayName()) {
                     case "Nach springen":
+                        player.sendMessage("§cDas Feature kommt noch");
                         break;
                     case "Party":
-                        cloudPlayer.dispatchCommand("party invite", new String[]{name});
+                        cloudPlayer.dispatchCommand("party", new String[]{"invite", name});
                         break;
                     case "Freund entfernen":
-                        cloudPlayer.dispatchCommand("friend remove", new String[]{name});
+                        Bukkit.broadcastMessage(name);
+                        cloudPlayer.dispatchCommand("friend", new String[]{"remove", name});
                         //Inventory updaten
                         LobbyProfile profile = plugin.getProfileCache().getProfile(player);
-                        profile.getFriendInventory().remove(event.getClickedInventory().getItem(0));
+                        profile.getFriendInventory().remove(event.getClickedInventory().getItem(9));
                         profile.setClickedFriend(null);
-                        player.closeInventory();
                         break;
                     default:
                         break;
                 }
+                player.closeInventory();
             }
         }
     }
