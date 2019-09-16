@@ -19,15 +19,17 @@ import java.util.Map;
 public class InventoryUtil {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
-    private final Lobby plugin;
+    private final ItemUtil itemUtil;
+    private final SettingsUtil settingsUtil;
     private Inventory teleporter;
 
-    public InventoryUtil(Lobby plugin) {
-        this.plugin = plugin;
+    public InventoryUtil(ItemUtil itemUtil, SettingsUtil settingsUtil) {
+        this.itemUtil = itemUtil;
+        this.settingsUtil = settingsUtil;
         this.loadTeleporter();
     }
 
-    public void loadTeleporter() {
+    private void loadTeleporter() {
         this.teleporter = Bukkit.createInventory(null, 27, "Minispiele");
         teleporter.setItem(10, new ItemBuilder(Material.CHEST_MINECART).setDisplayName("§eCargoEscort").build());
         teleporter.setItem(13, new ItemBuilder(Material.MAGMA_CREAM).setDisplayName("§aSpawn").build());
@@ -36,7 +38,7 @@ public class InventoryUtil {
 
     public Inventory loadActionInventory(String name) {
         Inventory inventory = Bukkit.createInventory(null, 27, "Einstellungen für " + name);
-        for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getFriendActionLayout().entrySet()) {
+        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendActionLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
         return inventory;
@@ -44,7 +46,7 @@ public class InventoryUtil {
 
     public Inventory createPanelInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "Einstellungen");
-        for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getSettingsLayout().entrySet()) {
+        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getSettingsLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
@@ -55,16 +57,16 @@ public class InventoryUtil {
         int friend = cloudPlayer.getSetting(SettingsUtil.FRIENDS);
         int jump = cloudPlayer.getSetting(SettingsUtil.JUMP);
 
-        plugin.getSettingsUtil().setState(inventory, 0, privatMessage,false);
-        plugin.getSettingsUtil().setState(inventory, 9, party, false);
-        plugin.getSettingsUtil().setState(inventory, 18, friend, false);
-        plugin.getSettingsUtil().setState(inventory, 27, jump, false);
+        settingsUtil.setState(inventory, 0, privatMessage,false);
+        settingsUtil.setState(inventory, 9, party, false);
+        settingsUtil.setState(inventory, 18, friend, false);
+        settingsUtil.setState(inventory, 27, jump, false);
         return inventory;
     }
 
     public Inventory createFriendInvenotory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "Freunde");
-        for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getFriendLayout().entrySet()) {
+        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
