@@ -1,22 +1,21 @@
 package de.cosmiqglow.lobby.listener;
 
-import de.cosmiqglow.lobby.Lobby;
+import de.cosmiqglow.lobby.profile.ProfileCache;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerQuitListener implements Listener {
 
-    private final Lobby plugin;
+    private final ProfileCache profileCache;
 
-    public PlayerQuitListener(Lobby plugin) {
-        this.plugin = plugin;
+    public PlayerQuitListener(ProfileCache profileCache) {
+        this.profileCache = profileCache;
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         event.setQuitMessage(null);
-
-        plugin.getProfileCache().removeProfile(event.getPlayer());
+        profileCache.removeProfile(event.getPlayer());
     }
 }
