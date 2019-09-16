@@ -9,6 +9,7 @@ public class LobbyProfile {
     private Inventory settingsInventory;
     private Inventory friendInventory;
     private int hideSettings;
+    private String clickedFriend;
 
     public LobbyProfile(Player player) {
         this.player = player;
@@ -26,6 +27,10 @@ public class LobbyProfile {
         this.hideSettings = hideSettings;
     }
 
+    public void setClickedFriend(String clickedFriend) {
+        this.clickedFriend = clickedFriend;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -40,5 +45,9 @@ public class LobbyProfile {
 
     public int getHideSettings() {
         return hideSettings;
+    }
+
+    public String getClickedFriend() {
+        return "Einstellungen für " + clickedFriend;
     }
 }
