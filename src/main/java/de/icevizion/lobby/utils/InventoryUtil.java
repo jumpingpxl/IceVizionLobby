@@ -75,26 +75,15 @@ public class InventoryUtil {
         int requests = friendProfile.getRequests().size();
         ItemStack stack = inventory.getItem(45);
 
-        Bukkit.broadcastMessage("Requests: " + requests);
-        /*
-        if (requests > 64) {
-            inventory.setItem(45, new ItemBuilder(stack).
-                    setDisplayName(stack.getItemMeta().getDisplayName()).
-                    addLore("§cDu hast über 64 Anfragen").setAmount(64).build());
-        } else {
-            inventory.setItem(45, new ItemBuilder(stack).setDisplayName(stack.getItemMeta().getDisplayName()).
-                    setAmount(requests).build());
-        }*/
-
         for (CloudPlayer cloudPlayer : friendProfile.getFriends()) {
             if (cloudPlayer.isOnline()) {
                 inventory.addItem(new CustomPlayerHeadBuilder()
                         .setSkinOverValues(cloudPlayer.getSkinValue(), "")
                         .addLore("§7Befindet sich auf: §e" + cloudPlayer.getSpigot().getDisplayName())
-                        .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName()).build());
+                        .setDisplayName(cloudPlayer.getFullUsername()).build());
             } else {
                 inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
-                        .setDisplayName(cloudPlayer.getDisplayColor() + cloudPlayer.getDisplayName())
+                        .setDisplayName(cloudPlayer.getFullUsername())
                         .addLore("§7Zuletzt Online: §e" + DATE_FORMAT.format(cloudPlayer.getLastLogout())).build());
             }
         }
