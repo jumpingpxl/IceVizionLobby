@@ -1,6 +1,6 @@
-package de.cosmiqglow.lobby.listener;
+package de.icevizion.lobby.listener;
 
-import de.cosmiqglow.lobby.utils.DailyRewardUtil;
+import de.icevizion.lobby.utils.DailyRewardUtil;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;

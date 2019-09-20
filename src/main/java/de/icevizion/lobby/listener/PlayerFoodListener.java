@@ -1,4 +1,4 @@
-package de.cosmiqglow.lobby.listener;
+package de.icevizion.lobby.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

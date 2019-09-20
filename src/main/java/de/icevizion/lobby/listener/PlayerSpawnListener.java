@@ -1,6 +1,6 @@
-package de.cosmiqglow.lobby.listener;
+package de.icevizion.lobby.listener;
 
-import de.cosmiqglow.lobby.map.MapService;
+import de.icevizion.lobby.map.MapService;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;

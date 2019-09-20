@@ -1,6 +1,6 @@
-package de.cosmiqglow.lobby.listener;
+package de.icevizion.lobby.listener;
 
-import de.cosmiqglow.lobby.Lobby;
+import de.icevizion.lobby.Lobby;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;

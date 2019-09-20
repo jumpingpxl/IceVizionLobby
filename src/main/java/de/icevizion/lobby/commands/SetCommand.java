@@ -1,6 +1,6 @@
-package de.cosmiqglow.lobby.commands;
+package de.icevizion.lobby.commands;
 
-import de.cosmiqglow.lobby.map.MapService;
+import de.icevizion.lobby.map.MapService;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Location;

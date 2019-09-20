@@ -1,11 +1,9 @@
-package de.cosmiqglow.lobby.listener;
+package de.icevizion.lobby.listener;
 
-import de.cosmiqglow.component.partysystem.spigot.PartySystem;
-import de.cosmiqglow.lobby.Lobby;
-import de.cosmiqglow.lobby.profile.LobbyProfile;
+import de.icevizion.lobby.Lobby;
+import de.icevizion.lobby.profile.LobbyProfile;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

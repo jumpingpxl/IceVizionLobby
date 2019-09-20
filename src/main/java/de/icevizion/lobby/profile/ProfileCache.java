@@ -1,4 +1,4 @@
-package de.cosmiqglow.lobby.profile;
+package de.icevizion.lobby.profile;
 
 import org.bukkit.entity.Player;
 

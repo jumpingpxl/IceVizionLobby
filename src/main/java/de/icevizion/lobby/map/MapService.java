@@ -1,8 +1,8 @@
-package de.cosmiqglow.lobby.map;
+package de.icevizion.lobby.map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.cosmiqglow.lobby.map.adapter.LocationTypeAdapter;
+import de.icevizion.lobby.map.adapter.LocationTypeAdapter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 

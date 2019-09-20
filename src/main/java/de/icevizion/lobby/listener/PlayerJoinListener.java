@@ -1,9 +1,8 @@
-package de.cosmiqglow.lobby.listener;
+package de.icevizion.lobby.listener;
 
-import de.cosmiqglow.aves.chat.Messages;
 import de.cosmiqglow.aves.item.CustomPlayerHeadBuilder;
 import de.cosmiqglow.aves.item.FireworkBuilder;
-import de.cosmiqglow.lobby.Lobby;
+import de.icevizion.lobby.Lobby;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Color;

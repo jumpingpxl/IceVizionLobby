@@ -1,4 +1,4 @@
-package de.cosmiqglow.lobby.map.adapter;
+package de.icevizion.lobby.map.adapter;
 
 import com.google.gson.*;
 import org.bukkit.Bukkit;

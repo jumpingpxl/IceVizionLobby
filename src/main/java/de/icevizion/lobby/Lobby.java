@@ -1,10 +1,10 @@
-package de.cosmiqglow.lobby;
+package de.icevizion.lobby;
 
-import de.cosmiqglow.lobby.commands.SetCommand;
-import de.cosmiqglow.lobby.listener.*;
-import de.cosmiqglow.lobby.map.MapService;
-import de.cosmiqglow.lobby.profile.ProfileCache;
-import de.cosmiqglow.lobby.utils.*;
+import de.icevizion.lobby.commands.SetCommand;
+import de.icevizion.lobby.map.MapService;
+import de.icevizion.lobby.profile.ProfileCache;
+import de.icevizion.lobby.listener.*;
+import de.icevizion.lobby.utils.*;
 import net.titan.lib.network.spigot.SpigotState;
 import net.titan.spigot.Cloud;
 import org.bukkit.plugin.java.JavaPlugin;

@@ -1,4 +1,4 @@
-package de.cosmiqglow.lobby.map;
+package de.icevizion.lobby.map;
 
 import com.google.gson.Gson;
 

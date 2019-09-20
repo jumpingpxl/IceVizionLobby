@@ -1,4 +1,4 @@
-package de.cosmiqglow.lobby.utils;
+package de.icevizion.lobby.utils;
 
 import de.cosmiqglow.aves.item.CustomPlayerHeadBuilder;
 import de.cosmiqglow.aves.item.ItemBuilder;

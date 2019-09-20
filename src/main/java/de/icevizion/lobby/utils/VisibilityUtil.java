@@ -1,10 +1,10 @@
-package de.cosmiqglow.lobby.utils;
+package de.icevizion.lobby.utils;
 
 import com.google.common.base.Preconditions;
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
-import de.cosmiqglow.lobby.profile.LobbyProfile;
-import de.cosmiqglow.lobby.profile.ProfileCache;
+import de.icevizion.lobby.profile.LobbyProfile;
+import de.icevizion.lobby.profile.ProfileCache;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
