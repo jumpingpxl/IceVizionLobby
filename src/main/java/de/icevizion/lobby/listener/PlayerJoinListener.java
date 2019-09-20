@@ -41,15 +41,6 @@ public class PlayerJoinListener implements Listener {
         if (cloudPlayer.getFirstLogin() + 5000L >= System.currentTimeMillis()) {
             new FireworkBuilder().addEffect(FireworkEffect.builder().with(FireworkEffect.Type.STAR).
                     withColor(Color.YELLOW).build()).setPower(1).build();
-            player.sendMessage(Messages.CG_HEADER.toString());
-            player.sendMessage("§e» §n§7Lobby");
-            player.sendMessage(" ");
-            player.sendMessage("§e» §7'Das Glück ist das Einzige,");
-            player.sendMessage("      §7was sich verdoppelt, wenn es teilt'");
-            player.sendMessage("§e» E7Albert Schweizer");
-            player.sendMessage(" ");
-            player.sendMessage("§e» §7Map: §eLobby");
-            player.sendMessage(Messages.CG_HEADER.toString());
         }
     }
 }

@@ -18,7 +18,6 @@ public class Lobby extends JavaPlugin {
     private VisibilityUtil visibilityUtil;
     private SettingsUtil settingsUtil;
     private DailyRewardUtil dailyRewardUtil;
-    //private ParticleUtil particleUtil;
     private ProfileCache profileCache;
 
     @Override
@@ -43,7 +42,6 @@ public class Lobby extends JavaPlugin {
         this.profileCache = new ProfileCache();
         this.visibilityUtil = new VisibilityUtil(profileCache);
         this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
-      // this.particleUtil = new ParticleUtil(this, mapService.getLocation("daily"));
     }
 
     private void registerListener() {
@@ -92,8 +90,4 @@ public class Lobby extends JavaPlugin {
     public ProfileCache getProfileCache() {
         return profileCache;
     }
-
-   /* public ParticleUtil getParticleUtil() {
-        return particleUtil;
-    }*/
 }

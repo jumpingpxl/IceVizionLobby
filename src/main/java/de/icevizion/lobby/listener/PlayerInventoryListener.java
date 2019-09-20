@@ -66,7 +66,6 @@ public class PlayerInventoryListener implements Listener {
             if (stack.getType().equals(Material.AIR)) return;
 
             String name = ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName());
-            Bukkit.broadcastMessage(name);
             CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
             if (cloudPlayer == null) {
@@ -82,7 +81,6 @@ public class PlayerInventoryListener implements Listener {
                         cloudPlayer.dispatchCommand("party", new String[]{"invite", name});
                         break;
                     case "Freund entfernen":
-                        Bukkit.broadcastMessage(name);
                         cloudPlayer.dispatchCommand("friend", new String[]{"remove", name});
                         //Inventory updaten
                         LobbyProfile profile = plugin.getProfileCache().getProfile(player);
