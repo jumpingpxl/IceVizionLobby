@@ -3,6 +3,7 @@
 # Permissions
 
 * Location Command: lobby.location
+* BuildServer Item: network.buildserver
 
 # Settings-ID
 
@@ -18,12 +19,12 @@ Die Einstellungsindizies liegen in dem Wertebereich von 100 bis 150
     
 ## Freunde
 * ID: 102
-* Values: 0 (für alle), 1 (für Freunde), 2 (für niemanden)
+* Values: 0 (für alle), 2 (für niemanden)
     
 ## Nachspringen
 * ID: 103
-* Values: 0 (für alle), 1 (für Freunde), 2 (für niemanden)
+* Values: 1 (für Freunde), 2 (für niemanden)
     
 ## Sichtbarkeit
 * ID: 104
-* Values: 0 (für alle), 1 (Schweine), 2 (für niemanden)
+* Values: 0 (für alle), 1 (für Freunde), 2 (für niemanden)
