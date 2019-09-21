@@ -1,6 +1,5 @@
 package de.icevizion.lobby.utils;
 
-import com.google.common.base.Preconditions;
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.icevizion.lobby.profile.LobbyProfile;
@@ -21,8 +20,16 @@ public class VisibilityUtil {
         this.profileCache = profileCache;
     }
 
-    public void changeVisibility(Plugin plugin, int value, Player player) {
-        Preconditions.checkArgument(value >= 0, "The value can not be negative");
+    public void changeVisibility(Plugin plugin, Player player) {
+        LobbyProfile lobbyProfile = profileCache.getProfile(player);
+        int value = lobbyProfile.getHideSettings();
+
+        if (value < 2) {
+            value = 0;
+        } else {
+            value++;
+        }
+
         switch (value) {
             case 0:
                 for (Player online : Bukkit.getOnlinePlayers()) {
@@ -58,7 +65,7 @@ public class VisibilityUtil {
                 }, 80L);
                 break;
         }
-        profileCache.getProfiles().get(player).setHideSettings(value);
+        lobbyProfile.setHideSettings(value);
     }
 
     public void hideOnJoin(Plugin plugin, Player joiningPlayer) {

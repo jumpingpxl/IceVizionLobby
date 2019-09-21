@@ -1,7 +1,7 @@
 package de.icevizion.lobby.utils;
 
-import de.cosmiqglow.aves.item.CustomPlayerHeadBuilder;
-import de.cosmiqglow.aves.item.ItemBuilder;
+import de.icevizion.aves.item.CustomPlayerHeadBuilder;
+import de.icevizion.aves.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class ItemUtil {
 
-    private final ItemStack teleporter, panel, tnt, porkchop, slime;
+    private final ItemStack teleporter, panel, hider;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
     private final Map<Integer, ItemStack> friendActionLayout;
@@ -22,12 +22,7 @@ public class ItemUtil {
                 addLore("§e» §7Lässt dich sofort mit dem", "§7Spiele-Server verbinden.").build();
         this.panel = new ItemBuilder(Material.NOTE_BLOCK).setDisplayName("Einstellungen").
                 addLore("§e» §7Passe dein Spielerlebnis an.").build();
-        this.tnt = new ItemBuilder(Material.TNT).setDisplayName("§cBombe")
-                .addLore("§e» §7Sprenge alle Spieler", "§7in die Luft.").build();
-        this.porkchop = new ItemBuilder(Material.BRAIN_CORAL_BLOCK).setDisplayName("§dParty 'n Friends™")
-                .addLore("§e» §7Zeige deine Partykumpels ","§7und Freunde an§7.").build();
-        this.slime = new ItemBuilder(Material.SLIME_BLOCK).setDisplayName("§aLade Spieler")
-                .addLore("§e» §7Lade wieder alle Spieler§7.").build();
+        this.hider = new ItemBuilder(Material.BLAZE_ROD).setDisplayName("§aSpieler Sichtbarkeit").build();
         this.settingsLayout = loadLayout();
         this.friendLayout = loadFriendLayout();
         this.friendActionLayout = loadFriendActionLayout();
@@ -91,7 +86,7 @@ public class ItemUtil {
     public void setItems(Player player) {
         player.getInventory().clear();
         player.getInventory().setItem(1, teleporter);
-        player.getInventory().setItem(3, tnt);
+        player.getInventory().setItem(3, hider);
         player.getInventory().setItem(5, panel);
     }
 
@@ -105,17 +100,5 @@ public class ItemUtil {
 
     public Map<Integer, ItemStack> getFriendActionLayout() {
         return friendActionLayout;
-    }
-
-    public ItemStack getPorkchop() {
-        return porkchop;
-    }
-
-    public ItemStack getSlime() {
-        return slime;
-    }
-
-    public ItemStack getTNT() {
-        return tnt;
     }
 }
