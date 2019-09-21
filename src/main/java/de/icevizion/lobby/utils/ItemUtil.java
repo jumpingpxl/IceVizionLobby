@@ -2,6 +2,8 @@ package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.CustomPlayerHeadBuilder;
 import de.icevizion.aves.item.ItemBuilder;
+import net.titan.spigot.Cloud;
+import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -12,7 +14,7 @@ import java.util.Map;
 
 public class ItemUtil {
 
-    private final ItemStack teleporter, panel, hider;
+    private final ItemStack teleporter, panel, hider, builder;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
     private final Map<Integer, ItemStack> friendActionLayout;
@@ -23,6 +25,7 @@ public class ItemUtil {
         this.panel = new ItemBuilder(Material.NOTE_BLOCK).setDisplayName("Einstellungen").
                 addLore("§e» §7Passe dein Spielerlebnis an.").build();
         this.hider = new ItemBuilder(Material.BLAZE_ROD).setDisplayName("§aSpieler Sichtbarkeit").build();
+        this.builder = new ItemBuilder(Material.IRON_PICKAXE).setDisplayName("§aBauServer").build();
         this.settingsLayout = loadLayout();
         this.friendLayout = loadFriendLayout();
         this.friendActionLayout = loadFriendActionLayout();
@@ -63,11 +66,11 @@ public class ItemUtil {
         for (int i = 36; i < 45; i++) {
             layout.put(i, pane);
         }
-        layout.put(46, new ItemBuilder(Material.EMERALD).setDisplayName("Freundesanfragen").build());
-        layout.put(48, new CustomPlayerHeadBuilder()
+        layout.put(49, new ItemBuilder(Material.EMERALD).setDisplayName("Freundesanfragen").build());
+        layout.put(47, new CustomPlayerHeadBuilder()
                 .setSkinOverValues("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzdhZWU5YTc1YmYwZGY3ODk3MTgzMDE1Y2NhMGIyYTdkNzU1YzYzMzg4ZmYwMTc1MmQ1ZjQ0MTlmYzY0NSJ9fX0=", "" )
                 .setDisplayName("§aZurück").build());
-        layout.put(50, new CustomPlayerHeadBuilder()
+        layout.put(51, new CustomPlayerHeadBuilder()
                 .setSkinOverValues("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjgyYWQxYjljYjRkZDIxMjU5YzBkNzVhYTMxNWZmMzg5YzNjZWY3NTJiZTM5NDkzMzgxNjRiYWM4NGE5NmUifX19","")
                 .setDisplayName("§aNächste").build());
         return layout;
@@ -75,19 +78,35 @@ public class ItemUtil {
 
     private HashMap<Integer, ItemStack> loadFriendActionLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>(9);
-
-        layout.put(11, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("Nach springen").build());
-        layout.put(13, new ItemBuilder(Material.CAKE).setDisplayName("Party").build());
-        layout.put(15, new ItemBuilder(Material.BARRIER).setDisplayName("Freund entfernen").build());
+        ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
+        layout.put(1, pane);
+        layout.put(10, pane);
+        layout.put(19, pane);
+        layout.put(12, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("Nach springen").build());
+        layout.put(14, new ItemBuilder(Material.CAKE).setDisplayName("Party").build());
+        layout.put(16, new ItemBuilder(Material.BARRIER).setDisplayName("Freund entfernen").build());
 
         return layout;
     }
 
     public void setItems(Player player) {
+        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+        ItemStack skull = new CustomPlayerHeadBuilder().setSkinOverValues(cloudPlayer.getSkinValue(), "")
+                .setDisplayName("§aFreunde").build();
         player.getInventory().clear();
-        player.getInventory().setItem(1, teleporter);
-        player.getInventory().setItem(3, hider);
-        player.getInventory().setItem(5, panel);
+
+        if (cloudPlayer.hasPermission("network.buildserver")) {
+            player.getInventory().setItem(0, teleporter);
+            player.getInventory().setItem(2, hider);
+            player.getInventory().setItem(4, builder);
+            player.getInventory().setItem(6, panel);
+            player.getInventory().setItem(8, skull);
+        } else {
+            player.getInventory().setItem(1, teleporter);
+            player.getInventory().setItem(3, hider);
+            player.getInventory().setItem(5, panel);
+            player.getInventory().setItem(7, skull);
+        }
     }
 
     public Map<Integer, ItemStack> getSettingsLayout() {

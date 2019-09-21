@@ -29,10 +29,11 @@ public class InventoryUtil {
     }
 
     private void loadTeleporter() {
-        this.teleporter = Bukkit.createInventory(null, 27, "Minispiele");
-        teleporter.setItem(10, new ItemBuilder(Material.CHEST_MINECART).setDisplayName("§eCargoEscort").build());
-        teleporter.setItem(13, new ItemBuilder(Material.MAGMA_CREAM).setDisplayName("§aSpawn").build());
-        teleporter.setItem(16, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
+        teleporter = Bukkit.createInventory(null, 54, "Minispiele");
+        teleporter.setItem(4, new ItemBuilder(Material.NETHER_STAR).setDisplayName("§aSpawn").build());
+        teleporter.setItem(11, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
+        teleporter.setItem(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
+        teleporter.setItem(22, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("GuessIt").build());
     }
 
     public Inventory loadActionInventory(String name, ItemStack skull) {
@@ -71,9 +72,6 @@ public class InventoryUtil {
         }
 
         FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(Cloud.getInstance().getPlayer(player));
-
-        int requests = friendProfile.getRequests().size();
-        ItemStack stack = inventory.getItem(45);
 
         for (CloudPlayer cloudPlayer : friendProfile.getFriends()) {
             if (cloudPlayer.isOnline()) {
