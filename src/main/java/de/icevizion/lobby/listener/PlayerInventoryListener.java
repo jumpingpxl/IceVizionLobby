@@ -41,11 +41,7 @@ public class PlayerInventoryListener implements Listener {
 
         switch (event.getView().getTitle()) {
             case "Einstellungen":
-                if (stack.getItemMeta().getDisplayName().equals("§cSchließen")) {
-                    player.closeInventory();
-                } else {
-                    plugin.getSettingsUtil().changeSettingsValue(event);
-                }
+                plugin.getSettingsUtil().changeSettingsValue(event);
             break;
             case "Minispiele":
                 String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());

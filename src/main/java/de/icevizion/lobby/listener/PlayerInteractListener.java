@@ -1,9 +1,7 @@
 package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -29,10 +27,12 @@ public class PlayerInteractListener implements Listener {
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
             String displayName = event.getItem().getItemMeta().getDisplayName();
             switch (displayName) {
-                case "§e✦ §bMinispiele":
+                case "§bMinispiele":
                     player.openInventory(plugin.getInventoryUtil().getTeleporter());
+                    event.setCancelled(true);
+                    player.updateInventory();
                     break;
-                case "§e✦ Einstellungen":
+                case "§eEinstellungen":
                     if (plugin.getProfileCache().getProfile(player).getSettingsInventory() == null) {
                         Inventory inventory = plugin.getInventoryUtil().createPanelInventory(player);
                         plugin.getProfileCache().getProfile(player).setSettingsInventory(inventory);
@@ -41,45 +41,16 @@ public class PlayerInteractListener implements Listener {
                         player.openInventory(plugin.getProfileCache().getProfile(player).getSettingsInventory());
                     }
                     break;
-                case "§e✦ §cBombe":
+                case "§aSpieler Sichtbarkeit":
                     if (plugin.getCooldownUtil().hasCooldown(player)) {
                         player.sendMessage("§cBitte warte noch kurz");
                         return;
                     } else {
-                        player.getInventory().remove(event.getItem());
-                        player.getInventory().setItem(3, plugin.getItemUtil().getPorkchop());
                         plugin.getCooldownUtil().addCooldown(player, 8000L);
-                        plugin.getVisibilityUtil().changeVisibility(plugin, 2, player);
-                        TNTPrimed tnt = (TNTPrimed) player.getWorld().spawnEntity(player.getLocation(),
-                                EntityType.PRIMED_TNT);
-                        tnt.setFuseTicks(80);
-                        tnt.setVelocity(player.getLocation().getDirection().clone().normalize().
-                                multiply(1.5+Math.random()));
+                        plugin.getVisibilityUtil().changeVisibility(plugin, player);
                     }
                     break;
-                case "§e✦ §dParty 'n Friends™":
-                    if (plugin.getCooldownUtil().hasCooldown(player)) {
-                        player.sendMessage("§cBitte warte noch kurz");
-                        return;
-                    } else {
-                        player.getInventory().remove(event.getItem());
-                        player.getInventory().setItem(3, plugin.getItemUtil().getSlime());
-                        plugin.getCooldownUtil().addCooldown(player, 4000L);
-                        plugin.getVisibilityUtil().changeVisibility(plugin, 1, player);
-                    }
-                    break;
-                case "§e✦ §aLade Spieler":
-                    if (plugin.getCooldownUtil().hasCooldown(player)) {
-                        player.sendMessage("§cBitte warte noch kurz");
-                        return;
-                    } else {
-                        player.getInventory().remove(event.getItem());
-                        player.getInventory().setItem(3, plugin.getItemUtil().getTNT());
-                        plugin.getCooldownUtil().addCooldown(player, 4000L);
-                        plugin.getVisibilityUtil().changeVisibility(plugin, 0, player);
-                    }
-                    break;
-                case "§e✦ §aFreunde":
+                case "§aFreunde":
                     if (plugin.getProfileCache().getProfile(player).getFriendInventory() == null) {
                         Inventory inventory = plugin.getInventoryUtil().createFriendInvenotory(player);
                         plugin.getProfileCache().getProfile(player).setFriendInventory(inventory);
