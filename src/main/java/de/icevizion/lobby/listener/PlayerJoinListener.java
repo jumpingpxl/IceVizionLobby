@@ -1,12 +1,9 @@
 package de.icevizion.lobby.listener;
 
-import de.cosmiqglow.aves.item.CustomPlayerHeadBuilder;
-import de.cosmiqglow.aves.item.FireworkBuilder;
+import de.icevizion.aves.item.CustomPlayerHeadBuilder;
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,10 +33,5 @@ public class PlayerJoinListener implements Listener {
                 new CustomPlayerHeadBuilder().
                         setSkinOverValues(cloudPlayer.getSkinValue(), "").
                         setDisplayName("§e✦ §aFreunde").addLore("§e» §7Interagiere mit deinen Freunden§7.").build());
-
-        if (cloudPlayer.getFirstLogin() + 5000L >= System.currentTimeMillis()) {
-            new FireworkBuilder().addEffect(FireworkEffect.builder().with(FireworkEffect.Type.STAR).
-                    withColor(Color.YELLOW).build()).setPower(1).build();
-        }
     }
 }
