@@ -50,7 +50,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>de.cosmiqglow.lib</groupId>
+            <groupId>de.icevizion.lib</groupId>
             <artifactId>Aves</artifactId>
             <version>1.0.1-SNAPSHOT</version>
             <scope>provided</scope>
