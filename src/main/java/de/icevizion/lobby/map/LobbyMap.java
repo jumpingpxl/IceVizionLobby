@@ -12,11 +12,11 @@ public class LobbyMap {
     public LobbyMap() {
     }
 
-    public LobbyMap(Location spawn, Location uhc, Location kbffa, Location dailyReward) {
+    public LobbyMap(Location spawn, Location uhc, Location kbffa, Location daily) {
         this.spawn = spawn;
         this.uhc = uhc;
         this.kbffa = kbffa;
-        this.dailyReward = dailyReward;
+        this.dailyReward = daily;
     }
 
     public void setSpawn(Location spawn) {
