@@ -1,7 +1,6 @@
 package de.icevizion.lobby.map;
 
 import com.google.gson.annotations.JsonAdapter;
-import de.cosmiqglow.aves.util.LocationUtil;
 import de.icevizion.lobby.map.adapter.LocationTypeAdapter;
 import org.bukkit.Location;
 
@@ -17,7 +16,7 @@ public class LobbyMap {
         this.spawn = spawn;
         this.uhc = uhc;
         this.kbffa = kbffa;
-        this.dailyReward = LocationUtil.getCenter(dailyReward.getBlock());
+        this.dailyReward = dailyReward;
     }
 
     public void setSpawn(Location spawn) {
