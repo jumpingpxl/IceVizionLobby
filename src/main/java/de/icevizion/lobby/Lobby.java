@@ -41,11 +41,11 @@ public class Lobby extends JavaPlugin {
         this.inventoryUtil = new InventoryUtil(itemUtil, settingsUtil);
         this.profileCache = new ProfileCache();
         this.visibilityUtil = new VisibilityUtil(profileCache);
-       // this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
+        this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
     }
 
     private void registerListener() {
-       // getServer().getPluginManager().registerEvents(new EntityInteractListener(dailyRewardUtil), this);
+        getServer().getPluginManager().registerEvents(new EntityInteractListener(dailyRewardUtil), this);
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerBlockListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerDamageListener(), this);
