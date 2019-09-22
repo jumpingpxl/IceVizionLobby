@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
@@ -26,7 +27,7 @@ public class PlayerInventoryListener implements Listener {
     public void onInventory(InventoryClickEvent event) {
         if (event.getClickedInventory() == null) return;
         if (event.getSlotType().equals(InventoryType.SlotType.OUTSIDE)) return;
-        if (event.getClick().isKeyboardClick()) return;
+        if (event.getClick().equals(ClickType.NUMBER_KEY)) return;
         if (event.getCurrentItem() == null) return;
         if (!event.getCurrentItem().hasItemMeta()) return;
 
