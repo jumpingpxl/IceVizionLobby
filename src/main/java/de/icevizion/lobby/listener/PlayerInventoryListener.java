@@ -28,7 +28,7 @@ public class PlayerInventoryListener implements Listener {
     public void onInventory(InventoryClickEvent event) {
         if (event.getClickedInventory() == null) return;
         if (event.getSlotType().equals(InventoryType.SlotType.OUTSIDE)) return;
-       // if (event.getClick() == ClickType.NUMBER_KEY) return;
+        if (event.getClick().isKeyboardClick()) event.setCancelled(true);
         if (event.getCurrentItem() == null) return;
         if (!event.getCurrentItem().hasItemMeta()) return;
 
