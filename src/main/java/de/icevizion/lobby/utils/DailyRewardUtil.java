@@ -39,7 +39,6 @@ public class DailyRewardUtil {
             giveReward(player);
         } else {
             long timestamp = (long) cloudPlayer.extradataGet("daily");
-
             if (timestamp >= System.currentTimeMillis()) {
                 player.sendMessage("§cBitte komme morgen wieder um einen Reward zu erhalten");
             } else {
