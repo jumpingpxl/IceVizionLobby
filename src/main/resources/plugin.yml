@@ -1,7 +1,7 @@
 name: Lobby
 version: 1.0.1
 api-version: 1.13
-main: de.cosmiqglow.lobby.Lobby
+main: de.icevizion.lobby.Lobby
 
 author: theEvilReaper
 
