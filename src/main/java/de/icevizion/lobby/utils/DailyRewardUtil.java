@@ -51,7 +51,7 @@ public class DailyRewardUtil {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         cloudPlayer.addCoins(100);
         cloudPlayer.extradataSet("daily", System.currentTimeMillis() + getRestDayTime());
-        player.sendMessage("§7Du hast §e100 §7Glows bekommen");
+        player.sendMessage("§7Du hast §e100 §7Coins bekommen");
     }
 
     private long getRestDayTime() {
