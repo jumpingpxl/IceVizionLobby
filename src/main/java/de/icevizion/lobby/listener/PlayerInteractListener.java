@@ -1,6 +1,9 @@
 package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
+import net.titan.lib.network.spigot.ClusterSpigot;
+import net.titan.spigot.Cloud;
+import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -59,6 +62,13 @@ public class PlayerInteractListener implements Listener {
                         player.openInventory(plugin.getProfileCache().getProfile(player).getFriendInventory());
                     }
                     break;
+                case "§aBauServer":
+                    ClusterSpigot clusterSpigot = Cloud.getInstance().getSpigot("BuildServer");
+                    if (clusterSpigot == null) {
+                        player.sendMessage("§cDer Server ist nicht online");
+                    } else {
+                        Cloud.getInstance().getPlayer(player).sendToServer(clusterSpigot);
+                    }
                 default:
                     break;
             }
