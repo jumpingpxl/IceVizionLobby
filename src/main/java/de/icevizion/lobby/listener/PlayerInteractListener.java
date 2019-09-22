@@ -11,6 +11,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 
+import java.util.Optional;
+
 public class PlayerInteractListener implements Listener {
 
     private final Lobby plugin;
@@ -63,11 +65,11 @@ public class PlayerInteractListener implements Listener {
                     }
                     break;
                 case "§aBauServer":
-                    ClusterSpigot clusterSpigot = Cloud.getInstance().getSpigot("BuildServer");
-                    if (clusterSpigot == null) {
-                        player.sendMessage("§cDer Server ist nicht online");
+                    Optional<ClusterSpigot> clusterSpigot = Cloud.getInstance().getSpigots().stream().filter(server -> server.getServerType().equals("BuildServer")).findAny();
+                    if (clusterSpigot.isPresent()) {
+                        Cloud.getInstance().getPlayer(player).sendToServer(clusterSpigot.get());
                     } else {
-                        Cloud.getInstance().getPlayer(player).sendToServer(clusterSpigot);
+                        player.sendMessage("§cDer Server ist nicht online");
                     }
                 default:
                     break;
