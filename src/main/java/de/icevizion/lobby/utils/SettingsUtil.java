@@ -23,7 +23,7 @@ public class SettingsUtil {
         if (event.getCurrentItem().getType().equals(Material.GRAY_DYE)) {
             int currentRow = event.getSlot() / 9;
             int category = currentRow * 9;
-            int newValue = (event.getSlot() - category) - 7;
+            int newValue = (event.getSlot() - category) - 6;
             int oldVal = -1;
             Bukkit.broadcastMessage("NewValue: " + newValue);
             if (currentRow >= 2) {
@@ -62,7 +62,7 @@ public class SettingsUtil {
     private int  setForState(int newValue, Inventory inventory, int category, int forInt) {
         for (int i = 0; i < forInt; i++) { // Such ALG
             if (i == newValue) continue;
-            if (!inventory.getItem(category + ( 7 + i)).getType().equals(Material.GRAY_DYE)) {
+            if (!inventory.getItem(category + ( 6 + i)).getType().equals(Material.GRAY_DYE)) {
                 return i;
             }
         }
