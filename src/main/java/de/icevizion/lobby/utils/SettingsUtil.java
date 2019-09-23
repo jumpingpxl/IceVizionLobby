@@ -29,9 +29,9 @@ public class SettingsUtil {
             int oldVal = -1;
             Bukkit.broadcastMessage("NewValue: " + newValue);
             if (currentRow >= 2) {
-                oldVal = setForState(newValue + 1 , inventory, category,2, 1) - 1;
-                setState(inventory, category, ((oldVal) +1) , true);
-                setState(inventory, category,((newValue) + 1), false);
+                oldVal = setForState((newValue + 1), inventory, category,2, 1) - 1;
+                setState(inventory, category, oldVal , true);
+                setState(inventory, category,newValue, false);
             } else {
                 oldVal = setForState(newValue, inventory, category,3, 0);
                 setState(inventory, category, oldVal, true);
