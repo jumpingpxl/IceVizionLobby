@@ -12,6 +12,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class SettingsUtil {
 
+    private static final int SLOT_OFFSET = 6;
+
     public static final int PRIVAT_MESSAGE = 100;
     public static final int PARTY = 101;
     public static final int FRIENDS = 102;
@@ -23,13 +25,13 @@ public class SettingsUtil {
         if (event.getCurrentItem().getType().equals(Material.GRAY_DYE)) {
             int currentRow = event.getSlot() / 9;
             int category = currentRow * 9;
-            int newValue = (event.getSlot() - category) - 6;
+            int newValue = (event.getSlot() - category) - SLOT_OFFSET;
             int oldVal = -1;
             Bukkit.broadcastMessage("NewValue: " + newValue);
             if (currentRow >= 2) {
-                oldVal = setForState(newValue, inventory, category,2);
+                oldVal = setForState(newValue, inventory, category,2, 1);
             } else {
-                oldVal = setForState(newValue, inventory, category,3);
+                oldVal = setForState(newValue, inventory, category,3, 0);
             }
 
             Bukkit.broadcastMessage("OldValue: " + oldVal);
@@ -46,23 +48,23 @@ public class SettingsUtil {
         switch (value) {
             case 0:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§fVon jedem").build();
-                inv.setItem(category + ( 6 + value), state);
+                inv.setItem(category + ( SLOT_OFFSET + value), state);
                 break;
             case 1:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).setDisplayName("§fVon Freunden").build();
-                inv.setItem(category + ( 6 + value), state);
+                inv.setItem(category + ( SLOT_OFFSET + value), state);
                 break;
             case 2:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).setDisplayName("§fVon Niemanden").build();
-                inv.setItem(category + ( 6 + value), state);
+                inv.setItem(category + ( SLOT_OFFSET + value), state);
                 break;
         }
     }
 
-    private int  setForState(int newValue, Inventory inventory, int category, int forInt) {
-        for (int i = 0; i < forInt; i++) { // Such ALG
+    private int  setForState(int newValue, Inventory inventory, int category, int forInt, int offset) {
+        for (int i = offset; i < forInt; i++) { // Such ALG
             if (i == newValue) continue;
-            if (!inventory.getItem(category + ( 6 + i)).getType().equals(Material.GRAY_DYE)) {
+            if (!inventory.getItem(category + (SLOT_OFFSET + i)).getType().equals(Material.GRAY_DYE)) {
                 return i;
             }
         }
