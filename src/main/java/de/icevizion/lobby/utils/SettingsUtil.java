@@ -3,6 +3,7 @@ package de.icevizion.lobby.utils;
 import de.icevizion.aves.item.ItemBuilder;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -24,11 +25,14 @@ public class SettingsUtil {
             int category = currentRow * 9;
             int newValue = (event.getSlot() - category) - 7;
             int oldVal = -1;
-            if (currentRow == 2 || currentRow == 3) {
+            Bukkit.broadcastMessage("NewValue: " + newValue);
+            if (currentRow >= 2) {
                 oldVal = setForState(newValue, inventory, category,2);
             } else {
                 oldVal = setForState(newValue, inventory, category,3);
             }
+
+            Bukkit.broadcastMessage("OldValue: " + oldVal);
 
             setState(inventory, category, oldVal, true);
             setState(inventory, category, newValue, false);
