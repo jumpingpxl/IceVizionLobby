@@ -20,10 +20,8 @@ public class ItemUtil {
     private final Map<Integer, ItemStack> friendActionLayout;
 
     public ItemUtil() {
-        this.teleporter = new ItemBuilder(Material.NETHER_STAR).setDisplayName("§bMinispiele").
-                addLore("§e» §7Lässt dich sofort mit dem", "§7Spiele-Server verbinden.").build();
-        this.panel = new ItemBuilder(Material.NOTE_BLOCK).setDisplayName("§eEinstellungen").
-                addLore("§e» §7Passe dein Spielerlebnis an.").build();
+        this.teleporter = new ItemBuilder(Material.NETHER_STAR).setDisplayName("§bMinispiele").build();
+        this.panel = new ItemBuilder(Material.NOTE_BLOCK).setDisplayName("§eEinstellungen").build();
         this.hider = new ItemBuilder(Material.BLAZE_ROD).setDisplayName("§aSpieler Sichtbarkeit").build();
         this.builder = new ItemBuilder(Material.IRON_PICKAXE).setDisplayName("§aBauServer").build();
         this.settingsLayout = loadLayout();
