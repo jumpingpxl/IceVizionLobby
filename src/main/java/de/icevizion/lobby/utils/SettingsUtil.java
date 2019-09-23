@@ -29,7 +29,7 @@ public class SettingsUtil {
             int oldVal = -1;
             Bukkit.broadcastMessage("NewValue: " + newValue);
             if (currentRow >= 2) {
-                oldVal = setForState(newValue, inventory, category,2, 1);
+                oldVal = setForState(newValue, inventory, category,2, 1) - 1;
             } else {
                 oldVal = setForState(newValue, inventory, category,3, 0);
             }
