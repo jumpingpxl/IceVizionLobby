@@ -29,13 +29,13 @@ public class SettingsUtil {
             int oldVal = -1;
             Bukkit.broadcastMessage("NewValue: " + newValue);
             if (currentRow >= 2) {
-                oldVal = setForState((newValue + 1), inventory, category,2, 1) - 1;
-                setState(inventory, category, oldVal , true);
-                setState(inventory, category,newValue, false);
+                oldVal = setForState((newValue + 1), inventory, category,2, 1);
+                setState(inventory, category, oldVal , true, 1);
+                setState(inventory, category, newValue, false, 1);
             } else {
                 oldVal = setForState(newValue, inventory, category,3, 0);
-                setState(inventory, category, oldVal, true);
-                setState(inventory, category, newValue, false);
+                setState(inventory, category, oldVal, true, 0);
+                setState(inventory, category, newValue, false, 0);
             }
 
             Bukkit.broadcastMessage("OldValue: " + oldVal);
@@ -46,20 +46,20 @@ public class SettingsUtil {
         }
     }
 
-    public void setState(Inventory inv, int category , int value, boolean gray) {
+    public void setState(Inventory inv, int category , int value, boolean gray, int offset) {
         ItemStack state;
         switch (value) {
             case 0:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§fVon jedem").build();
-                inv.setItem(category + ( SLOT_OFFSET + value), state);
+                inv.setItem(category + ( SLOT_OFFSET + value + offset), state);
                 break;
             case 1:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).setDisplayName("§fVon Freunden").build();
-                inv.setItem(category + ( SLOT_OFFSET + value), state);
+                inv.setItem(category + ( SLOT_OFFSET + value + offset), state);
                 break;
             case 2:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).setDisplayName("§fVon Niemanden").build();
-                inv.setItem(category + ( SLOT_OFFSET + value), state);
+                inv.setItem(category + ( SLOT_OFFSET + value + offset), state);
                 break;
         }
     }
