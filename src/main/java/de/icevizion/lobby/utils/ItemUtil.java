@@ -54,7 +54,6 @@ public class ItemUtil {
         for (int i = 36; i < 45; i++) {
             layout.put(i, pane);
         }
-        layout.put(53, new ItemBuilder(Material.DARK_OAK_DOOR).setDisplayName("§cSchließen").build());
         return layout;
     }
 
