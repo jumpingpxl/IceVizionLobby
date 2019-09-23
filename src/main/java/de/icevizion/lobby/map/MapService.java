@@ -32,8 +32,10 @@ public class MapService {
                     return lobbyMap.get().getSpawn();
                 case "knockbackffa":
                     return lobbyMap.get().getKBFFA();
-                case "cargoescort":
-                    return lobbyMap.get().getUHC();
+                case "oneline":
+                    return lobbyMap.get().getOneline();
+                case "guessit":
+                    return lobbyMap.get().getGuessIt();
                 case "daily":
                     return lobbyMap.get().getDailyReward();
             }
@@ -70,11 +72,14 @@ public class MapService {
             case "spawn":
                 lobbyMap.setSpawn(location);
                 break;
-            case "uhc":
-                lobbyMap.setUHC(location);
+            case "oneline":
+                lobbyMap.setOneline(location);
                 break;
             case "kbffa":
                 lobbyMap.setKBFFA(location);
+                break;
+            case "guessit":
+                lobbyMap.setGuessit(location);
                 break;
             case "daily":
                 lobbyMap.setDailyReward(location);

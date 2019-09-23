@@ -27,11 +27,11 @@ public class SetCommand implements CommandExecutor {
             if (!cloudPlayer.hasPermission("lobby.location")) return false;
 
             if (args.length != 1) {
-                cloudPlayer.sendMessage("§7Bitte benutze §c/location <spawn,uhc,kbffa,daily>");
+                cloudPlayer.sendMessage("§7Bitte benutze §c/location <spawn,oneline,guessit,kbffa,daily>");
                 return  true;
             } else {
                 if (args[0].isEmpty()) {
-                    cloudPlayer.sendMessage("§cBitte gebe spawn,uhc,kbffa oder daily an");
+                    cloudPlayer.sendMessage("§cBitte gebe spawn,oneline,guessit,kbffa oder daily an");
                     return true;
                 } else {
                     String name = args[0];

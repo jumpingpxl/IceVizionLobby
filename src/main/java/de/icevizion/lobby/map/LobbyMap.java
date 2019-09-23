@@ -7,14 +7,15 @@ import org.bukkit.Location;
 public class LobbyMap {
 
     @JsonAdapter(value = LocationTypeAdapter.class)
-    private Location spawn, uhc, kbffa, daily;
+    private Location spawn, oneline, guessit, kbffa, daily;
 
     public LobbyMap() {
     }
 
-    public LobbyMap(Location spawn, Location uhc, Location kbffa, Location daily) {
+    public LobbyMap(Location spawn, Location oneline, Location guessit, Location kbffa, Location daily) {
         this.spawn = spawn;
-        this.uhc = uhc;
+        this.oneline = oneline;
+        this.guessit = guessit;
         this.kbffa = kbffa;
         this.daily = daily;
     }
@@ -23,8 +24,12 @@ public class LobbyMap {
         this.spawn = spawn;
     }
 
-    public void setUHC(Location uhc) {
-        this.uhc = uhc;
+    public void setGuessit(Location guessit) {
+        this.guessit = guessit;
+    }
+
+    public void setOneline(Location oneline) {
+        this.oneline = oneline;
     }
 
     public void setKBFFA(Location kbffa) {
@@ -43,8 +48,12 @@ public class LobbyMap {
         return spawn;
     }
 
-    public Location getUHC() {
-        return uhc;
+    public Location getGuessIt() {
+        return guessit;
+    }
+
+    public Location getOneline() {
+        return oneline;
     }
 
     public Location getDailyReward() {
