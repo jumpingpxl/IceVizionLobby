@@ -22,14 +22,14 @@ public class SettingsUtil {
         if (event.getCurrentItem().getType().equals(Material.GRAY_DYE)) {
             int currentRow = event.getSlot() / 9;
             int category = currentRow * 9;
-            int newValue = (event.getSlot() - category) - 3;
+            int newValue = (event.getSlot() - category) - 7;
             int oldVal = -1;
-            for (int i = 0; i < 3; i++) {
-                if (i == newValue) continue;
-                if (!inventory.getItem(category + ( 3 + i)).getType().equals(Material.GRAY_DYE)) {
-                    oldVal = i;
-                }
+            if (currentRow == 2 || currentRow == 3) {
+                oldVal = setForState(newValue, inventory, category,2);
+            } else {
+                oldVal = setForState(newValue, inventory, category,3);
             }
+
             setState(inventory, category, oldVal, true);
             setState(inventory, category, newValue, false);
             ((Player) event.getWhoClicked()).updateInventory();
@@ -53,6 +53,16 @@ public class SettingsUtil {
                 inv.setItem(category + ( 6 + value), state);
                 break;
         }
+    }
+
+    private int  setForState(int newValue, Inventory inventory, int category, int forInt) {
+        for (int i = 0; i < forInt; i++) { // Such ALG
+            if (i == newValue) continue;
+            if (!inventory.getItem(category + ( 7 + i)).getType().equals(Material.GRAY_DYE)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private int getSettingsID(int row) {
