@@ -22,20 +22,12 @@ public class VisibilityUtil {
 
     public void changeVisibility(Plugin plugin, Player player) {
         LobbyProfile lobbyProfile = profileCache.getProfile(player);
-
-
         int value = lobbyProfile.getHideSettings();
-
-        Bukkit.broadcastMessage("Current Value: " + value);
-
         if (value == 2) {
             value = 0;
         } else {
             value++;
         }
-
-        Bukkit.broadcastMessage("New Value: " + value);
-
         switch (value) {
             case 0:
                 for (Player online : Bukkit.getOnlinePlayers()) {
@@ -66,6 +58,7 @@ public class VisibilityUtil {
                         player.hidePlayer(plugin, online);
                     }
                 }
+                player.sendMessage("§7Du siehst nun §ckeine §7Spieler mehr");
                 break;
         }
         lobbyProfile.setHideSettings(value);
