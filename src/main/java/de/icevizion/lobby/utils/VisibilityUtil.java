@@ -22,13 +22,19 @@ public class VisibilityUtil {
 
     public void changeVisibility(Plugin plugin, Player player) {
         LobbyProfile lobbyProfile = profileCache.getProfile(player);
+
+
         int value = lobbyProfile.getHideSettings();
+
+        Bukkit.broadcastMessage("Current Value: " + value);
 
         if (value < 2) {
             value = 0;
         } else {
             value++;
         }
+
+        Bukkit.broadcastMessage("New Value: " + value);
 
         switch (value) {
             case 0:
