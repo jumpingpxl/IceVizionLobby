@@ -28,7 +28,7 @@ public class VisibilityUtil {
 
         Bukkit.broadcastMessage("Current Value: " + value);
 
-        if (value < 2) {
+        if (value > 2) {
             value = 0;
         } else {
             value++;
