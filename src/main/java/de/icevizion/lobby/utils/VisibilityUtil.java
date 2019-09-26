@@ -28,7 +28,7 @@ public class VisibilityUtil {
 
         Bukkit.broadcastMessage("Current Value: " + value);
 
-        if (value > 2) {
+        if (value == 2) {
             value = 0;
         } else {
             value++;
@@ -60,15 +60,12 @@ public class VisibilityUtil {
                 player.sendMessage("§7Du siehst nur noch deine §eFreunde");
                 break;
             case 2:
-                Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                    for (Player online : Bukkit.getOnlinePlayers()) {
-                        if (player == online) continue;
-                        if (player.canSee(online)) {
-                            player.hidePlayer(plugin, online);
-                        }
+                for (Player online : Bukkit.getOnlinePlayers()) {
+                    if (player == online) continue;
+                    if (player.canSee(online)) {
+                        player.hidePlayer(plugin, online);
                     }
-                    player.sendMessage("§7Du siehst nun §ckeine §7Spieler mehr");
-                }, 80L);
+                }
                 break;
         }
         lobbyProfile.setHideSettings(value);
