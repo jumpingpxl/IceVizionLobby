@@ -13,6 +13,7 @@ public class LobbyProfile {
 
     public LobbyProfile(Player player) {
         this.player = player;
+        this.hideSettings = 0;
     }
 
     public void setSettingsInventory(Inventory settingsInventory) {
