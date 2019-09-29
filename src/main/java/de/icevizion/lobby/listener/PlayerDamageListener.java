@@ -31,10 +31,10 @@ public class PlayerDamageListener implements Listener {
                 FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(player);
 
                 if (friendProfile.getFriends().contains(clickedPlayer)) {
+                    player.sendMessage("§7Du bist bereits mit " + clickedPlayer.getFullUsername() + " §7befreundet");
                     return;
                 } else {
-                    player.sendMessage(clickedPlayer.getPlayer().getDisplayName());
-                    //player.dispatchCommand("friend", new String[]{"add", clickedPlayer.getUsername()});
+                    player.dispatchCommand("friend", new String[]{"add", clickedPlayer.getUuid()});
                 }
             }
         }
