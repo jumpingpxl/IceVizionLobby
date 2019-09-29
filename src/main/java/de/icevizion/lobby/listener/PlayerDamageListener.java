@@ -35,7 +35,7 @@ public class PlayerDamageListener implements Listener {
                     player.sendMessage("§7Du bist bereits mit " + clickedPlayer.getFullUsername() + " §7befreundet");
                 }
 
-                if (friendProfile.getRequests().contains(player.getUuid())) {
+                if (friendProfile.getRequests().contains(clickedPlayer.getUuid())) {
                     player.sendMessage("§7Du hast bereits dem Spieler " + clickedPlayer.getFullUsername() + " §7eine Anfrage gesendet");
                 }
 
