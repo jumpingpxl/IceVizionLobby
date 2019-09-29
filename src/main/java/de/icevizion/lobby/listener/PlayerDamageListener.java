@@ -28,14 +28,15 @@ public class PlayerDamageListener implements Listener {
             if (player.getPlayer().getItemInHand().getType().equals(Material.PLAYER_HEAD)) {
                 CloudPlayer clickedPlayer = Cloud.getInstance().getPlayer((Player) event.getEntity());
 
-                FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(player);
-
-                if (friendProfile.getFriends().contains(clickedPlayer)) {
+                if (FriendSystem.getInstance().getFriendProfile(player).getFriends().contains(clickedPlayer)) {
                     player.sendMessage("§7Du bist bereits mit " + clickedPlayer.getFullUsername() + " §7befreundet");
-                    return;
-                } else {
-                    player.dispatchCommand("friend", new String[]{"add", clickedPlayer.getUuid()});
                 }
+
+                if (FriendSystem.getInstance().getFriendProfile(clickedPlayer).getRequests().contains(player.getUuid())) {
+                    player.sendMessage("§7Du hast bereits dem Spieler " + clickedPlayer.getFullUsername() + " §7eine Anfrage gesendet");
+                }
+
+                player.dispatchCommand("friend", new String[]{"add", clickedPlayer.getUuid()});
             }
         }
     }
