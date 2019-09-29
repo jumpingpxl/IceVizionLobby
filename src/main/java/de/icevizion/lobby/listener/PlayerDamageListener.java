@@ -24,7 +24,8 @@ public class PlayerDamageListener implements Listener {
 
             CloudPlayer player = Cloud.getInstance().getPlayer((Player) event.getDamager());
 
-            if (player.getPlayer().getItemOnCursor() != null && player.getPlayer().getItemOnCursor().getType().equals(Material.PLAYER_HEAD)) {
+
+            if (player.getPlayer().getItemInHand().getType().equals(Material.PLAYER_HEAD)) {
                 CloudPlayer clickedPlayer = Cloud.getInstance().getPlayer((Player) event.getEntity());
 
                 FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(player);
