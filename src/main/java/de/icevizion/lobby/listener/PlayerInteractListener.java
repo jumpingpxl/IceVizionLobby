@@ -1,9 +1,10 @@
 package de.icevizion.lobby.listener;
 
+import com.google.common.collect.ImmutableSet;
 import de.icevizion.lobby.Lobby;
 import net.titan.lib.network.spigot.ClusterSpigot;
 import net.titan.spigot.Cloud;
-import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,10 +16,16 @@ import java.util.Optional;
 
 public class PlayerInteractListener implements Listener {
 
+    private final ImmutableSet<Material> allowMaterial;
     private final Lobby plugin;
 
     public PlayerInteractListener(Lobby plugin) {
         this.plugin = plugin;
+        this.allowMaterial = ImmutableSet.of(Material.BIRCH_BUTTON, Material.ACACIA_BUTTON,
+                Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.OAK_BUTTON,
+                Material.SPRUCE_BUTTON, Material.STONE_BUTTON, Material.LEVER, Material.ACACIA_DOOR,
+                Material.ACACIA_DOOR, Material.BIRCH_DOOR, Material.IRON_DOOR, Material.SPRUCE_DOOR,
+                Material.SPRUCE_DOOR);
     }
 
     @EventHandler
@@ -28,6 +35,13 @@ public class PlayerInteractListener implements Listener {
         if (event.getItem() == null) return;
         if (!event.getItem().hasItemMeta()) return;
         if (!event.getItem().getItemMeta().hasDisplayName()) return;
+
+        if (allowMaterial.contains(event.getClickedBlock().getType())) {
+            event.setCancelled(false);
+        } else {
+            event.setCancelled(true);
+        }
+
 
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
             String displayName = event.getItem().getItemMeta().getDisplayName();
