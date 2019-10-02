@@ -36,13 +36,6 @@ public class PlayerInteractListener implements Listener {
         if (!event.getItem().hasItemMeta()) return;
         if (!event.getItem().getItemMeta().hasDisplayName()) return;
 
-        if (allowMaterial.contains(event.getClickedBlock().getType())) {
-            event.setCancelled(false);
-        } else {
-            event.setCancelled(true);
-        }
-
-
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
             String displayName = event.getItem().getItemMeta().getDisplayName();
             switch (displayName) {
@@ -88,6 +81,13 @@ public class PlayerInteractListener implements Listener {
                 default:
                     break;
             }
+        } else {
+            if (allowMaterial.contains(event.getClickedBlock().getType())) {
+                event.setCancelled(false);
+            } else {
+                event.setCancelled(true);
+            }
+
         }
     }
 }
