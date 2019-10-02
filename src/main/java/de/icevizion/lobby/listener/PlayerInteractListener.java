@@ -57,7 +57,6 @@ public class PlayerInteractListener implements Listener {
                 case "§aSpieler Sichtbarkeit":
                     if (plugin.getCooldownUtil().hasCooldown(player)) {
                         player.sendMessage("§cBitte warte noch kurz");
-                        return;
                     } else {
                         plugin.getCooldownUtil().addCooldown(player, 4000L);
                         plugin.getVisibilityUtil().changeVisibility(plugin, player);
