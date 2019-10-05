@@ -18,6 +18,7 @@ public class SettingsUtil {
     public static final int PARTY = 101;
     public static final int FRIENDS = 102;
     public static final int JUMP = 103;
+    public static final int NICK = 104;
 
     public void changeSettingsValue(InventoryClickEvent event) {
         Inventory inventory = event.getInventory();
@@ -27,16 +28,18 @@ public class SettingsUtil {
             int category = currentRow * 9;
             int newValue = (event.getSlot() - category) - CLICK_OFFSET;
             int oldVal = -1;
-            Bukkit.broadcastMessage("NewValue: " + newValue);
             if (currentRow >= 2) {
                 oldVal = setForState(newValue, inventory, category,2, 1);
             } else {
                 oldVal = setForState(newValue, inventory, category,3, 0);
             }
 
-            Bukkit.broadcastMessage("OldValue: " + oldVal);
+            if(oldVal == -1) {
+                setState(inventory, category, 2, true);
+            } else {
+                setState(inventory, category, oldVal, true);
+            }
 
-            setState(inventory, category, oldVal, true);
             setState(inventory, category, newValue, false);
             ((Player) event.getWhoClicked()).updateInventory();
             cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
