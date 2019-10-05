@@ -83,7 +83,7 @@ public class PlayerInteractListener implements Listener {
             }
         }
 
-        if (allowMaterial.contains(event.getClickedBlock().getType())) {
+        if (event.getClickedBlock().getType() != null & allowMaterial.contains(event.getClickedBlock().getType())) {
             event.setCancelled(false);
         } else {
             event.setCancelled(true);
