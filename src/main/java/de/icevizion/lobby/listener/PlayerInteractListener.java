@@ -82,11 +82,5 @@ public class PlayerInteractListener implements Listener {
                     break;
             }
         }
-
-        if (event.getClickedBlock().getType() != null & allowMaterial.contains(event.getClickedBlock().getType())) {
-            event.setCancelled(false);
-        } else {
-            event.setCancelled(true);
-        }
     }
 }
