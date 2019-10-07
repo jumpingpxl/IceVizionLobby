@@ -3,10 +3,8 @@ package de.icevizion.lobby.utils;
 import de.icevizion.aves.item.ItemBuilder;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -20,13 +18,12 @@ public class SettingsUtil {
     public static final int JUMP = 103;
     public static final int NICK = 104;
 
-    public void changeSettingsValue(InventoryClickEvent event) {
-        Inventory inventory = event.getInventory();
-        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer((Player) event.getWhoClicked());
-        if (event.getCurrentItem().getType().equals(Material.GRAY_DYE)) {
-            int currentRow = event.getSlot() / 9;
+    public void changeSettingsValue(Player player, Inventory inventory, ItemStack itemStack, int slot) {
+        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+        if (itemStack.getType().equals(Material.GRAY_DYE)) {
+            int currentRow = slot / 9;
             int category = currentRow * 9;
-            int newValue = (event.getSlot() - category) - CLICK_OFFSET;
+            int newValue = (slot - category) - CLICK_OFFSET;
             int oldVal = -1;
             if (currentRow >= 2) {
                 oldVal = setForState(newValue, inventory, category,2, 1);
@@ -41,7 +38,7 @@ public class SettingsUtil {
             }
 
             setState(inventory, category, newValue, false);
-            ((Player) event.getWhoClicked()).updateInventory();
+            player.updateInventory();
             cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
         }
     }

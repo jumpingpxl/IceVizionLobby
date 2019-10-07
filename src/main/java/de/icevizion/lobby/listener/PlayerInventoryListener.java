@@ -42,7 +42,7 @@ public class PlayerInventoryListener implements Listener {
 
         switch (event.getView().getTitle()) {
             case "Einstellungen":
-                plugin.getSettingsUtil().changeSettingsValue(event);
+                plugin.getSettingsUtil().changeSettingsValue(player, event.getInventory(), stack, event.getSlot());
             break;
             case "Minispiele":
                 String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
