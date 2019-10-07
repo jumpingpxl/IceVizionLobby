@@ -4,6 +4,7 @@
 
 * Location Command: lobby.location
 * BuildServer Item: network.buildserver
+* Reward Premium: lobby.reward.premium
 
 # Settings-ID
 
