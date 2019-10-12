@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import de.icevizion.lobby.Lobby;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.spigot.Cloud;
-import net.titan.spigot.network.spigot.ClusterSpigot;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
