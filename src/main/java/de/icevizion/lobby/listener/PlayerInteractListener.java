@@ -2,7 +2,7 @@ package de.icevizion.lobby.listener;
 
 import com.google.common.collect.ImmutableSet;
 import de.icevizion.lobby.Lobby;
-import net.titan.lib.network.spigot.IClusterSpigot;
+import net.titan.spigot.network.spigot.ClusterSpigot;
 import net.titan.spigot.Cloud;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -72,7 +72,7 @@ public class PlayerInteractListener implements Listener {
                     }
                     break;
                 case "§aBauServer":
-                    Optional<IClusterSpigot> clusterSpigot = Cloud.getInstance().getSpigots().stream().filter(server -> server.getServerType().equals("BuildServer")).findAny();
+                    Optional<ClusterSpigot> clusterSpigot = Cloud.getInstance().getSpigots().stream().filter(server -> server.getServerType().equals("BuildServer")).findAny();
                     if (clusterSpigot.isPresent()) {
                         Cloud.getInstance().getPlayer(player).sendToServer(clusterSpigot.get());
                     } else {
