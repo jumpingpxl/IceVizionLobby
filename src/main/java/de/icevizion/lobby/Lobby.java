@@ -1,5 +1,6 @@
 package de.icevizion.lobby;
 
+import de.icevizion.aves.util.CooldownUtil;
 import de.icevizion.lobby.commands.SetCommand;
 import de.icevizion.lobby.map.MapService;
 import de.icevizion.lobby.profile.ProfileCache;
