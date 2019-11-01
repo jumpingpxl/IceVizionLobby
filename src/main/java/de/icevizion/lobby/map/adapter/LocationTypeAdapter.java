@@ -12,6 +12,7 @@ import java.lang.reflect.Type;
  * The adapter use the {@link GsonBuilder} to register a custom adapter with the {@link GsonBuilder#registerTypeAdapter(Type, Object)} method
  * with the parameters {@link Location} class and a instance of the {@link LocationTypeAdapter}
  */
+@Deprecated
 public class LocationTypeAdapter implements JsonSerializer<Location>, JsonDeserializer<Location> {
 
     @Override

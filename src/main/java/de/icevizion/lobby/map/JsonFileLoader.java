@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.lang.reflect.Type;
 import java.util.Optional;
 
+@Deprecated
 public final class JsonFileLoader {
 
     public static <T> void save(final File file, final T object, final Gson gson) {
