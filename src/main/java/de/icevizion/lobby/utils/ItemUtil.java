@@ -82,7 +82,6 @@ public class ItemUtil {
         layout.put(12, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("Nach springen").build());
         layout.put(14, new ItemBuilder(Material.CAKE).setDisplayName("In Party einladen").build());
         layout.put(16, new ItemBuilder(Material.BARRIER).setDisplayName("Freund entfernen").build());
-
         return layout;
     }
 
@@ -106,15 +105,15 @@ public class ItemUtil {
         }
     }
 
-    public Map<Integer, ItemStack> getSettingsLayout() {
+    protected Map<Integer, ItemStack> getSettingsLayout() {
         return settingsLayout;
     }
 
-    public Map<Integer, ItemStack> getFriendLayout() {
+    protected Map<Integer, ItemStack> getFriendLayout() {
         return friendLayout;
     }
 
-    public Map<Integer, ItemStack> getFriendActionLayout() {
+    protected Map<Integer, ItemStack> getFriendActionLayout() {
         return friendActionLayout;
     }
 }
