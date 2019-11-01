@@ -54,7 +54,7 @@ public class DailyRewardUtil {
         int coins = cloudPlayer.hasPermission("lobby.reward.premium") ? 150 : 100;
         cloudPlayer.addCoins(coins);
         cloudPlayer.extradataSet("daily", System.currentTimeMillis() + getRestDayTime());
-        player.sendMessage("§7Du hast §e" + coins + "  §7Coins bekommen");
+        player.sendMessage("§7Du hast §e" + coins + " §7Coins bekommen");
     }
 
     private long getRestDayTime() {
