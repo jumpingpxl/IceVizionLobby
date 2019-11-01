@@ -60,7 +60,7 @@ public class PlayerInteractListener implements Listener {
                         if (plugin.getCooldownUtil().hasCooldown(player)) {
                             player.sendMessage("§cBitte warte noch kurz");
                         } else {
-                            plugin.getCooldownUtil().addCooldown(player, 4000L);
+                            plugin.getCooldownUtil().add(player, 4000L);
                             plugin.getVisibilityUtil().changeVisibility(plugin, player);
                         }
                         break;
