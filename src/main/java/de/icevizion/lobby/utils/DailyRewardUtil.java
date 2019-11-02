@@ -70,7 +70,8 @@ public class DailyRewardUtil {
     }
 
     private int getAndUpdateRewardStreak(CloudPlayer cloudPlayer) {
-        int currentStreak = (int) cloudPlayer.extradataGet("dailyStreak");
+        int currentStreak = cloudPlayer.extradataContains("dailyStreak")
+                ? (int) cloudPlayer.extradataGet("dailyStreak") : 0;
         long timestamp = (long) cloudPlayer.extradataGet("daily");
 
         //The player can't even collect his reward currently
