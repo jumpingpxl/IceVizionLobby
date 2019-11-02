@@ -16,6 +16,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 public class DailyRewardUtil {
+    private static final long dayMillis = 1000*60*60*24;
 
     private final ArmorStand armorStand;
     private final ItemStack head;
@@ -52,9 +53,12 @@ public class DailyRewardUtil {
     private void giveReward(Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         int coins = cloudPlayer.hasPermission("lobby.reward.premium") ? 150 : 100;
+        int streak = getAndUpdateRewardStreak(cloudPlayer);
+        //Add daily reward Streak
+        coins += 50 * streak;
         cloudPlayer.addCoins(coins);
         cloudPlayer.extradataSet("daily", System.currentTimeMillis() + getRestDayTime());
-        player.sendMessage("§7Du hast §e" + coins + " §7Coins bekommen");
+        player.sendMessage("§7Du hast §e" + coins + " §7Coins bekommen!" + (streak > 0 ? "Du hast einen Streak von "+(streak+1) : ""));
     }
 
     private long getRestDayTime() {
@@ -63,5 +67,27 @@ public class DailyRewardUtil {
         LocalDate tomorrow = now.toLocalDate().plusDays(1);
         ZonedDateTime tomorrowStart = tomorrow.atStartOfDay(zoneId);
         return Duration.between(now, tomorrowStart).toMillis();
+    }
+
+    private int getAndUpdateRewardStreak(CloudPlayer cloudPlayer) {
+        int currentStreak = (int) cloudPlayer.extradataGet("dailyStreak");
+        long timestamp = (long) cloudPlayer.extradataGet("daily");
+
+        //The player can't even collect his reward currently
+        // so just return the current streak
+        if (timestamp > System.currentTimeMillis())
+            return currentStreak;
+
+        //Check if last reward collection was over a day ago.
+        //If he had never collected the reward before, timestamp is 0,
+        //so it is definitely bigger than dayMillis
+        if (System.currentTimeMillis() - timestamp > dayMillis) {
+            cloudPlayer.offlineExtradataRemove("dailyStreak");
+            return 0;
+        }
+
+        currentStreak++;
+        cloudPlayer.extradataSet("dailyStreak", currentStreak);
+        return currentStreak;
     }
 }
