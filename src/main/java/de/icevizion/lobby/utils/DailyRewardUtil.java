@@ -16,6 +16,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 public class DailyRewardUtil {
+
     private static final long dayMillis = 1000*60*60*24;
 
     private final ArmorStand armorStand;
