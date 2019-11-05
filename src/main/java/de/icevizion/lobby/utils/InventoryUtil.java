@@ -34,6 +34,9 @@ public class InventoryUtil {
         teleporter.setItem(11, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
         teleporter.setItem(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
         teleporter.setItem(22, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("GuessIt").build());
+
+        ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
+
     }
 
     public Inventory loadActionInventory(String name, ItemStack skull) {
