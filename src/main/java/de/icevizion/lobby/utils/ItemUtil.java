@@ -15,6 +15,7 @@ import java.util.Map;
 public class ItemUtil {
 
     private final ItemStack teleporter, panel, hider, builder;
+    private final Map<Integer, ItemStack> teleporterLayout;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
     private final Map<Integer, ItemStack> friendActionLayout;
@@ -24,9 +25,14 @@ public class ItemUtil {
         this.panel = new ItemBuilder(Material.NOTE_BLOCK).setDisplayName("§eEinstellungen").build();
         this.hider = new ItemBuilder(Material.BLAZE_ROD).setDisplayName("§aSpieler Sichtbarkeit").build();
         this.builder = new ItemBuilder(Material.IRON_PICKAXE).setDisplayName("§aBauServer").build();
+        this.teleporterLayout = loadTeleporterLayout();
         this.settingsLayout = loadLayout();
         this.friendLayout = loadFriendLayout();
         this.friendActionLayout = loadFriendActionLayout();
+    }
+
+    private HashMap<Integer, ItemStack> loadTeleporterLayout() {
+        return null;
     }
 
     private HashMap<Integer, ItemStack> loadLayout() {
