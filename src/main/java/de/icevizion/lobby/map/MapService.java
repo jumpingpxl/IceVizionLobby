@@ -2,7 +2,8 @@ package de.icevizion.lobby.map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.icevizion.lobby.map.adapter.LocationTypeAdapter;
+import de.icevizion.aves.adapter.LocationTypeAdapter;
+import de.icevizion.aves.file.JsonFileLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 

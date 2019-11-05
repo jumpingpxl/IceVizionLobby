@@ -1,7 +1,7 @@
 package de.icevizion.lobby.map;
 
 import com.google.gson.annotations.JsonAdapter;
-import de.icevizion.lobby.map.adapter.LocationTypeAdapter;
+import de.icevizion.aves.adapter.LocationTypeAdapter;
 import org.bukkit.Location;
 
 public class LobbyMap {
