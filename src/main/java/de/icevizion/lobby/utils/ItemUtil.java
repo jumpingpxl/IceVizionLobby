@@ -32,7 +32,12 @@ public class ItemUtil {
     }
 
     private HashMap<Integer, ItemStack> loadTeleporterLayout() {
-        return null;
+        HashMap<Integer, ItemStack> layout = new HashMap<>();
+        layout.put(4, new ItemBuilder(Material.NETHER_STAR).setDisplayName("§aSpawn").build());
+        layout.put(11, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
+        layout.put(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
+        layout.put(22, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("GuessIt").build());
+        return layout;
     }
 
     private HashMap<Integer, ItemStack> loadLayout() {
