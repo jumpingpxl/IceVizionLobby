@@ -31,7 +31,7 @@ public class SettingsUtil {
                 oldVal = setForState(newValue, inventory, category,3, 0);
             }
 
-            if(oldVal == -1) {
+            if (oldVal == -1) {
                 setState(inventory, category, 2, true);
             } else {
                 setState(inventory, category, oldVal, true);
@@ -61,7 +61,7 @@ public class SettingsUtil {
         }
     }
 
-    private int  setForState(int newValue, Inventory inventory, int category, int forInt, int offset) {
+    private int setForState(int newValue, Inventory inventory, int category, int forInt, int offset) {
         for (int i = offset; i < forInt; i++) { // Such ALG
             if (i == newValue) continue;
             if (!inventory.getItem(category + ( CLICK_OFFSET + i)).getType().equals(Material.GRAY_DYE)) {
