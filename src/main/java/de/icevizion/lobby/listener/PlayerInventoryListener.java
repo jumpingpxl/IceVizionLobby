@@ -2,8 +2,10 @@ package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.profile.LobbyProfile;
+import net.titan.cloudcore.player.ICloudPlayer;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -45,8 +47,13 @@ public class PlayerInventoryListener implements Listener {
                 plugin.getSettingsUtil().changeSettingsValue(player, event.getInventory(), stack, event.getSlot());
             break;
             case "Minispiele":
-                String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
-                player.teleport(plugin.getMapService().getLocation(locationName));
+                if (stack.getType().equals(Material.GLOWSTONE_DUST)) {
+                    String server = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
+                    Bukkit.broadcastMessage(server);
+                } else {
+                    String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
+                    player.teleport(plugin.getMapService().getLocation(locationName));
+                }
                 break;
             case "Freunde":
                 if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
