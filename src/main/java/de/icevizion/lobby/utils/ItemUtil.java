@@ -37,6 +37,17 @@ public class ItemUtil {
         layout.put(11, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
         layout.put(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
         layout.put(22, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("GuessIt").build());
+
+        ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
+
+        for (int i = 27; i < 35; i++) {
+            layout.put(i, pane);
+        }
+
+        layout.put(40, new ItemBuilder(Material.SUGAR).setDisplayName("§6Premium-Lobby").build());
+        layout.put(48, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-1").build());
+        layout.put(49, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-2").build());
+        layout.put(50, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-3").build());
         return layout;
     }
 
@@ -115,6 +126,8 @@ public class ItemUtil {
             player.getInventory().setItem(7, skull);
         }
     }
+
+    protected Map<Integer, ItemStack> getTeleporterLayout() { return teleporterLayout; }
 
     protected Map<Integer, ItemStack> getSettingsLayout() {
         return settingsLayout;
