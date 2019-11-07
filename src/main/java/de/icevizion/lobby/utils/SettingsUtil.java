@@ -81,6 +81,8 @@ public class SettingsUtil {
                 return FRIENDS;
             case 3:
                 return JUMP;
+            case 4:
+                return NICK;
             default:
                 return -1;
         }
