@@ -22,23 +22,10 @@ public class InventoryUtil {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
     private final ItemUtil itemUtil;
     private final SettingsUtil settingsUtil;
-    private Inventory teleporter;
 
     public InventoryUtil(ItemUtil itemUtil, SettingsUtil settingsUtil) {
         this.itemUtil = itemUtil;
         this.settingsUtil = settingsUtil;
-        this.loadTeleporter();
-    }
-
-    private void loadTeleporter() {
-        teleporter = Bukkit.createInventory(null, 54, "Minispiele");
-        teleporter.setItem(4, new ItemBuilder(Material.NETHER_STAR).setDisplayName("§aSpawn").build());
-        teleporter.setItem(11, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
-        teleporter.setItem(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
-        teleporter.setItem(22, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("GuessIt").build());
-
-        ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
-
     }
 
     public Inventory loadTeleporterInventory(Player player) {
@@ -48,6 +35,11 @@ public class InventoryUtil {
         }
 
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+
+        if (!cloudPlayer.hasPermission("network.buildserver")) {
+            inventory.remove(inventory.getItem(26));
+        }
+
         int slot = 0;
         switch (cloudPlayer.getSpigot().getDisplayName()) {
             case "Lobby-1":
@@ -124,9 +116,5 @@ public class InventoryUtil {
             }
         }
         return inventory;
-    }
-
-    public Inventory getTeleporter() {
-        return teleporter;
     }
 }
