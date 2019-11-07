@@ -48,7 +48,7 @@ public class ItemUtil {
         layout.put(40, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-2").build());
         layout.put(41, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-3").build());
 
-        for (int i = 45; i < 53; i++) {
+        for (int i = 45; i < 54; i++) {
             layout.put(i, pane);
         }
 

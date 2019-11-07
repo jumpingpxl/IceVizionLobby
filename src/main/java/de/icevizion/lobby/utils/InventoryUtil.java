@@ -51,13 +51,13 @@ public class InventoryUtil {
         int slot = 0;
         switch (cloudPlayer.getSpigot().getDisplayName()) {
             case "Lobby-1":
-                slot = 48;
+                slot = 39;
                 break;
             case "Lobby-2":
-                slot = 49;
+                slot = 40;
                 break;
             case "Lobby-3":
-                slot = 50;
+                slot = 41;
                 break;
             default:
                 break;
