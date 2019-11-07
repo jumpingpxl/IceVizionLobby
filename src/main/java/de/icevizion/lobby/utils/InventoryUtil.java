@@ -65,7 +65,7 @@ public class InventoryUtil {
 
         inventory.setItem(slot,
                 new ItemBuilder(inventory.getItem(slot))
-                        .addEnchantment(Enchantment.ARROW_DAMAGE, 1)
+                        .addUnsafeEnchantment(Enchantment.DURABILITY, 1)
                         .addItemFlag(ItemFlag.HIDE_ATTRIBUTES)
                         .build());
 
