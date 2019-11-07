@@ -2,12 +2,9 @@ package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.profile.LobbyProfile;
-import net.titan.cloudcore.player.ICloudPlayer;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.spigot.Cloud;
-import net.titan.spigot.network.spigot.ClusterSpigot;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
