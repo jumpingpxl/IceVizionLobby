@@ -40,14 +40,18 @@ public class ItemUtil {
 
         ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
 
-        for (int i = 27; i < 35; i++) {
+        for (int i = 27; i < 36; i++) {
             layout.put(i, pane);
         }
 
-        layout.put(40, new ItemBuilder(Material.SUGAR).setDisplayName("§6Premium-Lobby").build());
-        layout.put(48, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-1").build());
-        layout.put(49, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-2").build());
-        layout.put(50, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-3").build());
+        layout.put(39, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-1").build());
+        layout.put(40, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-2").build());
+        layout.put(41, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-3").build());
+
+        for (int i = 45; i < 53; i++) {
+            layout.put(i, pane);
+        }
+
         return layout;
     }
 

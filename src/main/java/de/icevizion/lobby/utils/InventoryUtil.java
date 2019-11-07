@@ -66,7 +66,7 @@ public class InventoryUtil {
         inventory.setItem(slot,
                 new ItemBuilder(inventory.getItem(slot))
                         .addUnsafeEnchantment(Enchantment.DURABILITY, 1)
-                        .addItemFlag(ItemFlag.HIDE_ATTRIBUTES)
+                        .addItemFlag(ItemFlag.HIDE_ENCHANTS)
                         .build());
 
         player.openInventory(inventory);
