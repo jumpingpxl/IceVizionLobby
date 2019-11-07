@@ -8,8 +8,10 @@ import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.text.SimpleDateFormat;
@@ -37,6 +39,39 @@ public class InventoryUtil {
 
         ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
 
+    }
+
+    public Inventory loadTeleporterInventory(Player player) {
+        Inventory inventory = Bukkit.createInventory(null, 54, "Minispiele");
+        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getTeleporterLayout().entrySet()) {
+            inventory.setItem(entry.getKey(), entry.getValue());
+        }
+
+        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+        int slot = 0;
+        switch (cloudPlayer.getSpigot().getDisplayName()) {
+            case "Lobby-1":
+                slot = 48;
+                break;
+            case "Lobby-2":
+                slot = 49;
+                break;
+            case "Lobby-3":
+                slot = 50;
+                break;
+            default:
+                break;
+        }
+
+        inventory.setItem(slot,
+                new ItemBuilder(inventory.getItem(slot))
+                        .addEnchantment(Enchantment.ARROW_DAMAGE, 1)
+                        .addItemFlag(ItemFlag.HIDE_ATTRIBUTES)
+                        .build());
+
+        player.openInventory(inventory);
+
+        return inventory;
     }
 
     public Inventory loadActionInventory(String name, ItemStack skull) {
