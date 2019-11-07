@@ -43,6 +43,7 @@ public class PlayerInteractListener implements Listener {
                 String displayName = event.getItem().getItemMeta().getDisplayName();
                 switch (displayName) {
                     case "§bMinispiele":
+                        if (event.getItem().getType().equals(Material.BLACK_STAINED_GLASS_PANE)) return;
                         if (plugin.getProfileCache().getProfile(player).getTeleporterInventory() == null) {
                             plugin.getProfileCache().getProfile(player).setTeleporterInventory(plugin.getInventoryUtil().loadTeleporterInventory(player));
                         } else {
