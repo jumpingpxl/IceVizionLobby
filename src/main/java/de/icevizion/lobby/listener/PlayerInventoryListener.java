@@ -46,22 +46,24 @@ public class PlayerInventoryListener implements Listener {
                 plugin.getSettingsUtil().changeSettingsValue(player, event.getInventory(), stack, event.getSlot());
             break;
             case "Minispiele":
-                if (stack.getType().equals(Material.GLOWSTONE_DUST) || stack.getType().equals(Material.IRON_PICKAXE)) {
-                    String server = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
-                    CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
-                    IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(server);
-                    if (spigot == null) {
-                        player.sendMessage("§cDieser Server ist nicht online");
-                    }
-                    if (cloudPlayer.getSpigot().getDisplayName().equals(spigot.getDisplayName())) {
-                        player.sendMessage("§cDu befindest dich schon auf dem Server");
-                        player.closeInventory();
+                if (!stack.getType().equals(Material.BLACK_STAINED_GLASS_PANE)) {
+                    if (stack.getType().equals(Material.GLOWSTONE_DUST) || stack.getType().equals(Material.IRON_PICKAXE)) {
+                        String server = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
+                        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+                        IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(server);
+                        if (spigot == null) {
+                            player.sendMessage("§cDieser Server ist nicht online");
+                        }
+                        if (cloudPlayer.getSpigot().getDisplayName().equals(spigot.getDisplayName())) {
+                            player.sendMessage("§cDu befindest dich schon auf dem Server");
+                            player.closeInventory();
+                        } else {
+                            cloudPlayer.sendToServer(spigot);
+                        }
                     } else {
-                        cloudPlayer.sendToServer(spigot);
+                        String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
+                        player.teleport(plugin.getMapService().getLocation(locationName));
                     }
-                } else {
-                    String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
-                    player.teleport(plugin.getMapService().getLocation(locationName));
                 }
                 break;
             case "Freunde":
