@@ -61,8 +61,6 @@ public class PlayerInventoryListener implements Listener {
                             player.sendMessage("§cDieser Server ist nicht online");
                         }
 
-                        Bukkit.broadcastMessage(spigot.getDisplayName());
-
                         if (cloudPlayer.getSpigot().getDisplayName().equals(spigot.getDisplayName())) {
                             player.sendMessage("§cDu befindest dich schon auf dem Server");
                             player.closeInventory();
