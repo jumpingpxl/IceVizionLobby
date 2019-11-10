@@ -118,10 +118,10 @@ public class ItemUtil {
                 .setDisplayName("§aFreunde").build();
         player.getInventory().clear();
 
-        player.getInventory().setItem(1, teleporter);
-        player.getInventory().setItem(3, hider);
-        player.getInventory().setItem(5, panel);
-        player.getInventory().setItem(7, skull);
+        player.getInventory().setItem(0, teleporter);
+        player.getInventory().setItem(2, hider);
+        player.getInventory().setItem(6, panel);
+        player.getInventory().setItem(8, skull);
 
         if (cloudPlayer.hasPermission("player.nick.auto")) {
             player.getInventory().setItem(4, nick);
