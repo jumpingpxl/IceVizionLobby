@@ -49,6 +49,11 @@ public class PlayerInventoryListener implements Listener {
                 if (!stack.getType().equals(Material.BLACK_STAINED_GLASS_PANE)) {
                     if (stack.getType().equals(Material.GLOWSTONE_DUST) || stack.getType().equals(Material.IRON_PICKAXE)) {
                         String server = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
+
+                        if (server.equals("BuidServer")) {
+                            server = "Build1";
+                        }
+
                         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
                         IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(server);
                         if (spigot == null) {
