@@ -52,7 +52,7 @@ public class PlayerInventoryListener implements Listener {
                         String server = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
 
                         if (server.equals("BuildServer")) {
-                            server = "Build1";
+                            server = "build1";
                         }
 
                         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
