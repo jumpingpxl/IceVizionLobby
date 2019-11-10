@@ -5,6 +5,7 @@ import de.icevizion.lobby.profile.LobbyProfile;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -59,6 +60,9 @@ public class PlayerInventoryListener implements Listener {
                         if (spigot == null) {
                             player.sendMessage("§cDieser Server ist nicht online");
                         }
+
+                        Bukkit.broadcastMessage(spigot.getDisplayName());
+
                         if (cloudPlayer.getSpigot().getDisplayName().equals(spigot.getDisplayName())) {
                             player.sendMessage("§cDu befindest dich schon auf dem Server");
                             player.closeInventory();
