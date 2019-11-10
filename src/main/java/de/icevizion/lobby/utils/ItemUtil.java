@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ItemUtil {
 
-    private final ItemStack teleporter, panel, hider, builder, nick;
+    private final ItemStack teleporter, panel, hider, nick;
     private final Map<Integer, ItemStack> teleporterLayout;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
@@ -24,7 +24,6 @@ public class ItemUtil {
         this.teleporter = new ItemBuilder(Material.NETHER_STAR).setDisplayName("§bMinispiele").build();
         this.panel = new ItemBuilder(Material.NOTE_BLOCK).setDisplayName("§eEinstellungen").build();
         this.hider = new ItemBuilder(Material.BLAZE_ROD).setDisplayName("§aSpieler Sichtbarkeit").build();
-        this.builder = new ItemBuilder(Material.IRON_PICKAXE).setDisplayName("§aBauServer").build();
         this.nick = new ItemBuilder(Material.NAME_TAG).setDisplayName("§5Nick").build();
         this.teleporterLayout = loadTeleporterLayout();
         this.settingsLayout = loadLayout();
@@ -119,23 +118,13 @@ public class ItemUtil {
                 .setDisplayName("§aFreunde").build();
         player.getInventory().clear();
 
-
-
-        if (cloudPlayer.hasPermission("network.buildserver")) {
-            player.getInventory().setItem(0, teleporter);
-            player.getInventory().setItem(2, hider);
-            player.getInventory().setItem(4, builder);
-            player.getInventory().setItem(6, panel);
-            player.getInventory().setItem(8, skull);
-        } else {
-            player.getInventory().setItem(1, teleporter);
-            player.getInventory().setItem(3, hider);
-            player.getInventory().setItem(5, panel);
-            player.getInventory().setItem(7, skull);
-        }
+        player.getInventory().setItem(1, teleporter);
+        player.getInventory().setItem(3, hider);
+        player.getInventory().setItem(5, panel);
+        player.getInventory().setItem(7, skull);
 
         if (cloudPlayer.hasPermission("player.nick.auto")) {
-            player.getInventory().setItem(3, nick);
+            player.getInventory().setItem(4, nick);
         }
     }
 
