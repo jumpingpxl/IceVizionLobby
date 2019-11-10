@@ -50,7 +50,7 @@ public class PlayerInventoryListener implements Listener {
                     if (stack.getType().equals(Material.GLOWSTONE_DUST) || stack.getType().equals(Material.IRON_PICKAXE)) {
                         String server = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
 
-                        if (server.equals("BuidServer")) {
+                        if (server.equals("BuildServer")) {
                             server = "Build1";
                         }
 
