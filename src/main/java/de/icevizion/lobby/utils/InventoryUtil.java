@@ -52,14 +52,17 @@ public class InventoryUtil {
                 slot = 41;
                 break;
             default:
+                slot = -1;
                 break;
         }
 
-        inventory.setItem(slot,
-                new ItemBuilder(inventory.getItem(slot))
-                        .addUnsafeEnchantment(Enchantment.DURABILITY, 1)
-                        .addItemFlag(ItemFlag.HIDE_ENCHANTS)
-                        .build());
+        if (slot >= 0) {
+            inventory.setItem(slot,
+                    new ItemBuilder(inventory.getItem(slot))
+                            .addUnsafeEnchantment(Enchantment.DURABILITY, 1)
+                            .addItemFlag(ItemFlag.HIDE_ENCHANTS)
+                            .build());
+        }
 
         player.openInventory(inventory);
 
