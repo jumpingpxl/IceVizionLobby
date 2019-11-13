@@ -17,7 +17,7 @@ import java.time.ZonedDateTime;
 
 public final class DailyRewardUtil {
 
-    private static final long dayMillis = 1000*60*60*24;
+    private static final long DAY_MILLIS = 1000*60*60*24;
     private final ArmorStand armorStand;
     private final ItemStack head;
 
@@ -85,7 +85,7 @@ public final class DailyRewardUtil {
         //Check if last reward collection was over a day ago.
         //If he had never collected the reward before, timestamp is 0,
         //so it is definitely bigger than dayMillis
-        if (System.currentTimeMillis() - timestamp > dayMillis) {
+        if (System.currentTimeMillis() - timestamp > DAY_MILLIS) {
             cloudPlayer.offlineExtradataRemove("dailyStreak");
             return 0;
         }
