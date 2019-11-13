@@ -15,10 +15,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-public class DailyRewardUtil {
+public final class DailyRewardUtil {
 
     private static final long dayMillis = 1000*60*60*24;
-
     private final ArmorStand armorStand;
     private final ItemStack head;
 
@@ -59,7 +58,9 @@ public class DailyRewardUtil {
         coins += 50 * streak;
         cloudPlayer.addCoins(coins);
         cloudPlayer.extradataSet("daily", System.currentTimeMillis() + getRestDayTime());
-        player.sendMessage("§7Du hast §e" + coins + " §7Coins bekommen!" + (streak > 0 ? "Du hast einen Streak von "+(streak+1) : ""));
+        player.sendMessage("§7Du hast §e" + coins + " §7Coins bekommen!" + (streak > 0
+                ? " " + "Du hast einen Streak von " + (streak + 1)
+                : ""));
     }
 
     private long getRestDayTime() {
