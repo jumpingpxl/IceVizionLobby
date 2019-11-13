@@ -77,13 +77,6 @@ public class PlayerInteractListener implements Listener {
                             player.openInventory(plugin.getProfileCache().getProfile(player).getFriendInventory());
                         }
                         break;
-                    case "§aBauServer":
-                        Optional<ClusterSpigot> clusterSpigot = Cloud.getInstance().getSpigots().stream().filter(server -> server.getServerType().equals("BuildServer")).findAny();
-                        if (clusterSpigot.isPresent()) {
-                            Cloud.getInstance().getPlayer(player).sendToServer(clusterSpigot.get());
-                        } else {
-                            player.sendMessage("§cDer Server ist nicht online");
-                        }
                     default:
                         break;
                 }
