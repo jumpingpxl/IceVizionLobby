@@ -20,6 +20,7 @@ public class Lobby extends JavaPlugin {
     private SettingsUtil settingsUtil;
     private DailyRewardUtil dailyRewardUtil;
     private ProfileCache profileCache;
+    private DoubleJumpService doubleJumpService;
 
     @Override
     public void onEnable() {
@@ -43,6 +44,7 @@ public class Lobby extends JavaPlugin {
         this.profileCache = new ProfileCache();
         this.visibilityUtil = new VisibilityUtil(profileCache);
         this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
+        this.doubleJumpService = new DoubleJumpService();
     }
 
     private void registerListener() {
@@ -58,6 +60,7 @@ public class Lobby extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(profileCache), this);
         getServer().getPluginManager().registerEvents(new PlayerSpawnListener(mapService), this);
         getServer().getPluginManager().registerEvents(new WeatherListener(), this);
+        getServer().getPluginManager().registerEvents(doubleJumpService, this);
     }
 
     private void registerCommands() {
