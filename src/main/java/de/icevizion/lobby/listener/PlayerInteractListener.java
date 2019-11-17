@@ -33,7 +33,7 @@ public class PlayerInteractListener implements Listener {
         if (!event.getItem().getItemMeta().hasDisplayName()) return;
 
         if (allowMaterial.contains(event.getItem().getType())) {
-            event.setCancelled(false);
+            event.setCancelled(true);
         } else {
             if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
                 String displayName = event.getItem().getItemMeta().getDisplayName();
