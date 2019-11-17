@@ -30,7 +30,7 @@ public class PlayerInteractListener implements Listener {
         if (!event.getItem().hasItemMeta()) return;
         if (!event.getItem().getItemMeta().hasDisplayName()) return;
 
-        Bukkit.broadcastMessage(event.getClickedBlock().getType() == null ? "null" : event.getClickedBlock().getType().name());
+        Bukkit.broadcastMessage(event.getMaterial() == null ? "null" : event.getMaterial().name());
 
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
             String displayName = event.getItem().getItemMeta().getDisplayName();
