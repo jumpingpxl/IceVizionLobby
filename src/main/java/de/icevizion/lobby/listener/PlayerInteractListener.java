@@ -21,11 +21,7 @@ public class PlayerInteractListener implements Listener {
 
     public PlayerInteractListener(Lobby plugin) {
         this.plugin = plugin;
-        this.allowMaterial = ImmutableSet.of(Material.BIRCH_BUTTON, Material.ACACIA_BUTTON,
-                Material.DARK_OAK_BUTTON, Material.JUNGLE_BUTTON, Material.OAK_BUTTON,
-                Material.SPRUCE_BUTTON, Material.STONE_BUTTON, Material.LEVER, Material.ACACIA_DOOR,
-                Material.ACACIA_DOOR, Material.BIRCH_DOOR, Material.IRON_DOOR, Material.SPRUCE_DOOR,
-                Material.SPRUCE_DOOR);
+        this.allowMaterial = ImmutableSet.of(Material.OAK_FENCE, Material.OAK_FENCE_GATE, Material.OAK_TRAPDOOR);
     }
 
     @EventHandler
