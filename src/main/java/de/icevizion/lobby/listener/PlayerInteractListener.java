@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import de.icevizion.lobby.Lobby;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -31,6 +32,7 @@ public class PlayerInteractListener implements Listener {
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
             if (allowMaterial.contains(event.getClickedBlock().getType())) {
                 event.setCancelled(true);
+                event.setUseInteractedBlock(Event.Result.DENY);
             } else {
                 String displayName = event.getItem().getItemMeta().getDisplayName();
                 switch (displayName) {
