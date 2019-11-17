@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.network.spigot.ClusterSpigot;
 import net.titan.spigot.Cloud;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,52 +33,52 @@ public class PlayerInteractListener implements Listener {
         if (!event.getItem().hasItemMeta()) return;
         if (!event.getItem().getItemMeta().hasDisplayName()) return;
 
-        if (allowMaterial.contains(event.getItem().getType())) {
-            event.setCancelled(true);
-        } else {
-            if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
-                String displayName = event.getItem().getItemMeta().getDisplayName();
-                switch (displayName) {
-                    case "§bMinispiele":
-                        if (plugin.getProfileCache().getProfile(player).getTeleporterInventory() == null) {
-                            plugin.getProfileCache().getProfile(player).setTeleporterInventory(plugin.getInventoryUtil().loadTeleporterInventory(player));
-                        } else {
-                            player.openInventory(plugin.getProfileCache().getProfile(player).getTeleporterInventory());
-                        }
-                        event.setCancelled(true);
-                        player.updateInventory();
-                        break;
-                    case "§eEinstellungen":
-                        if (plugin.getProfileCache().getProfile(player).getSettingsInventory() == null) {
-                            Inventory inventory = plugin.getInventoryUtil().createPanelInventory(player);
-                            plugin.getProfileCache().getProfile(player).setSettingsInventory(inventory);
-                            player.openInventory(inventory);
-                        } else {
-                            player.openInventory(plugin.getProfileCache().getProfile(player).getSettingsInventory());
-                        }
-                        break;
-                    case "§aSpieler Sichtbarkeit":
-                        if (plugin.getCooldownUtil().hasCooldown(player)) {
-                            player.sendMessage("§cBitte warte noch kurz");
-                        } else {
-                            plugin.getCooldownUtil().add(player, 4000L);
-                            plugin.getVisibilityUtil().changeVisibility(plugin, player);
-                        }
-                        break;
-                    case "§aFreunde":
-                        if (plugin.getProfileCache().getProfile(player).getFriendInventory() == null) {
-                            Inventory inventory = plugin.getInventoryUtil().createFriendInvenotory(player);
-                            plugin.getProfileCache().getProfile(player).setFriendInventory(inventory);
-                            player.openInventory(inventory);
-                        } else {
-                            player.openInventory(plugin.getProfileCache().getProfile(player).getFriendInventory());
-                        }
-                        break;
-                    default:
-                        break;
-                }
+        if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
+            if (allowMaterial.contains(event.getItem().getType())) {
+                Bukkit.broadcastMessage("worked");
+                event.setCancelled(true);
             }
-            event.setCancelled(true);
+            Bukkit.broadcastMessage("NOPE");
+            String displayName = event.getItem().getItemMeta().getDisplayName();
+            switch (displayName) {
+                case "§bMinispiele":
+                    if (plugin.getProfileCache().getProfile(player).getTeleporterInventory() == null) {
+                        plugin.getProfileCache().getProfile(player).setTeleporterInventory(plugin.getInventoryUtil().loadTeleporterInventory(player));
+                    } else {
+                        player.openInventory(plugin.getProfileCache().getProfile(player).getTeleporterInventory());
+                    }
+                    event.setCancelled(true);
+                    player.updateInventory();
+                    break;
+                case "§eEinstellungen":
+                    if (plugin.getProfileCache().getProfile(player).getSettingsInventory() == null) {
+                        Inventory inventory = plugin.getInventoryUtil().createPanelInventory(player);
+                        plugin.getProfileCache().getProfile(player).setSettingsInventory(inventory);
+                        player.openInventory(inventory);
+                    } else {
+                        player.openInventory(plugin.getProfileCache().getProfile(player).getSettingsInventory());
+                    }
+                    break;
+                case "§aSpieler Sichtbarkeit":
+                    if (plugin.getCooldownUtil().hasCooldown(player)) {
+                        player.sendMessage("§cBitte warte noch kurz");
+                    } else {
+                        plugin.getCooldownUtil().add(player, 4000L);
+                        plugin.getVisibilityUtil().changeVisibility(plugin, player);
+                    }
+                    break;
+                case "§aFreunde":
+                    if (plugin.getProfileCache().getProfile(player).getFriendInventory() == null) {
+                        Inventory inventory = plugin.getInventoryUtil().createFriendInvenotory(player);
+                        plugin.getProfileCache().getProfile(player).setFriendInventory(inventory);
+                        player.openInventory(inventory);
+                    } else {
+                        player.openInventory(plugin.getProfileCache().getProfile(player).getFriendInventory());
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
