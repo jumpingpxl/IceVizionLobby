@@ -31,9 +31,8 @@ public class PlayerInteractListener implements Listener {
         if (!event.getItem().getItemMeta().hasDisplayName()) return;
 
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
-            Bukkit.broadcastMessage(event.getClickedBlock().getType().name());
+            Bukkit.broadcastMessage(event.getClickedBlock() != null ? event.getClickedBlock().getType().name() : "NULL");
             if (allowMaterial.contains(event.getClickedBlock().getType())) {
-
                 event.setCancelled(true);
                 event.setUseInteractedBlock(Event.Result.DENY);
             } else {
