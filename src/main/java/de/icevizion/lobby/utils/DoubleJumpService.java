@@ -93,6 +93,7 @@ public class DoubleJumpService implements Listener {
         if (event.getPlayer().getAllowFlight())
             return;
 
+        event.getPlayer().sendMessage("Y Vector: "+event.getVelocity().getY());
 
         if (event.getVelocity().getY() < 0.001 && isOnGround(event.getPlayer().getLocation())) {
             if ((event.getPlayer().getGameMode() == GameMode.ADVENTURE ||
