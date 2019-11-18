@@ -78,31 +78,14 @@ public class DoubleJumpService implements Listener {
         }
     }
 
-//    @EventHandler
-//    public void onPlayerMove(PlayerMoveEvent event) {
-//        if ((event.getPlayer().getGameMode() == GameMode.ADVENTURE ||
-//                event.getPlayer().getGameMode() == GameMode.SURVIVAL) &&
-//                allowedPlayers.contains(event.getPlayer().getUniqueId())) {
-//            if (isOnGround(event.getPlayer().getLocation()))
-//                event.getPlayer().setAllowFlight(true);
-//        }
-//    }
-
     @EventHandler
-    public void onVelocityChange(PlayerVelocityEvent event) {
-        if (event.getPlayer().getAllowFlight())
-            return;
-
-        event.getPlayer().sendMessage("Y Vector: "+event.getVelocity().getY());
-
-        if (event.getVelocity().getY() < 0.001 && isOnGround(event.getPlayer().getLocation())) {
-            if ((event.getPlayer().getGameMode() == GameMode.ADVENTURE ||
-                    event.getPlayer().getGameMode() == GameMode.SURVIVAL) &&
-                    allowedPlayers.contains(event.getPlayer().getUniqueId())) {
-                    event.getPlayer().setAllowFlight(true);
-            }
+    public void onPlayerMove(PlayerMoveEvent event) {
+        if ((event.getPlayer().getGameMode() == GameMode.ADVENTURE ||
+                event.getPlayer().getGameMode() == GameMode.SURVIVAL) &&
+                allowedPlayers.contains(event.getPlayer().getUniqueId())) {
+            if (isOnGround(event.getPlayer().getLocation()))
+                event.getPlayer().setAllowFlight(true);
         }
-
     }
 
     private boolean isOnGround(Location loc){
