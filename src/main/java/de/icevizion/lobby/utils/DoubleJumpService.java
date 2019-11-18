@@ -11,10 +11,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.util.Vector;
 
 import java.util.HashSet;
@@ -81,14 +78,30 @@ public class DoubleJumpService implements Listener {
         }
     }
 
+//    @EventHandler
+//    public void onPlayerMove(PlayerMoveEvent event) {
+//        if ((event.getPlayer().getGameMode() == GameMode.ADVENTURE ||
+//                event.getPlayer().getGameMode() == GameMode.SURVIVAL) &&
+//                allowedPlayers.contains(event.getPlayer().getUniqueId())) {
+//            if (isOnGround(event.getPlayer().getLocation()))
+//                event.getPlayer().setAllowFlight(true);
+//        }
+//    }
+
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event) {
-        if ((event.getPlayer().getGameMode() == GameMode.ADVENTURE ||
-                event.getPlayer().getGameMode() == GameMode.SURVIVAL) &&
-                allowedPlayers.contains(event.getPlayer().getUniqueId())) {
-            if (isOnGround(event.getPlayer().getLocation()))
-                event.getPlayer().setAllowFlight(true);
+    public void onVelocityChange(PlayerVelocityEvent event) {
+        if (event.getPlayer().getAllowFlight())
+            return;
+
+
+        if (event.getVelocity().getY() < 0.001 && isOnGround(event.getPlayer().getLocation())) {
+            if ((event.getPlayer().getGameMode() == GameMode.ADVENTURE ||
+                    event.getPlayer().getGameMode() == GameMode.SURVIVAL) &&
+                    allowedPlayers.contains(event.getPlayer().getUniqueId())) {
+                    event.getPlayer().setAllowFlight(true);
+            }
         }
+
     }
 
     private boolean isOnGround(Location loc){
