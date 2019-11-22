@@ -5,6 +5,7 @@
 * Location Command: lobby.location
 * BuildServer Item: network.buildserver
 * Reward Premium: lobby.reward.premium
+* Double Jump Permission: lobby.doublejump
 
 # Settings-ID
 
