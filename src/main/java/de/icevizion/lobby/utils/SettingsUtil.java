@@ -23,7 +23,7 @@ public class SettingsUtil {
         if (itemStack.getType().equals(Material.GRAY_DYE)) {
             int currentRow = slot / 9;
             int category = currentRow * 9;
-            int newValue = (slot - category) - CLICK_OFFSET;
+            int newValue = slot - category - CLICK_OFFSET;
             int oldVal = -1;
             if (currentRow >= 2) {
                 oldVal = setForState(newValue, inventory, category,2, 1);
@@ -62,7 +62,7 @@ public class SettingsUtil {
     }
 
     private int setForState(int newValue, Inventory inventory, int category, int forInt, int offset) {
-        for (int i = offset; i < forInt; i++) { // Such ALG
+        for (int i = offset; i < forInt; i++) {
             if (i == newValue) continue;
             if (!inventory.getItem(category + ( CLICK_OFFSET + i)).getType().equals(Material.GRAY_DYE)) {
                 return i;
