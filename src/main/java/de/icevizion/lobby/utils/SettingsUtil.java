@@ -12,10 +12,10 @@ public class SettingsUtil {
 
     private static final int CLICK_OFFSET = 6;
 
-    public static final int PRIVAT_MESSAGE = 100;
-    public static final int PARTY = 101;
-    public static final int FRIENDS = 102;
-    public static final int JUMP = 103;
+    protected static final int PRIVAT_MESSAGE = 100;
+    protected static final int PARTY = 101;
+    protected static final int FRIENDS = 102;
+    protected static final int JUMP = 103;
     public static final int NICK = 104;
 
     public void changeSettingsValue(Player player, Inventory inventory, ItemStack itemStack, int slot) {
