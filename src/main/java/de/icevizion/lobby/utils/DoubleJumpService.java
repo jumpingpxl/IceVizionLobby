@@ -26,9 +26,9 @@ import java.util.UUID;
 
 public class DoubleJumpService implements Listener {
 
-    private Set<UUID> allowedPlayers;
+    private final Set<UUID> allowedPlayers;
 
-    private static final String DOUBLEJUMPPERMISSION = "lobby.doublejump";
+    private static final String DOUBLE_JUMP_PERMISSION = "lobby.doublejump";
 
     public DoubleJumpService() {
         allowedPlayers = new HashSet<>();
@@ -38,14 +38,14 @@ public class DoubleJumpService implements Listener {
     public void onRankReload(RankReloadEvent event) {
         allowedPlayers.clear();
         for (CloudPlayer cloudPlayer : Cloud.getInstance().getCurrentOnlinePlayers())
-            if (cloudPlayer.hasPermission(DOUBLEJUMPPERMISSION))
+            if (cloudPlayer.hasPermission(DOUBLE_JUMP_PERMISSION))
                 allowedPlayers.add(cloudPlayer.getPlayer().getUniqueId());
     }
 
     @EventHandler
     public void onRankChange(PlayerRankChangeEvent event) {
         UUID uuid = event.getCloudPlayer().getPlayer().getUniqueId();
-        boolean hasPerm = event.getCloudPlayer().hasPermission(DOUBLEJUMPPERMISSION);
+        boolean hasPerm = event.getCloudPlayer().hasPermission(DOUBLE_JUMP_PERMISSION);
         if (allowedPlayers.contains(uuid) && !hasPerm)
             allowedPlayers.remove(uuid);
         else if (!allowedPlayers.contains(uuid) && hasPerm)
@@ -54,7 +54,7 @@ public class DoubleJumpService implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        if (Cloud.getInstance().getPlayer(event.getPlayer()).hasPermission(DOUBLEJUMPPERMISSION))
+        if (Cloud.getInstance().getPlayer(event.getPlayer()).hasPermission(DOUBLE_JUMP_PERMISSION))
             allowedPlayers.add(event.getPlayer().getUniqueId());
     }
 
