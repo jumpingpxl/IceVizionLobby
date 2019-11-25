@@ -63,6 +63,7 @@ public class PlayerInteractListener implements Listener {
                     }
                     break;
                 default:
+                    event.setCancelled(true);
                     break;
             }
         }
