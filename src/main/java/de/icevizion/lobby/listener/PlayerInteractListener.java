@@ -18,6 +18,7 @@ public class PlayerInteractListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
+        event.setCancelled(true);
         Player player = event.getPlayer();
 
         if (event.getItem() == null) return;
@@ -67,7 +68,6 @@ public class PlayerInteractListener implements Listener {
                     player.sendMessage("§cDieses Feature ist noch nicht aktiv");
                     break;
                 default:
-                    event.setCancelled(true);
                     break;
             }
         }
