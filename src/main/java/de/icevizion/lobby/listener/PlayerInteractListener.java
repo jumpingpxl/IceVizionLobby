@@ -29,7 +29,8 @@ public class PlayerInteractListener implements Listener {
             switch (displayName) {
                 case "§bMinispiele":
                     if (plugin.getProfileCache().getProfile(player).getTeleporterInventory() == null) {
-                        plugin.getProfileCache().getProfile(player).setTeleporterInventory(plugin.getInventoryUtil().loadTeleporterInventory(player));
+                        plugin.getProfileCache().getProfile(player).setTeleporterInventory(
+                                plugin.getInventoryUtil().loadTeleporterInventory(player));
                     } else {
                         player.openInventory(plugin.getProfileCache().getProfile(player).getTeleporterInventory());
                     }
@@ -61,6 +62,9 @@ public class PlayerInteractListener implements Listener {
                     } else {
                         player.openInventory(plugin.getProfileCache().getProfile(player).getFriendInventory());
                     }
+                    break;
+                case "§5Nick":
+                    player.sendMessage("§cDieses Feature ist noch nicht aktiv");
                     break;
                 default:
                     event.setCancelled(true);
