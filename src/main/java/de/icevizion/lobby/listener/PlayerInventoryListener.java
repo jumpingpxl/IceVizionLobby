@@ -74,12 +74,11 @@ public class PlayerInventoryListener implements Listener {
                 }
                 break;
             case "Freunde":
-                if (event.getSlot() != 47 || event.getSlot() != 51) {
-                    if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
-                        plugin.getProfileCache().getProfile(player).setClickedFriend(stack.getItemMeta().getDisplayName());
-                        player.openInventory(plugin.getInventoryUtil().
-                                loadActionInventory(stack.getItemMeta().getDisplayName(), stack));
-                    }
+                if (event.getSlot() == 47 || event.getSlot() == 51) return;
+                if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
+                    plugin.getProfileCache().getProfile(player).setClickedFriend(stack.getItemMeta().getDisplayName());
+                    player.openInventory(plugin.getInventoryUtil().
+                            loadActionInventory(stack.getItemMeta().getDisplayName(), stack));
                 }
                 break;
         }
