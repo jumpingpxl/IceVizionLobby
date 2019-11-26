@@ -17,6 +17,14 @@ public class SettingsUtil {
     protected static final int JUMP = 103;
     public static final int NICK = 104;
 
+    /**
+     * Changes the current state of a setting.
+     * @param player The player who changed something
+     * @param inventory The used inventory
+     * @param itemStack The clicked {@link ItemStack}
+     * @param slot The clicked slot from the inventory
+     */
+
     public void changeSettingsValue(Player player, Inventory inventory, ItemStack itemStack, int slot) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         if (itemStack.getType().equals(Material.GRAY_DYE)) {
@@ -41,6 +49,14 @@ public class SettingsUtil {
             cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
         }
     }
+
+    /**
+     * Updates the state of a specific {@link ItemStack}.
+     * @param inv The used inventory
+     * @param category The category where something should be changed
+     * @param value The new value
+     * @param gray If the new state is gray or not
+     */
 
     public void setState(Inventory inv, int category , int value, boolean gray) {
         ItemStack state;
@@ -70,6 +86,12 @@ public class SettingsUtil {
         return -1;
     }
 
+    /**
+     * Wraps the given row to the right database id of the setting.
+     * @param row The clicked row to convert
+     * @return The settings id for the database
+     */
+
     private int getSettingsID(int row) {
         switch (row) {
             case 0:
@@ -80,8 +102,6 @@ public class SettingsUtil {
                 return FRIENDS;
             case 3:
                 return JUMP;
-            case 4:
-                return NICK;
             default:
                 return -1;
         }

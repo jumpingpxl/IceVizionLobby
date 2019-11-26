@@ -22,10 +22,12 @@ public class InventoryUtil {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
     private final ItemUtil itemUtil;
     private final SettingsUtil settingsUtil;
+    private final Inventory teleporter;
 
     public InventoryUtil(ItemUtil itemUtil, SettingsUtil settingsUtil) {
         this.itemUtil = itemUtil;
         this.settingsUtil = settingsUtil;
+        this.teleporter = null;
     }
 
     public Inventory loadTeleporterInventory(Player player) {

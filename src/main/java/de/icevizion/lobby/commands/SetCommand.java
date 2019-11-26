@@ -34,7 +34,7 @@ public class SetCommand implements CommandExecutor {
                     cloudPlayer.sendMessage("§cBitte gebe spawn,oneline,guessit,kbffa oder daily an");
                     return true;
                 } else {
-                    String name = args[0];
+                    String name = args[0].toLowerCase();
                     Location location = cloudPlayer.getPlayer().getLocation();
                     mapService.setValue(name, location);
                     cloudPlayer.sendMessage("§7Du hast die Location §6" + name + " §7gesetzt");
