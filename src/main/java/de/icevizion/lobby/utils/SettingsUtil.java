@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 public class SettingsUtil {
 
     private static final int CLICK_OFFSET = 6;
-
     protected static final int PRIVAT_MESSAGE = 100;
     protected static final int PARTY = 101;
     protected static final int FRIENDS = 102;
