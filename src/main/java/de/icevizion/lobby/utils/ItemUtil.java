@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ItemUtil {
 
-    private final ItemStack teleporter, panel, hider, nick;
+    private final ItemStack teleporter, panel, hider, nick, lobby;
     private final Map<Integer, ItemStack> teleporterLayout;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
@@ -25,6 +25,7 @@ public class ItemUtil {
         this.panel = new ItemBuilder(Material.NOTE_BLOCK).setDisplayName("§eEinstellungen").build();
         this.hider = new ItemBuilder(Material.BLAZE_ROD).setDisplayName("§aSpieler Sichtbarkeit").build();
         this.nick = new ItemBuilder(Material.NAME_TAG).setDisplayName("§5Nick").build();
+        this.lobby = new ItemBuilder(Material.CLOCK).setDisplayName("§aLobby wechseln").build();
         this.teleporterLayout = loadTeleporterLayout();
         this.settingsLayout = loadLayout();
         this.friendLayout = loadFriendLayout();
@@ -97,6 +98,7 @@ public class ItemUtil {
         layout.put(51, new CustomPlayerHeadBuilder()
                 .setSkinOverValues("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjgyYWQxYjljYjRkZDIxMjU5YzBkNzVhYTMxNWZmMzg5YzNjZWY3NTJiZTM5NDkzMzgxNjRiYWM4NGE5NmUifX19","")
                 .setDisplayName("§aNächste").build());
+        layout.put(53, new ItemBuilder(Material.REDSTONE_WIRE).setDisplayName("§cEinstelunngen").build());
         return layout;
     }
 
