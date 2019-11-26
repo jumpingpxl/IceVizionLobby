@@ -98,7 +98,7 @@ public class ItemUtil {
         layout.put(51, new CustomPlayerHeadBuilder()
                 .setSkinOverValues("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjgyYWQxYjljYjRkZDIxMjU5YzBkNzVhYTMxNWZmMzg5YzNjZWY3NTJiZTM5NDkzMzgxNjRiYWM4NGE5NmUifX19","")
                 .setDisplayName("§aNächste").build());
-        layout.put(53, new ItemBuilder(Material.REDSTONE_WIRE).setDisplayName("§cEinstelunngen").build());
+        layout.put(53, new ItemBuilder(Material.RED_BANNER).setDisplayName("§cEinstellnngen").build());
         return layout;
     }
 
