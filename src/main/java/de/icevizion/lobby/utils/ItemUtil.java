@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ItemUtil {
 
-    private final ItemStack teleporter, panel, hider, nick, lobby;
+    private final ItemStack teleporter, hider, nick, lobby;
     private final Map<Integer, ItemStack> teleporterLayout;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
@@ -22,7 +22,6 @@ public class ItemUtil {
 
     public ItemUtil() {
         this.teleporter = new ItemBuilder(Material.NETHER_STAR).setDisplayName("§bMinispiele").build();
-        this.panel = new ItemBuilder(Material.NOTE_BLOCK).setDisplayName("§eEinstellungen").build();
         this.hider = new ItemBuilder(Material.BLAZE_ROD).setDisplayName("§aSpieler Sichtbarkeit").build();
         this.nick = new ItemBuilder(Material.NAME_TAG).setDisplayName("§5Nick").build();
         this.lobby = new ItemBuilder(Material.CLOCK).setDisplayName("§aLobby wechseln").build();
@@ -117,12 +116,11 @@ public class ItemUtil {
     public void setItems(Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         ItemStack skull = new CustomPlayerHeadBuilder().setSkinOverValues(cloudPlayer.getSkinValue(), "")
-                .setDisplayName("§aFreunde").build();
+                .setDisplayName("§aProfile").build();
         player.getInventory().clear();
 
         player.getInventory().setItem(0, teleporter);
         player.getInventory().setItem(2, hider);
-        player.getInventory().setItem(6, panel);
         player.getInventory().setItem(8, skull);
 
         if (cloudPlayer.hasPermission("player.nick.auto")) {
