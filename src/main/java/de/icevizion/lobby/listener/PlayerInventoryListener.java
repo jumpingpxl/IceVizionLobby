@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerInventoryListener implements Listener {
@@ -73,6 +74,15 @@ public class PlayerInventoryListener implements Listener {
                 }
                 break;
             case "Freunde":
+                if (stack.getItemMeta().getDisplayName().equals("§cEinstellungen")) {
+                    if (plugin.getProfileCache().getProfile(player).getSettingsInventory() == null) {
+                        Inventory inventory = plugin.getInventoryUtil().createPanelInventory(player);
+                        plugin.getProfileCache().getProfile(player).setSettingsInventory(inventory);
+                        player.openInventory(inventory);
+                    } else {
+                        player.openInventory(plugin.getProfileCache().getProfile(player).getSettingsInventory());
+                    }
+                }
                 if (event.getSlot() == 47 || event.getSlot() == 51) return;
                 if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
                     plugin.getProfileCache().getProfile(player).setClickedFriend(stack.getItemMeta().getDisplayName());
