@@ -38,15 +38,6 @@ public class PlayerInteractListener implements Listener {
                     event.setCancelled(true);
                     player.updateInventory();
                     break;
-                case "§eEinstellungen":
-                    if (plugin.getProfileCache().getProfile(player).getSettingsInventory() == null) {
-                        Inventory inventory = plugin.getInventoryUtil().createPanelInventory(player);
-                        plugin.getProfileCache().getProfile(player).setSettingsInventory(inventory);
-                        player.openInventory(inventory);
-                    } else {
-                        player.openInventory(plugin.getProfileCache().getProfile(player).getSettingsInventory());
-                    }
-                    break;
                 case "§aSpieler Sichtbarkeit":
                     if (plugin.getCooldownUtil().hasCooldown(player)) {
                         player.sendMessage("§cBitte warte noch kurz");
@@ -55,7 +46,7 @@ public class PlayerInteractListener implements Listener {
                         plugin.getVisibilityUtil().changeVisibility(plugin, player);
                     }
                     break;
-                case "§aFreunde":
+                case "§aProfile":
                     if (plugin.getProfileCache().getProfile(player).getFriendInventory() == null) {
                         Inventory inventory = plugin.getInventoryUtil().createFriendInvenotory(player);
                         plugin.getProfileCache().getProfile(player).setFriendInventory(inventory);
