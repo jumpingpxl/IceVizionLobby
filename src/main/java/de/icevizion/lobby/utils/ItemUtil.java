@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 public class ItemUtil {
 
@@ -43,13 +42,18 @@ public class ItemUtil {
                 addItemFlag(ItemFlag.HIDE_ATTRIBUTES).build());
         ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
 
-        IntStream.of(27, 36).forEach((value -> layout.put(value, pane)));
+        for (int i = 27; i < 36; i++) {
+            layout.put(i, pane);
+        }
 
         layout.put(39, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-1").build());
         layout.put(40, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-2").build());
         layout.put(41, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-3").build());
 
-        IntStream.of(45, 54).forEach((value -> layout.put(value, pane)));
+        for (int i = 45; i < 54; i++) {
+            layout.put(i, pane);
+        }
+
         return layout;
     }
 
@@ -75,14 +79,18 @@ public class ItemUtil {
         layout.put(34, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(35, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
-        IntStream.of(45, 54).forEach((value -> layout.put(value, pane)));
+        for (int i = 36; i < 45; i++) {
+            layout.put(i, pane);
+        }
         return layout;
     }
 
     private HashMap<Integer, ItemStack> loadFriendLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>();
         ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
-        IntStream.of(36, 45).forEach((value -> layout.put(value, pane)));
+        for (int i = 36; i < 45; i++) {
+            layout.put(i, pane);
+        }
         layout.put(49, new ItemBuilder(Material.EMERALD).setDisplayName("Freundesanfragen").build());
         layout.put(47, new CustomPlayerHeadBuilder()
                 .setSkinOverValues("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzdhZWU5YTc1YmYwZGY3ODk3MTgzMDE1Y2NhMGIyYTdkNzU1YzYzMzg4ZmYwMTc1MmQ1ZjQ0MTlmYzY0NSJ9fX0=", "" )
