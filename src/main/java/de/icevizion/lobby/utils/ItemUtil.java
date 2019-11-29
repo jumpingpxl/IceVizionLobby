@@ -121,6 +121,7 @@ public class ItemUtil {
 
         player.getInventory().setItem(0, teleporter);
         player.getInventory().setItem(2, hider);
+        player.getInventory().setItem(6, lobby);
         player.getInventory().setItem(8, skull);
 
         if (cloudPlayer.hasPermission("player.nick.auto")) {
