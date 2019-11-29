@@ -4,6 +4,7 @@ import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.icevizion.aves.item.CustomPlayerHeadBuilder;
 import de.icevizion.aves.item.ItemBuilder;
+import de.icevizion.lobby.Lobby;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
@@ -14,12 +15,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
-import java.text.SimpleDateFormat;
 import java.util.Map;
 
 public class InventoryUtil {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
     private final ItemUtil itemUtil;
     private final SettingsUtil settingsUtil;
     private final Inventory teleporter;
@@ -117,7 +116,7 @@ public class InventoryUtil {
             } else {
                 inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
                         .setDisplayName(cloudPlayer.getFullUsername())
-                        .addLore("§7Zuletzt Online: §e" + DATE_FORMAT.format(cloudPlayer.getLastLogout())).build());
+                        .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(cloudPlayer.getLastLogout())).build());
             }
         }
         return inventory;
