@@ -1,5 +1,6 @@
 package de.icevizion.lobby.utils;
 
+import de.icevizion.aves.util.LocationUtil;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.event.PlayerRankChangeEvent;
 import net.titan.spigot.event.RankReloadEvent;
@@ -83,12 +84,8 @@ public class DoubleJumpService implements Listener {
         if ((event.getPlayer().getGameMode() == GameMode.ADVENTURE ||
                 event.getPlayer().getGameMode() == GameMode.SURVIVAL) &&
                 allowedPlayers.contains(event.getPlayer().getUniqueId())) {
-            if (isOnGround(event.getPlayer().getLocation()))
+            if (LocationUtil.isOnGround(event.getPlayer().getLocation()))
                 event.getPlayer().setAllowFlight(true);
         }
-    }
-
-    private boolean isOnGround(Location loc){
-        return loc.getBlock().getRelative(BlockFace.DOWN).getType().isSolid();
     }
 }
