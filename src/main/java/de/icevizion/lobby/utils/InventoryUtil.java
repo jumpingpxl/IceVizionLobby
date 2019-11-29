@@ -21,12 +21,18 @@ public class InventoryUtil {
 
     private final ItemUtil itemUtil;
     private final SettingsUtil settingsUtil;
-    private final Inventory teleporter;
+    private Inventory teleporter;
 
     public InventoryUtil(ItemUtil itemUtil, SettingsUtil settingsUtil) {
         this.itemUtil = itemUtil;
         this.settingsUtil = settingsUtil;
-        this.teleporter = null;
+    }
+
+    public void loadTeleporter() {
+        teleporter = Bukkit.createInventory(null, 27, "Minispiele");
+        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getTeleporterLayout().entrySet()) {
+            teleporter.setItem(entry.getKey(), entry.getValue());
+        }
     }
 
     public Inventory loadTeleporterInventory(Player player) {
