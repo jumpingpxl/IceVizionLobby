@@ -10,8 +10,11 @@ import net.titan.lib.network.spigot.SpigotState;
 import net.titan.spigot.Cloud;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.text.SimpleDateFormat;
+
 public class Lobby extends JavaPlugin {
 
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
     private MapService mapService;
     private CooldownUtil cooldownUtil;
     private InventoryUtil inventoryUtil;
