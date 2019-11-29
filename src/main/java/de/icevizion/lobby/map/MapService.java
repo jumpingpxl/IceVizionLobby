@@ -56,7 +56,7 @@ public class MapService {
     }
 
     public boolean setValue(String type,Location location) {
-        if(lobbyMap.isPresent()) {
+        if (lobbyMap.isPresent()) {
             setData(lobbyMap.get(), type, location);
             JsonFileLoader.save(file,lobbyMap.get(),gson);
             return true;
