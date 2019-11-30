@@ -100,7 +100,6 @@ public class PlayerInventoryListener implements Listener {
 
             if (cloudPlayer == null) {
                 player.sendMessage("§cEs trat ein technischer Fehler auf");
-                player.closeInventory();
             } else {
                 switch (stack.getItemMeta().getDisplayName()) {
                     case "Nach springen":
@@ -119,8 +118,8 @@ public class PlayerInventoryListener implements Listener {
                     default:
                         break;
                 }
-                player.closeInventory();
             }
+            player.closeInventory();
         }
     }
 }
