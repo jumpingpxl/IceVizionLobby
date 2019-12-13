@@ -78,10 +78,11 @@ public class ItemUtil {
         layout.put(28, pane);
         layout.put(34, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(35, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
-        layout.put(36, new ItemBuilder(Material.SNOW).setDisplayName("§fSchnee").build());
+        layout.put(36, new ItemBuilder(Material.SNOWBALL).setDisplayName("§fSchnee").build());
+        layout.put(37, pane);
         layout.put(43, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(44, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
-        for (int i = 45; i < 53; i++) {
+        for (int i = 45; i < 54; i++) {
             layout.put(i, pane);
         }
         return layout;
