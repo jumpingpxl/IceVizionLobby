@@ -3,7 +3,6 @@ package de.icevizion.lobby.utils;
 import de.icevizion.aves.item.ItemBuilder;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -61,7 +60,6 @@ public class SettingsUtil {
      */
 
     public void setState(Inventory inv, int category , int value, boolean gray) {
-        Bukkit.broadcastMessage("" + category);
         ItemStack state;
         switch (value) {
             case 0:
@@ -70,7 +68,7 @@ public class SettingsUtil {
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 1:
-                if (category == 4) {
+                if (category == 36) {
                     state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§fAn").build();
                 } else {
                     state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).
@@ -80,7 +78,7 @@ public class SettingsUtil {
                 break;
             case 2:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).
-                        setDisplayName(category == 4 ? "§fAus" : "§fVon Niemanden").build();
+                        setDisplayName(category == 36 ? "§fAus" : "§fVon Niemanden").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
         }
     }
