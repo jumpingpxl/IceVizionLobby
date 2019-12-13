@@ -40,7 +40,11 @@ public class SnowService extends BukkitRunnable {
     public void run() {
         if (players.size() != 0) {
             for (Player player : players) {
-                player.spawnParticle(Particle.FIREWORKS_SPARK, player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), 10, 20.0F, 20.0F, 20.0F);
+                player.spawnParticle(Particle.FIREWORKS_SPARK,
+                        player.getLocation().getX(),
+                        player.getLocation().getY(),
+                        player.getLocation().getZ(),
+                        20);
             }
         }
     }
