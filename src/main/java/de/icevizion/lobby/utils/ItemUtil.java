@@ -14,6 +14,9 @@ import java.util.Map;
 
 public class ItemUtil {
 
+    private final static ItemStack PANE = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).
+            setDisplayName("§0").build();
+
     private final ItemStack teleporter, hider, nick, lobby;
     private final Map<Integer, ItemStack> teleporterLayout;
     private final Map<Integer, ItemStack> settingsLayout;
@@ -39,10 +42,9 @@ public class ItemUtil {
         layout.put(22, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("GuessIt").build());
         layout.put(26, new ItemBuilder(Material.IRON_PICKAXE).setDisplayName("§aBuildServer").
                 addItemFlag(ItemFlag.HIDE_ATTRIBUTES).build());
-        ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
 
         for (int i = 27; i < 36; i++) {
-            layout.put(i, pane);
+            layout.put(i, PANE);
         }
 
         layout.put(39, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-1").build());
@@ -50,7 +52,7 @@ public class ItemUtil {
         layout.put(41, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-3").build());
 
         for (int i = 45; i < 54; i++) {
-            layout.put(i, pane);
+            layout.put(i, PANE);
         }
 
         return layout;
@@ -58,32 +60,31 @@ public class ItemUtil {
 
     private HashMap<Integer, ItemStack> loadLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>();
-        ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
         layout.put(0, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("§6Privatnachrichten").build());
-        layout.put(1, pane);
+        layout.put(1, PANE);
         layout.put(6, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(7, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
         layout.put(8, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(9, new ItemBuilder(Material.FIREWORK_ROCKET).setDisplayName("§dParty").build());
-        layout.put(10, pane);
+        layout.put(10, PANE);
         layout.put(15, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(16, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
         layout.put(17, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(18, new ItemBuilder(Material.GOLDEN_HELMET).setDisplayName("§bFreunde").
                 addItemFlag(ItemFlag.HIDE_ATTRIBUTES).build());
-        layout.put(19, pane);
+        layout.put(19, PANE);
         layout.put(25, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(26, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(27, new ItemBuilder(Material.ENDER_EYE).setDisplayName("§aNachspringen").build());
-        layout.put(28, pane);
+        layout.put(28, PANE);
         layout.put(34, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(35, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(36, new ItemBuilder(Material.SNOWBALL).setDisplayName("§fSchnee").build());
-        layout.put(37, pane);
+        layout.put(37, PANE);
         layout.put(43, new ItemBuilder(Material.GRAY_DYE).setDisplayName("An").build());
         layout.put(44, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Aus").build());
         for (int i = 45; i < 54; i++) {
-            layout.put(i, pane);
+            layout.put(i, PANE);
         }
         return layout;
     }
@@ -107,10 +108,9 @@ public class ItemUtil {
 
     private HashMap<Integer, ItemStack> loadFriendActionLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>(9);
-        ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
-        layout.put(1, pane);
-        layout.put(10, pane);
-        layout.put(19, pane);
+        layout.put(1, PANE);
+        layout.put(10, PANE);
+        layout.put(19, PANE);
         layout.put(12, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("Nach springen").build());
         layout.put(14, new ItemBuilder(Material.CAKE).setDisplayName("In Party einladen").build());
         layout.put(16, new ItemBuilder(Material.BARRIER).setDisplayName("Freund entfernen").build());
