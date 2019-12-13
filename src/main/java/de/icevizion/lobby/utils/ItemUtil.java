@@ -80,8 +80,8 @@ public class ItemUtil {
         layout.put(35, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(36, new ItemBuilder(Material.SNOWBALL).setDisplayName("§fSchnee").build());
         layout.put(37, pane);
-        layout.put(43, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
-        layout.put(44, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
+        layout.put(43, new ItemBuilder(Material.GRAY_DYE).setDisplayName("An").build());
+        layout.put(44, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Aus").build());
         for (int i = 45; i < 54; i++) {
             layout.put(i, pane);
         }
