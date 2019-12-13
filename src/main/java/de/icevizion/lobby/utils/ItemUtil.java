@@ -58,27 +58,30 @@ public class ItemUtil {
 
     private HashMap<Integer, ItemStack> loadLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>();
+        ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
         layout.put(0, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("§6Privatnachrichten").build());
-        layout.put(1, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build());
+        layout.put(1, pane);
         layout.put(6, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(7, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
         layout.put(8, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(9, new ItemBuilder(Material.FIREWORK_ROCKET).setDisplayName("§dParty").build());
-        layout.put(10, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build());
+        layout.put(10, pane);
         layout.put(15, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(16, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
         layout.put(17, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(18, new ItemBuilder(Material.GOLDEN_HELMET).setDisplayName("§bFreunde").
                 addItemFlag(ItemFlag.HIDE_ATTRIBUTES).build());
-        layout.put(19, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build());
+        layout.put(19, pane);
         layout.put(25, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(26, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(27, new ItemBuilder(Material.ENDER_EYE).setDisplayName("§aNachspringen").build());
-        layout.put(28, new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build());
+        layout.put(28, pane);
         layout.put(34, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(35, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
-        ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
-        for (int i = 36; i < 45; i++) {
+        layout.put(36, new ItemBuilder(Material.SNOW).setDisplayName("§fSchnee").build());
+        layout.put(43, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
+        layout.put(44, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
+        for (int i = 45; i < 53; i++) {
             layout.put(i, pane);
         }
         return layout;
