@@ -1,6 +1,7 @@
 package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ItemBuilder;
+import de.icevizion.lobby.feature.SnowService;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
@@ -48,6 +49,14 @@ public class SettingsUtil {
             setState(inventory, category, newValue, false);
             player.updateInventory();
             cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
+
+            if (getSettingsID(currentRow) == 4) {
+                if (newValue == 1) {
+                    SnowService.addPlayer(player);
+                } else {
+                    SnowService.removePlayer(player);
+                }
+            }
         }
     }
 
