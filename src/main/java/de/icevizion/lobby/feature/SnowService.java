@@ -1,7 +1,6 @@
 package de.icevizion.lobby.feature;
 
 import net.minecraft.server.v1_13_R2.PacketPlayOutWorldParticles;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -40,7 +39,7 @@ public class SnowService extends BukkitRunnable {
     public void run() {
         if (players.size() != 0) {
             for (Player player : players) {
-                player.spawnParticle(Particle.FIREWORKS_SPARK, player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), 10, 20.0F, 20.0F, 20.0F);
+                player.spawnParticle(Particle.FIREWORKS_SPARK, player.getLocation().getX(), player.getLocation().getY() + 10, player.getLocation().getZ(), 10);
             }
         }
     }
