@@ -63,17 +63,23 @@ public class SettingsUtil {
         ItemStack state;
         switch (value) {
             case 0:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§fVon jedem").build();
+                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).
+                        setDisplayName("§fVon jedem").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 1:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).setDisplayName("§fVon Freunden").build();
+                if (category == 4) {
+                    state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§fAn").build();
+                } else {
+                    state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).
+                            setDisplayName("§fVon Freunden").build();
+                }
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 2:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).setDisplayName("§fVon Niemanden").build();
+                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).
+                        setDisplayName(category == 4 ? "§fAus" : "§fVon Niemanden").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
-                break;
         }
     }
 
