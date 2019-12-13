@@ -15,6 +15,7 @@ public class SettingsUtil {
     protected static final int PARTY = 101;
     protected static final int FRIENDS = 102;
     protected static final int JUMP = 103;
+    protected static final int EVENT = 199;
     public static final int NICK = 104;
 
     /**
@@ -102,6 +103,8 @@ public class SettingsUtil {
                 return FRIENDS;
             case 3:
                 return JUMP;
+            case 4:
+                return EVENT;
             default:
                 return -1;
         }
