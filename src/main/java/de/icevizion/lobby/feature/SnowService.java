@@ -44,7 +44,10 @@ public class SnowService extends BukkitRunnable {
                         player.getLocation().getX(),
                         player.getLocation().getY(),
                         player.getLocation().getZ(),
-                        20);
+                        10,
+                        0,
+                        0,
+                        0);
             }
         }
     }
