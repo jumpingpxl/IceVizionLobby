@@ -40,18 +40,20 @@ public class SnowService extends BukkitRunnable {
     public void run() {
         if (players.size() != 0) {
             for (Player player : players) {
-                PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles
-                        (Particles.w,
-                                true /* LONG DISTANCE*/,
-                                (float)player.getLocation().getX(),
-                                (float)player.getLocation().getY() + 10,
-                                (float)player.getLocation().getZ(),
-                                10 /* OFFSET X*/,
-                                10 /* OFFSET Y*/,
-                                10 /* OFFSET Z*/,
-                                0 /* data*/,
-                                15 /* count*/);
-                ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+                if (player.getWorld().getHighestBlockYAt(player.getLocation()) <= player.getLocation().getY()) {
+                    PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles
+                            (Particles.w,
+                                    true /* LONG DISTANCE*/,
+                                    (float)player.getLocation().getX(),
+                                    (float)player.getLocation().getY() + 10,
+                                    (float)player.getLocation().getZ(),
+                                    10 /* OFFSET X*/,
+                                    10 /* OFFSET Y*/,
+                                    10 /* OFFSET Z*/,
+                                    0 /* data*/,
+                                    15 /* count*/);
+                    ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+                }
             }
         }
     }
