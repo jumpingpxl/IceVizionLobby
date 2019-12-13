@@ -50,14 +50,8 @@ public class SettingsUtil {
             player.updateInventory();
             cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
 
-            if (getSettingsID(currentRow) == 4) {
-                System.out.println(newValue);
-                if (newValue == 1) {
-                    SnowService.addPlayer(player);
-                } else {
-                    SnowService.removePlayer(player);
-                }
-            }
+            System.out.println(getSettingsID(currentRow));
+
         }
     }
 
