@@ -44,14 +44,15 @@ public class SnowService extends BukkitRunnable {
                         (Particles.w,
                                 true /* LONG DISTANCE*/,
                                 (float)player.getLocation().getX(),
-                                (float)player.getLocation().getY(),
+                                (float)player.getLocation().getY() + 10,
                                 (float)player.getLocation().getZ(),
-                                0 /* OFFSET X*/,
-                                0 /* OFFSET Y*/,
-                                0 /* OFFSET Z*/,
+                                10 /* OFFSET X*/,
+                                10 /* OFFSET Y*/,
+                                10 /* OFFSET Z*/,
                                 0 /* data*/,
                                 1 /* count*/);
                 ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet); //Testen :)
+                //Nunja die sind unterm Spieler xD
                 //player.spawnParticle(Particle.FIREWORKS_SPARK, player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), 1, 0,0,0,0);
             }
         }
