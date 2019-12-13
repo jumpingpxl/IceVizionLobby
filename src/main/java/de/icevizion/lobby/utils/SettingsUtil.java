@@ -3,6 +3,7 @@ package de.icevizion.lobby.utils;
 import de.icevizion.aves.item.ItemBuilder;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -60,6 +61,7 @@ public class SettingsUtil {
      */
 
     public void setState(Inventory inv, int category , int value, boolean gray) {
+        Bukkit.broadcastMessage("" + category);
         ItemStack state;
         switch (value) {
             case 0:
