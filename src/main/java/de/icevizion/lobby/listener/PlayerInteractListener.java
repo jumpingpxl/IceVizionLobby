@@ -56,7 +56,7 @@ public class PlayerInteractListener implements Listener {
                     }
                     break;
                 case "§aLobby wechseln":
-                    player.sendMessage("§cBald lol!11");
+                    player.openInventory(plugin.getLobbyUtil().getInventory());
                     break;
                 case "§5Nick":
                     player.sendMessage("§cDieses Feature ist noch nicht aktiv");
