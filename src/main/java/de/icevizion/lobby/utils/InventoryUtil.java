@@ -21,18 +21,25 @@ public class InventoryUtil {
 
     private final ItemUtil itemUtil;
     private final SettingsUtil settingsUtil;
-    private Inventory teleporter;
 
     public InventoryUtil(ItemUtil itemUtil, SettingsUtil settingsUtil) {
         this.itemUtil = itemUtil;
         this.settingsUtil = settingsUtil;
     }
 
-    public void loadTeleporter() {
-        teleporter = Bukkit.createInventory(null, 27, "Minispiele");
+    public Inventory loadTeleporter(Player player) {
+        Inventory inventory = Bukkit.createInventory(null, 27, "Minispiele");
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getTeleporterLayout().entrySet()) {
-            teleporter.setItem(entry.getKey(), entry.getValue());
+            inventory.setItem(entry.getKey(), entry.getValue());
         }
+
+        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+
+        if (!cloudPlayer.hasPermission("network.buildserver")) {
+            inventory.remove(inventory.getItem(26));
+        }
+
+        return inventory;
     }
 
     public Inventory loadTeleporterInventory(Player player) {
@@ -93,12 +100,12 @@ public class InventoryUtil {
 
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
-        int privatMessage = cloudPlayer.getSetting(SettingsUtil.PRIVAT_MESSAGE);
+        int privateMessage = cloudPlayer.getSetting(SettingsUtil.PRIVAT_MESSAGE);
         int party = cloudPlayer.getSetting(SettingsUtil.PARTY);
         int friend = cloudPlayer.getSetting(SettingsUtil.FRIENDS);
         int jump = cloudPlayer.getSetting(SettingsUtil.JUMP);
 
-        settingsUtil.setState(inventory, 0, privatMessage,false);
+        settingsUtil.setState(inventory, 0, privateMessage,false);
         settingsUtil.setState(inventory, 9, party, false);
         settingsUtil.setState(inventory, 18, friend, false);
         settingsUtil.setState(inventory, 27, jump, false);
