@@ -43,7 +43,8 @@ public class LobbyUtil {
     }
 
     public void removeLobby(IClusterSpigot iClusterSpigot) {
-        this.activeLobbys.remove(iClusterSpigot);
+        ItemStack stack = this.activeLobbys.remove(iClusterSpigot);
+        this.inventory.remove(stack);
     }
 
     public Inventory getInventory() {
