@@ -39,7 +39,7 @@ public class LobbyUtil {
         this.activeLobbys.putIfAbsent(iClusterSpigot,
                  new ItemBuilder(Material.GLOWSTONE_DUST)
                 .setDisplayName("§6" + iClusterSpigot.getDisplayName())
-                .addLore(iClusterSpigot.getPlayerCount() + "§fSpieler online").build());
+                .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build());
     }
 
     public void removeLobby(IClusterSpigot iClusterSpigot) {
