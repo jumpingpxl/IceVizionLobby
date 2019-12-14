@@ -30,3 +30,7 @@ Die Einstellungsindizies liegen in dem Wertebereich von 100 bis 150
 ## Sichtbarkeit
 * ID: 104
 * Values: 0 (für alle), 1 (für Freunde), 2 (für niemanden)
+
+## Event
+* ID: 199
+* Values: 0 (Aus), 1 (Ein)
