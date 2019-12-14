@@ -2,6 +2,8 @@ package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ItemBuilder;
 import net.titan.lib.network.spigot.IClusterSpigot;
+import net.titan.spigot.Cloud;
+import net.titan.spigot.network.spigot.ClusterSpigot;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -17,6 +19,17 @@ public class LobbyUtil {
     public LobbyUtil() {
         this.inventory = Bukkit.createInventory(null, 27, "Waehle eine Lobby");
         this.activeLobbys = new ConcurrentHashMap<>();
+        this.loadLobbys();
+    }
+
+    private void loadLobbys() {
+        System.out.println("Searching for lobby's");
+        for (ClusterSpigot spigot : Cloud.getInstance().getSpigots()) {
+            if (spigot.getDisplayName().startsWith("Lobby")) {
+                addLobby(spigot);
+            }
+        }
+        System.out.println("Found " + activeLobbys.size() + " current active lobbys");
     }
 
     public void addLobby(IClusterSpigot iClusterSpigot) {
