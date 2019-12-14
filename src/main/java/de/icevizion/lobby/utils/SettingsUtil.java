@@ -1,6 +1,7 @@
 package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ItemBuilder;
+import de.icevizion.lobby.feature.SnowService;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
@@ -15,6 +16,7 @@ public class SettingsUtil {
     protected static final int PARTY = 101;
     protected static final int FRIENDS = 102;
     protected static final int JUMP = 103;
+    protected static final int EVENT = 199;
     public static final int NICK = 104;
 
     /**
@@ -47,6 +49,15 @@ public class SettingsUtil {
             setState(inventory, category, newValue, false);
             player.updateInventory();
             cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
+
+            if (getSettingsID(currentRow) == 199) {
+                if (newValue == 1) {
+                    SnowService.addPlayer(player);
+                } else {
+                    SnowService.removePlayer(player);
+                }
+            }
+
         }
     }
 
@@ -62,17 +73,23 @@ public class SettingsUtil {
         ItemStack state;
         switch (value) {
             case 0:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§fVon jedem").build();
+                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).
+                        setDisplayName("§fVon jedem").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 1:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).setDisplayName("§fVon Freunden").build();
+                if (category == 36) {
+                    state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§fAn").build();
+                } else {
+                    state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).
+                            setDisplayName("§fVon Freunden").build();
+                }
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 2:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).setDisplayName("§fVon Niemanden").build();
+                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).
+                        setDisplayName(category == 36 ? "§fAus" : "§fVon Niemanden").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
-                break;
         }
     }
 
@@ -102,6 +119,8 @@ public class SettingsUtil {
                 return FRIENDS;
             case 3:
                 return JUMP;
+            case 4:
+                return EVENT;
             default:
                 return -1;
         }

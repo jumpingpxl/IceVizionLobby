@@ -2,6 +2,7 @@ package de.icevizion.lobby;
 
 import de.icevizion.aves.util.CooldownUtil;
 import de.icevizion.lobby.commands.SetCommand;
+import de.icevizion.lobby.feature.SnowService;
 import de.icevizion.lobby.map.MapService;
 import de.icevizion.lobby.profile.ProfileCache;
 import de.icevizion.lobby.listener.*;
@@ -25,6 +26,8 @@ public class Lobby extends JavaPlugin {
     private ProfileCache profileCache;
     private DoubleJumpService doubleJumpService;
 
+    private SnowService snowService;
+
     @Override
     public void onEnable() {
         load();
@@ -36,6 +39,7 @@ public class Lobby extends JavaPlugin {
     @Override
     public void onDisable() {
         dailyRewardUtil.despawn();
+        snowService.cancel();
     }
 
     private void load() {
@@ -48,6 +52,7 @@ public class Lobby extends JavaPlugin {
         this.visibilityUtil = new VisibilityUtil(profileCache);
         this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
         this.doubleJumpService = new DoubleJumpService();
+        snowService = new SnowService(this);
     }
 
     private void registerListener() {
@@ -96,5 +101,9 @@ public class Lobby extends JavaPlugin {
 
     public ProfileCache getProfileCache() {
         return profileCache;
+    }
+
+    public SnowService getSnowService() {
+        return snowService;
     }
 }
