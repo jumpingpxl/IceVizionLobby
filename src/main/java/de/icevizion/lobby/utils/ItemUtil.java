@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ItemUtil {
 
-    private final static ItemStack PANE = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).
+    private static final ItemStack PANE = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).
             setDisplayName("§0").build();
 
     private final ItemStack teleporter, hider, nick, lobby;
