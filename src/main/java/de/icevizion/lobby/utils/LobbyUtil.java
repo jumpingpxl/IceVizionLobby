@@ -23,20 +23,21 @@ public class LobbyUtil {
     }
 
     private void loadLobbys() {
-        System.out.println("Searching for lobby's");
+        System.out.println("[Lobby] Searching for lobby's");
         for (ClusterSpigot spigot : Cloud.getInstance().getSpigots()) {
             if (spigot.getDisplayName().startsWith("Lobby")) {
                 addLobby(spigot);
             }
         }
-        System.out.println("Found " + activeLobbys.size() + " current active lobbys");
+        System.out.println("[Lobby] Found " + activeLobbys.size() + " current active lobbys");
     }
 
     public void addLobby(IClusterSpigot iClusterSpigot) {
-        this.activeLobbys.putIfAbsent(iClusterSpigot,
+        inventory.addItem(this.activeLobbys.putIfAbsent(iClusterSpigot,
                  new ItemBuilder(Material.GLOWSTONE_DUST)
                 .setDisplayName(iClusterSpigot.getDisplayName())
-                .addLore(iClusterSpigot.getPlayerCount() + "/ " + iClusterSpigot.getPlayerLimit()).build());
+                .addLore(iClusterSpigot.getPlayerCount() + "/ " + iClusterSpigot.getPlayerLimit()).build()));
+
     }
 
     public void removeLobby(IClusterSpigot iClusterSpigot) {
