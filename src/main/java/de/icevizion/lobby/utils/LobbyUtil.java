@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LobbyUtil {
@@ -30,14 +31,17 @@ public class LobbyUtil {
             }
         }
         System.out.println("[Lobby] Found " + activeLobbys.size() + " current active lobbys");
+
+        for (ItemStack value : activeLobbys.values()) {
+            inventory.addItem(value);
+        }
     }
 
     public void addLobby(IClusterSpigot iClusterSpigot) {
-        inventory.addItem(this.activeLobbys.putIfAbsent(iClusterSpigot,
+        this.activeLobbys.putIfAbsent(iClusterSpigot,
                  new ItemBuilder(Material.GLOWSTONE_DUST)
                 .setDisplayName(iClusterSpigot.getDisplayName())
-                .addLore(iClusterSpigot.getPlayerCount() + "/ " + iClusterSpigot.getPlayerLimit()).build()));
-
+                .addLore(iClusterSpigot.getPlayerCount() + "/ " + iClusterSpigot.getPlayerLimit()).build());
     }
 
     public void removeLobby(IClusterSpigot iClusterSpigot) {
