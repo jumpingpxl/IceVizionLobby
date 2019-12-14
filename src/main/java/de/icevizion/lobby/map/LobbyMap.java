@@ -9,8 +9,7 @@ public class LobbyMap {
     @JsonAdapter(value = LocationTypeAdapter.class)
     private Location spawn, oneline, guessit, kbffa, daily;
 
-    public LobbyMap() {
-    }
+    public LobbyMap() { }
 
     public LobbyMap(Location spawn, Location oneline, Location guessit, Location kbffa, Location daily) {
         this.spawn = spawn;
