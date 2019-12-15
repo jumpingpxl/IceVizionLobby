@@ -10,11 +10,14 @@ import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class InventoryUtil {
@@ -119,8 +122,16 @@ public class InventoryUtil {
         }
 
         FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(Cloud.getInstance().getPlayer(player));
+        List<CloudPlayer> sortedFriends = friendProfile.getFriends();
+        sortedFriends.sort((cp1, cp2) -> {
+            if (cp1.isOnline() && cp2.isOnline())
+                return 0;
+            if (cp1.isOnline())
+                return -1;
+            return 1;
+        });
 
-        for (CloudPlayer cloudPlayer : friendProfile.getFriends()) {
+        for (CloudPlayer cloudPlayer : sortedFriends) {
             if (cloudPlayer.isOnline()) {
                 inventory.addItem(new CustomPlayerHeadBuilder()
                         .setSkinOverValues(cloudPlayer.getSkinValue(), "")
@@ -132,6 +143,7 @@ public class InventoryUtil {
                         .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(cloudPlayer.getLastLogout())).build());
             }
         }
+
         return inventory;
     }
 }
