@@ -5,6 +5,7 @@ import net.titan.spigot.event.NetworkPlayerJoinEvent;
 import net.titan.spigot.event.NetworkPlayerQuitEvent;
 import net.titan.spigot.event.SpigotAvailableEvent;
 import net.titan.spigot.event.SpigotUnavailableEvent;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -20,6 +21,7 @@ public class NetworkListener implements Listener {
     public void onAvailable(SpigotAvailableEvent event) {
         if (event.getSpigot().getDisplayName().startsWith("Lobby")) {
             lobbyUtil.addLobby(event.getSpigot());
+            lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
         }
     }
 
@@ -27,6 +29,7 @@ public class NetworkListener implements Listener {
     public void onUnavailable(SpigotUnavailableEvent event) {
         if (event.getSpigot().getDisplayName().startsWith("Lobby")) {
             lobbyUtil.removeLobby(event.getSpigot());
+            lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
         }
     }
 
