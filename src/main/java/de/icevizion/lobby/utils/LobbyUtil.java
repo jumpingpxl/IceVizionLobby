@@ -36,10 +36,11 @@ public class LobbyUtil {
     }
 
     public void addLobby(IClusterSpigot iClusterSpigot) {
-        this.activeLobbys.putIfAbsent(iClusterSpigot,
-                 new ItemBuilder(Material.GLOWSTONE_DUST)
+        ItemStack server =  new ItemBuilder(Material.GLOWSTONE_DUST)
                 .setDisplayName("§6" + iClusterSpigot.getDisplayName())
-                .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build());
+                .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build();
+        this.activeLobbys.putIfAbsent(iClusterSpigot, server);
+        this.inventory.addItem(server);
     }
 
     public void removeLobby(IClusterSpigot iClusterSpigot) {
