@@ -33,7 +33,7 @@ public class PlayerInventoryListener implements Listener {
         if (!event.getCurrentItem().hasItemMeta()) return;
 
         Player player = (Player) event.getWhoClicked();
-
+        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         ItemStack stack = event.getCurrentItem();
 
         event.setCancelled(true);
@@ -55,7 +55,6 @@ public class PlayerInventoryListener implements Listener {
                             server = "BuildServer-1";
                         }
 
-                        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
                         IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(server);
                         if (spigot == null) {
                             player.sendMessage("§cDieser Server ist nicht online");
@@ -97,7 +96,6 @@ public class PlayerInventoryListener implements Listener {
                 break;
             case "Waehle eine Lobby":
                 String server = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
-                CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
                 IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(server);
                 if (spigot == null) {
                     player.sendMessage("§cDieser Server ist nicht online");
@@ -110,13 +108,34 @@ public class PlayerInventoryListener implements Listener {
                     cloudPlayer.sendToServer(spigot);
                 }
                 break;
+            case "Freundesanfragen":
+                if (!stack.getType().equals(Material.AIR)) {
+                    String name = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
+
+                    switch (name) {
+                        case "Alle annehmen":
+                            cloudPlayer.dispatchCommand("friend", new String[]{"acceptall"});
+                            break;
+                        case "Alle ablehnen":
+                            cloudPlayer.dispatchCommand("friend", new String[]{"denyall"});
+                            break;
+                    }
+
+                    if (stack.getType().equals(Material.PLAYER_HEAD)) {
+                        plugin.getProfileCache().getProfile(player).
+                                setClickedFriend(stack.getItemMeta().getDisplayName());
+                        player.openInventory(plugin.getInventoryUtil().
+                                loadActionInventory(stack.getItemMeta().getDisplayName(), stack));
+                    }
+
+                }
+                break;
         }
 
         if (event.getView().getTitle().equals(plugin.getProfileCache().getProfile(player).getClickedFriend())) {
             if (stack.getType().equals(Material.AIR)) return;
 
             String name = ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName());
-            CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
             if (cloudPlayer == null) {
                 player.sendMessage("§cEs trat ein technischer Fehler auf");
