@@ -83,6 +83,11 @@ public class PlayerInventoryListener implements Listener {
                         player.openInventory(plugin.getProfileCache().getProfile(player).getSettingsInventory());
                     }
                 }
+
+                if (stack.getItemMeta().getDisplayName().equals("Freundesanfragen")) {
+                    player.openInventory(plugin.getInventoryUtil().createFriendRequestInventory(player));
+                }
+
                 if (event.getSlot() == 47 || event.getSlot() == 51) return;
                 if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
                     plugin.getProfileCache().getProfile(player).setClickedFriend(stack.getItemMeta().getDisplayName());

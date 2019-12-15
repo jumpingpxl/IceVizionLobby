@@ -115,7 +115,29 @@ public class InventoryUtil {
         return inventory;
     }
 
-    public Inventory createFriendInvenotory(Player player) {
+    public Inventory createFriendRequestInventory(Player player) {
+        Inventory inventory =  Bukkit.createInventory(null, 54, "Freundesanfragen");
+
+        FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(Cloud.getInstance().getPlayer(player));
+
+        if (friendProfile.getRequests().size() == 0) {
+            player.sendMessage("§cDu hast derzeit keine Freundesanfragen");
+            player.closeInventory();
+        } else {
+            for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendRequests().entrySet()) {
+                inventory.setItem(entry.getKey(), entry.getValue());
+            }
+            for (CloudPlayer request : friendProfile.getRequests()) {
+                inventory.addItem(new CustomPlayerHeadBuilder()
+                        .setSkinOverValues(request.getSkinValue(), "").build());
+            }
+        }
+
+
+        return inventory;
+    }
+
+    public Inventory createFriendInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "Freunde");
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());

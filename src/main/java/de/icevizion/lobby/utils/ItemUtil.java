@@ -21,6 +21,7 @@ public class ItemUtil {
     private final Map<Integer, ItemStack> teleporterLayout;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
+    private final Map<Integer, ItemStack> friendRequests;
     private final Map<Integer, ItemStack> friendActionLayout;
 
     public ItemUtil() {
@@ -31,6 +32,7 @@ public class ItemUtil {
         this.teleporterLayout = loadTeleporterLayout();
         this.settingsLayout = loadLayout();
         this.friendLayout = loadFriendLayout();
+        this.friendRequests = loadRequestLayout();
         this.friendActionLayout = loadFriendActionLayout();
     }
 
@@ -91,9 +93,8 @@ public class ItemUtil {
 
     private HashMap<Integer, ItemStack> loadFriendLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>();
-        ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
         for (int i = 36; i < 45; i++) {
-            layout.put(i, pane);
+            layout.put(i, PANE);
         }
         layout.put(49, new ItemBuilder(Material.EMERALD).setDisplayName("Freundesanfragen").build());
         layout.put(47, new CustomPlayerHeadBuilder()
@@ -103,6 +104,22 @@ public class ItemUtil {
                 .setSkinOverValues("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjgyYWQxYjljYjRkZDIxMjU5YzBkNzVhYTMxNWZmMzg5YzNjZWY3NTJiZTM5NDkzMzgxNjRiYWM4NGE5NmUifX19","")
                 .setDisplayName("§aNächste").build());
         layout.put(53, new ItemBuilder(Material.COMPARATOR).setDisplayName("§cEinstellungen").build());
+        return layout;
+    }
+
+    private HashMap<Integer, ItemStack> loadRequestLayout() {
+        HashMap<Integer, ItemStack> layout = new HashMap<>();
+        for (int i = 36; i < 45; i++) {
+            layout.put(i, PANE);
+        }
+        layout.put(47, new ItemBuilder(Material.GREEN_TERRACOTTA)
+                .setDisplayName("§aAlle annehmen")
+                .addLore("§7Nimmt alle Freundschaftsanfragen an")
+                .build());
+        layout.put(51, new ItemBuilder(Material.RED_TERRACOTTA)
+                .setDisplayName("§cAlle ablehnen")
+                .addLore("§7Lehnt alle derzeitigen Freundschaftsanfragen ab")
+                .build());
         return layout;
     }
 
@@ -141,6 +158,10 @@ public class ItemUtil {
 
     protected Map<Integer, ItemStack> getFriendLayout() {
         return friendLayout;
+    }
+
+    public Map<Integer, ItemStack> getFriendRequests() {
+        return friendRequests;
     }
 
     protected Map<Integer, ItemStack> getFriendActionLayout() {
