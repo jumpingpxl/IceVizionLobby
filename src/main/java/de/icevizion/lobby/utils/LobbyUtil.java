@@ -9,11 +9,13 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class LobbyUtil {
 
-    private final ConcurrentHashMap<IClusterSpigot, ItemStack> activeLobbys;
+    private final ConcurrentHashMap<String, ItemStack> activeLobbys;
     private final Inventory inventory;
 
     public LobbyUtil() {
@@ -26,24 +28,44 @@ public class LobbyUtil {
         System.out.println("[Lobby] Searching for lobby's");
         for (ClusterSpigot spigot : Cloud.getInstance().getSpigots()) {
             if (spigot.getDisplayName().startsWith("Lobby")) {
+                System.out.println(spigot.getID());
                 addLobby(spigot);
             }
         }
         System.out.println("[Lobby] Found " + activeLobbys.size() + " current active lobbys");
-        for (ItemStack value : activeLobbys.values()) {
-            inventory.addItem(value);
-        }
     }
 
-    public void addLobby(IClusterSpigot iClusterSpigot) {
-        this.activeLobbys.putIfAbsent(iClusterSpigot,
-                 new ItemBuilder(Material.GLOWSTONE_DUST)
+    private void addLobby(IClusterSpigot iClusterSpigot) {
+        ItemStack server =  new ItemBuilder(Material.GLOWSTONE_DUST)
                 .setDisplayName("§6" + iClusterSpigot.getDisplayName())
-                .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build());
+                .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build();
+        this.activeLobbys.putIfAbsent(iClusterSpigot.getUuid(), server);
+        this.inventory.addItem(server);
+    }
+    /*
+    public void updateLobby(IClusterSpigot iClusterSpigot) {
+        ItemStack itemStack = this.activeLobbys.get(iClusterSpigot.getUuid());
+        ItemStack server =  new ItemBuilder(itemStack)
+                .setDisplayName("§6" + iClusterSpigot.getDisplayName())
+                .addLore(Collections.singletonList("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online"))
+                .build();
+        this.inventory.remove(itemStack);
+        this.inventory.addItem(server);
+        this.activeLobbys.replace(iClusterSpigot.getUuid(),server);
+    }*/
+
+    public void updateSlots() {
+        List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
+                .filter(clusterSpigot -> clusterSpigot.getDisplayName().startsWith("Lobby")).collect(Collectors.toList());
+        Comparator<IClusterSpigot> iClusterSpigotComparator = Comparator.comparingInt(IClusterSpigot::getID);
+        lobbies.sort(iClusterSpigotComparator);
+        lobbies.forEach(this::removeLobby);
+        lobbies.forEach(this::addLobby);
     }
 
-    public void removeLobby(IClusterSpigot iClusterSpigot) {
-        ItemStack stack = this.activeLobbys.remove(iClusterSpigot);
+
+    private void removeLobby(IClusterSpigot iClusterSpigot) {
+        ItemStack stack = this.activeLobbys.remove(iClusterSpigot.getUuid());
         this.inventory.remove(stack);
     }
 
