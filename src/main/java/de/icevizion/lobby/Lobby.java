@@ -69,6 +69,7 @@ public class Lobby extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerSpawnListener(mapService), this);
         getServer().getPluginManager().registerEvents(new WeatherListener(), this);
         getServer().getPluginManager().registerEvents(doubleJumpService, this);
+        getServer().getPluginManager().registerEvents(new ScoreboardService(), this);
     }
 
     private void registerCommands() {
