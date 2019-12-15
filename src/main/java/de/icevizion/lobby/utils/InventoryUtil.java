@@ -127,8 +127,8 @@ public class InventoryUtil {
             if (cp1.isOnline() && cp2.isOnline())
                 return 0;
             if (cp1.isOnline())
-                return 1;
-            return -1;
+                return -1;
+            return 1;
         });
 
         for (CloudPlayer cloudPlayer : sortedFriends) {
