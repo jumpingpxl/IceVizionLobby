@@ -5,6 +5,7 @@ import de.icevizion.lobby.profile.LobbyProfile;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -115,19 +116,16 @@ public class PlayerInventoryListener implements Listener {
                     switch (name) {
                         case "Alle annehmen":
                             cloudPlayer.dispatchCommand("friend", new String[]{"acceptall"});
+                            player.closeInventory();
                             break;
                         case "Alle ablehnen":
                             cloudPlayer.dispatchCommand("friend", new String[]{"denyall"});
+                            player.closeInventory();
+                            break;
+                        default:
+                            Bukkit.broadcastMessage(name);
                             break;
                     }
-
-                    if (stack.getType().equals(Material.PLAYER_HEAD)) {
-                        plugin.getProfileCache().getProfile(player).
-                                setClickedFriend(stack.getItemMeta().getDisplayName());
-                        player.openInventory(plugin.getInventoryUtil().
-                                loadActionInventory(stack.getItemMeta().getDisplayName(), stack));
-                    }
-
                 }
                 break;
         }
