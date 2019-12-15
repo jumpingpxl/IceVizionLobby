@@ -48,7 +48,7 @@ public class PlayerInteractListener implements Listener {
                     break;
                 case "§aProfile":
                     if (plugin.getProfileCache().getProfile(player).getFriendInventory() == null) {
-                        Inventory inventory = plugin.getInventoryUtil().createFriendInvenotory(player);
+                        Inventory inventory = plugin.getInventoryUtil().createFriendInventory(player);
                         plugin.getProfileCache().getProfile(player).setFriendInventory(inventory);
                         player.openInventory(inventory);
                     } else {
