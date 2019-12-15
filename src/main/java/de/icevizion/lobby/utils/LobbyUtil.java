@@ -10,12 +10,13 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LobbyUtil {
 
-    private final ConcurrentHashMap<IClusterSpigot, ItemStack> activeLobbys;
+    private final ConcurrentHashMap<String, ItemStack> activeLobbys;
     private final Inventory inventory;
 
     public LobbyUtil() {
@@ -28,7 +29,7 @@ public class LobbyUtil {
         System.out.println("[Lobby] Searching for lobby's");
         for (ClusterSpigot spigot : Cloud.getInstance().getSpigots()) {
             if (spigot.getDisplayName().startsWith("Lobby")) {
-                System.out.println(spigot.getUuid());
+                System.out.println(spigot.getID());
                 addLobby(spigot);
             }
         }
@@ -39,14 +40,19 @@ public class LobbyUtil {
         ItemStack server =  new ItemBuilder(Material.GLOWSTONE_DUST)
                 .setDisplayName("§6" + iClusterSpigot.getDisplayName())
                 .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build();
-        this.activeLobbys.putIfAbsent(iClusterSpigot, server);
+        this.activeLobbys.putIfAbsent(iClusterSpigot.getUuid(), server);
         this.inventory.addItem(server);
     }
 
     public void updateLobby(IClusterSpigot iClusterSpigot) {
-        ItemStack itemStack = this.activeLobbys.get(iClusterSpigot);
-        this.activeLobbys.remove(iClusterSpigot);
-
+        ItemStack itemStack = this.activeLobbys.get(iClusterSpigot.getUuid());
+        ItemStack server =  new ItemBuilder(itemStack)
+                .setDisplayName("§6" + iClusterSpigot.getDisplayName())
+                .addLore(Collections.singletonList("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online"))
+                .build();
+        this.inventory.remove(itemStack);
+        this.inventory.addItem(server);
+        this.activeLobbys.replace(iClusterSpigot.getUuid(),server);
     }
 
 
