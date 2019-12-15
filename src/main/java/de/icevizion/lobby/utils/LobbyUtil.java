@@ -35,14 +35,14 @@ public class LobbyUtil {
         System.out.println("[Lobby] Found " + activeLobbys.size() + " current active lobbys");
     }
 
-    public void addLobby(IClusterSpigot iClusterSpigot) {
+    private void addLobby(IClusterSpigot iClusterSpigot) {
         ItemStack server =  new ItemBuilder(Material.GLOWSTONE_DUST)
                 .setDisplayName("§6" + iClusterSpigot.getDisplayName())
                 .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build();
         this.activeLobbys.putIfAbsent(iClusterSpigot.getUuid(), server);
         this.inventory.addItem(server);
     }
-
+    /*
     public void updateLobby(IClusterSpigot iClusterSpigot) {
         ItemStack itemStack = this.activeLobbys.get(iClusterSpigot.getUuid());
         ItemStack server =  new ItemBuilder(itemStack)
@@ -52,7 +52,7 @@ public class LobbyUtil {
         this.inventory.remove(itemStack);
         this.inventory.addItem(server);
         this.activeLobbys.replace(iClusterSpigot.getUuid(),server);
-    }
+    }*/
 
     public void updateSlots() {
         List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
@@ -64,7 +64,7 @@ public class LobbyUtil {
     }
 
 
-    public void removeLobby(IClusterSpigot iClusterSpigot) {
+    private void removeLobby(IClusterSpigot iClusterSpigot) {
         ItemStack stack = this.activeLobbys.remove(iClusterSpigot.getUuid());
         this.inventory.remove(stack);
     }
