@@ -2,6 +2,7 @@ package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ItemBuilder;
 import net.titan.lib.network.spigot.IClusterSpigot;
+import net.titan.lib.utils.SpigotComparator;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.network.spigot.ClusterSpigot;
 import org.bukkit.Bukkit;
@@ -56,9 +57,9 @@ public class LobbyUtil {
 
     public void updateSlots() {
         List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
-                .filter(clusterSpigot -> clusterSpigot.getDisplayName().startsWith("Lobby")).collect(Collectors.toList());
-        Comparator<IClusterSpigot> iClusterSpigotComparator = Comparator.comparingInt(IClusterSpigot::getID);
-        lobbies.sort(iClusterSpigotComparator);
+                .filter(clusterSpigot -> clusterSpigot.getDisplayName().startsWith("Lobby"))
+                .sorted(new SpigotComparator())
+                .collect(Collectors.toList());
         lobbies.forEach(this::removeLobby);
         lobbies.forEach(this::addLobby);
     }
