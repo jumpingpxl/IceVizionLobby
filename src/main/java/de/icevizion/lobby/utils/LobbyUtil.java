@@ -9,10 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class LobbyUtil {
 
@@ -55,9 +54,18 @@ public class LobbyUtil {
         this.activeLobbys.replace(iClusterSpigot.getUuid(),server);
     }
 
+    public void updateSlots() {
+        List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
+                .filter(clusterSpigot -> clusterSpigot.getDisplayName().startsWith("Lobby")).collect(Collectors.toList());
+        Comparator<IClusterSpigot> iClusterSpigotComparator = Comparator.comparingInt(IClusterSpigot::getID);
+        lobbies.sort(iClusterSpigotComparator);
+        lobbies.forEach(this::removeLobby);
+        lobbies.forEach(this::addLobby);
+    }
+
 
     public void removeLobby(IClusterSpigot iClusterSpigot) {
-        ItemStack stack = this.activeLobbys.remove(iClusterSpigot);
+        ItemStack stack = this.activeLobbys.remove(iClusterSpigot.getUuid());
         this.inventory.remove(stack);
     }
 

@@ -32,8 +32,9 @@ public class NetworkListener implements Listener {
 
     @EventHandler
     public void onSwitch(NetworkPlayerServerSwitchedEvent event) {
-        if (event.getNewServer().getDisplayName().startsWith("Lobby")) {
+        if (event.getNewServer().getDisplayName().startsWith("Lobby") || event.getOldServer().getDisplayName().startsWith("Lobby")) {
             lobbyUtil.updateLobby(event.getNewServer());
+            lobbyUtil.updateSlots();
             lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
         }
     }
