@@ -2,6 +2,8 @@ package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ItemBuilder;
 import net.titan.lib.network.spigot.IClusterSpigot;
+import net.titan.spigot.Cloud;
+import net.titan.spigot.network.spigot.ClusterSpigot;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -17,17 +19,32 @@ public class LobbyUtil {
     public LobbyUtil() {
         this.inventory = Bukkit.createInventory(null, 27, "Waehle eine Lobby");
         this.activeLobbys = new ConcurrentHashMap<>();
+        this.loadLobbys();
+    }
+
+    private void loadLobbys() {
+        System.out.println("[Lobby] Searching for lobby's");
+        for (ClusterSpigot spigot : Cloud.getInstance().getSpigots()) {
+            if (spigot.getDisplayName().startsWith("Lobby")) {
+                addLobby(spigot);
+            }
+        }
+        System.out.println("[Lobby] Found " + activeLobbys.size() + " current active lobbys");
+        for (ItemStack value : activeLobbys.values()) {
+            inventory.addItem(value);
+        }
     }
 
     public void addLobby(IClusterSpigot iClusterSpigot) {
         this.activeLobbys.putIfAbsent(iClusterSpigot,
                  new ItemBuilder(Material.GLOWSTONE_DUST)
-                .setDisplayName(iClusterSpigot.getDisplayName())
-                .addLore(iClusterSpigot.getPlayerCount() + "/ " + iClusterSpigot.getPlayerLimit()).build());
+                .setDisplayName("§6" + iClusterSpigot.getDisplayName())
+                .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build());
     }
 
     public void removeLobby(IClusterSpigot iClusterSpigot) {
-        this.activeLobbys.remove(iClusterSpigot);
+        ItemStack stack = this.activeLobbys.remove(iClusterSpigot);
+        this.inventory.remove(stack);
     }
 
     public Inventory getInventory() {

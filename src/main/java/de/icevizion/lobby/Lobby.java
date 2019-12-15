@@ -25,7 +25,7 @@ public class Lobby extends JavaPlugin {
     private DailyRewardUtil dailyRewardUtil;
     private ProfileCache profileCache;
     private DoubleJumpService doubleJumpService;
-
+    private LobbyUtil lobbyUtil;
     private SnowService snowService;
 
     @Override
@@ -52,12 +52,14 @@ public class Lobby extends JavaPlugin {
         this.visibilityUtil = new VisibilityUtil(profileCache);
         this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
         this.doubleJumpService = new DoubleJumpService();
+        this.lobbyUtil = new LobbyUtil();
         snowService = new SnowService(this);
     }
 
     private void registerListener() {
         getServer().getPluginManager().registerEvents(new EntityInteractListener(dailyRewardUtil), this);
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
+        getServer().getPluginManager().registerEvents(new NetworkListener(lobbyUtil), this);
         getServer().getPluginManager().registerEvents(new PlayerBlockListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerDamageListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerFoodListener(), this);
@@ -106,5 +108,9 @@ public class Lobby extends JavaPlugin {
 
     public SnowService getSnowService() {
         return snowService;
+    }
+
+    public LobbyUtil getLobbyUtil() {
+        return lobbyUtil;
     }
 }

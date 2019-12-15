@@ -90,6 +90,21 @@ public class PlayerInventoryListener implements Listener {
                             loadActionInventory(stack.getItemMeta().getDisplayName(), stack));
                 }
                 break;
+            case "Waehle eine Lobby":
+                String server = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
+                CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+                IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(server);
+                if (spigot == null) {
+                    player.sendMessage("§cDieser Server ist nicht online");
+                }
+
+                if (cloudPlayer.getSpigot().getDisplayName().equals(spigot.getDisplayName())) {
+                    player.sendMessage("§cDu befindest dich schon auf dem Server");
+                    player.closeInventory();
+                } else {
+                    cloudPlayer.sendToServer(spigot);
+                }
+                break;
         }
 
         if (event.getView().getTitle().equals(plugin.getProfileCache().getProfile(player).getClickedFriend())) {

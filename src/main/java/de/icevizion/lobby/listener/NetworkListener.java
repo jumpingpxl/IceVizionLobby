@@ -6,8 +6,9 @@ import net.titan.spigot.event.NetworkPlayerQuitEvent;
 import net.titan.spigot.event.SpigotAvailableEvent;
 import net.titan.spigot.event.SpigotUnavailableEvent;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 
-public class NetworkListener {
+public class NetworkListener implements Listener {
 
     private final LobbyUtil lobbyUtil;
 
