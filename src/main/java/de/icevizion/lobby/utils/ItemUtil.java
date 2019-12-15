@@ -23,6 +23,7 @@ public class ItemUtil {
     private final Map<Integer, ItemStack> friendLayout;
     private final Map<Integer, ItemStack> friendRequests;
     private final Map<Integer, ItemStack> friendActionLayout;
+    private final Map<Integer, ItemStack> friendSubLayout;
 
     public ItemUtil() {
         this.teleporter = new ItemBuilder(Material.NETHER_STAR).setDisplayName("§bMinispiele").build();
@@ -34,6 +35,7 @@ public class ItemUtil {
         this.friendLayout = loadFriendLayout();
         this.friendRequests = loadRequestLayout();
         this.friendActionLayout = loadFriendActionLayout();
+        this.friendSubLayout = loadSubRequestLayout();
     }
 
     private HashMap<Integer, ItemStack> loadTeleporterLayout() {
@@ -134,6 +136,22 @@ public class ItemUtil {
         return layout;
     }
 
+    private HashMap<Integer, ItemStack> loadSubRequestLayout() {
+        HashMap<Integer, ItemStack> layout = new HashMap<>(9);
+        layout.put(1, PANE);
+        layout.put(10, PANE);
+        layout.put(19, PANE);
+        layout.put(13, new ItemBuilder(Material.GREEN_TERRACOTTA)
+                .setDisplayName("§aAlle annehmen")
+                .addLore("§7Nimmt alle Freundschaftsanfragen an")
+                .build());
+        layout.put(15, new ItemBuilder(Material.RED_TERRACOTTA)
+                .setDisplayName("§cAlle ablehnen")
+                .addLore("§7Lehnt alle derzeitigen Freundschaftsanfragen ab")
+                .build());
+        return layout;
+    }
+
     public void setItems(Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         ItemStack skull = new CustomPlayerHeadBuilder().setSkinOverValues(cloudPlayer.getSkinValue(), "")
@@ -160,11 +178,15 @@ public class ItemUtil {
         return friendLayout;
     }
 
-    public Map<Integer, ItemStack> getFriendRequests() {
+    protected Map<Integer, ItemStack> getFriendRequests() {
         return friendRequests;
     }
 
     protected Map<Integer, ItemStack> getFriendActionLayout() {
         return friendActionLayout;
+    }
+
+    protected Map<Integer, ItemStack> getFriendSubLayout() {
+        return friendSubLayout;
     }
 }

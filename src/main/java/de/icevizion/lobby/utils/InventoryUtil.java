@@ -113,6 +113,16 @@ public class InventoryUtil {
         return inventory;
     }
 
+    public Inventory createAcceptInventory(String name, ItemStack skull) {
+        Inventory inventory = Bukkit.createInventory(null, 27, "Anfrage von " + name);
+
+        inventory.setItem(9, skull);
+        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendSubLayout().entrySet()) {
+            inventory.setItem(entry.getKey(), entry.getValue());
+        }
+        return inventory;
+    }
+
     public Inventory createFriendRequestInventory(Player player) {
         Inventory inventory =  Bukkit.createInventory(null, 54, "Freundesanfragen");
 

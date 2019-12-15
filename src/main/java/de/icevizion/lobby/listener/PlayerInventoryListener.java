@@ -90,7 +90,8 @@ public class PlayerInventoryListener implements Listener {
 
                 if (event.getSlot() == 47 || event.getSlot() == 51) return;
                 if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
-                    plugin.getProfileCache().getProfile(player).setClickedFriend(stack.getItemMeta().getDisplayName());
+                    plugin.getProfileCache().getProfile(player).
+                            setClickedFriend("Einstellungen für " + stack.getItemMeta().getDisplayName());
                     player.openInventory(plugin.getInventoryUtil().
                             loadActionInventory(stack.getItemMeta().getDisplayName(), stack));
                 }
@@ -123,7 +124,10 @@ public class PlayerInventoryListener implements Listener {
                             player.closeInventory();
                             break;
                         default:
-                            Bukkit.broadcastMessage(name);
+                            if (stack.getType().equals(Material.PLAYER_HEAD)) {
+                                plugin.getProfileCache().getProfile(player).
+                                        setClickedFriend("Anfrage von " + stack.getItemMeta().getDisplayName());
+                            }
                             break;
                     }
                 }
