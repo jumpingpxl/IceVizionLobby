@@ -128,22 +128,15 @@ public class InventoryUtil {
 
         FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(Cloud.getInstance().getPlayer(player));
 
-        if (friendProfile.getRequests().size() == 0) {
-            player.sendMessage("§cDu hast derzeit keine Freundesanfragen");
-            player.closeInventory();
-        } else {
-            for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendRequests().entrySet()) {
-                inventory.setItem(entry.getKey(), entry.getValue());
-            }
-            for (CloudPlayer request : friendProfile.getRequests()) {
-                inventory.addItem(new CustomPlayerHeadBuilder()
-                        .setSkinOverValues(request.getSkinValue(), "")
-                        .setDisplayName(request.getFullDisplayName())
-                        .build());
-            }
+        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendRequests().entrySet()) {
+            inventory.setItem(entry.getKey(), entry.getValue());
         }
-
-
+        for (CloudPlayer request : friendProfile.getRequests()) {
+            inventory.addItem(new CustomPlayerHeadBuilder()
+                    .setSkinOverValues(request.getSkinValue(), "")
+                    .setDisplayName(request.getFullDisplayName())
+                    .build());
+        }
         return inventory;
     }
 
