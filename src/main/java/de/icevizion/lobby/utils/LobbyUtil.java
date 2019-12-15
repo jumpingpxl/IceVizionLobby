@@ -9,6 +9,8 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LobbyUtil {
@@ -26,13 +28,11 @@ public class LobbyUtil {
         System.out.println("[Lobby] Searching for lobby's");
         for (ClusterSpigot spigot : Cloud.getInstance().getSpigots()) {
             if (spigot.getDisplayName().startsWith("Lobby")) {
+                System.out.println(spigot.getUuid());
                 addLobby(spigot);
             }
         }
         System.out.println("[Lobby] Found " + activeLobbys.size() + " current active lobbys");
-        for (ItemStack value : activeLobbys.values()) {
-            inventory.addItem(value);
-        }
     }
 
     public void addLobby(IClusterSpigot iClusterSpigot) {
@@ -42,6 +42,13 @@ public class LobbyUtil {
         this.activeLobbys.putIfAbsent(iClusterSpigot, server);
         this.inventory.addItem(server);
     }
+
+    public void updateLobby(IClusterSpigot iClusterSpigot) {
+        ItemStack itemStack = this.activeLobbys.get(iClusterSpigot);
+        this.activeLobbys.remove(iClusterSpigot);
+
+    }
+
 
     public void removeLobby(IClusterSpigot iClusterSpigot) {
         ItemStack stack = this.activeLobbys.remove(iClusterSpigot);
