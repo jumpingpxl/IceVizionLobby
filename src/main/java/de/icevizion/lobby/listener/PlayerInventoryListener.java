@@ -163,21 +163,5 @@ public class PlayerInventoryListener implements Listener {
             }
             player.closeInventory();
         }
-
-        if (event.getView().getTitle().equals(plugin.getProfileCache().getProfile(player).getClickedFriend())) {
-            if (stack.getType().equals(Material.AIR)) return;
-
-            String name = ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName());
-
-            switch (stack.getItemMeta().getDisplayName()) {
-                case "§aAnnehmen":
-                    cloudPlayer.dispatchCommand("friend", new String[]{"accept", name});
-                    break;
-                case "§cAblehnen":
-                    cloudPlayer.dispatchCommand("friend", new String[]{"deny", name});
-                    break;
-
-            }
-        }
     }
 }
