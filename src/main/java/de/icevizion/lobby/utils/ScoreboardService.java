@@ -38,7 +38,7 @@ public class ScoreboardService implements Listener {
         board.setDisplayName("§f§oI§fce§3V§fizion");
 
         board.setLine(10, "§4");
-        board.setLine(9, "§7§lOnline Freunde:");
+        board.setLine(9, "§7§lFreunde");
 
         board.setLine(7, "§3");
         board.setLine(6, "§7§lCoins");
@@ -59,10 +59,10 @@ public class ScoreboardService implements Listener {
             FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
             int onlineFriends = (int) friendProfile.getFriends().stream().filter(cloudPlayer1 -> cloudPlayer1.isOnline()).count();
 
-            board.setLine(11, "§f"+cloudPlayer.getFullDisplayName());
-            board.setLine(8, onlineFriends == 0 ? "§c" : "§a" + onlineFriends);
-            board.setLine(5, "§2§6" + cloudPlayer.getCoins());
-            board.setLine(2, "§1§6"+ TimeUtilities.getHours(cloudPlayer.getOnlineTime())+" Stunden");
+            board.setLine(11, "§f§8» "+cloudPlayer.getFullDisplayName());
+            board.setLine(8, onlineFriends == 0 ? "§c" : "§a" + onlineFriends + "§8/§6"+friendProfile.getRawFriends().size());
+            board.setLine(5, "§2§8» §6" + cloudPlayer.getCoins());
+            board.setLine(2, "§1§8» §6"+ TimeUtilities.getHours(cloudPlayer.getOnlineTime())+" Stunden");
         });
     }
 
