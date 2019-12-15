@@ -129,7 +129,9 @@ public class InventoryUtil {
             }
             for (CloudPlayer request : friendProfile.getRequests()) {
                 inventory.addItem(new CustomPlayerHeadBuilder()
-                        .setSkinOverValues(request.getSkinValue(), "").build());
+                        .setSkinOverValues(request.getSkinValue(), "")
+                        .setDisplayName(request.getFullDisplayName())
+                        .build());
             }
         }
 
