@@ -58,6 +58,6 @@ public class LobbyProfile {
     }
 
     public String getClickedFriend() {
-        return "Einstellungen für " + clickedFriend;
+        return clickedFriend;
     }
 }

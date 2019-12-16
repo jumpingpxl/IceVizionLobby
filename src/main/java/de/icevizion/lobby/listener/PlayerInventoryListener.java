@@ -91,7 +91,7 @@ public class PlayerInventoryListener implements Listener {
                 if (event.getSlot() == 47 || event.getSlot() == 51) return;
                 if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
                     plugin.getProfileCache().getProfile(player).
-                            setClickedFriend(stack.getItemMeta().getDisplayName());
+                            setClickedFriend("Einstellungen für " + stack.getItemMeta().getDisplayName());
                     player.openInventory(plugin.getInventoryUtil().
                             loadActionInventory(stack.getItemMeta().getDisplayName(), stack));
                 }
