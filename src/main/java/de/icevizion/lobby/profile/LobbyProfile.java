@@ -35,7 +35,6 @@ public class LobbyProfile {
     }
 
     public void setClickedFriend(String clickedFriend) {
-        Bukkit.broadcastMessage(clickedFriend);
         this.clickedFriend = clickedFriend;
     }
 

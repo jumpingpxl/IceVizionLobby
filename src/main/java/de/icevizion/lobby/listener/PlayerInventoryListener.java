@@ -152,7 +152,6 @@ public class PlayerInventoryListener implements Listener {
 
     private void handleAction(CloudPlayer cloudPlayer, ItemStack stack, String displayName, String name) {
         LobbyProfile profile = plugin.getProfileCache().getProfile(cloudPlayer.getPlayer());
-        Bukkit.broadcastMessage(displayName);
         switch (displayName) {
             case "Annehmen":
                 cloudPlayer.dispatchCommand("friend", new String[]{"accept", name});
