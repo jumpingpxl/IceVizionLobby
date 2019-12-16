@@ -15,6 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.Map;
 
 public class InventoryUtil {
@@ -112,15 +113,50 @@ public class InventoryUtil {
         return inventory;
     }
 
-    public Inventory createFriendInvenotory(Player player) {
+    public Inventory createAcceptInventory(String name, ItemStack skull) {
+        Inventory inventory = Bukkit.createInventory(null, 27, "Anfrage von " + name);
+
+        inventory.setItem(9, skull);
+        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendSubLayout().entrySet()) {
+            inventory.setItem(entry.getKey(), entry.getValue());
+        }
+        return inventory;
+    }
+
+    public Inventory createFriendRequestInventory(Player player) {
+        Inventory inventory =  Bukkit.createInventory(null, 54, "Freundesanfragen");
+
+        FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(Cloud.getInstance().getPlayer(player));
+
+        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendRequests().entrySet()) {
+            inventory.setItem(entry.getKey(), entry.getValue());
+        }
+        for (CloudPlayer request : friendProfile.getRequests()) {
+            inventory.addItem(new CustomPlayerHeadBuilder()
+                    .setSkinOverValues(request.getSkinValue(), "")
+                    .setDisplayName(request.getFullDisplayName())
+                    .build());
+        }
+        return inventory;
+    }
+
+    public Inventory createFriendInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "Freunde");
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
         FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(Cloud.getInstance().getPlayer(player));
+        List<CloudPlayer> sortedFriends = friendProfile.getFriends();
+        sortedFriends.sort((cp1, cp2) -> {
+            if (cp1.isOnline() && cp2.isOnline())
+                return 0;
+            if (cp1.isOnline())
+                return -1;
+            return 1;
+        });
 
-        for (CloudPlayer cloudPlayer : friendProfile.getFriends()) {
+        for (CloudPlayer cloudPlayer : sortedFriends) {
             if (cloudPlayer.isOnline()) {
                 inventory.addItem(new CustomPlayerHeadBuilder()
                         .setSkinOverValues(cloudPlayer.getSkinValue(), "")
