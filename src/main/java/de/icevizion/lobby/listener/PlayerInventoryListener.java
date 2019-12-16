@@ -135,7 +135,7 @@ public class PlayerInventoryListener implements Listener {
                 break;
         }
 
-        if (event.getView().getTitle().equals(plugin.getProfileCache().getProfile(player).getClickedFriend())) {
+        if (event.getView().getTitle().startsWith("Einstellungen für") || (event.getView().getTitle().startsWith("Anfrage von"))) {
             Bukkit.broadcastMessage(event.getView().getTitle());
             if (stack.getType().equals(Material.AIR)) return;
 
