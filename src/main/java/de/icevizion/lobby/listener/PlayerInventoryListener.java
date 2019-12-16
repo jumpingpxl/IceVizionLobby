@@ -136,6 +136,7 @@ public class PlayerInventoryListener implements Listener {
         }
 
         if (event.getView().getTitle().equals(plugin.getProfileCache().getProfile(player).getClickedFriend())) {
+            Bukkit.broadcastMessage(event.getView().getTitle());
             if (stack.getType().equals(Material.AIR)) return;
 
             String name = ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName());
