@@ -113,7 +113,6 @@ public class PlayerInventoryListener implements Listener {
             case "Freundesanfragen":
                 if (!stack.getType().equals(Material.AIR)) {
                     String name = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
-
                     switch (name) {
                         case "Alle annehmen":
                             cloudPlayer.dispatchCommand("friend", new String[]{"acceptall"});
@@ -135,39 +134,18 @@ public class PlayerInventoryListener implements Listener {
                 break;
         }
 
-        if (event.getView().getTitle().startsWith("Einstellungen für") || (event.getView().getTitle().startsWith("Anfrage von"))) {
+        if (event.getView().getTitle().startsWith("Einstellungen für") ||
+                (event.getView().getTitle().startsWith("Anfrage von"))) {
             if (stack.getType().equals(Material.AIR)) return;
 
             String name = ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName());
 
             if (cloudPlayer == null)  {
                 player.sendMessage("§cEs trat ein technischer Fehler auf");
-                player.closeInventory();
             } else {
                 handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
                         ChatColor.stripColor(stack.getItemMeta().getDisplayName()), name);
-
             }
-
-        /**} else {
-                switch (stack.getItemMeta().getDisplayName()) {
-                    case "Nach springen":
-                        player.sendMessage("§cDas Feature kommt noch");
-                        break;
-                    case "Party":
-                        cloudPlayer.dispatchCommand("party", new String[]{"invite", name});
-                        break;
-                    case "Freund entfernen":
-                        cloudPlayer.dispatchCommand("friend", new String[]{"remove", name});
-                        //Inventory updaten
-                        LobbyProfile profile = plugin.getProfileCache().getProfile(player);
-                        profile.getFriendInventory().remove(event.getClickedInventory().getItem(9));
-                        profile.setClickedFriend(null);
-                        break;
-                    default:
-                        break;
-                }
-            }*/
             player.closeInventory();
         }
     }
@@ -192,7 +170,6 @@ public class PlayerInventoryListener implements Listener {
                 cloudPlayer.dispatchCommand("friend", new String[]{"remove", name});
                 //Inventory updaten
                 profile.getFriendInventory().remove(stack);
-                //profile.getFriendInventory().remove(event.getClickedInventory().getItem(9));
                 break;
             default:
                 break;
