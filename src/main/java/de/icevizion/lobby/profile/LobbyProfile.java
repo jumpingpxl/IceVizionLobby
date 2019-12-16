@@ -4,8 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import java.util.Collections;
-
 public class LobbyProfile {
 
     private final Player player;
