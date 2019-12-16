@@ -1,7 +1,10 @@
 package de.icevizion.lobby.profile;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+
+import java.util.Collections;
 
 public class LobbyProfile {
 
@@ -34,6 +37,7 @@ public class LobbyProfile {
     }
 
     public void setClickedFriend(String clickedFriend) {
+        Bukkit.broadcastMessage(clickedFriend);
         this.clickedFriend = clickedFriend;
     }
 
