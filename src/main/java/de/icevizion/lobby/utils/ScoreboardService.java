@@ -25,7 +25,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class ScoreboardService implements Listener {
 
-    private Lobby lobby;
+    private final Lobby lobby;
 
     public ScoreboardService(Lobby lobby) {
         this.lobby = lobby;
@@ -76,6 +76,7 @@ public class ScoreboardService implements Listener {
         for (Player player : Bukkit.getOnlinePlayers())
             updateScoreboard(player);
     }
+
     @EventHandler
     public void onGlobalPlayerQuit(NetworkPlayerQuitEvent event) {
         for (Player player : Bukkit.getOnlinePlayers())

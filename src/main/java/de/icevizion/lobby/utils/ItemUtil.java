@@ -21,7 +21,9 @@ public class ItemUtil {
     private final Map<Integer, ItemStack> teleporterLayout;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
+    private final Map<Integer, ItemStack> friendRequests;
     private final Map<Integer, ItemStack> friendActionLayout;
+    private final Map<Integer, ItemStack> friendSubLayout;
 
     public ItemUtil() {
         this.teleporter = new ItemBuilder(Material.NETHER_STAR).setDisplayName("§bMinispiele").build();
@@ -31,7 +33,9 @@ public class ItemUtil {
         this.teleporterLayout = loadTeleporterLayout();
         this.settingsLayout = loadLayout();
         this.friendLayout = loadFriendLayout();
+        this.friendRequests = loadRequestLayout();
         this.friendActionLayout = loadFriendActionLayout();
+        this.friendSubLayout = loadSubRequestLayout();
     }
 
     private HashMap<Integer, ItemStack> loadTeleporterLayout() {
@@ -91,9 +95,8 @@ public class ItemUtil {
 
     private HashMap<Integer, ItemStack> loadFriendLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>();
-        ItemStack pane = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setDisplayName("§0").build();
         for (int i = 36; i < 45; i++) {
-            layout.put(i, pane);
+            layout.put(i, PANE);
         }
         layout.put(49, new ItemBuilder(Material.EMERALD).setDisplayName("Freundesanfragen").build());
         layout.put(47, new CustomPlayerHeadBuilder()
@@ -106,6 +109,22 @@ public class ItemUtil {
         return layout;
     }
 
+    private HashMap<Integer, ItemStack> loadRequestLayout() {
+        HashMap<Integer, ItemStack> layout = new HashMap<>();
+        for (int i = 36; i < 45; i++) {
+            layout.put(i, PANE);
+        }
+        layout.put(47, new ItemBuilder(Material.GREEN_TERRACOTTA)
+                .setDisplayName("§aAlle annehmen")
+                .addLore("§7Nimmt alle Freundschaftsanfragen an")
+                .build());
+        layout.put(51, new ItemBuilder(Material.RED_TERRACOTTA)
+                .setDisplayName("§cAlle ablehnen")
+                .addLore("§7Lehnt alle derzeitigen Freundschaftsanfragen ab")
+                .build());
+        return layout;
+    }
+
     private HashMap<Integer, ItemStack> loadFriendActionLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>(9);
         layout.put(1, PANE);
@@ -114,6 +133,22 @@ public class ItemUtil {
         layout.put(12, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("Nach springen").build());
         layout.put(14, new ItemBuilder(Material.CAKE).setDisplayName("In Party einladen").build());
         layout.put(16, new ItemBuilder(Material.BARRIER).setDisplayName("Freund entfernen").build());
+        return layout;
+    }
+
+    private HashMap<Integer, ItemStack> loadSubRequestLayout() {
+        HashMap<Integer, ItemStack> layout = new HashMap<>(9);
+        layout.put(1, PANE);
+        layout.put(10, PANE);
+        layout.put(19, PANE);
+        layout.put(13, new ItemBuilder(Material.GREEN_TERRACOTTA)
+                .setDisplayName("§aAnnehmen")
+                .addLore("§7Nimmt alle Freundschaftsanfragen an")
+                .build());
+        layout.put(15, new ItemBuilder(Material.RED_TERRACOTTA)
+                .setDisplayName("§cAblehnen")
+                .addLore("§7Lehnt alle derzeitigen Freundschaftsanfragen ab")
+                .build());
         return layout;
     }
 
@@ -143,7 +178,15 @@ public class ItemUtil {
         return friendLayout;
     }
 
+    protected Map<Integer, ItemStack> getFriendRequests() {
+        return friendRequests;
+    }
+
     protected Map<Integer, ItemStack> getFriendActionLayout() {
         return friendActionLayout;
+    }
+
+    protected Map<Integer, ItemStack> getFriendSubLayout() {
+        return friendSubLayout;
     }
 }

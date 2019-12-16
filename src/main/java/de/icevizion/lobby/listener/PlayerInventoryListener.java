@@ -5,6 +5,7 @@ import de.icevizion.lobby.profile.LobbyProfile;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -33,7 +34,7 @@ public class PlayerInventoryListener implements Listener {
         if (!event.getCurrentItem().hasItemMeta()) return;
 
         Player player = (Player) event.getWhoClicked();
-
+        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         ItemStack stack = event.getCurrentItem();
 
         event.setCancelled(true);
@@ -55,7 +56,6 @@ public class PlayerInventoryListener implements Listener {
                             server = "BuildServer-1";
                         }
 
-                        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
                         IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(server);
                         if (spigot == null) {
                             player.sendMessage("§cDieser Server ist nicht online");
@@ -83,16 +83,21 @@ public class PlayerInventoryListener implements Listener {
                         player.openInventory(plugin.getProfileCache().getProfile(player).getSettingsInventory());
                     }
                 }
+
+                if (stack.getItemMeta().getDisplayName().equals("Freundesanfragen")) {
+                    player.openInventory(plugin.getInventoryUtil().createFriendRequestInventory(player));
+                }
+
                 if (event.getSlot() == 47 || event.getSlot() == 51) return;
                 if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
-                    plugin.getProfileCache().getProfile(player).setClickedFriend(stack.getItemMeta().getDisplayName());
+                    plugin.getProfileCache().getProfile(player).
+                            setClickedFriend("Einstellungen für " + stack.getItemMeta().getDisplayName());
                     player.openInventory(plugin.getInventoryUtil().
                             loadActionInventory(stack.getItemMeta().getDisplayName(), stack));
                 }
                 break;
             case "Waehle eine Lobby":
                 String server = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
-                CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
                 IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(server);
                 if (spigot == null) {
                     player.sendMessage("§cDieser Server ist nicht online");
@@ -105,36 +110,69 @@ public class PlayerInventoryListener implements Listener {
                     cloudPlayer.sendToServer(spigot);
                 }
                 break;
+            case "Freundesanfragen":
+                if (!stack.getType().equals(Material.AIR)) {
+                    String name = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
+                    switch (name) {
+                        case "Alle annehmen":
+                            cloudPlayer.dispatchCommand("friend", new String[]{"acceptall"});
+                            player.closeInventory();
+                            break;
+                        case "Alle ablehnen":
+                            cloudPlayer.dispatchCommand("friend", new String[]{"denyall"});
+                            player.closeInventory();
+                            break;
+                        default:
+                            if (stack.getType().equals(Material.PLAYER_HEAD)) {
+                               plugin.getProfileCache().getProfile(player).
+                                        setClickedFriend("Anfrage von " + stack.getItemMeta().getDisplayName());
+                                player.openInventory(plugin.getInventoryUtil().createAcceptInventory(name, stack));
+                            }
+                            break;
+                    }
+                }
+                break;
         }
 
-        if (event.getView().getTitle().equals(plugin.getProfileCache().getProfile(player).getClickedFriend())) {
+        if (event.getView().getTitle().startsWith("Einstellungen für") ||
+                (event.getView().getTitle().startsWith("Anfrage von"))) {
             if (stack.getType().equals(Material.AIR)) return;
 
             String name = ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName());
-            CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
-            if (cloudPlayer == null) {
+            if (cloudPlayer == null)  {
                 player.sendMessage("§cEs trat ein technischer Fehler auf");
             } else {
-                switch (stack.getItemMeta().getDisplayName()) {
-                    case "Nach springen":
-                        player.sendMessage("§cDas Feature kommt noch");
-                        break;
-                    case "Party":
-                        cloudPlayer.dispatchCommand("party", new String[]{"invite", name});
-                        break;
-                    case "Freund entfernen":
-                        cloudPlayer.dispatchCommand("friend", new String[]{"remove", name});
-                        //Inventory updaten
-                        LobbyProfile profile = plugin.getProfileCache().getProfile(player);
-                        profile.getFriendInventory().remove(event.getClickedInventory().getItem(9));
-                        profile.setClickedFriend(null);
-                        break;
-                    default:
-                        break;
-                }
+                handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
+                        ChatColor.stripColor(stack.getItemMeta().getDisplayName()), name);
             }
             player.closeInventory();
         }
+    }
+
+    private void handleAction(CloudPlayer cloudPlayer, ItemStack stack, String displayName, String name) {
+        LobbyProfile profile = plugin.getProfileCache().getProfile(cloudPlayer.getPlayer());
+        switch (displayName) {
+            case "Annehmen":
+                cloudPlayer.dispatchCommand("friend", new String[]{"accept", name});
+                break;
+            case "Ablehnen":
+                cloudPlayer.dispatchCommand("friend", new String[] {"deny", name});
+                break;
+            case "Nach springen":
+                cloudPlayer.sendMessage("§cDas Feature kommt noch");
+                break;
+            case "Party":
+                cloudPlayer.dispatchCommand("party", new String[]{"invite", name});
+                break;
+            case "Freund entfernen":
+                cloudPlayer.dispatchCommand("friend", new String[]{"remove", name});
+                //Inventory updaten
+                profile.getFriendInventory().remove(stack);
+                break;
+            default:
+                break;
+        }
+        profile.setClickedFriend(null);
     }
 }

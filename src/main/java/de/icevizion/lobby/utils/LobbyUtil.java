@@ -29,7 +29,6 @@ public class LobbyUtil {
         System.out.println("[Lobby] Searching for lobby's");
         for (ClusterSpigot spigot : Cloud.getInstance().getSpigots()) {
             if (spigot.getDisplayName().startsWith("Lobby")) {
-                System.out.println(spigot.getID());
                 addLobby(spigot);
             }
         }

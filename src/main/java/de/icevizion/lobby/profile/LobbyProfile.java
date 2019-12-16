@@ -1,5 +1,6 @@
 package de.icevizion.lobby.profile;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -58,6 +59,6 @@ public class LobbyProfile {
     }
 
     public String getClickedFriend() {
-        return "Einstellungen für " + clickedFriend;
+        return clickedFriend;
     }
 }
