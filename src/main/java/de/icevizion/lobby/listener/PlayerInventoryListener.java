@@ -136,7 +136,6 @@ public class PlayerInventoryListener implements Listener {
         }
 
         if (event.getView().getTitle().startsWith("Einstellungen für") || (event.getView().getTitle().startsWith("Anfrage von"))) {
-            Bukkit.broadcastMessage(event.getView().getTitle());
             if (stack.getType().equals(Material.AIR)) return;
 
             String name = ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName());
@@ -146,7 +145,7 @@ public class PlayerInventoryListener implements Listener {
                 player.closeInventory();
             } else {
                 handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
-                        stack.getItemMeta().getDisplayName(), name);
+                        ChatColor.stripColor(stack.getItemMeta().getDisplayName()), name);
 
             }
 
