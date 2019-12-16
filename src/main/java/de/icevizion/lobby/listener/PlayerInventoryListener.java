@@ -5,7 +5,6 @@ import de.icevizion.lobby.profile.LobbyProfile;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -125,8 +124,8 @@ public class PlayerInventoryListener implements Listener {
                             break;
                         default:
                             if (stack.getType().equals(Material.PLAYER_HEAD)) {
-                               // plugin.getProfileCache().getProfile(player).
-                                        //setClickedFriend("Anfrage von " + stack.getItemMeta().getDisplayName());
+                               plugin.getProfileCache().getProfile(player).
+                                        setClickedFriend("Anfrage von " + stack.getItemMeta().getDisplayName());
                                 player.openInventory(plugin.getInventoryUtil().createAcceptInventory(name, stack));
                             }
                             break;
@@ -140,9 +139,16 @@ public class PlayerInventoryListener implements Listener {
 
             String name = ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName());
 
-            if (cloudPlayer == null) {
+            if (cloudPlayer == null)  {
                 player.sendMessage("§cEs trat ein technischer Fehler auf");
+                player.closeInventory();
             } else {
+                handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
+                        stack.getItemMeta().getDisplayName(), name);
+
+            }
+
+        /**} else {
                 switch (stack.getItemMeta().getDisplayName()) {
                     case "Nach springen":
                         player.sendMessage("§cDas Feature kommt noch");
@@ -160,8 +166,35 @@ public class PlayerInventoryListener implements Listener {
                     default:
                         break;
                 }
-            }
+            }*/
             player.closeInventory();
         }
+    }
+
+    private void handleAction(CloudPlayer cloudPlayer, ItemStack stack, String displayname, String name) {
+        LobbyProfile profile = plugin.getProfileCache().getProfile(cloudPlayer.getPlayer());
+        switch (displayname) {
+            case "Annehmen":
+                cloudPlayer.dispatchCommand("friend", new String[]{"add", name});
+                break;
+            case "Ablehnen":
+                cloudPlayer.dispatchCommand("friend", new String[] {"deny", name});
+                break;
+            case "Nach springen":
+                cloudPlayer.sendMessage("§cDas Feature kommt noch");
+                break;
+            case "Party":
+                cloudPlayer.dispatchCommand("party", new String[]{"invite", name});
+                break;
+            case "Freund entfernen":
+                cloudPlayer.dispatchCommand("friend", new String[]{"remove", name});
+                //Inventory updaten
+                profile.getFriendInventory().remove(stack);
+                //profile.getFriendInventory().remove(event.getClickedInventory().getItem(9));
+                break;
+            default:
+                break;
+        }
+        profile.setClickedFriend(null);
     }
 }
