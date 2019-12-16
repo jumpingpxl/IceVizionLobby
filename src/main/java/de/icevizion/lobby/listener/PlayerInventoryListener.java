@@ -171,9 +171,9 @@ public class PlayerInventoryListener implements Listener {
         }
     }
 
-    private void handleAction(CloudPlayer cloudPlayer, ItemStack stack, String displayname, String name) {
+    private void handleAction(CloudPlayer cloudPlayer, ItemStack stack, String displayName, String name) {
         LobbyProfile profile = plugin.getProfileCache().getProfile(cloudPlayer.getPlayer());
-        switch (displayname) {
+        switch (displayName) {
             case "Annehmen":
                 cloudPlayer.dispatchCommand("friend", new String[]{"add", name});
                 break;
