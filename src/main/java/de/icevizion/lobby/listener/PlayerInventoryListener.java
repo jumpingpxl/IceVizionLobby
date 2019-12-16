@@ -5,6 +5,7 @@ import de.icevizion.lobby.profile.LobbyProfile;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -173,6 +174,7 @@ public class PlayerInventoryListener implements Listener {
 
     private void handleAction(CloudPlayer cloudPlayer, ItemStack stack, String displayName, String name) {
         LobbyProfile profile = plugin.getProfileCache().getProfile(cloudPlayer.getPlayer());
+        Bukkit.broadcastMessage(displayName);
         switch (displayName) {
             case "Annehmen":
                 cloudPlayer.dispatchCommand("friend", new String[]{"accept", name});
