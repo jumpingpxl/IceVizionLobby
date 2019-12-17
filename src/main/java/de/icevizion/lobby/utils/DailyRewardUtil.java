@@ -58,8 +58,8 @@ public final class DailyRewardUtil {
         coins += 50 * streak;
         cloudPlayer.addCoins(coins);
         cloudPlayer.extradataSet("daily", System.currentTimeMillis() + getRestDayTime());
-        player.sendMessage("§7Du hast §e" + coins + " §7Coins bekommen!" + (streak > 0
-                ? " " + "Du hast einen Streak von " + (streak + 1)
+        player.sendMessage("§7Du hast §6" + coins + " §7Coins bekommen!" + (streak > 0
+                ? " " + "Du hast einen Streak von §6" + (streak + 1)
                 : ""));
     }
 
