@@ -6,19 +6,16 @@ import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class SnowService extends BukkitRunnable {
+public final class SnowService extends BukkitRunnable {
 
-    private static Set<Player> players;
-    private final BukkitTask runnable;
+    private static final Set<Player> players = new HashSet<>();
 
     public SnowService(Plugin plugin) {
-        this.players = new HashSet<>();
-        this.runnable = this.runTaskTimer(plugin, 0l, 2L);
+        runTaskTimer(plugin, 0L, 2L);
     }
 
     public static void addPlayer(Player player) {
@@ -44,7 +41,7 @@ public class SnowService extends BukkitRunnable {
                                     10 /* OFFSET Y*/,
                                     10 /* OFFSET Z*/,
                                     0 /* data*/,
-                                    15 /* count*/);
+                                    35 /* count*/);
                     ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
                 }
             }
