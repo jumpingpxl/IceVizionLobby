@@ -5,7 +5,6 @@ import de.icevizion.lobby.profile.LobbyProfile;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -49,14 +48,9 @@ public class PlayerInventoryListener implements Listener {
             break;
             case "Minispiele":
                 if (!stack.getType().equals(Material.BLACK_STAINED_GLASS_PANE)) {
-                    if (stack.getType().equals(Material.GLOWSTONE_DUST) || stack.getType().equals(Material.IRON_PICKAXE)) {
-                        String server = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
-
-                        if (server.equals("BuildServer")) {
-                            server = "BuildServer-1";
-                        }
-
-                        IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(server);
+                    String itemName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
+                    if (stack.getType().equals(Material.GLOWSTONE_DUST)) {
+                        IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(itemName);
                         if (spigot == null) {
                             player.sendMessage("§cDieser Server ist nicht online");
                         }
@@ -68,8 +62,7 @@ public class PlayerInventoryListener implements Listener {
                             cloudPlayer.sendToServer(spigot);
                         }
                     } else {
-                        String locationName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
-                        player.teleport(plugin.getMapService().getLocation(locationName));
+                        player.teleport(plugin.getMapService().getLocation(itemName));
                     }
                 }
                 break;
