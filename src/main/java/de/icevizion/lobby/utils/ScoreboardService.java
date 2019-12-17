@@ -5,6 +5,7 @@ import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.icevizion.lobby.Lobby;
 import de.icevizion.scoreboard.Board;
 import de.icevizion.scoreboard.BoardAPI;
+import net.titan.cloudcore.player.ICloudPlayer;
 import net.titan.protocol.utils.TimeUtilities;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.event.NetworkPlayerJoinEvent;
@@ -57,12 +58,13 @@ public class ScoreboardService implements Listener {
             Board board = BoardAPI.getInstance().getBoard(player);
             CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
             FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
-            int onlineFriends = (int) friendProfile.getFriends().stream().filter(cloudPlayer1 -> cloudPlayer1.isOnline()).count();
+            int onlineFriends = (int) friendProfile.getFriends().stream().filter(ICloudPlayer::isOnline).count();
 
             board.setLine(11, "§f§8» "+cloudPlayer.getFullDisplayName());
-            board.setLine(8, "§e§8» "+(onlineFriends == 0 ? "§c" : "§a") + onlineFriends + "§8/§6"+friendProfile.getRawFriends().size());
+            board.setLine(8, "§e§8» "+(onlineFriends == 0 ? "§c" : "§a")
+                    + onlineFriends + "§8/§6" + friendProfile.getRawFriends().size());
             board.setLine(5, "§2§8» §6" + cloudPlayer.getCoins());
-            board.setLine(2, "§1§8» §6"+ TimeUtilities.getHours(cloudPlayer.getOnlineTime())+" Stunden");
+            board.setLine(2, "§1§8» §6"+ TimeUtilities.getHours(cloudPlayer.getOnlineTime()) + " Stunden");
         });
     }
 
