@@ -19,28 +19,23 @@ public class SetCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            return true;
-        } else {
+        if (sender instanceof Player) {
             CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer((Player) sender);
 
             if (!cloudPlayer.hasPermission("lobby.location")) return false;
 
             if (args.length != 1) {
                 cloudPlayer.sendMessage("§7Bitte benutze §c/location <spawn,oneline,guessit,kbffa,daily>");
-                return  true;
             } else {
                 if (args[0].isEmpty()) {
                     cloudPlayer.sendMessage("§cBitte gebe spawn,oneline,guessit,kbffa oder daily an");
-                    return true;
                 } else {
-                    String name = args[0].toLowerCase();
                     Location location = cloudPlayer.getPlayer().getLocation();
-                    mapService.setValue(name, location);
-                    cloudPlayer.sendMessage("§7Du hast die Location §6" + name + " §7gesetzt");
-                    return true;
+                    mapService.setValue(args[0].toLowerCase(), location);
+                    cloudPlayer.sendMessage("§7Du hast die Location §6" + args[0] + " §7gesetzt");
                 }
             }
         }
+        return true;
     }
 }
