@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 public class Lobby extends JavaPlugin {
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
+    private String prefix;
     private MapService mapService;
     private CooldownUtil cooldownUtil;
     private InventoryUtil inventoryUtil;
@@ -30,6 +31,7 @@ public class Lobby extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        this.prefix = "§eLobby §8» §r";
         load();
         registerListener();
         registerCommands();
@@ -76,6 +78,10 @@ public class Lobby extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("location").setExecutor(new SetCommand(mapService));
+    }
+
+    public String getPrefix() {
+        return prefix;
     }
 
     public InventoryUtil getInventoryUtil() {
