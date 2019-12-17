@@ -21,11 +21,12 @@ public class LobbyUtil {
 
     public LobbyUtil() {
         this.inventory = Bukkit.createInventory(null, 27, "Waehle eine Lobby");
+        this.inventory.setMaxStackSize(1);
         this.activeLobbys = new ConcurrentHashMap<>();
-        this.loadLobbys();
+        this.loadLobbies();
     }
 
-    private void loadLobbys() {
+    private void loadLobbies() {
         System.out.println("[Lobby] Searching for lobby's");
         for (ClusterSpigot spigot : Cloud.getInstance().getSpigots()) {
             if (spigot.getDisplayName().startsWith("Lobby")) {
