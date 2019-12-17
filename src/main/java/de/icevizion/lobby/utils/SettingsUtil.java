@@ -95,7 +95,6 @@ public class SettingsUtil {
 
     private int setForState(int newValue, Inventory inventory, int category, int forInt, int offset) {
         for (int i = offset; i < forInt && i != newValue; i++) {
-            //if (i == newValue) continue;
             if (!inventory.getItem(category + ( CLICK_OFFSET + i)).getType().equals(Material.GRAY_DYE)) {
                 return i;
             }
