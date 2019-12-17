@@ -2,6 +2,7 @@ package de.icevizion.lobby.utils;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
+import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.profile.LobbyProfile;
 import de.icevizion.lobby.profile.ProfileCache;
 import net.titan.spigot.Cloud;
@@ -20,7 +21,7 @@ public class VisibilityUtil {
         this.profileCache = profileCache;
     }
 
-    public void changeVisibility(Plugin plugin, Player player) {
+    public void changeVisibility(Lobby plugin, Player player) {
         LobbyProfile lobbyProfile = profileCache.getProfile(player);
         int value = lobbyProfile.getHideSettings();
         if (value == 2) {
@@ -36,7 +37,7 @@ public class VisibilityUtil {
                         player.showPlayer(plugin, online);
                     }
                 }
-                player.sendMessage("§7Du siehst nun §aalle §7Spieler wieder");
+                player.sendMessage(plugin.getPrefix() + "§7Du siehst nun wieder §aalle §7Spieler");
                 break;
             case 1:
                 CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
@@ -49,7 +50,7 @@ public class VisibilityUtil {
                         player.showPlayer(plugin, online);
                     }
                 }
-                player.sendMessage("§7Du siehst nur noch deine §eFreunde");
+                player.sendMessage(plugin.getPrefix() + "§7Du siehst nur noch deine §eFreunde");
                 break;
             case 2:
                 for (Player online : Bukkit.getOnlinePlayers()) {
@@ -58,7 +59,7 @@ public class VisibilityUtil {
                         player.hidePlayer(plugin, online);
                     }
                 }
-                player.sendMessage("§7Du siehst nun §ckeine §7Spieler mehr");
+                player.sendMessage(plugin.getPrefix() + "§7Du siehst nun §ckeine §7Spieler mehr");
                 break;
         }
         lobbyProfile.setHideSettings(value);
