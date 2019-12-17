@@ -87,6 +87,7 @@ public final class DailyRewardUtil {
         //so it is definitely bigger than dayMillis
         if (System.currentTimeMillis() - timestamp > DAY_MILLIS) {
             cloudPlayer.offlineExtradataRemove("dailyStreak");
+            cloudPlayer.extradataSet("dailyStreak", 0);
             return 0;
         }
 
