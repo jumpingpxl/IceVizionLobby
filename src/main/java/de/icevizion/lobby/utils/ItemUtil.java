@@ -44,9 +44,6 @@ public class ItemUtil {
         layout.put(11, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
         layout.put(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
         layout.put(22, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("GuessIt").build());
-        layout.put(26, new ItemBuilder(Material.IRON_PICKAXE).setDisplayName("§aBuildServer").
-                addItemFlag(ItemFlag.HIDE_ATTRIBUTES).build());
-
         for (int i = 27; i < 36; i++) {
             layout.put(i, PANE);
         }

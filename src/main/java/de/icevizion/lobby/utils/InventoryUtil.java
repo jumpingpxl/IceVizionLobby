@@ -51,10 +51,6 @@ public class InventoryUtil {
 
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
-        if (!cloudPlayer.hasPermission("network.buildserver")) {
-            inventory.remove(inventory.getItem(26));
-        }
-
         int slot = 0;
         switch (cloudPlayer.getSpigot().getDisplayName()) {
             case "Lobby-1":
