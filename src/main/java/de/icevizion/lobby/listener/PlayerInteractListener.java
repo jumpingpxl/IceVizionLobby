@@ -1,6 +1,7 @@
 package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,43 +27,45 @@ public class PlayerInteractListener implements Listener {
         if (!event.getItem().getItemMeta().hasDisplayName()) return;
 
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
-            String displayName = event.getItem().getItemMeta().getDisplayName();
-            switch (displayName) {
-                case "§bMinispiele":
-                    if (plugin.getProfileCache().getProfile(player).getTeleporterInventory() == null) {
-                        plugin.getProfileCache().getProfile(player).setTeleporterInventory(
-                                plugin.getInventoryUtil().loadTeleporterInventory(player));
-                    } else {
-                        player.openInventory(plugin.getProfileCache().getProfile(player).getTeleporterInventory());
-                    }
-                    event.setCancelled(true);
-                    player.updateInventory();
-                    break;
-                case "§aSpieler Sichtbarkeit":
-                    if (plugin.getCooldownUtil().hasCooldown(player)) {
-                        player.sendMessage("§cBitte warte noch kurz");
-                    } else {
-                        plugin.getCooldownUtil().add(player, 4000L);
-                        plugin.getVisibilityUtil().changeVisibility(plugin, player);
-                    }
-                    break;
-                case "§aProfile":
-                    if (plugin.getProfileCache().getProfile(player).getFriendInventory() == null) {
-                        Inventory inventory = plugin.getInventoryUtil().createFriendInventory(player);
-                        plugin.getProfileCache().getProfile(player).setFriendInventory(inventory);
-                        player.openInventory(inventory);
-                    } else {
-                        player.openInventory(plugin.getProfileCache().getProfile(player).getFriendInventory());
-                    }
-                    break;
-                case "§aLobby wechseln":
-                    player.openInventory(plugin.getLobbyUtil().getInventory());
-                    break;
-                case "§5Nick":
-                    player.sendMessage("§cDieses Feature ist noch nicht aktiv");
-                    break;
-                default:
-                    break;
+            if (!event.getItem().getType().equals(Material.NAME_TAG)) {
+                String displayName = event.getItem().getItemMeta().getDisplayName();
+                switch (displayName) {
+                    case "§bMinispiele":
+                        if (plugin.getProfileCache().getProfile(player).getTeleporterInventory() == null) {
+                            plugin.getProfileCache().getProfile(player).setTeleporterInventory(
+                                    plugin.getInventoryUtil().loadTeleporterInventory(player));
+                        } else {
+                            player.openInventory(plugin.getProfileCache().getProfile(player).getTeleporterInventory());
+                        }
+                        event.setCancelled(true);
+                        player.updateInventory();
+                        break;
+                    case "§aSpieler Sichtbarkeit":
+                        if (plugin.getCooldownUtil().hasCooldown(player)) {
+                            player.sendMessage("§cBitte warte noch kurz");
+                        } else {
+                            plugin.getCooldownUtil().add(player, 4000L);
+                            plugin.getVisibilityUtil().changeVisibility(plugin, player);
+                        }
+                        break;
+                    case "§aProfile":
+                        if (plugin.getProfileCache().getProfile(player).getFriendInventory() == null) {
+                            Inventory inventory = plugin.getInventoryUtil().createFriendInventory(player);
+                            plugin.getProfileCache().getProfile(player).setFriendInventory(inventory);
+                            player.openInventory(inventory);
+                        } else {
+                            player.openInventory(plugin.getProfileCache().getProfile(player).getFriendInventory());
+                        }
+                        break;
+                    case "§aLobby wechseln":
+                        player.openInventory(plugin.getLobbyUtil().getInventory());
+                        break;
+                    case "§5Nick":
+                        player.sendMessage("§cDieses Feature ist noch nicht aktiv");
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
