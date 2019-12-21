@@ -18,15 +18,17 @@ public class EntityInteractListener implements Listener {
 
     @EventHandler
     public void onArmorInteract(PlayerInteractAtEntityEvent event) {
-        event.setCancelled(true);
+        if (event.getPlayer().getItemInHand().getType().equals(Material.NAME_TAG)) {
+            if (event.getRightClicked() instanceof ArmorStand) {
+                event.setCancelled(true);
+            }
+        }
 
-        if (!event.getPlayer().getItemInHand().getType().equals(Material.NAME_TAG)) {
-            if (event.getRightClicked().getType().equals(EntityType.ARMOR_STAND)) {
-                ArmorStand armorStand = (ArmorStand) event.getRightClicked();
+        if (event.getRightClicked().getType().equals(EntityType.ARMOR_STAND)) {
+            ArmorStand armorStand = (ArmorStand) event.getRightClicked();
 
-                if (armorStand.getCustomName() != null && armorStand.getCustomName().equals("§eTägliche Belohnung")) {
-                    dailyRewardUtil.checkDailyReward(event.getPlayer());
-                }
+            if (armorStand.getCustomName() != null && armorStand.getCustomName().equals("§eTägliche Belohnung")) {
+                dailyRewardUtil.checkDailyReward(event.getPlayer());
             }
         }
     }
