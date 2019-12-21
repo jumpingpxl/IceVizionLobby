@@ -4,6 +4,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 public class PlayerItemListener implements Listener {
@@ -17,6 +18,9 @@ public class PlayerItemListener implements Listener {
     public void onDrop(PlayerDropItemEvent event) {
         event.setCancelled(true);
     }
+
+    @EventHandler
+    public void onConsume(PlayerItemConsumeEvent event) { event.setCancelled(true); }
 
     @EventHandler
     public void onPickup(EntityPickupItemEvent event) {
