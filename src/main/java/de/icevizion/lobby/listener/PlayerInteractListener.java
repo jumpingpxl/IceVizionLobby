@@ -1,7 +1,6 @@
 package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,8 +24,6 @@ public class PlayerInteractListener implements Listener {
         if (event.getItem() == null) return;
         if (!event.getItem().hasItemMeta()) return;
         if (!event.getItem().getItemMeta().hasDisplayName()) return;
-
-        if (event.getItem().getType().equals(Material.NAME_TAG)) return;
 
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
             String displayName = event.getItem().getItemMeta().getDisplayName();

@@ -1,7 +1,6 @@
 package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.utils.DailyRewardUtil;
-import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -18,12 +17,6 @@ public class EntityInteractListener implements Listener {
 
     @EventHandler
     public void onArmorInteract(PlayerInteractAtEntityEvent event) {
-        if (event.getPlayer().getItemInHand().getType().equals(Material.NAME_TAG)) {
-            if (event.getRightClicked() instanceof ArmorStand) {
-                event.setCancelled(true);
-            }
-        }
-
         if (event.getRightClicked().getType().equals(EntityType.ARMOR_STAND)) {
             ArmorStand armorStand = (ArmorStand) event.getRightClicked();
 
