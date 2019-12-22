@@ -83,7 +83,7 @@ public class DoubleJumpService implements Listener {
         if ((event.getPlayer().getGameMode() == GameMode.ADVENTURE ||
                 event.getPlayer().getGameMode() == GameMode.SURVIVAL) &&
                 allowedPlayers.contains(event.getPlayer().getUniqueId())) {
-            if (LocationUtil.isOnGround(event.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN).getLocation()))
+            if (event.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN).getType().isSolid())
                 event.getPlayer().setAllowFlight(true);
         }
     }
