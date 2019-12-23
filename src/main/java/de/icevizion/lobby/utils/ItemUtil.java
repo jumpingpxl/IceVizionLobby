@@ -44,18 +44,6 @@ public class ItemUtil {
         layout.put(11, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
         layout.put(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
         layout.put(22, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("GuessIt").build());
-        for (int i = 27; i < 36; i++) {
-            layout.put(i, PANE);
-        }
-
-        layout.put(39, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-1").build());
-        layout.put(40, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-2").build());
-        layout.put(41, new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName("§6Lobby-3").build());
-
-        for (int i = 45; i < 54; i++) {
-            layout.put(i, PANE);
-        }
-
         return layout;
     }
 
