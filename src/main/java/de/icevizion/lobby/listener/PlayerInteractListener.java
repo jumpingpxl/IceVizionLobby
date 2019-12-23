@@ -29,12 +29,7 @@ public class PlayerInteractListener implements Listener {
             String displayName = event.getItem().getItemMeta().getDisplayName();
             switch (displayName) {
                 case "§bMinispiele":
-                    if (plugin.getProfileCache().getProfile(player).getTeleporterInventory() == null) {
-                        plugin.getProfileCache().getProfile(player).setTeleporterInventory(
-                                plugin.getInventoryUtil().loadTeleporterInventory(player));
-                    } else {
-                        player.openInventory(plugin.getProfileCache().getProfile(player).getTeleporterInventory());
-                    }
+                    player.openInventory(plugin.getInventoryUtil().getTeleporter());
                     event.setCancelled(true);
                     player.updateInventory();
                     break;
