@@ -47,24 +47,8 @@ public class PlayerInventoryListener implements Listener {
                 plugin.getSettingsUtil().changeSettingsValue(player, event.getInventory(), stack, event.getSlot());
             break;
             case "Minispiele":
-                if (!stack.getType().equals(Material.BLACK_STAINED_GLASS_PANE)) {
-                    String itemName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
-                    if (stack.getType().equals(Material.GLOWSTONE_DUST)) {
-                        IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(itemName);
-                        if (spigot == null) {
-                            player.sendMessage("§cDieser Server ist nicht online");
-                        }
-
-                        if (cloudPlayer.getSpigot().getDisplayName().equals(spigot.getDisplayName())) {
-                            player.sendMessage("§cDu befindest dich schon auf dem Server");
-                            player.closeInventory();
-                        } else {
-                            cloudPlayer.sendToServer(spigot);
-                        }
-                    } else {
-                        player.teleport(plugin.getMapService().getLocation(itemName));
-                    }
-                }
+                player.teleport(plugin.getMapService().
+                        getLocation(ChatColor.stripColor(stack.getItemMeta().getDisplayName())));
                 break;
             case "Freunde":
                 if (stack.getItemMeta().getDisplayName().equals("§cEinstellungen")) {
