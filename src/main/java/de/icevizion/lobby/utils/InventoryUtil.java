@@ -9,10 +9,8 @@ import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
@@ -23,61 +21,19 @@ public class InventoryUtil {
     private final ItemUtil itemUtil;
     private final SettingsUtil settingsUtil;
 
+    private Inventory teleporter;
+
     public InventoryUtil(ItemUtil itemUtil, SettingsUtil settingsUtil) {
         this.itemUtil = itemUtil;
         this.settingsUtil = settingsUtil;
+        this.loadTeleporter();
     }
 
-    public Inventory loadTeleporter(Player player) {
-        Inventory inventory = Bukkit.createInventory(null, 27, "Minispiele");
+    public void loadTeleporter() {
+        teleporter = Bukkit.createInventory(null, 27, "Minispiele");
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getTeleporterLayout().entrySet()) {
-            inventory.setItem(entry.getKey(), entry.getValue());
+            teleporter.setItem(entry.getKey(), entry.getValue());
         }
-
-        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
-
-        if (!cloudPlayer.hasPermission("network.buildserver")) {
-            inventory.remove(inventory.getItem(26));
-        }
-
-        return inventory;
-    }
-
-    public Inventory loadTeleporterInventory(Player player) {
-        Inventory inventory = Bukkit.createInventory(null, 54, "Minispiele");
-        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getTeleporterLayout().entrySet()) {
-            inventory.setItem(entry.getKey(), entry.getValue());
-        }
-
-        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
-
-        int slot = 0;
-        switch (cloudPlayer.getSpigot().getDisplayName()) {
-            case "Lobby-1":
-                slot = 39;
-                break;
-            case "Lobby-2":
-                slot = 40;
-                break;
-            case "Lobby-3":
-                slot = 41;
-                break;
-            default:
-                slot = -1;
-                break;
-        }
-
-        if (slot >= 0) {
-            inventory.setItem(slot,
-                    new ItemBuilder(inventory.getItem(slot))
-                            .addUnsafeEnchantment(Enchantment.DURABILITY, 1)
-                            .addItemFlag(ItemFlag.HIDE_ENCHANTS)
-                            .build());
-        }
-
-        player.openInventory(inventory);
-
-        return inventory;
     }
 
     public Inventory loadActionInventory(String name, ItemStack skull) {
@@ -167,5 +123,9 @@ public class InventoryUtil {
             }
         }
         return inventory;
+    }
+
+    public Inventory getTeleporter() {
+        return teleporter;
     }
 }
