@@ -34,7 +34,6 @@ public class ScoreboardService implements Listener {
 
     public void createScoreboard(final Player player) {
         Board board = BoardAPI.getInstance().getBoard(player);
-        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
         board.setDisplayName("§f§oI§fce§3V§fizion");
 
