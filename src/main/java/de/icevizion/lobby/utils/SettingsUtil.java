@@ -82,7 +82,7 @@ public class SettingsUtil {
                 break;
             case 1:
                 if (category == 36) {
-                    state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§fAn").build();
+                    state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§aAn").build();
                 } else {
                     state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).
                             setDisplayName("§6Freunde").build();
@@ -91,7 +91,7 @@ public class SettingsUtil {
                 break;
             case 2:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).
-                        setDisplayName(category == 36 ? "§fAus" : "§cKeiner").build();
+                        setDisplayName(category == 36 ? "§cAus" : "§cKeiner").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
         }
     }
