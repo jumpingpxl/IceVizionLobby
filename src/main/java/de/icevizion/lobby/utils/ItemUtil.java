@@ -59,10 +59,11 @@ public class ItemUtil {
         layout.put(15, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
         layout.put(16, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
         layout.put(17, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
-        layout.put(18, new ItemBuilder(Material.GOLDEN_HELMET).setDisplayName("§bFreunde").
+        layout.put(18, new ItemBuilder(Material.GOLDEN_HELMET).setDisplayName("§bSpieler-Sichtbarkeit").
                 addItemFlag(ItemFlag.HIDE_ATTRIBUTES).build());
         layout.put(19, PANE);
-        layout.put(25, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
+        layout.put(24, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von jedem").build());
+        layout.put(25, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Freunden").build());
         layout.put(26, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Von Niemanden").build());
         layout.put(27, new ItemBuilder(Material.ENDER_EYE).setDisplayName("§aNachspringen").build());
         layout.put(28, PANE);
