@@ -5,6 +5,7 @@ import net.titan.spigot.event.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 public class NetworkListener implements Listener {
 
@@ -37,8 +38,9 @@ public class NetworkListener implements Listener {
     }
 
     @EventHandler
-    public void onJoin(NetworkPlayerJoinEvent event) {
-
+    public void onJoin(PlayerJoinEvent event) {
+        lobbyUtil.updateSlots();
+        lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
     }
 
     @EventHandler
