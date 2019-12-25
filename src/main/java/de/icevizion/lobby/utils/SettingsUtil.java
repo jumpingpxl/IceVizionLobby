@@ -85,7 +85,7 @@ public class SettingsUtil {
                     state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§fAn").build();
                 } else {
                     state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).
-                            setDisplayName("§Freunde").build();
+                            setDisplayName("§fFreunde").build();
                 }
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
