@@ -67,6 +67,9 @@ public class LobbyUtil implements Runnable {
                 .filter(clusterSpigot -> clusterSpigot.getDisplayName().startsWith("Lobby"))
                 .sorted(new SpigotComparator())
                 .collect(Collectors.toList());
+
+        Bukkit.getLogger().info("Lobby Update!");
+        lobbies.forEach((spigot)-> Bukkit.getLogger().info(spigot.getDisplayName()+" -> "+spigot.getPlayerCount()));
         lobbies.forEach(this::removeLobby);
         lobbies.forEach(this::addLobby);
         this.inventory.getViewers().forEach(viewer-> {
