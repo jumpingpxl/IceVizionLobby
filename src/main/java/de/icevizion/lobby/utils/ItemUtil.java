@@ -59,7 +59,7 @@ public class ItemUtil {
         layout.put(15, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§aJeder").build());
         layout.put(16, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§6Freunde").build());
         layout.put(17, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§cKeiner").build());
-        layout.put(18, new ItemBuilder(Material.GOLDEN_HELMET).setDisplayName("§bSpieler-Sichtbarkeit").
+        layout.put(18, new ItemBuilder(Material.BLAZE_ROD).setDisplayName("§bSpieler-Sichtbarkeit").
                 addItemFlag(ItemFlag.HIDE_ATTRIBUTES).build());
         layout.put(19, PANE);
         layout.put(24, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§aJeder").build());
@@ -71,8 +71,8 @@ public class ItemUtil {
         layout.put(35, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§cKeiner").build());
         layout.put(36, new ItemBuilder(Material.SNOWBALL).setDisplayName("§fSchnee").build());
         layout.put(37, PANE);
-        layout.put(43, new ItemBuilder(Material.GRAY_DYE).setDisplayName("An").build());
-        layout.put(44, new ItemBuilder(Material.GRAY_DYE).setDisplayName("Aus").build());
+        layout.put(43, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§aAn").build());
+        layout.put(44, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§cAus").build());
         for (int i = 45; i < 54; i++) {
             layout.put(i, PANE);
         }
