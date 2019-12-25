@@ -27,14 +27,19 @@ public class PlayerInventoryListener implements Listener {
     @EventHandler
     public void onInventory(InventoryClickEvent event) {
         if (event.getClickedInventory() == null) return;
+        Player player = (Player) event.getWhoClicked();
         if (event.getSlotType().equals(InventoryType.SlotType.OUTSIDE)) return;
-        if (event.getSlotType().equals(InventoryType.SlotType.QUICKBAR)) return;
-        //if (event.getSlotType().equals(InventoryType.SlotType.CONTAINER)) return;
+        if (event.getSlotType().equals(InventoryType.SlotType.QUICKBAR)) {
+            event.setCancelled(true);
+            event.setResult(Event.Result.DENY);
+            player.updateInventory();
+            return;
+        }
+
         if (event.getClick().isKeyboardClick()) event.setCancelled(true);
         if (event.getCurrentItem() == null) return;
         if (!event.getCurrentItem().hasItemMeta()) return;
 
-        Player player = (Player) event.getWhoClicked();
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         ItemStack stack = event.getCurrentItem();
 
