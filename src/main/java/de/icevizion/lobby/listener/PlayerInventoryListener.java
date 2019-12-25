@@ -16,12 +16,16 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.regex.Pattern;
+
 public class PlayerInventoryListener implements Listener {
 
+    private final Pattern friendPattern;
     private final Lobby plugin;
 
     public PlayerInventoryListener(Lobby plugin) {
         this.plugin = plugin;
+        this.friendPattern = Pattern.compile("(^Anfrage von$|^Einstellung für$)");
     }
 
     @EventHandler
@@ -114,8 +118,7 @@ public class PlayerInventoryListener implements Listener {
                 break;
         }
 
-        if (event.getView().getTitle().startsWith("Einstellungen für") ||
-                (event.getView().getTitle().startsWith("Anfrage von"))) {
+        if (friendPattern.matcher(event.getView().getTitle()).find()) {
             if (stack.getType().equals(Material.AIR)) return;
 
             String name = ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName());
