@@ -25,7 +25,7 @@ public class PlayerInventoryListener implements Listener {
 
     public PlayerInventoryListener(Lobby plugin) {
         this.plugin = plugin;
-        this.friendPattern = Pattern.compile("(^Anfrage von$|^Einstellung für$)");
+        this.friendPattern = Pattern.compile("(Anfrage von [a-zA-Z]{4,16})|(Einstellung für [a-zA-Z]{4,16})");
     }
 
     @EventHandler
