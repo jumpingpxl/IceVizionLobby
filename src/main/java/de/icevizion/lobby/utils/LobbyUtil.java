@@ -7,6 +7,7 @@ import net.titan.spigot.Cloud;
 import net.titan.spigot.network.spigot.ClusterSpigot;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -14,7 +15,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-public class LobbyUtil {
+public class LobbyUtil implements Runnable {
 
     private final ConcurrentHashMap<String, ItemStack> activeLobbys;
     private final Inventory inventory;
@@ -24,6 +25,11 @@ public class LobbyUtil {
         this.inventory.setMaxStackSize(1);
         this.activeLobbys = new ConcurrentHashMap<>();
         this.loadLobbies();
+    }
+
+    @Override
+    public void run() {
+        this.updateSlots();
     }
 
     private void loadLobbies() {
@@ -43,6 +49,7 @@ public class LobbyUtil {
         this.activeLobbys.putIfAbsent(iClusterSpigot.getUuid(), server);
         this.inventory.addItem(server);
     }
+
     /*
     public void updateLobby(IClusterSpigot iClusterSpigot) {
         ItemStack itemStack = this.activeLobbys.get(iClusterSpigot.getUuid());
@@ -62,6 +69,10 @@ public class LobbyUtil {
                 .collect(Collectors.toList());
         lobbies.forEach(this::removeLobby);
         lobbies.forEach(this::addLobby);
+        this.inventory.getViewers().forEach(viewer-> {
+            Player player = (Player) viewer;
+            player.updateInventory();
+        });
     }
 
 
