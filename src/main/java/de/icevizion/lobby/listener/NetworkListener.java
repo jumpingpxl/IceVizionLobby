@@ -1,7 +1,9 @@
 package de.icevizion.lobby.listener;
 
+import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.utils.LobbyUtil;
 import net.titan.spigot.event.*;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,9 +12,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class NetworkListener implements Listener {
 
     private final LobbyUtil lobbyUtil;
+    private final Lobby lobby;
 
-    public NetworkListener(LobbyUtil lobbyUtil) {
+    public NetworkListener(LobbyUtil lobbyUtil, Lobby lobby) {
         this.lobbyUtil = lobbyUtil;
+        this.lobby = lobby;
     }
 
     @EventHandler
@@ -35,6 +39,10 @@ public class NetworkListener implements Listener {
     public void onSwitch(NetworkPlayerServerSwitchedEvent event) {
         lobbyUtil.updateSlots();
         lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
+        Bukkit.getScheduler().runTaskLater(lobby, () -> {
+            lobbyUtil.updateSlots();
+            lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
+        }, 5);
     }
 
     @EventHandler
