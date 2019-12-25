@@ -18,7 +18,7 @@ public class NetworkListener implements Listener {
     public void onAvailable(SpigotAvailableEvent event) {
         if (event.getSpigot().getDisplayName().startsWith("Lobby")) {
             lobbyUtil.updateSlots();
-           lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
+            lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
         }
     }
 
