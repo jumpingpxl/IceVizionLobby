@@ -37,8 +37,7 @@ public class NetworkListener implements Listener {
 
     @EventHandler
     public void onSwitch(NetworkPlayerServerSwitchedEvent event) {
-        lobbyUtil.updateSlots();
-        lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
+        //Delay this update because the event is too fast and sometimes redis has not the right data yet
         Bukkit.getScheduler().runTaskLater(lobby, () -> {
             lobbyUtil.updateSlots();
             lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
