@@ -39,7 +39,7 @@ public class ItemUtil {
     }
 
     private HashMap<Integer, ItemStack> loadTeleporterLayout() {
-        HashMap<Integer, ItemStack> layout = new HashMap<>();
+        HashMap<Integer, ItemStack> layout = new HashMap<>(4);
         layout.put(4, new ItemBuilder(Material.NETHER_STAR).setDisplayName("§aSpawn").build());
         layout.put(11, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
         layout.put(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
