@@ -30,7 +30,7 @@ public final class SnowService extends BukkitRunnable {
     public void run() {
         if (players.size() != 0) {
             for (Player player : players) {
-                if (player.getWorld().getHighestBlockYAt(player.getLocation()) <= player.getLocation().getY()) {
+                if (player.getWorld().getHighestBlockYAt(player.getEyeLocation()) <= player.getEyeLocation().getY()) {
                     PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles
                             (Particles.w,
                                     true /* LONG DISTANCE*/,
