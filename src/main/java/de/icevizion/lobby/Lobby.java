@@ -39,7 +39,7 @@ public class Lobby extends JavaPlugin {
         registerListener();
         registerCommands();
         Cloud.getInstance().setSpigotState(SpigotState.AVAILABLE);
-        Bukkit.getScheduler().runTaskTimer(this,this.lobbyUtil,0 ,20);
+        //Bukkit.getScheduler().runTaskTimer(this,this.lobbyUtil,0 ,20);
     }
 
     @Override
