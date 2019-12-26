@@ -55,16 +55,7 @@ public class SettingsUtil {
             player.updateInventory();
             cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
 
-            Bukkit.getPluginManager().callEvent(new SettingsChangeEvent(player, category, newValue));
-
-            if (getSettingsID(currentRow) == 199) {
-                if (newValue == 1) {
-                    SnowService.addPlayer(player);
-                } else {
-                    SnowService.removePlayer(player);
-                }
-            }
-
+            Bukkit.getPluginManager().callEvent(new SettingsChangeEvent(player, getSettingsID(currentRow), newValue));
         }
     }
 
@@ -85,12 +76,8 @@ public class SettingsUtil {
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 1:
-                if (category == 36) {
-                    state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName("§aAn").build();
-                } else {
-                    state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).
-                            setDisplayName("§6Freunde").build();
-                }
+                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName(category == 36 ?
+                        "§aAn" : "§6Freunde").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 2:
