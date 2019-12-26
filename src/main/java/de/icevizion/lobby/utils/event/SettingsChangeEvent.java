@@ -7,17 +7,17 @@ import org.bukkit.event.player.PlayerEvent;
 public class SettingsChangeEvent extends PlayerEvent {
 
     private static final HandlerList HANDLER_LIST = new HandlerList();
-    private final int category;
+    private final int setting;
     private final int value;
 
-    public SettingsChangeEvent(Player who, int category, int value) {
+    public SettingsChangeEvent(Player who, int setting, int value) {
         super(who);
-        this.category = category;
+        this.setting = setting;
         this.value = value;
     }
 
-    public int getCategory() {
-        return category;
+    public int getSetting() {
+        return setting;
     }
 
     public int getValue() {
