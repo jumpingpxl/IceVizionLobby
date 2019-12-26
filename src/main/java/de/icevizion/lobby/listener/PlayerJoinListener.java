@@ -30,7 +30,7 @@ public class PlayerJoinListener implements Listener {
         plugin.getVisibilityUtil().hideOnJoin(plugin, player);
 
         if (Cloud.getInstance().getPlayer(player).getSetting(199) == 1) {
-            SnowService.addPlayer(player);
+            plugin.getSnowService().addPlayer(player);
         }
     }
 }
