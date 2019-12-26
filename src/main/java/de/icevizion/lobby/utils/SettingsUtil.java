@@ -2,8 +2,10 @@ package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ItemBuilder;
 import de.icevizion.lobby.feature.SnowService;
+import de.icevizion.lobby.utils.event.SettingsChangeEvent;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -52,6 +54,8 @@ public class SettingsUtil {
             setState(inventory, category, newValue, false);
             player.updateInventory();
             cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
+
+            Bukkit.getPluginManager().callEvent(new SettingsChangeEvent(player, category, newValue));
 
             if (getSettingsID(currentRow) == 199) {
                 if (newValue == 1) {
