@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
  * @author Patrick Zdarsky / Rxcki
@@ -69,6 +70,19 @@ public class ScoreboardService implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         createScoreboard(event.getPlayer());
+        Bukkit.getScheduler().runTaskAsynchronously(lobby, () -> {
+            for (Player player : Bukkit.getOnlinePlayers())
+                if (player != event.getPlayer())
+                updateScoreboard(player);
+        });
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        Bukkit.getScheduler().runTaskAsynchronously(lobby, () -> {
+            for (Player player : Bukkit.getOnlinePlayers())
+                updateScoreboard(player);
+        });
     }
 
     @EventHandler
