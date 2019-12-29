@@ -33,14 +33,6 @@ public class PlayerInteractListener implements Listener {
                     event.setCancelled(true);
                     player.updateInventory();
                     break;
-                case "§aSpieler Sichtbarkeit":
-                    if (plugin.getCooldownUtil().hasCooldown(player)) {
-                        player.sendMessage("§cBitte warte noch kurz");
-                    } else {
-                        plugin.getCooldownUtil().add(player, 4000);
-                        plugin.getVisibilityUtil().changeVisibility(plugin, player);
-                    }
-                    break;
                 case "§aProfile":
                     if (plugin.getProfileCache().getProfile(player).getFriendInventory() == null) {
                         Inventory inventory = plugin.getInventoryUtil().createFriendInventory(player);
