@@ -21,14 +21,8 @@ public class VisibilityUtil {
         this.profileCache = profileCache;
     }
 
-    public void changeVisibility(Lobby plugin, Player player) {
-        LobbyProfile lobbyProfile = profileCache.getProfile(player);
-        int value = lobbyProfile.getHideSettings();
-        if (value == 2) {
-            value = 0;
-        } else {
-            value++;
-        }
+    public void changeVisibility(Lobby plugin, CloudPlayer cloudPlayer, int value) {
+        Player player = cloudPlayer.getPlayer();
         switch (value) {
             case 0:
                 for (Player online : Bukkit.getOnlinePlayers()) {
@@ -40,7 +34,6 @@ public class VisibilityUtil {
                 player.sendMessage(plugin.getPrefix() + "§7Du siehst nun wieder §aalle §7Spieler");
                 break;
             case 1:
-                CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
                 FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
                 if (profile.getFriends().size() == 0) return;
                 for (Player online : Bukkit.getOnlinePlayers()) {
@@ -62,7 +55,6 @@ public class VisibilityUtil {
                 player.sendMessage(plugin.getPrefix() + "§7Du siehst nun §ckeine §7Spieler mehr");
                 break;
         }
-        lobbyProfile.setHideSettings(value);
     }
 
     public void hideOnJoin(Plugin plugin, Player joiningPlayer) {
