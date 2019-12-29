@@ -17,7 +17,7 @@ public class ItemUtil {
     private static final ItemStack PANE = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).
             setDisplayName("§0").build();
 
-    private final ItemStack teleporter, hider, nick, lobby;
+    private final ItemStack teleporter, nick, lobby;
     private final Map<Integer, ItemStack> teleporterLayout;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
@@ -27,7 +27,6 @@ public class ItemUtil {
 
     public ItemUtil() {
         this.teleporter = new ItemBuilder(Material.NETHER_STAR).setDisplayName("§bMinispiele").build();
-        this.hider = new ItemBuilder(Material.BLAZE_ROD).setDisplayName("§aSpieler Sichtbarkeit").build();
         this.nick = new ItemBuilder(Material.NAME_TAG).setDisplayName("§5Nick").build();
         this.lobby = new ItemBuilder(Material.CLOCK).setDisplayName("§aLobby wechseln").build();
         this.teleporterLayout = loadTeleporterLayout();
@@ -145,7 +144,6 @@ public class ItemUtil {
         player.getInventory().clear();
 
         player.getInventory().setItem(0, teleporter);
-        player.getInventory().setItem(2, hider);
         player.getInventory().setItem(6, lobby);
         player.getInventory().setItem(8, skull);
 
