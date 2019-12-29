@@ -35,21 +35,21 @@ public final class DailyRewardUtil {
         armorStand.remove();
     }
 
-    public void checkDailyReward(Player player) {
+    public void checkDailyReward(String prefix, Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         if (!cloudPlayer.extradataContains("daily")) {
-            giveReward(player);
+            giveReward(prefix, player);
         } else {
             long timestamp = (long) cloudPlayer.extradataGet("daily");
             if (timestamp >= System.currentTimeMillis()) {
-                player.sendMessage("§cBitte komme morgen wieder um einen Reward zu erhalten");
+                player.sendMessage(prefix + "§cBitte komme morgen wieder um einen Reward zu erhalten");
             } else {
-                giveReward(player);
+                giveReward(prefix, player);
             }
         }
     }
 
-    private void giveReward(Player player) {
+    private void giveReward(String prefix, Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         int coins = cloudPlayer.hasPermission("lobby.reward.premium") ? 150 : 100;
         int streak = getAndUpdateRewardStreak(cloudPlayer);
@@ -57,7 +57,7 @@ public final class DailyRewardUtil {
         coins += 50 * streak;
         cloudPlayer.addCoins(coins);
         cloudPlayer.extradataSet("daily", System.currentTimeMillis() + getRestDayTime());
-        player.sendMessage("§7Du hast §6" + coins + " §7Coins bekommen!" + (streak > 0
+        player.sendMessage(prefix + "§7Du hast §6" + coins + " §7Coins bekommen!" + (streak > 0
                 ? " " + "Du hast einen Streak von §6" + (streak + 1)
                 : ""));
     }

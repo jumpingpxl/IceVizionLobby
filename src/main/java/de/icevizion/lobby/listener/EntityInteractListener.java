@@ -9,9 +9,11 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
 public class EntityInteractListener implements Listener {
 
+    private final String prefix;
     private final DailyRewardUtil dailyRewardUtil;
 
-    public EntityInteractListener(DailyRewardUtil dailyRewardUtil) {
+    public EntityInteractListener(String prefix, DailyRewardUtil dailyRewardUtil) {
+        this.prefix = prefix;
         this.dailyRewardUtil = dailyRewardUtil;
     }
 
@@ -21,7 +23,7 @@ public class EntityInteractListener implements Listener {
             ArmorStand armorStand = (ArmorStand) event.getRightClicked();
 
             if (armorStand.getCustomName() != null && armorStand.getCustomName().equals("§eTägliche Belohnung")) {
-                dailyRewardUtil.checkDailyReward(event.getPlayer());
+                dailyRewardUtil.checkDailyReward(prefix, event.getPlayer());
             }
         }
     }
