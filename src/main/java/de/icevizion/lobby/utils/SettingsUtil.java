@@ -1,7 +1,6 @@
 package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ItemBuilder;
-import de.icevizion.lobby.feature.SnowService;
 import de.icevizion.lobby.utils.event.SettingsChangeEvent;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
@@ -14,14 +13,12 @@ import org.bukkit.inventory.ItemStack;
 public class SettingsUtil {
 
     private static final int CLICK_OFFSET = 6;
+
     protected static final int PRIVAT_MESSAGE = 100;
     protected static final int PARTY = 101;
-
-    @Deprecated
-    protected static final int FRIENDS = 102;
-
+    public static final int PLAYER_VISIBILITY = 102;
     protected static final int JUMP = 103;
-    protected static final int EVENT = 199;
+    public static final int EVENT = 199;
     public static final int NICK = 104;
 
     /**
@@ -109,7 +106,7 @@ public class SettingsUtil {
             case 1:
                 return PARTY;
             case 2:
-                return FRIENDS;
+                return PLAYER_VISIBILITY;
             case 3:
                 return JUMP;
             case 4:
