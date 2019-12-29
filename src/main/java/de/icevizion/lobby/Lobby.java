@@ -9,12 +9,9 @@ import de.icevizion.lobby.listener.*;
 import de.icevizion.lobby.utils.*;
 import net.titan.lib.network.spigot.SpigotState;
 import net.titan.spigot.Cloud;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.SimpleDateFormat;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Lobby extends JavaPlugin {
 
@@ -39,7 +36,6 @@ public class Lobby extends JavaPlugin {
         registerListener();
         registerCommands();
         Cloud.getInstance().setSpigotState(SpigotState.AVAILABLE);
-        //Bukkit.getScheduler().runTaskTimer(this,this.lobbyUtil,0 ,20);
     }
 
     @Override
