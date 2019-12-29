@@ -63,7 +63,7 @@ public class Lobby extends JavaPlugin {
     }
 
     private void registerListener() {
-        getServer().getPluginManager().registerEvents(new EntityInteractListener(dailyRewardUtil), this);
+        getServer().getPluginManager().registerEvents(new EntityInteractListener(prefix, dailyRewardUtil), this);
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
         getServer().getPluginManager().registerEvents(new NetworkListener(lobbyUtil, this), this);
         getServer().getPluginManager().registerEvents(new PlayerBlockListener(), this);
@@ -74,7 +74,7 @@ public class Lobby extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerItemListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(snowService, profileCache), this);
-        getServer().getPluginManager().registerEvents(new PlayerSettingsListener(snowService), this);
+        getServer().getPluginManager().registerEvents(new PlayerSettingsListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerSpawnListener(mapService), this);
         getServer().getPluginManager().registerEvents(new WeatherListener(), this);
         getServer().getPluginManager().registerEvents(doubleJumpService, this);
