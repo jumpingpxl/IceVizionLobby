@@ -1,30 +1,36 @@
 package de.icevizion.lobby.listener;
 
+import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.feature.SnowService;
+import de.icevizion.lobby.utils.SettingsUtil;
 import de.icevizion.lobby.utils.event.SettingsChangeEvent;
+import net.titan.spigot.Cloud;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 public class PlayerSettingsListener implements Listener {
 
-    private final SnowService snowService;
+    private final Lobby plugin;
 
-    public PlayerSettingsListener(SnowService snowService) {
-        this.snowService = snowService;
+    public PlayerSettingsListener(Lobby plugin) {
+        this.plugin = plugin;
     }
 
     @EventHandler
     public void onSettings(SettingsChangeEvent event) {
         switch (event.getSetting()) {
-            case 199:
+            case SettingsUtil.EVENT:
                 if (event.getValue() == 1) {
-                    snowService.addPlayer(event.getPlayer());
+                    plugin.getSnowService().addPlayer(event.getPlayer());
                 } else {
-                    snowService.removePlayer(event.getPlayer());
+                    plugin.getSnowService().removePlayer(event.getPlayer());
                 }
                 break;
+            case SettingsUtil.PLAYER_VISIBILITY:
+                plugin.getVisibilityUtil().changeVisibility(plugin, Cloud.getInstance().getPlayer(event.getPlayer())
+                        , event.getValue());
+                break;
         }
-        Bukkit.broadcastMessage(event.getPlayer().getDisplayName() + " " + event.getSetting());
     }
 }
