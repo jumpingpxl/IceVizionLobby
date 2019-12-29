@@ -28,6 +28,7 @@ public class PlayerSettingsListener implements Listener {
                 }
                 break;
             case SettingsUtil.PLAYER_VISIBILITY:
+                Bukkit.broadcastMessage("Value" + event.getValue());
                 plugin.getVisibilityUtil().changeVisibility(plugin, Cloud.getInstance().getPlayer(event.getPlayer())
                         , event.getValue());
                 break;
