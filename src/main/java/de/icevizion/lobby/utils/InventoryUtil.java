@@ -55,7 +55,7 @@ public class InventoryUtil {
 
         int privateMessage = cloudPlayer.getSetting(SettingsUtil.PRIVAT_MESSAGE);
         int party = cloudPlayer.getSetting(SettingsUtil.PARTY);
-        int friend = cloudPlayer.getSetting(SettingsUtil.FRIENDS);
+        int friend = cloudPlayer.getSetting(SettingsUtil.PLAYER_VISIBILITY);
         int jump = cloudPlayer.getSetting(SettingsUtil.JUMP);
         int snow = cloudPlayer.getSetting(SettingsUtil.EVENT);
 
