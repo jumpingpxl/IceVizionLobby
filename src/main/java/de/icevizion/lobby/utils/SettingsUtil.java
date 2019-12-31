@@ -73,13 +73,13 @@ public class SettingsUtil {
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 1:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).setDisplayName(category == 36 ?
-                        "§aAn" : "§6Freunde").build();
+                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).
+                        setDisplayName("§6Freunde").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 2:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).
-                        setDisplayName(category == 36 ? "§cAus" : "§cKeiner").build();
+                        setDisplayName("§cKeiner").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
         }
     }

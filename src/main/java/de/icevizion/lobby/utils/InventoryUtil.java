@@ -57,13 +57,11 @@ public class InventoryUtil {
         int party = cloudPlayer.getSetting(SettingsUtil.PARTY);
         int friend = cloudPlayer.getSetting(SettingsUtil.PLAYER_VISIBILITY);
         int jump = cloudPlayer.getSetting(SettingsUtil.JUMP);
-        int snow = cloudPlayer.getSetting(SettingsUtil.EVENT);
 
         settingsUtil.setState(inventory, 0, privateMessage,false);
         settingsUtil.setState(inventory, 9, party, false);
         settingsUtil.setState(inventory, 18, friend, false);
         settingsUtil.setState(inventory, 27, jump, false);
-        settingsUtil.setState(inventory, 36, snow, false);
         return inventory;
     }
 

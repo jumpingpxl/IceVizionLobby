@@ -68,10 +68,6 @@ public class ItemUtil {
         layout.put(28, PANE);
         layout.put(34, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§6Freunde").build());
         layout.put(35, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§cKeiner").build());
-        layout.put(36, new ItemBuilder(Material.SNOWBALL).setDisplayName("§fSchnee").build());
-        layout.put(37, PANE);
-        layout.put(43, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§aAn").build());
-        layout.put(44, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§cAus").build());
         for (int i = 45; i < 54; i++) {
             layout.put(i, PANE);
         }
