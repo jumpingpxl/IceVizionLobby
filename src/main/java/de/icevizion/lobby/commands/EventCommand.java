@@ -36,6 +36,12 @@ public class EventCommand implements CommandExecutor {
                     plugin.getSnowService().addPlayer(player);
                     player.sendMessage(plugin.getPrefix() + "§7Du hast den Schnee §aaktiviert");
                     break;
+                default:
+                    cloudPlayer.setSetting(SettingsUtil.EVENT, 0);
+                    player.sendMessage(plugin.getPrefix() + "§cWegen einem technischen " +
+                            "§cFehler wurde die Eventeinstellungen §czurückgesetzt");
+                    break;
+
             }
         }
         return true;
