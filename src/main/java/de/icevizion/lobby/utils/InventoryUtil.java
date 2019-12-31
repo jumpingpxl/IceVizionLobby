@@ -39,7 +39,7 @@ public class InventoryUtil {
     }
 
     private void loadPrivacy() {
-        privacy = Bukkit.createInventory(null, 27, "Datenschutzerklärung & Nutzungsbedingungen");
+        privacy = Bukkit.createInventory(null, 27, "Nutzungsbedingungen");
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendSubLayout().entrySet()) {
             privacy.setItem(entry.getKey(), entry.getValue());
         }
