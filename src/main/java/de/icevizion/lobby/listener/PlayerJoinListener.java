@@ -1,8 +1,6 @@
 package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
-import de.icevizion.lobby.feature.SnowService;
-import de.icevizion.lobby.utils.SettingsUtil;
 import net.titan.spigot.Cloud;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
