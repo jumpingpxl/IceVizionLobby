@@ -22,17 +22,26 @@ public class InventoryUtil {
     private final SettingsUtil settingsUtil;
 
     private Inventory teleporter;
+    private Inventory privacy;
 
     public InventoryUtil(ItemUtil itemUtil, SettingsUtil settingsUtil) {
         this.itemUtil = itemUtil;
         this.settingsUtil = settingsUtil;
         this.loadTeleporter();
+        this.loadPrivacy();
     }
 
     public void loadTeleporter() {
         teleporter = Bukkit.createInventory(null, 27, "Minispiele");
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getTeleporterLayout().entrySet()) {
             teleporter.setItem(entry.getKey(), entry.getValue());
+        }
+    }
+
+    private void loadPrivacy() {
+        privacy = Bukkit.createInventory(null, 27, "Datenschutz");
+        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendSubLayout().entrySet()) {
+            privacy.setItem(entry.getKey(), entry.getValue());
         }
     }
 
@@ -123,7 +132,21 @@ public class InventoryUtil {
         return inventory;
     }
 
+    /**
+     * Returns the inventory for the teleporter
+     * @return The Inventory for the teleporter
+     */
+
     public Inventory getTeleporter() {
         return teleporter;
+    }
+
+    /**
+     * Returns the inventory for the privacy query
+     * @return The inventory for privacy
+     */
+
+    public Inventory getPrivacy() {
+        return privacy;
     }
 }

@@ -31,5 +31,9 @@ public class PlayerJoinListener implements Listener {
         if (Cloud.getInstance().getPlayer(player).getSetting(199) == 1) {
             plugin.getSnowService().addPlayer(player);
         }
+
+        if (player.getName().equalsIgnoreCase("theEvilReaper")) {
+            player.openInventory(plugin.getInventoryUtil().getPrivacy());
+        }
     }
 }

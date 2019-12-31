@@ -124,11 +124,9 @@ public class ItemUtil {
         layout.put(19, PANE);
         layout.put(13, new ItemBuilder(Material.GREEN_TERRACOTTA)
                 .setDisplayName("§aAnnehmen")
-                .addLore("§7Nimmt alle Freundschaftsanfragen an")
                 .build());
         layout.put(15, new ItemBuilder(Material.RED_TERRACOTTA)
                 .setDisplayName("§cAblehnen")
-                .addLore("§7Lehnt alle derzeitigen Freundschaftsanfragen ab")
                 .build());
         return layout;
     }
