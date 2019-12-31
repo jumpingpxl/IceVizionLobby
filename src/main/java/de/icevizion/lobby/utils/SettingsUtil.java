@@ -36,7 +36,7 @@ public class SettingsUtil {
             int category = currentRow * 9;
             int newValue = slot - category - CLICK_OFFSET;
             int oldVal = -1;
-            if (currentRow >= 2) {
+            if (currentRow >= 3) {
                 oldVal = setForState(newValue, inventory, category,2, 1);
             } else {
                 oldVal = setForState(newValue, inventory, category,3, 0);
