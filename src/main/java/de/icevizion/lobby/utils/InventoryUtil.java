@@ -28,7 +28,6 @@ public class InventoryUtil {
         this.itemUtil = itemUtil;
         this.settingsUtil = settingsUtil;
         this.loadTeleporter();
-        this.loadPrivacy();
     }
 
     public void loadTeleporter() {
@@ -43,7 +42,8 @@ public class InventoryUtil {
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendSubLayout().entrySet()) {
             privacy.setItem(entry.getKey(), entry.getValue());
         }
-        privacy.setItem(9, new ItemBuilder(Material.BOOK).setDisplayName("§eDatenschutzerklärung").build());
+        privacy.setItem(9, new ItemBuilder(Material.BOOK).setDisplayName("§eDatenschutzerklärung").
+                    addLore("§8» §cKlicke hier um die Datenschutzerklärng zu lesen").build());
     }
 
     public Inventory loadActionInventory(String name, ItemStack skull) {
