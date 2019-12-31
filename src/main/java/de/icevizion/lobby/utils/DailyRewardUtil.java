@@ -31,6 +31,10 @@ public final class DailyRewardUtil {
         this.armorStand.setCustomNameVisible(true);
     }
 
+    /**
+     * Removes the Armorstand
+     */
+
     public void despawn() {
         armorStand.remove();
     }
@@ -49,6 +53,12 @@ public final class DailyRewardUtil {
         }
     }
 
+    /**
+     * Give the reward to a specific player
+     * @param prefix The prefix for the chat
+     * @param player The player who get the reward
+     */
+
     private void giveReward(String prefix, Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         int coins = cloudPlayer.hasPermission("lobby.reward.premium") ? 150 : 100;
@@ -62,6 +72,11 @@ public final class DailyRewardUtil {
                 : ""));
     }
 
+    /**
+     * Get the rest time of the current day
+     * @return The rest time of the day
+     */
+
     private long getRestDayTime() {
         ZoneId zoneId = ZoneId.of("Europe/Berlin");
         ZonedDateTime now = ZonedDateTime.now(zoneId);
@@ -69,6 +84,12 @@ public final class DailyRewardUtil {
         ZonedDateTime tomorrowStart = tomorrow.atStartOfDay(zoneId);
         return Duration.between(now, tomorrowStart).toMillis();
     }
+
+    /**
+     * Updates the reward streak of a specific player
+     * @param cloudPlayer The player
+     * @return The current streak
+     */
 
     private int getAndUpdateRewardStreak(CloudPlayer cloudPlayer) {
         int currentStreak = cloudPlayer.extradataContains("dailyStreak")
