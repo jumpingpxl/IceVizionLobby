@@ -1,6 +1,7 @@
 package de.icevizion.lobby;
 
 import de.icevizion.aves.util.CooldownUtil;
+import de.icevizion.lobby.commands.EventCommand;
 import de.icevizion.lobby.commands.SetCommand;
 import de.icevizion.lobby.feature.SnowService;
 import de.icevizion.lobby.map.MapService;
@@ -79,6 +80,7 @@ public class Lobby extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("location").setExecutor(new SetCommand(mapService));
+        getCommand("schnee").setExecutor(new EventCommand(this));
     }
 
     public String getPrefix() {
