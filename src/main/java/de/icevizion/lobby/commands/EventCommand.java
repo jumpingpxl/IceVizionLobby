@@ -25,13 +25,11 @@ public class EventCommand implements CommandExecutor {
             CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
             switch (cloudPlayer.getSetting(SettingsUtil.EVENT)) {
                 case 1:
-                    Bukkit.broadcastMessage("test1");
                     cloudPlayer.setSetting(SettingsUtil.EVENT, 0);
                     plugin.getSnowService().removePlayer(player);
                     player.sendMessage(plugin.getPrefix() + "§7Du hast den Schnee §cdeaktiviert");
                     break;
                 case 0:
-                    Bukkit.broadcastMessage("test2");
                     cloudPlayer.setSetting(SettingsUtil.EVENT, 1);
                     plugin.getSnowService().addPlayer(player);
                     player.sendMessage(plugin.getPrefix() + "§7Du hast den Schnee §aaktiviert");
