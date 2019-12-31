@@ -28,6 +28,7 @@ public class InventoryUtil {
         this.itemUtil = itemUtil;
         this.settingsUtil = settingsUtil;
         this.loadTeleporter();
+        this.loadPrivacy();
     }
 
     public void loadTeleporter() {
