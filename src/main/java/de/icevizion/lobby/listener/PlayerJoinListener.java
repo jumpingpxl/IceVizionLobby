@@ -2,6 +2,7 @@ package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.Cloud;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,7 +34,12 @@ public class PlayerJoinListener implements Listener {
         }
 
         if (player.getName().equalsIgnoreCase("theEvilReaper")) {
-            player.openInventory(plugin.getInventoryUtil().getPrivacy());
+            Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+                @Override
+                public void run() {
+                    player.openInventory(plugin.getInventoryUtil().getPrivacy());
+                }
+            }, 50);
         }
     }
 }
