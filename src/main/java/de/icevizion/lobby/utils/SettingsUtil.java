@@ -66,7 +66,7 @@ public class SettingsUtil {
 
     public void setState(Inventory inv, int category , int value, boolean gray) {
         ItemStack state;
-        Bukkit.broadcastMessage("" + category + CLICK_OFFSET + value);
+        Bukkit.broadcastMessage("" + (category + CLICK_OFFSET + value));
         switch (value) {
             case 0:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).
