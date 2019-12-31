@@ -116,6 +116,21 @@ public class PlayerInventoryListener implements Listener {
                     }
                 }
                 break;
+            case "Nutzungsbedingungen":
+                String name = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
+                switch (name) {
+                    case "Annehmen":
+
+                        break;
+                    case "Ablehnen":
+                        player.kickPlayer("§cBitte aktzeptiere die Nutzungsbedingungen um " +
+                                "auf dem Netzwerk zu spielen");
+                        break;
+                    case "Nutzungsbedingungen":
+
+                        break;
+                }
+                break;
         }
 
         if (friendPattern.matcher(event.getView().getTitle()).find()) {
