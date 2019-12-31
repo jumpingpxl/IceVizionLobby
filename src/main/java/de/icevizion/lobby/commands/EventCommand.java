@@ -4,6 +4,7 @@ import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.utils.SettingsUtil;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,7 +22,7 @@ public class EventCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
             CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer((Player) sender);
-
+            Bukkit.broadcastMessage("test");
             switch (cloudPlayer.getSetting(SettingsUtil.EVENT)) {
                 case 1:
                     cloudPlayer.setSetting(SettingsUtil.EVENT, 0);
