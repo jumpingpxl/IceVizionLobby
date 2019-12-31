@@ -2,6 +2,7 @@ package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.Cloud;
+import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -29,17 +30,20 @@ public class PlayerJoinListener implements Listener {
         plugin.getProfileCache().addProfile(player);
         plugin.getVisibilityUtil().hideOnJoin(plugin, player);
 
-        if (Cloud.getInstance().getPlayer(player).getSetting(199) == 1) {
-            plugin.getSnowService().addPlayer(player);
-        }
+        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
-        if (player.getName().equalsIgnoreCase("theEvilReaper")) {
+        if (cloudPlayer.getField("tos") == null) {
             Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
                 @Override
                 public void run() {
                     player.openInventory(plugin.getInventoryUtil().getPrivacy());
                 }
-            }, 50);
+            }, 20);
         }
+
+        if (cloudPlayer.getSetting(199) == 1) {
+            plugin.getSnowService().addPlayer(player);
+        }
+
     }
 }
