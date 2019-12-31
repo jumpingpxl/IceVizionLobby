@@ -1,7 +1,9 @@
 package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
+import de.icevizion.lobby.utils.SettingsUtil;
 import de.icevizion.lobby.utils.event.SettingsChangeEvent;
+import net.titan.spigot.Cloud;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -16,11 +18,10 @@ public class PlayerSettingsListener implements Listener {
     @EventHandler
     public void onSettings(SettingsChangeEvent event) {
         switch (event.getSetting()) {
-            /*case SettingsUtil.PLAYER_VISIBILITY:
-                Bukkit.broadcastMessage("Value" + event.getValue());
+            case SettingsUtil.PLAYER_VISIBILITY:
                 plugin.getVisibilityUtil().changeVisibility(plugin, Cloud.getInstance().getPlayer(event.getPlayer())
                         , event.getValue());
-                break;*/
+                break;
         }
     }
 }
