@@ -120,14 +120,14 @@ public class PlayerInventoryListener implements Listener {
                 String name = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
                 switch (name) {
                     case "Annehmen":
-
+                        player.sendMessage(plugin.getPrefix() + "§7Du hast die §aNutzungsbedigungen §aaktzeptiert");
+                        player.closeInventory();
                         break;
                     case "Ablehnen":
-                        player.kickPlayer("§cBitte aktzeptiere die Nutzungsbedingungen um " +
-                                "auf dem Netzwerk zu spielen");
+/*                        Cloud.getInstance()..kickPlayer("§cBitte aktzeptiere die Nutzungsbedingungen um " +
+                                "auf dem Netzwerk zu spielen");*/
                         break;
                     case "Nutzungsbedingungen":
-
                         break;
                 }
                 break;
