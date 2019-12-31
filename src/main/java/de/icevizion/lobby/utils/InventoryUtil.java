@@ -43,8 +43,8 @@ public class InventoryUtil {
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendSubLayout().entrySet()) {
             privacy.setItem(entry.getKey(), entry.getValue());
         }
-        privacy.setItem(9, new ItemBuilder(Material.BOOK).setDisplayName("§eDatenschutzerklärung").
-                    addLore("§8» §cKlicke hier um die Datenschutzerklärng zu lesen").build());
+        privacy.setItem(9, new ItemBuilder(Material.BOOK).setDisplayName("§Nutzungsbedingungen").
+                    addLore("§8» §Nutzungsbedingungen lesen").build());
     }
 
     public Inventory loadActionInventory(String name, ItemStack skull) {
