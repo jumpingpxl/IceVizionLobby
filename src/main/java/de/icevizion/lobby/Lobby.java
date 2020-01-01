@@ -1,6 +1,5 @@
 package de.icevizion.lobby;
 
-import de.icevizion.aves.util.CooldownUtil;
 import de.icevizion.lobby.commands.EventCommand;
 import de.icevizion.lobby.commands.SetCommand;
 import de.icevizion.lobby.feature.SnowService;
@@ -19,7 +18,6 @@ public class Lobby extends JavaPlugin {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
     private String prefix;
     private MapService mapService;
-    private CooldownUtil cooldownUtil;
     private InventoryUtil inventoryUtil;
     private ItemUtil itemUtil;
     private VisibilityUtil visibilityUtil;
@@ -47,7 +45,6 @@ public class Lobby extends JavaPlugin {
 
     private void load() {
         this.mapService = new MapService();
-        this.cooldownUtil = new CooldownUtil();
         this.itemUtil = new ItemUtil();
         this.settingsUtil = new SettingsUtil();
         this.inventoryUtil = new InventoryUtil(itemUtil, settingsUtil);
@@ -97,10 +94,6 @@ public class Lobby extends JavaPlugin {
 
     public MapService getMapService() {
         return mapService;
-    }
-
-    public CooldownUtil getCooldownUtil() {
-        return cooldownUtil;
     }
 
     public VisibilityUtil getVisibilityUtil() {
