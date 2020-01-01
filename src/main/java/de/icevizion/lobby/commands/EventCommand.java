@@ -4,7 +4,6 @@ import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.utils.SettingsUtil;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,7 +38,6 @@ public class EventCommand implements CommandExecutor {
                     player.sendMessage(plugin.getPrefix() + "§cWegen einem technischen " +
                             "§cFehler wurde die Eventeinstellungen §czurückgesetzt");
                     break;
-
             }
         }
         return true;
