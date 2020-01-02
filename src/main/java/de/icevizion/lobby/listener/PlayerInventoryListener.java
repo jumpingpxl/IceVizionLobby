@@ -122,12 +122,11 @@ public class PlayerInventoryListener implements Listener {
                     case "Annehmen":
                         player.sendMessage(plugin.getPrefix() + "§7Du hast die §aNutzungsbedigungen §aaktzeptiert");
                         player.closeInventory();
+                        cloudPlayer.setField("tos", System.currentTimeMillis());
                         break;
                     case "Ablehnen":
 /*                        Cloud.getInstance()..kickPlayer("§cBitte aktzeptiere die Nutzungsbedingungen um " +
                                 "auf dem Netzwerk zu spielen");*/
-                        break;
-                    case "Nutzungsbedingungen":
                         break;
                 }
                 break;
