@@ -43,7 +43,8 @@ public class InventoryUtil {
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendSubLayout().entrySet()) {
             privacy.setItem(entry.getKey(), entry.getValue());
         }
-        privacy.setItem(9, new ItemBuilder(Material.BOOK).setDisplayName("§aNutzungsbedingungen").build());
+        privacy.setItem(9, new ItemBuilder(Material.BOOK).setDisplayName("§aNutzungsbedingungen").
+                addLore("§6icevizion.de/tos-server").build());
     }
 
     public Inventory loadActionInventory(String name, ItemStack skull) {
