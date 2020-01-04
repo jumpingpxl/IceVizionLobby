@@ -19,6 +19,7 @@ public class EntityInteractListener implements Listener {
 
     @EventHandler
     public void onArmorInteract(PlayerInteractAtEntityEvent event) {
+        event.setCancelled(true);
         if (event.getRightClicked().getType().equals(EntityType.ARMOR_STAND)) {
             ArmorStand armorStand = (ArmorStand) event.getRightClicked();
 
