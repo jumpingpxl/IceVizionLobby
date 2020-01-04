@@ -37,6 +37,7 @@ public class NetworkListener implements Listener {
 
     @EventHandler
     public void onSwitch(NetworkPlayerServerSwitchedEvent event) {
+        //TODO: (o1.getID() - o2.getID() eh?
         //Delay this update because the event is too fast and sometimes redis has not the right data yet
         Bukkit.getScheduler().runTaskLater(lobby, () -> {
             lobbyUtil.updateSlots();
