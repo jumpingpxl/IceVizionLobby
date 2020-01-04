@@ -153,7 +153,7 @@ public class PlayerInventoryListener implements Listener {
     public void onClose(InventoryCloseEvent event) {
         if (event.getView().getTitle().equals("Nutzungsbedingungen")) {
             Bukkit.getScheduler().runTaskLater(plugin, () ->
-                    event.getPlayer().openInventory(event.getInventory()), 10);
+                    event.getPlayer().openInventory(plugin.getInventoryUtil().getPrivacy()), 10);
         }
     }
 
