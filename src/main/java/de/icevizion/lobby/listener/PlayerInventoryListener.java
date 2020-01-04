@@ -127,7 +127,7 @@ public class PlayerInventoryListener implements Listener {
                         cloudPlayer.setField("tos", System.currentTimeMillis());
                         break;
                     case "Ablehnen":
-                        cloudPlayer.kick("§cUm auf dem §f§oI§fce§3V§fizion.de §cNetzwerk spielen zu können\n"+
+                        cloudPlayer.kick("§cUm auf dem §f§oI§fce§3V§fizion.de §cNetzwerk spielen zu können,\n"+
                                 "musst du unsere Nutzungsbedingungen akzeptieren!\n\n§ahttps/icevizion.de/tos-server/");
                         break;
                 }
