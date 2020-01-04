@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-public class LobbyUtil implements Runnable {
+public class LobbyUtil {
 
     private final ConcurrentHashMap<String, ItemStack> activeLobbys;
     private final Inventory inventory;
@@ -27,10 +27,9 @@ public class LobbyUtil implements Runnable {
         this.loadLobbies();
     }
 
-    @Override
-    public void run() {
-        this.updateSlots();
-    }
+    /**
+     * Loads all current active lobby server into the underlying map
+     */
 
     private void loadLobbies() {
         System.out.println("[Lobby] Searching for lobby's");
@@ -42,6 +41,11 @@ public class LobbyUtil implements Runnable {
         System.out.println("[Lobby] Found " + activeLobbys.size() + " current active lobbys");
     }
 
+    /**
+     * Add a specific spigot from the service
+     * @param iClusterSpigot to add
+     */
+
     private void addLobby(IClusterSpigot iClusterSpigot) {
         ItemStack server =  new ItemBuilder(Material.GLOWSTONE_DUST)
                 .setDisplayName("§6" + iClusterSpigot.getDisplayName())
@@ -50,18 +54,6 @@ public class LobbyUtil implements Runnable {
         this.inventory.addItem(server);
     }
 
-    /*
-    public void updateLobby(IClusterSpigot iClusterSpigot) {
-        ItemStack itemStack = this.activeLobbys.get(iClusterSpigot.getUuid());
-        ItemStack server =  new ItemBuilder(itemStack)
-                .setDisplayName("§6" + iClusterSpigot.getDisplayName())
-                .addLore(Collections.singletonList("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online"))
-                .build();
-        this.inventory.remove(itemStack);
-        this.inventory.addItem(server);
-        this.activeLobbys.replace(iClusterSpigot.getUuid(),server);
-    }*/
-
     public void updateSlots() {
         List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
                 .filter(clusterSpigot -> clusterSpigot.getDisplayName().startsWith("Lobby"))
@@ -69,8 +61,10 @@ public class LobbyUtil implements Runnable {
                 .collect(Collectors.toList());
 
         Bukkit.getLogger().info("Lobby Update!");
-        lobbies.forEach((spigot)-> Bukkit.getLogger().info(spigot.getDisplayName()+" -> "+spigot.getPlayerCount()));
-        lobbies.forEach(this::removeLobby);
+        lobbies.forEach((spigot)-> Bukkit.getLogger().info(spigot.getDisplayName()+" -> " + spigot.getPlayerCount()));
+        this.inventory.clear();
+        this.activeLobbys.clear();
+       // lobbies.forEach(this::removeLobby);
         lobbies.forEach(this::addLobby);
         this.inventory.getViewers().forEach(viewer-> {
             Player player = (Player) viewer;
@@ -78,11 +72,20 @@ public class LobbyUtil implements Runnable {
         });
     }
 
+    /**
+     * Removes a specific spigot from the service
+     * @param iClusterSpigot to remove
+     */
 
     private void removeLobby(IClusterSpigot iClusterSpigot) {
         ItemStack stack = this.activeLobbys.remove(iClusterSpigot.getUuid());
         this.inventory.remove(stack);
     }
+
+    /**
+     * Returns the inventory for the selector
+     * @return the inventory
+     */
 
     public Inventory getInventory() {
         return inventory;
