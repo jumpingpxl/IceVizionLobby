@@ -127,8 +127,8 @@ public class PlayerInventoryListener implements Listener {
                         cloudPlayer.setField("tos", System.currentTimeMillis());
                         break;
                     case "Ablehnen":
-/*                        Cloud.getInstance()..kickPlayer("§cBitte aktzeptiere die Nutzungsbedingungen um " +
-                                "auf dem Netzwerk zu spielen");*/
+                        cloudPlayer.kick("§cUm auf dem §f§oI§fce§3V§fizion.de §cNetzwerk spielen zu können\n"+
+                                "musst du unsere Nutzungsbedingungen akzeptieren!\n\n§ahttps/icevizion.de/tos-server/");
                         break;
                 }
                 break;
@@ -153,7 +153,7 @@ public class PlayerInventoryListener implements Listener {
     public void onClose(InventoryCloseEvent event) {
         if (event.getView().getTitle().equals("Nutzungsbedingungen")) {
             Bukkit.getScheduler().runTaskLater(plugin, () ->
-                    event.getPlayer().openInventory(plugin.getInventoryUtil().getPrivacy()), 5);
+                    event.getPlayer().openInventory(plugin.getInventoryUtil().getPrivacy()), 10);
         }
     }
 
