@@ -135,7 +135,7 @@ public class ItemUtil {
     public void setItems(Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         ItemStack skull = new CustomPlayerHeadBuilder().setSkinOverValues(cloudPlayer.getSkinValue(), "")
-                .setDisplayName("§aProfile").build();
+                .setDisplayName("§aProfil").build();
         player.getInventory().clear();
 
         player.getInventory().setItem(0, teleporter);
