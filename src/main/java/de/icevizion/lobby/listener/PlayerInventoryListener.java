@@ -128,7 +128,7 @@ public class PlayerInventoryListener implements Listener {
                         break;
                     case "Ablehnen":
                         cloudPlayer.kick("§cUm auf dem §f§oI§fce§3V§fizion.de §cNetzwerk spielen zu können,\n"+
-                                "musst du unsere Nutzungsbedingungen akzeptieren!\n\n§ahttps/icevizion.de/tos-server/");
+                                "musst du unsere Nutzungsbedingungen akzeptieren!\n\n§ahttps://icevizion.de/tos-server/");
                         break;
                 }
                 break;
