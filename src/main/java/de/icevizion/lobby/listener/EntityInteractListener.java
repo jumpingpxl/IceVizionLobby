@@ -32,7 +32,7 @@ public class EntityInteractListener implements Listener {
 
     @EventHandler
     public void onEntityInteract(PlayerInteractEntityEvent event) {
-        if (event.getRightClicked() instanceof ItemFrame && event.getRightClicked() instanceof ArmorStand) {
+        if (event.getRightClicked() instanceof ItemFrame || event.getRightClicked() instanceof ArmorStand) {
             event.setCancelled(true);
         }
     }
