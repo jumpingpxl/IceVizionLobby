@@ -28,9 +28,8 @@ public class SettingsUtil {
      * @param slot The clicked slot from the inventory
      */
 
-    public void changeSettingsValue(CloudPlayer cloudPlayer, LobbyProfile lobbyProfile, Inventory inventory, ItemStack itemStack, int slot) {
+    public void changeSettingsValue(CloudPlayer cloudPlayer, Inventory inventory, ItemStack itemStack, int slot) {
         if (itemStack.getType().equals(Material.GRAY_DYE)) {
-            lobbyProfile.setSettingsUse(false);
             int currentRow = slot / 9;
             int category = currentRow * 9;
             int newValue = slot - category - CLICK_OFFSET;
@@ -44,12 +43,12 @@ public class SettingsUtil {
             Bukkit.broadcastMessage("OldVal: " + oldVal);
 
             if (oldVal == -1) {
-                setState(inventory, lobbyProfile, category, 2, true);
+                setState(inventory, category, 2, true);
             } else {
-                setState(inventory, lobbyProfile, category, oldVal, true);
+                setState(inventory, category, oldVal, true);
             }
 
-            setState(inventory, lobbyProfile, category, newValue, false);
+            setState(inventory, category, newValue, false);
             cloudPlayer.getPlayer().updateInventory();
             cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
 
@@ -66,7 +65,7 @@ public class SettingsUtil {
      * @param gray If the new state is gray or not
      */
 
-    public void setState(Inventory inv, LobbyProfile lobbyProfile, int category , int value, boolean gray) {
+    public void setState(Inventory inv, int category , int value, boolean gray) {
         ItemStack state;
         switch (value) {
             case 0:
@@ -84,16 +83,22 @@ public class SettingsUtil {
                         setDisplayName("§cKeiner").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
         }
-        if (lobbyProfile != null)
-            lobbyProfile.setSettingsUse(true);
     }
 
     private int setForState(int newValue, Inventory inventory, int category, int forInt, int offset) {
-        for (int i = offset; i < forInt && i != newValue; i++) {
+        int i = 0;
+        while (i < offset && i != newValue) {
             if (!inventory.getItem(category + ( CLICK_OFFSET + i)).getType().equals(Material.GRAY_DYE)) {
                 return i;
             }
+            i++;
         }
+
+        /*for (int i = offset; i < forInt && i != newValue; i++) {
+            if (!inventory.getItem(category + ( CLICK_OFFSET + i)).getType().equals(Material.GRAY_DYE)) {
+                return i;
+            }
+        }*/
         return -1;
     }
 
