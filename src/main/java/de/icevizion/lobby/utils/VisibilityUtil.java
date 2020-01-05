@@ -49,8 +49,7 @@ public class VisibilityUtil {
 
     public void hideOnJoin(Plugin plugin, Player joiningPlayer) {
         for (CloudPlayer cloudPlayers : Cloud.getInstance().getCurrentOnlinePlayers()) {
-            int value = cloudPlayers.getSetting(SettingsUtil.PLAYER_VISIBILITY);
-            switch (value) {
+            switch (cloudPlayers.getSetting(SettingsUtil.PLAYER_VISIBILITY)) {
                 case 2:
                     cloudPlayers.getPlayer().hidePlayer(plugin, joiningPlayer);
                     break;
