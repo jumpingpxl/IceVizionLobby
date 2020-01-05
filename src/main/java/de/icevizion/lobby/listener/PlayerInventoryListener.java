@@ -1,6 +1,5 @@
 package de.icevizion.lobby.listener;
 
-import de.icevizion.aves.util.CooldownUtil;
 import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.profile.LobbyProfile;
 import net.titan.lib.network.spigot.IClusterSpigot;
@@ -26,12 +25,9 @@ public class PlayerInventoryListener implements Listener {
     private final Pattern friendPattern;
     private final Lobby plugin;
 
-    private final CooldownUtil cooldownUtil;
-
     public PlayerInventoryListener(Lobby plugin) {
         this.plugin = plugin;
         this.friendPattern = Pattern.compile("(Anfrage von [a-zA-Z]{4,16})|(Einstellung für [a-zA-Z]{4,16})");
-        this.cooldownUtil = new CooldownUtil();
     }
 
     @EventHandler
