@@ -65,12 +65,13 @@ public class PlayerInventoryListener implements Listener {
             case "Einstellungen":
                 LobbyProfile profile = plugin.getProfileCache().getProfile(player);
                 if (cooldownUtil.hasCooldown(player)) {
+                    Bukkit.broadcastMessage("cooldown");
                     event.setCancelled(true);
                     player.updateInventory();
                 } else {
                     plugin.getSettingsUtil().changeSettingsValue(cloudPlayer, profile,
                             event.getInventory(), stack, event.getSlot());
-                    cooldownUtil.add(player, 100);
+                    cooldownUtil.add(player, 1000);
                 }
 
             break;
