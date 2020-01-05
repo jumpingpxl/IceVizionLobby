@@ -3,15 +3,11 @@ package de.icevizion.lobby.utils;
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.icevizion.lobby.Lobby;
-import de.icevizion.lobby.profile.LobbyProfile;
-import de.icevizion.lobby.profile.ProfileCache;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-
-import java.util.Map;
 
 public class VisibilityUtil {
 
