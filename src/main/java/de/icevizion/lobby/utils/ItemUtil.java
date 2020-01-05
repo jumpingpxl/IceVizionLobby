@@ -48,7 +48,7 @@ public class ItemUtil {
     }
 
     private HashMap<Integer, ItemStack> loadLayout() {
-        HashMap<Integer, ItemStack> layout = new HashMap<>();
+        HashMap<Integer, ItemStack> layout = new HashMap<>(28);
         layout.put(0, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("§6Privatnachrichten").build());
         layout.put(1, PANE);
         layout.put(6, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§aJeder").build());
@@ -76,7 +76,7 @@ public class ItemUtil {
     }
 
     private HashMap<Integer, ItemStack> loadFriendLayout() {
-        HashMap<Integer, ItemStack> layout = new HashMap<>();
+        HashMap<Integer, ItemStack> layout = new HashMap<>(13);
         for (int i = 36; i < 45; i++) {
             layout.put(i, PANE);
         }
@@ -92,7 +92,7 @@ public class ItemUtil {
     }
 
     private HashMap<Integer, ItemStack> loadRequestLayout() {
-        HashMap<Integer, ItemStack> layout = new HashMap<>();
+        HashMap<Integer, ItemStack> layout = new HashMap<>(11);
         for (int i = 36; i < 45; i++) {
             layout.put(i, PANE);
         }
