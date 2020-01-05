@@ -1,6 +1,7 @@
 package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
+import de.icevizion.lobby.utils.SettingsUtil;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
@@ -23,14 +24,14 @@ public class PlayerJoinListener implements Listener {
         event.setJoinMessage(null);
 
         Player player = event.getPlayer();
-
+        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         player.setGameMode(GameMode.ADVENTURE);
 
         plugin.getItemUtil().setItems(player);
         plugin.getProfileCache().addProfile(player);
         plugin.getVisibilityUtil().hideOnJoin(plugin, player);
-
-        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+        plugin.getVisibilityUtil().changeVisibility(plugin,
+                cloudPlayer, cloudPlayer.getSetting(SettingsUtil.PLAYER_VISIBILITY));
 
         if (cloudPlayer.getField("tos") == null) {
             Bukkit.getScheduler().runTaskLater(plugin, () ->
@@ -40,6 +41,5 @@ public class PlayerJoinListener implements Listener {
         if (cloudPlayer.getSetting(199) == 1) {
             plugin.getSnowService().addPlayer(player);
         }
-
     }
 }
