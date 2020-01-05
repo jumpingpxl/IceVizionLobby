@@ -1,5 +1,6 @@
 package de.icevizion.lobby.listener;
 
+import de.icevizion.aves.util.CooldownUtil;
 import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.profile.LobbyProfile;
 import net.titan.lib.network.spigot.IClusterSpigot;
@@ -25,9 +26,12 @@ public class PlayerInventoryListener implements Listener {
     private final Pattern friendPattern;
     private final Lobby plugin;
 
+    private final CooldownUtil cooldownUtil;
+
     public PlayerInventoryListener(Lobby plugin) {
         this.plugin = plugin;
         this.friendPattern = Pattern.compile("(Anfrage von [a-zA-Z]{4,16})|(Einstellung für [a-zA-Z]{4,16})");
+        this.cooldownUtil = new CooldownUtil();
     }
 
     @EventHandler
@@ -60,13 +64,15 @@ public class PlayerInventoryListener implements Listener {
         switch (event.getView().getTitle()) {
             case "Einstellungen":
                 LobbyProfile profile = plugin.getProfileCache().getProfile(player);
-                if (!plugin.getProfileCache().getProfile(player).isSettingsUse()) {
+                if (cooldownUtil.hasCooldown(player)) {
                     event.setCancelled(true);
                     player.updateInventory();
                 } else {
                     plugin.getSettingsUtil().changeSettingsValue(cloudPlayer, profile,
                             event.getInventory(), stack, event.getSlot());
+                    cooldownUtil.add(player, 100);
                 }
+
             break;
             case "Minispiele":
                 player.teleport(plugin.getMapService().getLocation(displayName));
