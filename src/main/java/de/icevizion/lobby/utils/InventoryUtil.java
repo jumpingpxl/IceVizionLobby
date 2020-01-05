@@ -33,9 +33,10 @@ public class InventoryUtil {
 
     public void loadTeleporter() {
         teleporter = Bukkit.createInventory(null, 27, "Minispiele");
-        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getTeleporterLayout().entrySet()) {
-            teleporter.setItem(entry.getKey(), entry.getValue());
-        }
+        teleporter.setItem(4, new ItemBuilder(Material.NETHER_STAR).setDisplayName("§aSpawn").build());
+        teleporter.setItem(11, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
+        teleporter.setItem(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
+        teleporter.setItem(22, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("GuessIt").build());
     }
 
     private void loadPrivacy() {

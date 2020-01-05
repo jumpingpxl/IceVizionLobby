@@ -18,7 +18,6 @@ public class ItemUtil {
             setDisplayName("§0").build();
 
     private final ItemStack teleporter, nick, chest, lobby;
-    private final Map<Integer, ItemStack> teleporterLayout;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
     private final Map<Integer, ItemStack> friendRequests;
@@ -30,21 +29,11 @@ public class ItemUtil {
         this.nick = new ItemBuilder(Material.NAME_TAG).setDisplayName("§5Nick").build();
         this.lobby = new ItemBuilder(Material.CLOCK).setDisplayName("§aLobby wechseln").build();
         this.chest = new ItemBuilder(Material.CHEST).setDisplayName("§aDein Inventar").build();
-        this.teleporterLayout = loadTeleporterLayout();
         this.settingsLayout = loadLayout();
         this.friendLayout = loadFriendLayout();
         this.friendRequests = loadRequestLayout();
         this.friendActionLayout = loadFriendActionLayout();
         this.friendSubLayout = loadSubRequestLayout();
-    }
-
-    private HashMap<Integer, ItemStack> loadTeleporterLayout() {
-        HashMap<Integer, ItemStack> layout = new HashMap<>(4);
-        layout.put(4, new ItemBuilder(Material.NETHER_STAR).setDisplayName("§aSpawn").build());
-        layout.put(11, new ItemBuilder(Material.STICK).setDisplayName("§bKnockbackFFA").build());
-        layout.put(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
-        layout.put(22, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("GuessIt").build());
-        return layout;
     }
 
     private HashMap<Integer, ItemStack> loadLayout() {
@@ -147,8 +136,6 @@ public class ItemUtil {
             player.getInventory().setItem(4, nick);
         }
     }
-
-    protected Map<Integer, ItemStack> getTeleporterLayout() { return teleporterLayout; }
 
     protected Map<Integer, ItemStack> getSettingsLayout() {
         return settingsLayout;
