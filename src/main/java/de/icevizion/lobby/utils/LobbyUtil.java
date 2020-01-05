@@ -60,8 +60,8 @@ public class LobbyUtil {
                 .sorted(new SpigotComparator())
                 .collect(Collectors.toList());
 
-        Bukkit.getLogger().info("Lobby Update!");
-        lobbies.forEach((spigot)-> Bukkit.getLogger().info(spigot.getDisplayName()+" -> " + spigot.getPlayerCount()));
+       // Bukkit.getLogger().info("Lobby Update!");
+       // lobbies.forEach((spigot)-> Bukkit.getLogger().info(spigot.getDisplayName()+" -> " + spigot.getPlayerCount()));
         this.inventory.clear();
         this.activeLobbys.clear();
        // lobbies.forEach(this::removeLobby);
