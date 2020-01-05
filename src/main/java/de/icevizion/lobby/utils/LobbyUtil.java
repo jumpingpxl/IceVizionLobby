@@ -80,6 +80,10 @@ public class LobbyUtil {
     private void removeLobby(IClusterSpigot iClusterSpigot) {
         ItemStack stack = this.activeLobbys.remove(iClusterSpigot.getUuid());
         this.inventory.remove(stack);
+        this.inventory.getViewers().forEach(viewer-> {
+            Player player = (Player) viewer;
+            player.updateInventory();
+        });
     }
 
     /**
