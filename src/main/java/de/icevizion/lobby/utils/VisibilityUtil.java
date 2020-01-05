@@ -15,12 +15,6 @@ import java.util.Map;
 
 public class VisibilityUtil {
 
-    private final ProfileCache profileCache;
-
-    public VisibilityUtil(ProfileCache profileCache) {
-        this.profileCache = profileCache;
-    }
-
     public void changeVisibility(Lobby plugin, CloudPlayer cloudPlayer, int value) {
         Player player = cloudPlayer.getPlayer();
         switch (value) {
@@ -58,17 +52,16 @@ public class VisibilityUtil {
     }
 
     public void hideOnJoin(Plugin plugin, Player joiningPlayer) {
-        if (Bukkit.getOnlinePlayers().size() <= 2) return;
-        for (Map.Entry<Player, LobbyProfile> entrySet : profileCache.getProfiles().entrySet()) {
-            switch (entrySet.getValue().getHideSettings()) {
+        for (CloudPlayer cloudPlayers : Cloud.getInstance().getCurrentOnlinePlayers()) {
+            int value = cloudPlayers.getSetting(SettingsUtil.PLAYER_VISIBILITY);
+            switch (value) {
                 case 2:
-                    entrySet.getKey().hidePlayer(plugin, joiningPlayer);
+                    cloudPlayers.getPlayer().hidePlayer(plugin, joiningPlayer);
                     break;
                 case 1:
-                    CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(entrySet.getKey());
-                    FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
+                    FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayers);
                     if (!profile.getRawFriends().containsKey(joiningPlayer.getUniqueId().toString())) {
-                        entrySet.getKey().hidePlayer(plugin, joiningPlayer);
+                        cloudPlayers.getPlayer().hidePlayer(plugin, joiningPlayer);
                     }
                     break;
             }
