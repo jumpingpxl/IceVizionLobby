@@ -64,7 +64,7 @@ public class PlayerInventoryListener implements Listener {
         switch (event.getView().getTitle()) {
             case "Einstellungen":
                 LobbyProfile profile = plugin.getProfileCache().getProfile(player);
-                    plugin.getSettingsUtil().changeSettingsValue(cloudPlayer, profile,
+                    plugin.getSettingsUtil().changeSettingsValue(cloudPlayer,
                             event.getInventory(), stack, event.getSlot());
             break;
             case "Minispiele":
