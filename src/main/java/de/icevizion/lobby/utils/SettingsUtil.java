@@ -2,13 +2,10 @@ package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ItemBuilder;
 import de.icevizion.lobby.profile.LobbyProfile;
-import de.icevizion.lobby.profile.ProfileCache;
 import de.icevizion.lobby.utils.event.SettingsChangeEvent;
-import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -25,14 +22,13 @@ public class SettingsUtil {
 
     /**
      * Changes the current state of a setting.
-     * @param player The player who changed something
+     * @param cloudPlayer The player who changed something
      * @param inventory The used inventory
      * @param itemStack The clicked {@link ItemStack}
      * @param slot The clicked slot from the inventory
      */
 
-    public void changeSettingsValue(Player player, LobbyProfile lobbyProfile, Inventory inventory, ItemStack itemStack, int slot) {
-        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+    public void changeSettingsValue(CloudPlayer cloudPlayer, LobbyProfile lobbyProfile, Inventory inventory, ItemStack itemStack, int slot) {
         if (itemStack.getType().equals(Material.GRAY_DYE)) {
             lobbyProfile.setSettingsUse(false);
             int currentRow = slot / 9;
@@ -52,10 +48,11 @@ public class SettingsUtil {
             }
 
             setState(inventory, lobbyProfile, category, newValue, false);
-            player.updateInventory();
+            cloudPlayer.getPlayer().updateInventory();
             cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
 
-            Bukkit.getPluginManager().callEvent(new SettingsChangeEvent(player, getSettingsID(currentRow), newValue));
+            Bukkit.getPluginManager().callEvent(new SettingsChangeEvent(cloudPlayer,
+                    getSettingsID(currentRow), newValue));
         }
     }
 

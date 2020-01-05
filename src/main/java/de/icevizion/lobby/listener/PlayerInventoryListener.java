@@ -64,7 +64,7 @@ public class PlayerInventoryListener implements Listener {
                     event.setCancelled(true);
                     player.updateInventory();
                 } else {
-                    plugin.getSettingsUtil().changeSettingsValue(player, profile,
+                    plugin.getSettingsUtil().changeSettingsValue(cloudPlayer, profile,
                             event.getInventory(), stack, event.getSlot());
                 }
             break;
