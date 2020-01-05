@@ -40,8 +40,6 @@ public class SettingsUtil {
                 oldVal = setForState(newValue, inventory, category,3, 0);
             }
 
-            Bukkit.broadcastMessage("OldVal: " + oldVal);
-
             if (oldVal == -1) {
                 setState(inventory, category, 2, true);
             } else {
