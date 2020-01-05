@@ -2,6 +2,9 @@ package de.icevizion.lobby.feature;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.wrappers.WrappedParticle;
+import net.minecraft.server.v1_13_R2.Particles;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -36,6 +39,7 @@ public final class SnowService extends BukkitRunnable {
             packet.setOffsetX(10);
             packet.setOffsetY(10);
             packet.setOffsetZ(10);
+            packet.setParticleType(WrappedParticle.create(Particle.FIREWORKS_SPARK, null));
             packet.setNumberOfParticles(35);
             packet.setLongDistance(true);
 
