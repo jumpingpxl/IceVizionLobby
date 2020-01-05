@@ -85,7 +85,8 @@ public class SettingsUtil {
                         setDisplayName("§cKeiner").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
         }
-        lobbyProfile.setSettingsUse(true);
+        if (lobbyProfile != null)
+            lobbyProfile.setSettingsUse(true);
     }
 
     private int setForState(int newValue, Inventory inventory, int category, int forInt, int offset) {
