@@ -55,13 +55,14 @@ public class PlayerInventoryListener implements Listener {
         //Don´t remove this line of code
         player.updateInventory();
 
+        String displayName = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
+
         switch (event.getView().getTitle()) {
             case "Einstellungen":
                 plugin.getSettingsUtil().changeSettingsValue(player, event.getInventory(), stack, event.getSlot());
             break;
             case "Minispiele":
-                player.teleport(plugin.getMapService().
-                        getLocation(ChatColor.stripColor(stack.getItemMeta().getDisplayName())));
+                player.teleport(plugin.getMapService().getLocation(displayName));
                 break;
             case "Freunde":
                 if (stack.getItemMeta().getDisplayName().equals("§cEinstellungen")) {
@@ -81,12 +82,11 @@ public class PlayerInventoryListener implements Listener {
                 if (event.getSlot() == 47 || event.getSlot() == 51) return;
                 if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
                     player.openInventory(plugin.getInventoryUtil().
-                            loadActionInventory(stack.getItemMeta().getDisplayName(), stack));
+                            loadActionInventory(displayName, stack));
                 }
                 break;
             case "Waehle eine Lobby":
-                String server = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
-                IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(server);
+                IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(displayName);
                 if (spigot == null) {
                     player.sendMessage("§cDieser Server ist nicht online");
                 }
@@ -100,8 +100,7 @@ public class PlayerInventoryListener implements Listener {
                 break;
             case "Freundesanfragen":
                 if (!stack.getType().equals(Material.AIR)) {
-                    String name = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
-                    switch (name) {
+                    switch (displayName) {
                         case "Alle annehmen":
                             cloudPlayer.dispatchCommand("friend", new String[]{"acceptall"});
                             player.closeInventory();
@@ -112,15 +111,14 @@ public class PlayerInventoryListener implements Listener {
                             break;
                         default:
                             if (stack.getType().equals(Material.PLAYER_HEAD)) {
-                                player.openInventory(plugin.getInventoryUtil().createAcceptInventory(name, stack));
+                                player.openInventory(plugin.getInventoryUtil().createAcceptInventory(displayName, stack));
                             }
                             break;
                     }
                 }
                 break;
             case "Nutzungsbedingungen":
-                String name = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
-                switch (name) {
+                switch (displayName) {
                     case "Annehmen":
                         player.sendMessage(plugin.getPrefix() + "§7Du hast die §aNutzungsbedigungen §aaktzeptiert");
                         player.closeInventory();
@@ -137,13 +135,12 @@ public class PlayerInventoryListener implements Listener {
         if (friendPattern.matcher(event.getView().getTitle()).find()) {
             if (stack.getType().equals(Material.AIR)) return;
 
-            String name = ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName());
-
             if (cloudPlayer == null)  {
                 player.sendMessage("§cEs trat ein technischer Fehler auf");
             } else {
                 handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
-                        ChatColor.stripColor(stack.getItemMeta().getDisplayName()), name);
+                        event.getClickedInventory().getItem(9).getItemMeta().getDisplayName(),
+                        ChatColor.stripColor(stack.getItemMeta().getDisplayName()));
             }
             player.closeInventory();
         }
@@ -157,7 +154,7 @@ public class PlayerInventoryListener implements Listener {
         }
     }
 
-    private void handleAction(CloudPlayer cloudPlayer, ItemStack stack, String displayName, String name) {
+    private void handleAction(CloudPlayer cloudPlayer, ItemStack stack, String name, String displayName) {
         LobbyProfile profile = plugin.getProfileCache().getProfile(cloudPlayer.getPlayer());
         switch (displayName) {
             case "Annehmen":
