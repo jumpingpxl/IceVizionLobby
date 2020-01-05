@@ -1,19 +1,24 @@
 package de.icevizion.lobby.utils.event;
 
-import org.bukkit.entity.Player;
+import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.player.PlayerEvent;
 
-public class SettingsChangeEvent extends PlayerEvent {
+public class SettingsChangeEvent extends Event {
 
     private static final HandlerList HANDLER_LIST = new HandlerList();
+    private final CloudPlayer cloudPlayer;
     private final int setting;
     private final int value;
 
-    public SettingsChangeEvent(Player who, int setting, int value) {
-        super(who);
+    public SettingsChangeEvent(CloudPlayer who, int setting, int value) {
+        this.cloudPlayer = who;
         this.setting = setting;
         this.value = value;
+    }
+
+    public CloudPlayer getPlayer() {
+        return cloudPlayer;
     }
 
     public int getSetting() {
