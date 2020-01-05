@@ -34,6 +34,7 @@ public class SettingsUtil {
             int currentRow = slot / 9;
             int category = currentRow * 9;
             int newValue = slot - category - CLICK_OFFSET;
+            Bukkit.broadcastMessage("" + newValue);
             int oldVal = -1;
             if (currentRow >= 3) {
                 oldVal = setForState(newValue, inventory, category,2, 1);
