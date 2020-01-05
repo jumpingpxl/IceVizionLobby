@@ -34,13 +34,14 @@ public class SettingsUtil {
             int currentRow = slot / 9;
             int category = currentRow * 9;
             int newValue = slot - category - CLICK_OFFSET;
-            Bukkit.broadcastMessage("" + newValue);
             int oldVal = -1;
             if (currentRow >= 3) {
                 oldVal = setForState(newValue, inventory, category,2, 1);
             } else {
                 oldVal = setForState(newValue, inventory, category,3, 0);
             }
+
+            Bukkit.broadcastMessage("OldVal: " + oldVal);
 
             if (oldVal == -1) {
                 setState(inventory, lobbyProfile, category, 2, true);
