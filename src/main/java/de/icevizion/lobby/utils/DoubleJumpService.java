@@ -1,6 +1,5 @@
 package de.icevizion.lobby.utils;
 
-import de.icevizion.aves.util.LocationUtil;
 import me.konsolas.aac.api.AACAPIProvider;
 import me.konsolas.aac.api.HackType;
 import net.titan.spigot.Cloud;
@@ -30,7 +29,6 @@ import java.util.UUID;
 public class DoubleJumpService implements Listener {
 
     private final Set<UUID> allowedPlayers;
-
     private static final String DOUBLE_JUMP_PERMISSION = "lobby.doublejump";
 
     public DoubleJumpService() {
