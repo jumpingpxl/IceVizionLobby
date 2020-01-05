@@ -8,13 +8,10 @@ public class LobbyProfile {
     private final Player player;
     private Inventory settingsInventory;
     private Inventory friendInventory;
-    private int hideSettings;
-
     private boolean settingsUse;
 
     public LobbyProfile(Player player) {
         this.player = player;
-        this.hideSettings = 0;
         this.settingsUse = true;
     }
 
@@ -30,10 +27,6 @@ public class LobbyProfile {
         this.settingsUse = settingsUse;
     }
 
-    public void setHideSettings(int hideSettings) {
-        this.hideSettings = hideSettings;
-    }
-
     public Player getPlayer() {
         return player;
     }
@@ -44,10 +37,6 @@ public class LobbyProfile {
 
     public Inventory getFriendInventory() {
         return friendInventory;
-    }
-
-    public int getHideSettings() {
-        return hideSettings;
     }
 
     public boolean isSettingsUse() {
