@@ -1,6 +1,8 @@
 package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ItemBuilder;
+import de.icevizion.lobby.profile.LobbyProfile;
+import de.icevizion.lobby.profile.ProfileCache;
 import de.icevizion.lobby.utils.event.SettingsChangeEvent;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
@@ -29,9 +31,10 @@ public class SettingsUtil {
      * @param slot The clicked slot from the inventory
      */
 
-    public void changeSettingsValue(Player player, Inventory inventory, ItemStack itemStack, int slot) {
+    public void changeSettingsValue(Player player, LobbyProfile lobbyProfile, Inventory inventory, ItemStack itemStack, int slot) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         if (itemStack.getType().equals(Material.GRAY_DYE)) {
+            lobbyProfile.setSettingsUse(false);
             int currentRow = slot / 9;
             int category = currentRow * 9;
             int newValue = slot - category - CLICK_OFFSET;
@@ -43,12 +46,12 @@ public class SettingsUtil {
             }
 
             if (oldVal == -1) {
-                setState(inventory, category, 2, true);
+                setState(inventory, lobbyProfile, category, 2, true);
             } else {
-                setState(inventory, category, oldVal, true);
+                setState(inventory, lobbyProfile, category, oldVal, true);
             }
 
-            setState(inventory, category, newValue, false);
+            setState(inventory, lobbyProfile, category, newValue, false);
             player.updateInventory();
             cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
 
@@ -64,7 +67,7 @@ public class SettingsUtil {
      * @param gray If the new state is gray or not
      */
 
-    public void setState(Inventory inv, int category , int value, boolean gray) {
+    public void setState(Inventory inv, LobbyProfile lobbyProfile, int category , int value, boolean gray) {
         ItemStack state;
         switch (value) {
             case 0:
@@ -82,6 +85,7 @@ public class SettingsUtil {
                         setDisplayName("§cKeiner").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
         }
+        lobbyProfile.setSettingsUse(true);
     }
 
     private int setForState(int newValue, Inventory inventory, int category, int forInt, int offset) {

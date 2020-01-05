@@ -59,7 +59,14 @@ public class PlayerInventoryListener implements Listener {
 
         switch (event.getView().getTitle()) {
             case "Einstellungen":
-                plugin.getSettingsUtil().changeSettingsValue(player, event.getInventory(), stack, event.getSlot());
+                LobbyProfile profile = plugin.getProfileCache().getProfile(player);
+                if (!plugin.getProfileCache().getProfile(player).isSettingsUse()) {
+                    event.setCancelled(true);
+                    player.updateInventory();
+                } else {
+                    plugin.getSettingsUtil().changeSettingsValue(player, profile,
+                            event.getInventory(), stack, event.getSlot());
+                }
             break;
             case "Minispiele":
                 player.teleport(plugin.getMapService().getLocation(displayName));
