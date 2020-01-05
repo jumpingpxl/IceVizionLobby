@@ -1,10 +1,13 @@
 package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.util.LocationUtil;
+import me.konsolas.aac.api.AACAPIProvider;
+import me.konsolas.aac.api.HackType;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.event.PlayerRankChangeEvent;
 import net.titan.spigot.event.RankReloadEvent;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.block.BlockFace;
@@ -32,6 +35,8 @@ public class DoubleJumpService implements Listener {
 
     public DoubleJumpService() {
         allowedPlayers = new HashSet<>();
+        if (Bukkit.getPluginManager().getPlugin("AAC") != null)
+            AACAPIProvider.getAPI().disableCheck(HackType.MOVE);
     }
 
     @EventHandler
