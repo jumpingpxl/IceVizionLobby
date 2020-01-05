@@ -49,7 +49,7 @@ public class Lobby extends JavaPlugin {
         this.settingsUtil = new SettingsUtil();
         this.inventoryUtil = new InventoryUtil(itemUtil, settingsUtil);
         this.profileCache = new ProfileCache();
-        this.visibilityUtil = new VisibilityUtil(profileCache);
+        this.visibilityUtil = new VisibilityUtil();
         this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
         this.doubleJumpService = new DoubleJumpService();
         this.lobbyUtil = new LobbyUtil();
