@@ -38,6 +38,12 @@ public final class DailyRewardUtil {
         armorStand.remove();
     }
 
+    /**
+     * Checks if a player can receive his daily reward
+     * @param prefix The prefix for the chat
+     * @param player The player to check
+     */
+
     public void checkDailyReward(String prefix, Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         if (!cloudPlayer.extradataContains("daily")) {
