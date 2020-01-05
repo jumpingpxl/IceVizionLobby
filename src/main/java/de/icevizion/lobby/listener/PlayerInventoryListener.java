@@ -89,11 +89,11 @@ public class PlayerInventoryListener implements Listener {
             case "Waehle eine Lobby":
                 IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(displayName);
                 if (spigot == null) {
-                    player.sendMessage("§cDieser Server ist nicht online");
+                    player.sendMessage(plugin.getPrefix() + "§cDieser Server ist nicht online");
                 }
 
                 if (cloudPlayer.getSpigot().getDisplayName().equals(spigot.getDisplayName())) {
-                    player.sendMessage("§cDu befindest dich schon auf dem Server");
+                    player.sendMessage(plugin.getPrefix() + "§cDu befindest dich schon auf dem Server");
                     player.closeInventory();
                 } else {
                     cloudPlayer.sendToServer(spigot);
@@ -137,7 +137,7 @@ public class PlayerInventoryListener implements Listener {
             if (stack.getType().equals(Material.AIR)) return;
 
             if (cloudPlayer == null)  {
-                player.sendMessage("§cEs trat ein technischer Fehler auf");
+                player.sendMessage(plugin.getPrefix() + "§cEs trat ein technischer Fehler auf");
             } else {
                 handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
                         event.getClickedInventory().getItem(9).getItemMeta().getDisplayName(),
