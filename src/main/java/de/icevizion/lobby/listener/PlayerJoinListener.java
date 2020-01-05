@@ -33,12 +33,8 @@ public class PlayerJoinListener implements Listener {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
 
         if (cloudPlayer.getField("tos") == null) {
-            Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-                @Override
-                public void run() {
-                    player.openInventory(plugin.getInventoryUtil().getPrivacy());
-                }
-            }, 20);
+            Bukkit.getScheduler().runTaskLater(plugin, () ->
+                    player.openInventory(plugin.getInventoryUtil().getPrivacy()), 20);
         }
 
         if (cloudPlayer.getSetting(199) == 1) {
