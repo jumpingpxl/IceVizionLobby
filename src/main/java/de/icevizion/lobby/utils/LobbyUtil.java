@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 
 public class LobbyUtil {
 
-    private final ConcurrentHashMap<String, ItemStack> activeLobbys;
+    private final ConcurrentHashMap<String, ItemStack> activeLobbies;
     private final Inventory inventory;
 
     public LobbyUtil() {
         this.inventory = Bukkit.createInventory(null, 27, "Waehle eine Lobby");
         this.inventory.setMaxStackSize(1);
-        this.activeLobbys = new ConcurrentHashMap<>();
+        this.activeLobbies = new ConcurrentHashMap<>();
         this.loadLobbies();
     }
 
@@ -38,7 +38,7 @@ public class LobbyUtil {
                 addLobby(spigot);
             }
         }
-        System.out.println("[Lobby] Found " + activeLobbys.size() + " current active lobbys");
+        System.out.println("[Lobby] Found " + activeLobbies.size() + " current active lobbys");
     }
 
     /**
@@ -50,7 +50,7 @@ public class LobbyUtil {
         ItemStack server =  new ItemBuilder(Material.GLOWSTONE_DUST)
                 .setDisplayName("§6" + iClusterSpigot.getDisplayName())
                 .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build();
-        this.activeLobbys.putIfAbsent(iClusterSpigot.getUuid(), server);
+        this.activeLobbies.putIfAbsent(iClusterSpigot.getUuid(), server);
         this.inventory.addItem(server);
     }
 
@@ -63,7 +63,7 @@ public class LobbyUtil {
        // Bukkit.getLogger().info("Lobby Update!");
        // lobbies.forEach((spigot)-> Bukkit.getLogger().info(spigot.getDisplayName()+" -> " + spigot.getPlayerCount()));
         this.inventory.clear();
-        this.activeLobbys.clear();
+        this.activeLobbies.clear();
        // lobbies.forEach(this::removeLobby);
         lobbies.forEach(this::addLobby);
         this.inventory.getViewers().forEach(viewer-> {
@@ -78,7 +78,7 @@ public class LobbyUtil {
      */
 
     private void removeLobby(IClusterSpigot iClusterSpigot) {
-        ItemStack stack = this.activeLobbys.remove(iClusterSpigot.getUuid());
+        ItemStack stack = this.activeLobbies.remove(iClusterSpigot.getUuid());
         this.inventory.remove(stack);
         this.inventory.getViewers().forEach(viewer-> {
             Player player = (Player) viewer;

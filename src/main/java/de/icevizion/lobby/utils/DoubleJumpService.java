@@ -32,7 +32,7 @@ public class DoubleJumpService implements Listener {
     private static final String DOUBLE_JUMP_PERMISSION = "lobby.doublejump";
 
     public DoubleJumpService() {
-        allowedPlayers = new HashSet<>();
+        allowedPlayers = new HashSet<>(4);
         if (Bukkit.getPluginManager().getPlugin("AAC") != null)
             AACAPIProvider.getAPI().disableCheck(HackType.MOVE);
     }
