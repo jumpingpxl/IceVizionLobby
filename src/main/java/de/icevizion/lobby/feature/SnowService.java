@@ -19,6 +19,18 @@ public final class SnowService extends BukkitRunnable {
 
     private ProtocolManager protocolManager;
 
+    private static final WrapperPlayServerWorldParticles packet;
+
+    static {
+        packet = new WrapperPlayServerWorldParticles();
+        packet.setOffsetX(10);
+        packet.setOffsetY(10);
+        packet.setOffsetZ(10);
+        packet.setParticleType(WrappedParticle.create(Particle.FIREWORKS_SPARK, null));
+        packet.setNumberOfParticles(35);
+        packet.setLongDistance(true);
+    }
+
     public SnowService(Plugin plugin) {
         protocolManager = ProtocolLibrary.getProtocolManager();
         runTaskTimer(plugin, 0L, 2L);
@@ -35,14 +47,6 @@ public final class SnowService extends BukkitRunnable {
     @Override
     public void run() {
         if (players.size() != 0) {
-            WrapperPlayServerWorldParticles packet = new WrapperPlayServerWorldParticles();
-            packet.setOffsetX(10);
-            packet.setOffsetY(10);
-            packet.setOffsetZ(10);
-            packet.setParticleType(WrappedParticle.create(Particle.FIREWORKS_SPARK, null));
-            packet.setNumberOfParticles(35);
-            packet.setLongDistance(true);
-
             for (Player player : players) {
                 if (player.getWorld().getHighestBlockYAt(player.getEyeLocation()) <= player.getEyeLocation().getY()) {
                     packet.setX((float)player.getLocation().getX());
