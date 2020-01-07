@@ -3,21 +3,32 @@ package de.icevizion.lobby.feature;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.wrappers.WrappedParticle;
-import net.minecraft.server.v1_13_R2.Particles;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class SnowService extends BukkitRunnable {
 
-    private static final Set<Player> players = new HashSet<>();
+    private static final List<Player> players = new ArrayList<>();
 
-    private ProtocolManager protocolManager;
+    private final ProtocolManager protocolManager;
+
+    private static final WrapperPlayServerWorldParticles packet;
+
+    static {
+        packet = new WrapperPlayServerWorldParticles();
+        packet.setOffsetX(10);
+        packet.setOffsetY(10);
+        packet.setOffsetZ(10);
+        packet.setParticleType(WrappedParticle.create(Particle.FIREWORKS_SPARK, null));
+        packet.setNumberOfParticles(35);
+        packet.setLongDistance(true);
+    }
 
     public SnowService(Plugin plugin) {
         protocolManager = ProtocolLibrary.getProtocolManager();
@@ -25,7 +36,8 @@ public final class SnowService extends BukkitRunnable {
     }
 
     public void addPlayer(Player player) {
-        players.add(player);
+        if (!players.contains(player))
+            players.add(player);
     }
 
     public void removePlayer(Player player) {
@@ -35,14 +47,6 @@ public final class SnowService extends BukkitRunnable {
     @Override
     public void run() {
         if (players.size() != 0) {
-            WrapperPlayServerWorldParticles packet = new WrapperPlayServerWorldParticles();
-            packet.setOffsetX(10);
-            packet.setOffsetY(10);
-            packet.setOffsetZ(10);
-            packet.setParticleType(WrappedParticle.create(Particle.FIREWORKS_SPARK, null));
-            packet.setNumberOfParticles(35);
-            packet.setLongDistance(true);
-
             for (Player player : players) {
                 if (player.getWorld().getHighestBlockYAt(player.getEyeLocation()) <= player.getEyeLocation().getY()) {
                     packet.setX((float)player.getLocation().getX());

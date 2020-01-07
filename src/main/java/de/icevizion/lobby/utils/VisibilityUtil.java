@@ -21,7 +21,6 @@ public class VisibilityUtil {
                         player.showPlayer(plugin, online);
                     }
                 }
-                player.sendMessage(plugin.getPrefix() + "§7Du siehst nun wieder §aalle §7Spieler");
                 break;
             case 1:
                 FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
@@ -33,7 +32,6 @@ public class VisibilityUtil {
                         player.showPlayer(plugin, online);
                     }
                 }
-                player.sendMessage(plugin.getPrefix() + "§7Du siehst nur noch deine §eFreunde");
                 break;
             case 2:
                 for (Player online : Bukkit.getOnlinePlayers()) {
@@ -42,7 +40,6 @@ public class VisibilityUtil {
                         player.hidePlayer(plugin, online);
                     }
                 }
-                player.sendMessage(plugin.getPrefix() + "§7Du siehst nun §ckeine §7Spieler mehr");
                 break;
         }
     }
