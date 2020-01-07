@@ -69,11 +69,11 @@ public final class DailyRewardUtil {
         int coins = cloudPlayer.hasPermission("lobby.reward.premium") ? 150 : 100;
         int streak = getAndUpdateRewardStreak(cloudPlayer);
         //Add daily reward Streak
-        coins += 50 * streak;
+        coins = coins + 50 * streak;
         cloudPlayer.addCoins(coins);
         cloudPlayer.extradataSet("daily", System.currentTimeMillis() + getRestDayTime());
         player.sendMessage(prefix + "§7Du hast §6" + coins + " §7Coins bekommen!" + (streak > 0
-                ? " " + "Du hast einen Streak von §6" + (streak + 1)
+                ? " " + "Du hast einen Streak von §6" + streak
                 : ""));
     }
 
