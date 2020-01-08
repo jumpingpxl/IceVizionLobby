@@ -1,7 +1,6 @@
 package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ItemBuilder;
-import de.icevizion.lobby.profile.LobbyProfile;
 import de.icevizion.lobby.utils.event.SettingsChangeEvent;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
