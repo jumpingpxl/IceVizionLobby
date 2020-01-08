@@ -110,8 +110,8 @@ public class InventoryUtil {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
-        FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(Cloud.getInstance().getPlayer(player));
-        List<CloudPlayer> sortedFriends = friendProfile.getFriends();
+        List<CloudPlayer> sortedFriends = FriendSystem.getInstance().
+                getFriendProfile(Cloud.getInstance().getPlayer(player)).getFriends();
         sortedFriends.sort((cp1, cp2) -> {
             if (cp1.isOnline() && cp2.isOnline())
                 return 0;
