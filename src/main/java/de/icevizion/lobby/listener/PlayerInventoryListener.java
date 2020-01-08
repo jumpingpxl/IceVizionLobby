@@ -149,7 +149,8 @@ public class PlayerInventoryListener implements Listener {
 
     @EventHandler
     public void onClose(InventoryCloseEvent event) {
-        if (event.getView().getTitle().equals("Nutzungsbedingungen")) {
+        if (Cloud.getInstance().getPlayer((Player)event.getPlayer()).getField("tos") == null &&
+                event.getView().getTitle().equals("Nutzungsbedingungen")) {
             Bukkit.getScheduler().runTaskLater(plugin, () ->
                     event.getPlayer().openInventory(plugin.getInventoryUtil().getPrivacy()), 10);
         }
