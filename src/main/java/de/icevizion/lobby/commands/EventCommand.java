@@ -20,22 +20,21 @@ public class EventCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
-            Player player = (Player) sender;
-            CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+            CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer((Player)sender);
             switch (cloudPlayer.getSetting(SettingsUtil.EVENT)) {
                 case 1:
                     cloudPlayer.setSetting(SettingsUtil.EVENT, 0);
-                    plugin.getSnowService().removePlayer(player);
-                    player.sendMessage(plugin.getPrefix() + "§7Du hast den Schnee §cdeaktiviert");
+                    plugin.getSnowService().removePlayer(cloudPlayer.getPlayer());
+                    cloudPlayer.sendMessage(plugin.getPrefix() + "§7Du hast den Schnee §cdeaktiviert");
                     break;
                 case 0:
                     cloudPlayer.setSetting(SettingsUtil.EVENT, 1);
-                    plugin.getSnowService().addPlayer(player);
-                    player.sendMessage(plugin.getPrefix() + "§7Du hast den Schnee §aaktiviert");
+                    plugin.getSnowService().addPlayer(cloudPlayer.getPlayer());
+                    cloudPlayer.sendMessage(plugin.getPrefix() + "§7Du hast den Schnee §aaktiviert");
                     break;
                 default:
                     cloudPlayer.setSetting(SettingsUtil.EVENT, 0);
-                    player.sendMessage(plugin.getPrefix() + "§cWegen einem technischen " +
+                    cloudPlayer.sendMessage(plugin.getPrefix() + "§cWegen einem technischen " +
                             "§cFehler wurde die Eventeinstellungen §czurückgesetzt");
                     break;
             }
