@@ -18,12 +18,12 @@ public final class DailyRewardUtil {
 
     private static final long DAY_MILLIS = 1000*60*60*24;
     private final ArmorStand armorStand;
-    private final ItemStack head;
 
     public DailyRewardUtil(Location location) {
         this.armorStand = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
-        this.head = new CustomPlayerHeadBuilder().setSkinOverValues("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGM2OTk5YzFmNTk2NDZmZTAxMjFhOTlkOWIwZmVmMzk5NmVkNzhjNmRjNTU1MzFkYWJjY2E3MDhjMWRjZjkxNiJ9fX0=", "").build();
-        this.armorStand.setHelmet(head);
+        this.armorStand.setHelmet(
+                new CustomPlayerHeadBuilder().
+                        setSkinOverValues("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGM2OTk5YzFmNTk2NDZmZTAxMjFhOTlkOWIwZmVmMzk5NmVkNzhjNmRjNTU1MzFkYWJjY2E3MDhjMWRjZjkxNiJ9fX0=", "").build());
         this.armorStand.setCustomName("§eTägliche Belohnung");
         this.armorStand.setGravity(false);
         this.armorStand.setVisible(false);
@@ -47,13 +47,13 @@ public final class DailyRewardUtil {
     public void checkDailyReward(String prefix, Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         if (!cloudPlayer.extradataContains("daily")) {
-            giveReward(prefix, player);
+            giveReward(prefix, cloudPlayer);
         } else {
             long timestamp = (long) cloudPlayer.extradataGet("daily");
             if (timestamp >= System.currentTimeMillis()) {
                 player.sendMessage(prefix + "§cBitte komme morgen wieder um einen Reward zu erhalten");
             } else {
-                giveReward(prefix, player);
+                giveReward(prefix, cloudPlayer);
             }
         }
     }
@@ -64,14 +64,13 @@ public final class DailyRewardUtil {
      * @param player The player who get the reward
      */
 
-    private void giveReward(String prefix, Player player) {
-        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
-        int coins = cloudPlayer.hasPermission("lobby.reward.premium") ? 150 : 100;
-        int streak = getAndUpdateRewardStreak(cloudPlayer);
+    private void giveReward(String prefix, CloudPlayer player) {
+        int coins = player.hasPermission("lobby.reward.premium") ? 150 : 100;
+        int streak = getAndUpdateRewardStreak(player);
         //Add daily reward Streak
         coins = coins + 50 * streak;
-        cloudPlayer.addCoins(coins);
-        cloudPlayer.extradataSet("daily", System.currentTimeMillis() + getRestDayTime());
+        player.addCoins(coins);
+        player.extradataSet("daily", System.currentTimeMillis() + getRestDayTime());
         player.sendMessage(prefix + "§7Du hast §6" + coins + " §7Coins bekommen!" + (streak > 0
                 ? " " + "Du hast einen Streak von §6" + streak
                 : ""));
