@@ -3,7 +3,6 @@ package de.icevizion.lobby.listener;
 import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.utils.SettingsUtil;
 import de.icevizion.lobby.utils.event.SettingsChangeEvent;
-import net.titan.spigot.Cloud;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
