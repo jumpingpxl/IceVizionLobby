@@ -26,12 +26,28 @@ public class PlayerFriendListener implements Listener {
 
     @EventHandler
     public void onJoin(NetworkPlayerJoinEvent event) {
-        updateInventory(event.getCloudPlayer());
+        for (Map.Entry<Player, LobbyProfile> profileEntry : plugin.getProfileCache().getProfiles().entrySet()) {
+            CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(profileEntry.getKey());
+            FriendProfile friendProfile = FriendSystem.getInstance().
+                    getFriendProfile(cloudPlayer);
+
+            if (friendProfile.getRawFriends().containsKey(event.getCloudPlayer().getUuid())) {
+                plugin.getFriendUtil().updateInventory(cloudPlayer, profileEntry.getValue().getFriendInventory());
+            }
+        }
     }
 
     @EventHandler
     public void onQuit(NetworkPlayerQuitEvent event) {
-        updateInventory(event.getCloudPlayer());
+        for (Map.Entry<Player, LobbyProfile> profileEntry : plugin.getProfileCache().getProfiles().entrySet()) {
+            CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(profileEntry.getKey());
+            FriendProfile friendProfile = FriendSystem.getInstance().
+                    getFriendProfile(cloudPlayer);
+
+            if (friendProfile.getRawFriends().containsKey(event.getCloudPlayer().getUuid())) {
+                plugin.getFriendUtil().updateInventory(cloudPlayer, profileEntry.getValue().getFriendInventory());
+            }
+        }
     }
 
     @EventHandler
@@ -42,12 +58,15 @@ public class PlayerFriendListener implements Listener {
     }
 
     private void updateInventory(CloudPlayer player) {
+        Bukkit.broadcastMessage("Test1");
         for (Map.Entry<Player, LobbyProfile> profileEntry : plugin.getProfileCache().getProfiles().entrySet()) {
             CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(profileEntry.getKey());
+            Bukkit.broadcastMessage("Test2");
             FriendProfile friendProfile = FriendSystem.getInstance().
                     getFriendProfile(cloudPlayer);
 
             if (friendProfile.getRawFriends().containsKey(player.getUuid())) {
+                Bukkit.broadcastMessage("Test3");
                 plugin.getFriendUtil().updateInventory(cloudPlayer, profileEntry.getValue().getFriendInventory());
             }
         }
