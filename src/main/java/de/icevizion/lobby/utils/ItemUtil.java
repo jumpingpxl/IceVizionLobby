@@ -181,7 +181,7 @@ public class ItemUtil {
      * @return THe underlying map
      */
 
-    protected Map<Integer, ItemStack> getFriendLayout() {
+    public Map<Integer, ItemStack> getFriendLayout() {
         return friendLayout;
     }
 
