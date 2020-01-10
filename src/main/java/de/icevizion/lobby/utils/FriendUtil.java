@@ -19,8 +19,7 @@ public class FriendUtil {
      */
 
     public void updateInventory(CloudPlayer cloudPlayer, Inventory inventory) {
-        for (int i = 0; i < 35 && (inventory.getItem(i) != null
-                || inventory.getItem(i).getType().equals(Material.PLAYER_HEAD)); i++) {
+        for (int i = 0; i < 35 && inventory.getItem(i) != null; i++) {
                 inventory.remove(inventory.getItem(i));
         }
 
