@@ -45,9 +45,6 @@ public class FriendUtil {
                         .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(player.getLastLogout())).build());
             }
         }
-        inventory.getViewers().forEach(viewer-> {
-            Player player = (Player) viewer;
-            player.updateInventory();
-        });
+        cloudPlayer.getPlayer().updateInventory();
     }
 }
