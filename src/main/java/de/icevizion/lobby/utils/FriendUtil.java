@@ -35,9 +35,9 @@ public class FriendUtil {
         for (CloudPlayer player : sortedFriends) {
             if (player.isOnline()) {
                 inventory.addItem(new CustomPlayerHeadBuilder()
-                        .setSkinOverValues(cloudPlayer.getSkinValue(), "")
+                        .setSkinOverValues(player.getSkinValue(), "")
                         .addLore("§7Befindet sich auf: §e" + player.getSpigot().getDisplayName())
-                        .setDisplayName(cloudPlayer.getFullUsername()).build());
+                        .setDisplayName(player.getFullUsername()).build());
             } else {
                 inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
                         .setDisplayName(player.getFullUsername())
