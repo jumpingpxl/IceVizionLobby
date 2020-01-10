@@ -6,6 +6,7 @@ import de.icevizion.aves.item.ItemBuilder;
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import java.util.List;
@@ -44,6 +45,9 @@ public class FriendUtil {
                         .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(player.getLastLogout())).build());
             }
         }
-        cloudPlayer.getPlayer().updateInventory();
+        inventory.getViewers().forEach(viewer-> {
+            Player player = (Player) viewer;
+            player.updateInventory();
+        });
     }
 }
