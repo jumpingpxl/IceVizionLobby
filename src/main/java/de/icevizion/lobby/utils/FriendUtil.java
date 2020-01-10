@@ -40,7 +40,7 @@ public class FriendUtil {
                         .setDisplayName(cloudPlayer.getFullUsername()).build());
             } else {
                 inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
-                        .setDisplayName(cloudPlayer.getFullUsername())
+                        .setDisplayName(player.getFullUsername())
                         .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(player.getLastLogout())).build());
             }
         }
