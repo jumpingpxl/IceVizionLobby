@@ -140,7 +140,7 @@ public class PlayerInventoryListener implements Listener {
                 player.sendMessage(plugin.getPrefix() + "§cEs trat ein technischer Fehler auf");
             } else {
                 handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
-                        event.getClickedInventory().getItem(9).getItemMeta().getDisplayName(),
+                        ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName()),
                         ChatColor.stripColor(stack.getItemMeta().getDisplayName()));
             }
             player.closeInventory();
@@ -160,7 +160,7 @@ public class PlayerInventoryListener implements Listener {
         LobbyProfile profile = plugin.getProfileCache().getProfile(cloudPlayer.getPlayer());
         switch (displayName) {
             case "Annehmen":
-                cloudPlayer.dispatchCommand("friend", new String[]{"accept", ChatColor.stripColor(name)});
+                cloudPlayer.dispatchCommand("friend", new String[]{"accept", name});
                 break;
             case "Ablehnen":
                 cloudPlayer.dispatchCommand("friend", new String[] {"deny", name});
