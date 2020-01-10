@@ -34,7 +34,7 @@ public class ScoreboardService implements Listener {
         this.lobby = lobby;
     }
 
-    public void createScoreboard(final Player player) {
+    public void createScoreboard(Player player) {
         Board board = BoardAPI.getInstance().getBoard(player);
 
         board.setDisplayName("§f§oI§fce§3V§fizion");
@@ -50,11 +50,13 @@ public class ScoreboardService implements Listener {
 
         board.setLine(1, "§1");
 
-        Bukkit.getScheduler().runTaskAsynchronously(lobby, () ->updateScoreboard(player));
+        lobby.getExecutorService().execute(() -> {
+            updateScoreboard(player);
+        });
         board.show();
     }
 
-    public void updateScoreboard(final Player player) {
+    public void updateScoreboard(Player player) {
         Board board = BoardAPI.getInstance().getBoard(player);
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
@@ -70,16 +72,15 @@ public class ScoreboardService implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         createScoreboard(event.getPlayer());
-        Bukkit.getScheduler().runTaskAsynchronously(lobby, () -> {
+        lobby.getExecutorService().execute(() -> {
             for (Player player : Bukkit.getOnlinePlayers())
-                if (player != event.getPlayer())
                 updateScoreboard(player);
         });
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        Bukkit.getScheduler().runTaskAsynchronously(lobby, () -> {
+        lobby.getExecutorService().execute(() -> {
             for (Player player : Bukkit.getOnlinePlayers())
                 updateScoreboard(player);
         });
@@ -87,7 +88,7 @@ public class ScoreboardService implements Listener {
 
     @EventHandler
     public void onGlobalPlayerJoin(NetworkPlayerJoinEvent event) {
-        Bukkit.getScheduler().runTaskAsynchronously(lobby, () -> {
+        lobby.getExecutorService().execute(() -> {
             for (Player player : Bukkit.getOnlinePlayers())
                 updateScoreboard(player);
         });
@@ -95,7 +96,7 @@ public class ScoreboardService implements Listener {
 
     @EventHandler
     public void onGlobalPlayerQuit(NetworkPlayerQuitEvent event) {
-        Bukkit.getScheduler().runTaskAsynchronously(lobby, () -> {
+        lobby.getExecutorService().execute(() -> {
             for (Player player : Bukkit.getOnlinePlayers())
                 updateScoreboard(player);
         });
@@ -103,11 +104,17 @@ public class ScoreboardService implements Listener {
 
     @EventHandler
     public void onRankChange(PlayerRankChangeEvent event) {
-        Bukkit.getScheduler().runTaskAsynchronously(lobby, () ->updateScoreboard(event.getCloudPlayer().getPlayer()));
+        lobby.getExecutorService().execute(() -> {
+            for (Player player : Bukkit.getOnlinePlayers())
+                updateScoreboard(player);
+        });
     }
 
     @EventHandler
     public void onCoinChange(PlayerCoinChangeEvent event) {
-        Bukkit.getScheduler().runTaskAsynchronously(lobby, () ->updateScoreboard(event.getCloudPlayer().getPlayer()));
+        lobby.getExecutorService().execute(() -> {
+            for (Player player : Bukkit.getOnlinePlayers())
+                updateScoreboard(player);
+        });
     }
 }

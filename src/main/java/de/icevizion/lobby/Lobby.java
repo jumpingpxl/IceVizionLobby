@@ -12,10 +12,13 @@ import net.titan.spigot.Cloud;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.SimpleDateFormat;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Lobby extends JavaPlugin {
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
+    private ExecutorService executorService;
     private String prefix;
     private MapService mapService;
     private InventoryUtil inventoryUtil;
@@ -31,6 +34,7 @@ public class Lobby extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        this.executorService = Executors.newFixedThreadPool(2);
         this.prefix = "§eLobby §8» §r";
         load();
         registerListener();
@@ -121,5 +125,9 @@ public class Lobby extends JavaPlugin {
 
     public FriendUtil getFriendUtil() {
         return friendUtil;
+    }
+
+    public ExecutorService getExecutorService() {
+        return executorService;
     }
 }
