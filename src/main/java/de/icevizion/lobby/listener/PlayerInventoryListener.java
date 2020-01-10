@@ -160,7 +160,7 @@ public class PlayerInventoryListener implements Listener {
         LobbyProfile profile = plugin.getProfileCache().getProfile(cloudPlayer.getPlayer());
         switch (displayName) {
             case "Annehmen":
-                cloudPlayer.dispatchCommand("friend", new String[]{"accept", name});
+                cloudPlayer.dispatchCommand("friend", new String[]{"accept", ChatColor.stripColor(name)});
                 break;
             case "Ablehnen":
                 cloudPlayer.dispatchCommand("friend", new String[] {"deny", name});
