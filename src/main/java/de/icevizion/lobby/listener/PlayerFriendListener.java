@@ -26,28 +26,12 @@ public class PlayerFriendListener implements Listener {
 
     @EventHandler
     public void onJoin(NetworkPlayerJoinEvent event) {
-        for (Map.Entry<Player, LobbyProfile> profileEntry : plugin.getProfileCache().getProfiles().entrySet()) {
-            CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(profileEntry.getKey());
-            FriendProfile friendProfile = FriendSystem.getInstance().
-                    getFriendProfile(cloudPlayer);
-
-            if (friendProfile.getRawFriends().containsKey(event.getCloudPlayer().getUuid())) {
-                plugin.getFriendUtil().updateInventory(cloudPlayer, profileEntry.getValue().getFriendInventory());
-            }
-        }
+        updateInventory(event.getCloudPlayer());
     }
 
     @EventHandler
     public void onQuit(NetworkPlayerQuitEvent event) {
-        for (Map.Entry<Player, LobbyProfile> profileEntry : plugin.getProfileCache().getProfiles().entrySet()) {
-            CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(profileEntry.getKey());
-            FriendProfile friendProfile = FriendSystem.getInstance().
-                    getFriendProfile(cloudPlayer);
-
-            if (friendProfile.getRawFriends().containsKey(event.getCloudPlayer().getUuid())) {
-                plugin.getFriendUtil().updateInventory(cloudPlayer, profileEntry.getValue().getFriendInventory());
-            }
-        }
+        updateInventory(event.getCloudPlayer());
     }
 
     @EventHandler
@@ -65,7 +49,7 @@ public class PlayerFriendListener implements Listener {
             FriendProfile friendProfile = FriendSystem.getInstance().
                     getFriendProfile(cloudPlayer);
 
-            if (friendProfile.getRawFriends().containsKey(player.getUuid())) {
+            if (friendProfile.getFriends().contains(player)) {
                 Bukkit.broadcastMessage("Test3");
                 plugin.getFriendUtil().updateInventory(cloudPlayer, profileEntry.getValue().getFriendInventory());
             }
