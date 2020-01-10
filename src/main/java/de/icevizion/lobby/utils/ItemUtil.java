@@ -36,6 +36,11 @@ public class ItemUtil {
         this.friendSubLayout = loadSubRequestLayout();
     }
 
+    /**
+     * Loads the layout for the settings ui.
+     * @return The HashMap with the layout
+     */
+
     private HashMap<Integer, ItemStack> loadLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>(28);
         layout.put(0, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("§6Privatnachrichten").build());
@@ -64,6 +69,11 @@ public class ItemUtil {
         return layout;
     }
 
+    /**
+     * Loads the layout for the friend ui.
+     * @return The HashMap with the layout
+     */
+
     private HashMap<Integer, ItemStack> loadFriendLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>(13);
         for (int i = 36; i < 45; i++) {
@@ -79,6 +89,11 @@ public class ItemUtil {
         layout.put(53, new ItemBuilder(Material.COMPARATOR).setDisplayName("§cEinstellungen").build());
         return layout;
     }
+
+    /**
+     * Loads the layout for the ui with the friend requests.
+     * @return The HashMap with the layout
+     */
 
     private HashMap<Integer, ItemStack> loadRequestLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>(11);
@@ -96,6 +111,11 @@ public class ItemUtil {
         return layout;
     }
 
+    /**
+     * Loads the layout for the ui with the friend actions.
+     * @return The HashMap with the layout
+     */
+
     private HashMap<Integer, ItemStack> loadFriendActionLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>(9);
         layout.put(1, PANE);
@@ -106,6 +126,11 @@ public class ItemUtil {
         layout.put(16, new ItemBuilder(Material.BARRIER).setDisplayName("Freund entfernen").build());
         return layout;
     }
+
+    /**
+     * Loads the layout for sub request ui for the friends.
+     * @return The HashMap with the layout
+     */
 
     private HashMap<Integer, ItemStack> loadSubRequestLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>(9);
@@ -120,6 +145,11 @@ public class ItemUtil {
                 .build());
         return layout;
     }
+
+    /**
+     * Set the items into the hotbar of a specific player.
+     * @param player The player to set the items
+     */
 
     public void setItems(Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
@@ -137,21 +167,46 @@ public class ItemUtil {
         }
     }
 
+    /**
+     * Returns the HashMap for the settings layout.
+     * @return THe underlying map
+     */
+
     protected Map<Integer, ItemStack> getSettingsLayout() {
         return settingsLayout;
     }
+
+    /**
+     * Returns the HashMap for the friend layout.
+     * @return THe underlying map
+     */
 
     protected Map<Integer, ItemStack> getFriendLayout() {
         return friendLayout;
     }
 
+    /**
+     * Returns the HashMap for the friend request layout.
+     * @return THe underlying map
+     */
+
     protected Map<Integer, ItemStack> getFriendRequests() {
         return friendRequests;
     }
 
+    /**
+     * Returns the HashMap for the friend action layout.
+     * @return THe underlying map
+     */
+
     protected Map<Integer, ItemStack> getFriendActionLayout() {
         return friendActionLayout;
     }
+
+    /**
+     * Returns the HashMap for the friend sub layout.
+     * @return THe underlying map
+     */
 
     protected Map<Integer, ItemStack> getFriendSubLayout() {
         return friendSubLayout;
