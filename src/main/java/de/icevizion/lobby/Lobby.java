@@ -26,6 +26,7 @@ public class Lobby extends JavaPlugin {
     private ProfileCache profileCache;
     private DoubleJumpService doubleJumpService;
     private LobbyUtil lobbyUtil;
+    private FriendUtil friendUtil;
     private SnowService snowService;
 
     @Override
@@ -53,6 +54,7 @@ public class Lobby extends JavaPlugin {
         this.dailyRewardUtil = new DailyRewardUtil(mapService.getLocation("daily"));
         this.doubleJumpService = new DoubleJumpService();
         this.lobbyUtil = new LobbyUtil();
+        this.friendUtil = new FriendUtil();
         snowService = new SnowService(this);
     }
 
@@ -114,5 +116,9 @@ public class Lobby extends JavaPlugin {
 
     public LobbyUtil getLobbyUtil() {
         return lobbyUtil;
+    }
+
+    public FriendUtil getFriendUtil() {
+        return friendUtil;
     }
 }
