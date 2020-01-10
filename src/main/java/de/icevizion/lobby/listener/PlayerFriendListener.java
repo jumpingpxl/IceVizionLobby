@@ -42,16 +42,14 @@ public class PlayerFriendListener implements Listener {
     }
 
     private void updateInventory(CloudPlayer player) {
-        Bukkit.broadcastMessage("Test1");
         for (Map.Entry<Player, LobbyProfile> profileEntry : plugin.getProfileCache().getProfiles().entrySet()) {
             CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(profileEntry.getKey());
-            Bukkit.broadcastMessage("Test2");
             FriendProfile friendProfile = FriendSystem.getInstance().
                     getFriendProfile(cloudPlayer);
 
             if (friendProfile.getFriends().contains(player)) {
-                Bukkit.broadcastMessage("Test3");
-                plugin.getFriendUtil().updateInventory(cloudPlayer, profileEntry.getValue().getFriendInventory());
+                plugin.getFriendUtil().updateInventory(cloudPlayer, plugin.getItemUtil().getFriendLayout(),
+                        profileEntry.getValue().getFriendInventory());
             }
         }
     }

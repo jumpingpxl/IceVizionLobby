@@ -7,8 +7,11 @@ import de.icevizion.lobby.Lobby;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FriendUtil {
 
@@ -18,9 +21,10 @@ public class FriendUtil {
      * @param inventory The inventory to update
      */
 
-    public void updateInventory(CloudPlayer cloudPlayer, Inventory inventory) {
-        for (int i = 0; i < 35 && inventory.getItem(i) != null; i++) {
-                inventory.remove(inventory.getItem(i));
+    public void updateInventory(CloudPlayer cloudPlayer, Map<Integer, ItemStack> layout, Inventory inventory) {
+        inventory.clear();
+        for (Map.Entry<Integer, ItemStack> entry : layout.entrySet()) {
+            inventory.setItem(entry.getKey(), entry.getValue());
         }
 
         List<CloudPlayer> sortedFriends = FriendSystem.getInstance().getFriendProfile(cloudPlayer).getFriends();
