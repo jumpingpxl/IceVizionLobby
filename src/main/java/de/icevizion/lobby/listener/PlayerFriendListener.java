@@ -36,9 +36,9 @@ public class PlayerFriendListener implements Listener {
 
     @EventHandler
     public void onSwitch(NetworkPlayerServerSwitchedEvent event) {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
             updateInventory(event.getCloudPlayer());
-        });
+        }, 5);
     }
 
     private void updateInventory(CloudPlayer player) {
