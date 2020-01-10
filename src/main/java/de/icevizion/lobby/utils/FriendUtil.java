@@ -9,7 +9,6 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,14 +35,15 @@ public class FriendUtil {
             return 1;
         });
 
-        for (CloudPlayer player : sortedFriends) {
+        for (int i = 0; i < 35 && i < sortedFriends.size(); i++) {
+            CloudPlayer player = sortedFriends.get(i);
             if (player.isOnline()) {
-                inventory.addItem(new CustomPlayerHeadBuilder()
+                inventory.setItem(i,new CustomPlayerHeadBuilder()
                         .setSkinOverValues(player.getSkinValue(), "")
                         .addLore("§7Befindet sich auf: §e" + player.getSpigot().getDisplayName())
                         .setDisplayName(player.getFullUsername()).build());
             } else {
-                inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
+                inventory.setItem(i,new ItemBuilder(Material.SKELETON_SKULL)
                         .setDisplayName(player.getFullUsername())
                         .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(player.getLastLogout())).build());
             }
