@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class PlayerFriendListener implements Listener {
 
-    private final Lobby plugin;
+   private final Lobby plugin;
 
     public PlayerFriendListener(Lobby plugin) {
         this.plugin = plugin;
@@ -26,7 +26,7 @@ public class PlayerFriendListener implements Listener {
 
     @EventHandler
     public void onJoin(NetworkPlayerJoinEvent event) {
-       updateInventory(event.getCloudPlayer());
+        updateInventory(event.getCloudPlayer());
     }
 
     @EventHandler
@@ -47,7 +47,7 @@ public class PlayerFriendListener implements Listener {
             FriendProfile friendProfile = FriendSystem.getInstance().
                     getFriendProfile(cloudPlayer);
 
-            if (friendProfile.getRawFriends().containsKey(player)) {
+            if (friendProfile.getRawFriends().containsKey(player.getUuid())) {
                 plugin.getFriendUtil().updateInventory(cloudPlayer, profileEntry.getValue().getFriendInventory());
             }
         }
