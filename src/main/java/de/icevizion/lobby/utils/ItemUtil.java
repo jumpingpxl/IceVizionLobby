@@ -42,7 +42,7 @@ public class ItemUtil {
      */
 
     private HashMap<Integer, ItemStack> loadLayout() {
-        HashMap<Integer, ItemStack> layout = new HashMap<>(28);
+        HashMap<Integer, ItemStack> layout = new HashMap<>(32);
         layout.put(0, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("§6Privatnachrichten").build());
         layout.put(1, PANE);
         layout.put(6, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§aJeder").build());
@@ -63,6 +63,10 @@ public class ItemUtil {
         layout.put(28, PANE);
         layout.put(34, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§6Freunde").build());
         layout.put(35, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§cKeiner").build());
+        layout.put(36, new ItemBuilder(Material.NETHER_PORTAL).setDisplayName("§aSpawn").build());
+        layout.put(37, PANE);
+        layout.put(43, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§aAn").build());
+        layout.put(44, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§cAus").build());
         for (int i = 45; i < 54; i++) {
             layout.put(i, PANE);
         }
