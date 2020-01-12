@@ -18,7 +18,6 @@ public class SettingsUtil {
     protected static final int JUMP = 103;
     public static final int SPAWN_LOCATION = 104;
     public static final int EVENT = 199;
-    public static final int NICK = 104;
 
     /**
      * Changes the current state of a setting.
@@ -63,7 +62,7 @@ public class SettingsUtil {
      * @param gray If the new state is gray or not
      */
 
-    public void setState(Inventory inv, int category , int value, boolean gray) {
+    public void setState(Inventory inv, int category, int value, boolean gray) {
         ItemStack state;
         switch (value) {
             case 0:
@@ -84,7 +83,7 @@ public class SettingsUtil {
     }
 
     private int setForState(int newValue, Inventory inventory, int category, int forInt, int offset) {
-        for (int i = offset; i < forInt; i++) { // Such ALG
+        for (int i = offset; i < forInt; i++) {
             if (i != newValue && !inventory.getItem(category + (CLICK_OFFSET + i)).
                     getType().equals(Material.GRAY_DYE)) {
                 return i;
@@ -98,7 +97,6 @@ public class SettingsUtil {
      * @param row The clicked row to convert
      * @return The settings id for the database
      */
-
     private int getSettingsID(int row) {
         switch (row) {
             case 0:
@@ -113,6 +111,23 @@ public class SettingsUtil {
                 return SPAWN_LOCATION;
             default:
                 return -1;
+        }
+    }
+
+    private SettingsWrapper getSetting(int row) {
+        switch (row) {
+            case 0:
+                return SettingsWrapper.PRIVATE_MESSAGE;
+            case 1:
+                return SettingsWrapper.PARTY;
+            case 2:
+                return SettingsWrapper.PLAYER_VISIBILITY;
+            case 3:
+                return SettingsWrapper.JUMP;
+            case 4:
+                return SettingsWrapper.SPAWN_LOCATION;
+            default:
+                return null;
         }
     }
 }
