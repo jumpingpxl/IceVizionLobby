@@ -16,6 +16,7 @@ public class SettingsUtil {
     protected static final int PARTY = 101;
     public static final int PLAYER_VISIBILITY = 102;
     protected static final int JUMP = 103;
+    public static final int SPAWN_LOCATION = 104;
     public static final int EVENT = 199;
     public static final int NICK = 104;
 
@@ -67,7 +68,7 @@ public class SettingsUtil {
         switch (value) {
             case 0:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).
-                        setDisplayName("§aAlle").build();
+                        setDisplayName(category == 4 ? "§aAn" : "§aAlle").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 1:
@@ -77,7 +78,7 @@ public class SettingsUtil {
                 break;
             case 2:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).
-                        setDisplayName("§cKeiner").build();
+                        setDisplayName(category == 4 ? "§cAus" : "§cKeiner").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
         }
     }
@@ -109,7 +110,7 @@ public class SettingsUtil {
             case 3:
                 return JUMP;
             case 4:
-                return EVENT;
+                return SPAWN_LOCATION;
             default:
                 return -1;
         }
