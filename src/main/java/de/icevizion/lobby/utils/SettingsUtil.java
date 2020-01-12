@@ -68,12 +68,12 @@ public class SettingsUtil {
         switch (value) {
             case 0:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).
-                        setDisplayName(category == 4 ? "§aAn" : "§aAlle").build();
+                        setDisplayName("§aAlle").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 1:
                 state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).
-                        setDisplayName("§6Freunde").build();
+                        setDisplayName(category == 4 ? "§aAn" : "§6Freunde").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 2:
