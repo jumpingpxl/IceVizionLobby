@@ -122,8 +122,8 @@ public class PlayerInventoryListener implements Listener {
                 switch (displayName) {
                     case "Annehmen":
                         player.sendMessage(plugin.getPrefix() + "§7Du hast die §aNutzungsbedigungen §aaktzeptiert");
-                        player.closeInventory();
                         cloudPlayer.setField("tos", System.currentTimeMillis());
+                        player.closeInventory();
                         break;
                     case "Ablehnen":
                         cloudPlayer.kick("§cUm auf dem §f§oI§fce§3V§fizion.de §cNetzwerk spielen zu können,\n"+
@@ -135,14 +135,9 @@ public class PlayerInventoryListener implements Listener {
 
         if (friendPattern.matcher(event.getView().getTitle()).find()) {
             if (stack.getType().equals(Material.AIR)) return;
-
-            if (cloudPlayer == null)  {
-                player.sendMessage(plugin.getPrefix() + "§cEs trat ein technischer Fehler auf");
-            } else {
-                handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
-                        ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName()),
-                        ChatColor.stripColor(stack.getItemMeta().getDisplayName()));
-            }
+            handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
+                    ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName()),
+                    ChatColor.stripColor(stack.getItemMeta().getDisplayName()));
             player.closeInventory();
         }
     }
