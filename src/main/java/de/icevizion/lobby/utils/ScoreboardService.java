@@ -62,7 +62,7 @@ public class ScoreboardService implements Listener {
         FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
         int onlineFriends = (int) friendProfile.getFriends().stream().filter(ICloudPlayer::isOnline).count();
 
-        board.setLine(11, "§f§8» "+cloudPlayer.getFullDisplayName());
+        board.setLine(11, "§f§8» "+ cloudPlayer.getFullDisplayName());
         board.setLine(8, "§e§8» "+(onlineFriends == 0 ? "§c" : "§a")
                 + onlineFriends + "§8/§6" + friendProfile.getRawFriends().size());
         board.setLine(5, "§2§8» §6" + cloudPlayer.getCoins());
@@ -82,7 +82,9 @@ public class ScoreboardService implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         lobby.getExecutorService().execute(() -> {
             for (Player player : Bukkit.getOnlinePlayers())
-                updateScoreboard(player);
+                if (player != event.getPlayer()) {
+                    updateScoreboard(player);
+                }
         });
     }
 
