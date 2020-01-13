@@ -45,7 +45,7 @@ public class PlayerInteractListener implements Listener {
                     player.openInventory(plugin.getLobbyUtil().getInventory());
                     break;
                 case "§5Nick":
-                    player.sendMessage("§cDieses Feature ist noch nicht aktiv");
+                    player.sendMessage(plugin.getPrefix() + "§cDieses Feature ist noch nicht aktiv");
                     break;
                 default:
                     break;
