@@ -83,7 +83,7 @@ public class Lobby extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("location").setExecutor(new SetCommand(mapService));
-        getCommand("schnee").setExecutor(new EventCommand(this));
+        //getCommand("schnee").setExecutor(new EventCommand(this));
     }
 
     public String getPrefix() {
