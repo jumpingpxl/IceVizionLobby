@@ -131,6 +131,14 @@ public class PlayerInventoryListener implements Listener {
                         break;
                 }
                 break;
+            case "Tägliche Belohnung":
+                switch (displayName) {
+                    case "Belohnung":
+                    case "Premium Belohnung":
+                        plugin.getDailyRewardUtil().giveReward(plugin.getPrefix(), cloudPlayer);
+                        break;
+                }
+                break;
         }
 
         if (friendPattern.matcher(event.getView().getTitle()).find()) {

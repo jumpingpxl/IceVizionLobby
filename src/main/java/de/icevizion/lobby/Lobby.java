@@ -129,4 +129,8 @@ public class Lobby extends JavaPlugin {
     public ExecutorService getExecutorService() {
         return executorService;
     }
+
+    public DailyRewardUtil getDailyRewardUtil() {
+        return dailyRewardUtil;
+    }
 }
