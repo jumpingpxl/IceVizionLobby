@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ItemUtil {
 
-    private static final ItemStack PANE = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).
+    public static final ItemStack PANE = new ItemBuilder(Material.LIGHT_BLUE_STAINED_GLASS_PANE).
             setDisplayName("§0").build();
 
     private final ItemStack teleporter, nick, chest, lobby;
@@ -23,6 +23,7 @@ public class ItemUtil {
     private final Map<Integer, ItemStack> friendRequests;
     private final Map<Integer, ItemStack> friendActionLayout;
     private final Map<Integer, ItemStack> friendSubLayout;
+    private final Map<Integer, ItemStack> dailyReward;
 
     public ItemUtil() {
         this.teleporter = new ItemBuilder(Material.NETHER_STAR).setDisplayName("§bMinispiele").build();
@@ -34,6 +35,20 @@ public class ItemUtil {
         this.friendRequests = loadRequestLayout();
         this.friendActionLayout = loadFriendActionLayout();
         this.friendSubLayout = loadSubRequestLayout();
+        this.dailyReward = loadDailyReward();
+    }
+
+    private HashMap<Integer, ItemStack> loadDailyReward() {
+        HashMap<Integer, ItemStack> layout = new HashMap<>();
+        for (int i = 0; i < 8; i++) {
+            layout.put(i, PANE);
+        }
+
+        for (int i = 18; i < 26; i++) {
+            layout.put(i, PANE);
+        }
+
+        return layout;
     }
 
     /**
@@ -173,7 +188,7 @@ public class ItemUtil {
 
     /**
      * Returns the HashMap for the settings layout.
-     * @return THe underlying map
+     * @return The underlying map
      */
 
     protected Map<Integer, ItemStack> getSettingsLayout() {
@@ -182,7 +197,7 @@ public class ItemUtil {
 
     /**
      * Returns the HashMap for the friend layout.
-     * @return THe underlying map
+     * @return The underlying map
      */
 
     public Map<Integer, ItemStack> getFriendLayout() {
@@ -191,7 +206,7 @@ public class ItemUtil {
 
     /**
      * Returns the HashMap for the friend request layout.
-     * @return THe underlying map
+     * @return The underlying map
      */
 
     protected Map<Integer, ItemStack> getFriendRequests() {
@@ -200,7 +215,7 @@ public class ItemUtil {
 
     /**
      * Returns the HashMap for the friend action layout.
-     * @return THe underlying map
+     * @return The underlying map
      */
 
     protected Map<Integer, ItemStack> getFriendActionLayout() {
@@ -209,10 +224,19 @@ public class ItemUtil {
 
     /**
      * Returns the HashMap for the friend sub layout.
-     * @return THe underlying map
+     * @return The underlying map
      */
 
     protected Map<Integer, ItemStack> getFriendSubLayout() {
         return friendSubLayout;
+    }
+
+    /**
+     * Returns the HashMap for the daily reward.
+     * @return The underlying map
+     */
+
+    public Map<Integer, ItemStack> getDailyReward() {
+        return dailyReward;
     }
 }

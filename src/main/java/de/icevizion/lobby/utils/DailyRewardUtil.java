@@ -1,8 +1,13 @@
 package de.icevizion.lobby.utils;
 
+import de.icevizion.aves.item.ItemBuilder;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -11,7 +16,31 @@ import java.time.ZonedDateTime;
 
 public final class DailyRewardUtil {
 
+    private static final ItemStack PLAYER_REWARD = new ItemBuilder(Material.LIME_DYE).
+            setDisplayName("§7Belohnung").build();
+    private static final ItemStack PREMIUM_REWARD = new ItemBuilder(Material.GOLD_NUGGET).
+            setDisplayName("§6Premium Belohnung").build();;
     private static final long DAY_MILLIS = 1000*60*60*24;
+
+    public Inventory buildInventory(CloudPlayer cloudPlayer) {
+        Inventory inventory = Bukkit.createInventory(null, 27, "Tägeliche Belohnung");
+        for (int i = 0; i < 8; i++) {
+          inventory.setItem(i, ItemUtil.PANE);
+        }
+
+        if (cloudPlayer.hasPermission("lobby.premiumreward")) {
+            inventory.setItem(12, PLAYER_REWARD);
+            inventory.setItem(14, PREMIUM_REWARD);
+        } else {
+            inventory.setItem(13, PLAYER_REWARD);
+        }
+
+        for (int i = 18; i < 26; i++) {
+            inventory.setItem(i, ItemUtil.PANE);
+        }
+
+        return inventory;
+    }
 
     /**
      * Checks if a player can receive his daily reward
@@ -21,8 +50,11 @@ public final class DailyRewardUtil {
 
     public void checkDailyReward(String prefix, Player player) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
-        if (!cloudPlayer.extradataContains("daily")) {
-            giveReward(prefix, cloudPlayer);
+        Inventory inventory = buildInventory(cloudPlayer);
+        player.openInventory(inventory);
+       /* if (!cloudPlayer.extradataContains("daily")) {
+            Inventory inventory = buildInventory(cloudPlayer);
+            player.openInventory(inventory);
         } else {
             long timestamp = (long) cloudPlayer.extradataGet("daily");
             if (timestamp >= System.currentTimeMillis()) {
@@ -30,7 +62,7 @@ public final class DailyRewardUtil {
             } else {
                 giveReward(prefix, cloudPlayer);
             }
-        }
+        }*/
     }
 
     /**
