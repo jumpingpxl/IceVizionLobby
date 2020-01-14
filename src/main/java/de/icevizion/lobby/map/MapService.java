@@ -37,8 +37,6 @@ public class MapService {
                     return lobbyMap.get().getOneline();
                 case "guessit":
                     return lobbyMap.get().getGuessIt();
-                case "daily":
-                    return lobbyMap.get().getDailyReward();
             }
         }
         return null;
@@ -81,9 +79,6 @@ public class MapService {
                 break;
             case "guessit":
                 lobbyMap.setGuessit(location);
-                break;
-            case "daily":
-                lobbyMap.setDailyReward(location);
                 break;
         }
     }
