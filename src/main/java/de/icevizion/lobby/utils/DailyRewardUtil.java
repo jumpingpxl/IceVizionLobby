@@ -62,20 +62,34 @@ public final class DailyRewardUtil {
         if (!cloudPlayer.extradataContains("daily")) {
             return true;
         }
-        if (cloudPlayer.extradataContains("daily")) {
-            long timestamp = (long) cloudPlayer.extradataGet("daily");
-            if (timestamp <= System.currentTimeMillis()) {
-                return true;
-            }
 
-            if (!cloudPlayer.hasPermission("lobby.rewardPremium")) {
-                return false;
-            }
-
-            if (!cloudPlayer.extradataContains("daily-premium")) {
-                return true;
-            }
+        //Check if the player has never got his normal reward
+        if (!cloudPlayer.extradataContains("daily")) {
+            return true;
         }
+
+        //Check if the player can get his normal reward again
+        long timestamp = (long) cloudPlayer.extradataGet("daily");
+        if (timestamp <= System.currentTimeMillis()) {
+            return true;
+        }
+
+        //End here if the player doesn't have permission for premium reward
+        if (!cloudPlayer.hasPermission("lobby.rewardPremium")) {
+            return false;
+        }
+
+        //Check if the player has never got his premium reward
+        if (!cloudPlayer.extradataContains("daily-premium")) {
+            return true;
+        }
+
+        //Check if the player can get his premium reward again
+        timestamp = (long) cloudPlayer.extradataGet("daily-premium");
+        if (timestamp <= System.currentTimeMillis()) {
+            return true;
+        }
+
         return false;
     }
 
