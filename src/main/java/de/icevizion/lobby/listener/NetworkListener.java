@@ -60,6 +60,13 @@ public class NetworkListener implements Listener {
 
     @EventHandler
     public void onQuit(NetworkPlayerQuitEvent event) {
+        lobbyUtil.updateSlots();
+        lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
+    }
 
+    @EventHandler
+    public void onJoin(NetworkPlayerJoinEvent event) {
+        lobbyUtil.updateSlots();
+        lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
     }
 }
