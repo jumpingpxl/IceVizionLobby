@@ -25,7 +25,7 @@ public class EntityInteractListener implements Listener {
         if (event.getRightClicked().getType().equals(EntityType.ARMOR_STAND)) {
             ArmorStand armorStand = (ArmorStand) event.getRightClicked();
 
-            if (armorStand.getCustomName() != null && armorStand.getCustomName().equals(" §6Tägliche Belohnung")) {
+            if (armorStand.getCustomName() != null && armorStand.getCustomName().equals("§6Tägliche Belohnung")) {
                 Bukkit.broadcastMessage("Test");
                 dailyRewardUtil.checkDailyReward(prefix, event.getPlayer());
             }
