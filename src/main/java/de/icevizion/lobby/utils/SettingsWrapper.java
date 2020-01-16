@@ -6,7 +6,6 @@ public enum SettingsWrapper {
     PARTY(101, 3),
     PLAYER_VISIBILITY(102, 3),
     JUMP(103, 2),
-    SPAWN_LOCATION(104, 2),
     EVENT(199, 2);
 
     private final int settingsID;
