@@ -24,8 +24,8 @@ import com.comphenix.protocol.wrappers.WrappedParticle;
 import de.icevizion.lobby.utils.AbstractPacket;
 
 public class WrapperPlayServerWorldParticles extends AbstractPacket {
-    public static final PacketType TYPE =
-            PacketType.Play.Server.WORLD_PARTICLES;
+
+    public static final PacketType TYPE = PacketType.Play.Server.WORLD_PARTICLES;
 
     public WrapperPlayServerWorldParticles() {
         super(new PacketContainer(TYPE), TYPE);
