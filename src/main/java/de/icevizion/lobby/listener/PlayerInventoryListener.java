@@ -59,15 +59,16 @@ public class PlayerInventoryListener implements Listener {
 
         switch (event.getView().getTitle()) {
             case "Einstellungen":
+                    plugin.getSettingsUtil().changeSettingsValue(cloudPlayer,
+                            event.getInventory(), stack, event.getSlot());
+            break;
+            case "Minispiele":
                 if (displayName.equals("Coming Soon")) {
                     event.setCancelled(true);
                     player.updateInventory();
                 } else {
-                    plugin.getSettingsUtil().changeSettingsValue(cloudPlayer,
-                            event.getInventory(), stack, event.getSlot());
+                    player.teleport(plugin.getMapService().getLocation(displayName));
                 }
-            break;
-            case "Minispiele":
                 player.teleport(plugin.getMapService().getLocation(displayName));
                 break;
             case "Freunde":
