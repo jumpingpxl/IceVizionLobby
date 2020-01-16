@@ -106,15 +106,13 @@ public final class DailyRewardUtil {
         if (timestamp <= System.currentTimeMillis()) {
             coins = coins + 50 * streak;
             player.extradataSet("daily", System.currentTimeMillis() + getRestDayTime());
+            player.addCoins(coins);
+            player.sendMessage(prefix + "§7Du hast §6" + coins + " §7Coins bekommen!" + (streak > 0
+                    ? " " + "Du hast einen Streak von §6" + (streak+1) + "§7 Tagen!"
+                    : ""));
         } else {
             player.sendMessage(prefix + "§cDu deine Belohnung schon abgeholt");
         }
-
-        //Add daily reward Streak
-        player.addCoins(coins);
-        player.sendMessage(prefix + "§7Du hast §6" + coins + " §7Coins bekommen!" + (streak > 0
-                ? " " + "Du hast einen Streak von §6" + (streak+1) + "§7 Tagen!"
-                : ""));
     }
 
     /**
