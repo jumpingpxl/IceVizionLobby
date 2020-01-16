@@ -107,19 +107,28 @@ public final class DailyRewardUtil {
 
         switch (itemName) {
             case "Belohnung":
-                timestamp = (long) player.extradataGet("daily");
-                if (timestamp <= System.currentTimeMillis()) {
+                if (!player.extradataContains("daily")) {
                     setValue(player, "daily", coins, streak);
                 } else {
-                    player.sendMessage(prefix + "§cDu hast deine Belohnung schon abgeholt");
+                    timestamp = (long) player.extradataGet("daily");
+
+                    if (timestamp <= System.currentTimeMillis()) {
+                        setValue(player, "daily", coins, streak);
+                    } else {
+                        player.sendMessage(prefix + "§cDu hast deine Belohnung schon abgeholt");
+                    }
                 }
                 break;
             case "Premium Belohnung":
-                timestamp = (long) player.extradataGet("daily-premium");
-                if (timestamp <= System.currentTimeMillis()) {
+                if (!player.extradataContains("daily-premium")) {
                     setValue(player, "daily-premium", coins, streak);
                 } else {
-                    player.sendMessage(prefix + "§cDu hast deine Belohnung schon abgeholt");
+                    timestamp = (long) player.extradataGet("daily-premium");
+                    if (timestamp <= System.currentTimeMillis()) {
+                        setValue(player, "daily-premium", coins, streak);
+                    } else {
+                        player.sendMessage(prefix + "§cDu hast deine Belohnung schon abgeholt");
+                    }
                 }
                 break;
         }
