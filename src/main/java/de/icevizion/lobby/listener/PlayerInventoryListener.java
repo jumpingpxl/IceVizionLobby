@@ -140,7 +140,7 @@ public class PlayerInventoryListener implements Listener {
                 switch (displayName) {
                     case "Belohnung":
                     case "Premium Belohnung":
-                        plugin.getDailyRewardUtil().giveReward(plugin.getPrefix(), cloudPlayer);
+                        plugin.getDailyRewardUtil().giveReward(cloudPlayer, displayName);
                         break;
                 }
                 break;
