@@ -59,18 +59,16 @@ public final class DailyRewardUtil {
     }
 
     private boolean canAccessReward(CloudPlayer cloudPlayer) {
-        if (!cloudPlayer.extradataContains("daily")) {
-            return true;
-        }
-
         //Check if the player has never got his normal reward
         if (!cloudPlayer.extradataContains("daily")) {
+            Bukkit.broadcastMessage("Found Daily Value: true");
             return true;
         }
 
         //Check if the player can get his normal reward again
         long timestamp = (long) cloudPlayer.extradataGet("daily");
         if (timestamp <= System.currentTimeMillis()) {
+            Bukkit.broadcastMessage("Found Daily Timestamp: true");
             return true;
         }
 
@@ -87,6 +85,7 @@ public final class DailyRewardUtil {
         //Check if the player can get his premium reward again
         timestamp = (long) cloudPlayer.extradataGet("daily-premium");
         if (timestamp <= System.currentTimeMillis()) {
+            Bukkit.broadcastMessage("Found Daily-Premium Timestamp: true");
             return true;
         }
 
@@ -103,14 +102,14 @@ public final class DailyRewardUtil {
         int coins = player.hasPermission("lobby.reward.premium") ? 150 : 100;
         int streak = (int) player.extradataGet("dailyStreak");
         long timestamp = (long) player.extradataGet("daily");
+
         if (timestamp <= System.currentTimeMillis()) {
             coins = coins + 50 * streak;
-            player.extradataSet("daily-premium", System.currentTimeMillis() + getRestDayTime());
-        } else {
-            streak = getAndUpdateRewardStreak(player);
-            coins = coins + 50 * streak;
             player.extradataSet("daily", System.currentTimeMillis() + getRestDayTime());
+        } else {
+            player.sendMessage(prefix + "§cDu deine Belohnung schon abgeholt");
         }
+
         //Add daily reward Streak
         player.addCoins(coins);
         player.sendMessage(prefix + "§7Du hast §6" + coins + " §7Coins bekommen!" + (streak > 0
