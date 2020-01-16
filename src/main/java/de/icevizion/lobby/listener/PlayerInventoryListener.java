@@ -69,7 +69,6 @@ public class PlayerInventoryListener implements Listener {
                 } else {
                     player.teleport(plugin.getMapService().getLocation(displayName));
                 }
-                player.teleport(plugin.getMapService().getLocation(displayName));
                 break;
             case "Freunde":
                 if (stack.getItemMeta().getDisplayName().equals("§cEinstellungen")) {
