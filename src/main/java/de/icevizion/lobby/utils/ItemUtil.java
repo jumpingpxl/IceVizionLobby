@@ -140,9 +140,9 @@ public class ItemUtil {
         layout.put(1, PANE);
         layout.put(10, PANE);
         layout.put(19, PANE);
-        layout.put(12, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("Nach springen").build());
-        layout.put(14, new ItemBuilder(Material.CAKE).setDisplayName("In Party einladen").build());
-        layout.put(16, new ItemBuilder(Material.BARRIER).setDisplayName("Freund entfernen").build());
+        //layout.put(12, new ItemBuilder(Material.ENDER_PEARL).setDisplayName("Nach springen").build());
+        //layout.put(14, new ItemBuilder(Material.CAKE).setDisplayName("In Party einladen").build());
+        layout.put(14, new ItemBuilder(Material.BARRIER).setDisplayName("Freund entfernen").build());
         return layout;
     }
 
