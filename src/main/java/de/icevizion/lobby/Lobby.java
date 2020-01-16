@@ -54,7 +54,7 @@ public class Lobby extends JavaPlugin {
         this.inventoryUtil = new InventoryUtil(itemUtil, settingsUtil);
         this.profileCache = new ProfileCache();
         this.visibilityUtil = new VisibilityUtil();
-        this.dailyRewardUtil = new DailyRewardUtil();
+        this.dailyRewardUtil = new DailyRewardUtil(prefix);
         this.doubleJumpService = new DoubleJumpService();
         this.lobbyUtil = new LobbyUtil();
         this.friendUtil = new FriendUtil();
