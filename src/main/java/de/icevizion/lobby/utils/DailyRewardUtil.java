@@ -102,8 +102,11 @@ public final class DailyRewardUtil {
 
     public void giveReward(CloudPlayer player, String itemName) {
         int coins = player.hasPermission("lobby.reward.premium") ? 150 : 100;
-        int streak = (int) player.extradataGet("dailyStreak");
+        int streak = 0;
         long timestamp;
+        if (player.extradataContains("dailyStreak")) {
+            streak = (int) player.extradataGet("dailyStreak");
+        }
 
         switch (itemName) {
             case "Belohnung":
