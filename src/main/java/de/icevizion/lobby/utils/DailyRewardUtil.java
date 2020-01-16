@@ -23,7 +23,7 @@ public final class DailyRewardUtil {
     private static final long DAY_MILLIS = 1000*60*60*24;
 
     public Inventory buildInventory(CloudPlayer cloudPlayer) {
-        Inventory inventory = Bukkit.createInventory(null, 27, "Tägeliche Belohnung");
+        Inventory inventory = Bukkit.createInventory(null, 27, "Tägliche Belohnung");
         for (int i = 0; i < 9; i++) {
           inventory.setItem(i, ItemUtil.PANE);
         }
