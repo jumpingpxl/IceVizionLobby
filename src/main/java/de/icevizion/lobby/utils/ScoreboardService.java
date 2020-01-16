@@ -64,8 +64,8 @@ public class ScoreboardService implements Listener {
 
         board.setLine(11, "§f§8» "+ cloudPlayer.getFullDisplayName());
         board.setLine(8, "§e§8» "+(onlineFriends == 0 ? "§c" : "§a")
-                + onlineFriends + "§8/§6" + friendProfile.getRawFriends().size());
-        board.setLine(5, "§2§8» §3" + cloudPlayer.getCoins());
+                + onlineFriends + "§8/§b" + friendProfile.getRawFriends().size());
+        board.setLine(5, "§2§8» §b" + cloudPlayer.getCoins());
         board.setLine(2, "§1§8» §b"+ TimeUtilities.getHours(cloudPlayer.getOnlineTime()) + " Stunden");
     }
 
