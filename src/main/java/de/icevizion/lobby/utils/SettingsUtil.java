@@ -124,8 +124,6 @@ public class SettingsUtil {
                 return SettingsWrapper.PLAYER_VISIBILITY;
             case 3:
                 return SettingsWrapper.JUMP;
-            case 4:
-                return SettingsWrapper.SPAWN_LOCATION;
             default:
                 return null;
         }
