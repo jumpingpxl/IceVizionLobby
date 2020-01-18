@@ -26,7 +26,7 @@ public class PlayerSpawnListener implements Listener {
     public void onSpawn(PlayerSpawnLocationEvent event) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(event.getPlayer());
         if (cloudPlayer.extradataContains("location")) {
-            event.setSpawnLocation(gson.fromJson((JsonElement) cloudPlayer.extradataGet("location"), Location.class));
+            event.setSpawnLocation(gson.fromJson((String)cloudPlayer.extradataGet("location"), Location.class));
         } else{
             mapService.getLobbyMap().ifPresent(map -> {
                 if (map.getSpawn() != null) {
