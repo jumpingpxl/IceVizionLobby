@@ -1,9 +1,7 @@
 package de.icevizion.lobby.map;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import de.icevizion.aves.adapter.LocationTypeAdapter;
 import de.icevizion.aves.file.JsonFileLoader;
+import de.icevizion.lobby.Lobby;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -13,16 +11,11 @@ import java.util.Optional;
 
 public class MapService {
 
-    private final Gson gson;
-    private Optional<LobbyMap> lobbyMap;
     private File file;
 
+    private Optional<LobbyMap> lobbyMap;
+
     public MapService() {
-        this.gson = new GsonBuilder().
-                serializeNulls().
-                setPrettyPrinting().
-                registerTypeAdapter(Location.class, new LocationTypeAdapter()).
-                create();
         loadMap();
     }
 
@@ -45,23 +38,23 @@ public class MapService {
     private void loadMap() {
         this.file = new File(Bukkit.getWorlds().get(0).getWorldFolder(), "map.json");
         if (file.exists()) {
-            lobbyMap = JsonFileLoader.load(file, LobbyMap.class, gson);
+            lobbyMap = JsonFileLoader.load(file, LobbyMap.class, Lobby.GSON);
             Bukkit.getConsoleSender().sendMessage("Daten wurden geladen");
         } else {
             lobbyMap = Optional.of(new LobbyMap());
-            JsonFileLoader.save(file,lobbyMap.get(),gson);
+            JsonFileLoader.save(file, lobbyMap.get(), Lobby.GSON);
         }
     }
 
     public boolean setValue(String type,Location location) {
         if (lobbyMap.isPresent()) {
             setData(lobbyMap.get(), type, location);
-            JsonFileLoader.save(file,lobbyMap.get(),gson);
+            JsonFileLoader.save(file, lobbyMap.get(), Lobby.GSON);
             return true;
         } else {
             lobbyMap = Optional.of(new LobbyMap());
             setData(lobbyMap.get(), type, location);
-            JsonFileLoader.save(file,lobbyMap.get(),gson);
+            JsonFileLoader.save(file, lobbyMap.get(), Lobby.GSON);
             return true;
         }
     }
