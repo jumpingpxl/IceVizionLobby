@@ -101,19 +101,17 @@ public final class DailyRewardUtil {
      */
 
     public void giveReward(CloudPlayer player, String itemName) {
-        int coins = player.hasPermission("lobby.reward.premium") ? 150 : 100;
         int streak = getAndUpdateRewardStreak(player);
         long timestamp;
-
         switch (itemName) {
             case "Belohnung":
                 if (!player.extradataContains("daily")) {
-                    setValue(player, "daily", coins, streak);
+                    setValue(player, "daily", 100, streak);
                 } else {
                     timestamp = (long) player.extradataGet("daily");
 
                     if (timestamp <= System.currentTimeMillis()) {
-                        setValue(player, "daily", coins, streak);
+                        setValue(player, "daily", 100, streak);
                     } else {
                         player.sendMessage(prefix + "§cDu hast deine Belohnung schon abgeholt");
                     }
@@ -121,11 +119,11 @@ public final class DailyRewardUtil {
                 break;
             case "Premium Belohnung":
                 if (!player.extradataContains("daily-premium")) {
-                    setValue(player, "daily-premium", coins, streak);
+                    setValue(player, "daily-premium", 150, streak);
                 } else {
                     timestamp = (long) player.extradataGet("daily-premium");
                     if (timestamp <= System.currentTimeMillis()) {
-                        setValue(player, "daily-premium", coins, streak);
+                        setValue(player, "daily-premium", 150, streak);
                     } else {
                         player.sendMessage(prefix + "§cDu hast deine Belohnung schon abgeholt");
                     }
