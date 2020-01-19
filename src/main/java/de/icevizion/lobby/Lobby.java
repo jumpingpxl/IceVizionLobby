@@ -21,8 +21,10 @@ import java.util.concurrent.Executors;
 public class Lobby extends JavaPlugin {
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
-    public static final Gson GSON = new GsonBuilder().
-            registerTypeAdapter(Location.class, new LocationTypeAdapter()).create();
+    public static final Gson GSON = new GsonBuilder()
+            .serializeNulls()
+            .setPrettyPrinting()
+            .registerTypeAdapter(Location.class, new LocationTypeAdapter()).create();
     private ExecutorService executorService;
     private String prefix;
     private MapService mapService;
