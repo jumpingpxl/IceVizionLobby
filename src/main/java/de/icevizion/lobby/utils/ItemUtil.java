@@ -23,7 +23,6 @@ public class ItemUtil {
     private final Map<Integer, ItemStack> friendRequests;
     private final Map<Integer, ItemStack> friendActionLayout;
     private final Map<Integer, ItemStack> friendSubLayout;
-    private final Map<Integer, ItemStack> dailyReward;
 
     public ItemUtil() {
         this.teleporter = new ItemBuilder(Material.NETHER_STAR).setDisplayName("§bMinispiele").build();
@@ -35,20 +34,6 @@ public class ItemUtil {
         this.friendRequests = loadRequestLayout();
         this.friendActionLayout = loadFriendActionLayout();
         this.friendSubLayout = loadSubRequestLayout();
-        this.dailyReward = loadDailyReward();
-    }
-
-    private HashMap<Integer, ItemStack> loadDailyReward() {
-        HashMap<Integer, ItemStack> layout = new HashMap<>();
-        for (int i = 0; i < 8; i++) {
-            layout.put(i, PANE);
-        }
-
-        for (int i = 18; i < 26; i++) {
-            layout.put(i, PANE);
-        }
-
-        return layout;
     }
 
     /**
@@ -226,14 +211,5 @@ public class ItemUtil {
 
     protected Map<Integer, ItemStack> getFriendSubLayout() {
         return friendSubLayout;
-    }
-
-    /**
-     * Returns the HashMap for the daily reward.
-     * @return The underlying map
-     */
-
-    public Map<Integer, ItemStack> getDailyReward() {
-        return dailyReward;
     }
 }
