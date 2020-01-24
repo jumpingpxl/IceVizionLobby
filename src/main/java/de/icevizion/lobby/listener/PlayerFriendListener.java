@@ -31,7 +31,12 @@ public class PlayerFriendListener implements Listener {
 
     @EventHandler
     public void onQuit(NetworkPlayerQuitEvent event) {
-        updateInventory(event.getCloudPlayer());
+        for (Map.Entry<Player, LobbyProfile> profileEntry : plugin.getProfileCache().getProfiles().entrySet()) {
+            if (profileEntry.getValue().getFriendInventory() != null) {
+                plugin.getFriendUtil().updateFriendInventory(event.getCloudPlayer(),
+                        plugin.getItemUtil().getFriendLayout(), profileEntry.getValue().getFriendInventory());
+            }
+        }
     }
 
     @EventHandler
