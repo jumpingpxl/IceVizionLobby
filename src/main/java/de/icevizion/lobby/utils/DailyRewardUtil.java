@@ -60,7 +60,7 @@ public final class DailyRewardUtil {
             Inventory inventory = buildInventory(cloudPlayer);
             player.openInventory(inventory);
         } else {
-            player.sendMessage(prefix + "§cBitte komme morgen wieder um einen Reward zu erhalten");
+            player.sendMessage(prefix + "§cBitte komme morgen wieder um deinen Reward zu erhalten");
         }
     }
 
@@ -137,7 +137,7 @@ public final class DailyRewardUtil {
         player.extradataSet(key, System.currentTimeMillis() + getRestDayTime());
         player.addCoins(coins);
         player.sendMessage(prefix + "§7Du hast §6" + coins + " §7Coins bekommen!" + (streak > 0
-                ? " " + "Du hast einen Streak von §6" + (streak + 1) + "§7 Tagen!"
+                ? " " + "Du hast eine Streak von §6" + (streak + 1) + "§7 Tagen!"
                 : ""));
     }
 
