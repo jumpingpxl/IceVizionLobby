@@ -36,7 +36,7 @@ public class InventoryUtil {
         teleporter.setItem(4, new ItemBuilder(Material.NETHER_STAR).setDisplayName("§aSpawn").build());
         teleporter.setItem(11, new ItemBuilder(Material.STICK).setDisplayName("§aKnockbackFFA").build());
         teleporter.setItem(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
-        teleporter.setItem(22, new ItemBuilder(Material.BARRIER).setDisplayName("§cComing Soon").build());
+        teleporter.setItem(22, new ItemBuilder(Material.RED_BED).setDisplayName("§2BedWars").build());
     }
 
     private void loadPrivacy() {
