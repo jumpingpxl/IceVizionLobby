@@ -39,7 +39,7 @@ public class PlayerJoinListener implements Listener {
         }
 
         if (cloudPlayer.getSetting(199) == 1) {
-            plugin.getSnowService().addPlayer(player);
+            cloudPlayer.setSetting(199, 0);
         }
     }
 }

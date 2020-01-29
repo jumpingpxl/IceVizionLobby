@@ -1,6 +1,8 @@
 package de.icevizion.lobby;
 
-import de.icevizion.lobby.commands.EventCommand;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import de.icevizion.aves.adapter.LocationTypeAdapter;
 import de.icevizion.lobby.commands.SetCommand;
 import de.icevizion.lobby.feature.SnowService;
 import de.icevizion.lobby.map.MapService;
@@ -9,6 +11,7 @@ import de.icevizion.lobby.listener.*;
 import de.icevizion.lobby.utils.*;
 import net.titan.lib.network.spigot.SpigotState;
 import net.titan.spigot.Cloud;
+import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.SimpleDateFormat;
@@ -18,6 +21,10 @@ import java.util.concurrent.Executors;
 public class Lobby extends JavaPlugin {
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
+    public static final Gson GSON = new GsonBuilder()
+            .serializeNulls()
+            .setPrettyPrinting()
+            .registerTypeAdapter(Location.class, new LocationTypeAdapter()).create();
     private ExecutorService executorService;
     private String prefix;
     private MapService mapService;
@@ -54,7 +61,7 @@ public class Lobby extends JavaPlugin {
         this.inventoryUtil = new InventoryUtil(itemUtil, settingsUtil);
         this.profileCache = new ProfileCache();
         this.visibilityUtil = new VisibilityUtil();
-        this.dailyRewardUtil = new DailyRewardUtil();
+        this.dailyRewardUtil = new DailyRewardUtil(prefix);
         this.doubleJumpService = new DoubleJumpService();
         this.lobbyUtil = new LobbyUtil();
         this.friendUtil = new FriendUtil();

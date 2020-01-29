@@ -31,26 +31,33 @@ public class PlayerFriendListener implements Listener {
 
     @EventHandler
     public void onQuit(NetworkPlayerQuitEvent event) {
-        updateInventory(event.getCloudPlayer());
+        //Bukkit.broadcastMessage("Player: " + event.getCloudPlayer().getFullDisplayName());
+        for (Map.Entry<Player, LobbyProfile> profileEntry : plugin.getProfileCache().getProfiles().entrySet()) {
+            if (profileEntry.getValue().getFriendInventory() != null) {
+                plugin.getFriendUtil().updateFriendInventory(event.getCloudPlayer(),
+                        plugin.getItemUtil().getFriendLayout(), profileEntry.getValue().getFriendInventory());
+            }
+        }
     }
 
     @EventHandler
     public void onSwitch(NetworkPlayerServerSwitchedEvent event) {
-        Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
-            updateInventory(event.getCloudPlayer());
-        }, 5);
+        plugin.getExecutorService().execute(() -> updateInventory(event.getCloudPlayer()));
     }
 
     private void updateInventory(CloudPlayer player) {
         for (Map.Entry<Player, LobbyProfile> profileEntry : plugin.getProfileCache().getProfiles().entrySet()) {
             if (profileEntry.getValue().getFriendInventory() != null) {
                 CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(profileEntry.getKey());
-                FriendProfile friendProfile = FriendSystem.getInstance().
-                        getFriendProfile(cloudPlayer);
 
-                if (friendProfile.getRawFriends().containsKey(player.getUuid())) {
-                    plugin.getFriendUtil().updateInventory(cloudPlayer, plugin.getItemUtil().getFriendLayout(),
-                            profileEntry.getValue().getFriendInventory());
+                if (cloudPlayer.isOnline()) {
+                    FriendProfile friendProfile = FriendSystem.getInstance().
+                            getFriendProfile(cloudPlayer);
+
+                    if (friendProfile.getRawFriends().containsKey(player.getUuid())) {
+                        plugin.getFriendUtil().updateInventory(cloudPlayer, plugin.getItemUtil().getFriendLayout(),
+                                profileEntry.getValue().getFriendInventory());
+                    }
                 }
             }
         }
