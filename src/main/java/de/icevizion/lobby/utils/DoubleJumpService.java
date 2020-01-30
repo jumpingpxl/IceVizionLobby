@@ -2,6 +2,7 @@ package de.icevizion.lobby.utils;
 
 import me.konsolas.aac.api.AACAPIProvider;
 import me.konsolas.aac.api.HackType;
+import net.titan.cloudcore.player.ICloudPlayer;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.event.PlayerRankChangeEvent;
 import net.titan.spigot.event.RankReloadEvent;
@@ -69,6 +70,10 @@ public class DoubleJumpService implements Listener {
     @EventHandler
     public void onToggleFlight(PlayerToggleFlightEvent event) {
         Player player = event.getPlayer();
+        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+        //Check if the player is currently spectating
+        if (cloudPlayer.offlineExtradataContains("specPlayerListName"))
+            return;
 
         if (player.getGameMode() == GameMode.ADVENTURE || event.getPlayer().getGameMode() == GameMode.SURVIVAL) {
             if (!player.isFlying())
