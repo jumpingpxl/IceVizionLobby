@@ -149,7 +149,7 @@ public class PlayerInventoryListener implements Listener {
         if (friendPattern.matcher(event.getView().getTitle()).find()) {
             if (stack.getType().equals(Material.AIR)) return;
             handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
-                    ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName()),
+                    ChatColor.stripColor(event.getInventory().getItem(9).getItemMeta().getDisplayName()),
                     ChatColor.stripColor(stack.getItemMeta().getDisplayName()));
             player.closeInventory();
         }
