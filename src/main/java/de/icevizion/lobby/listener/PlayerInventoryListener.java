@@ -147,7 +147,9 @@ public class PlayerInventoryListener implements Listener {
         }
 
         if (friendPattern.matcher(event.getView().getTitle()).find()) {
+            Bukkit.broadcastMessage("worked1");
             if (stack.getType().equals(Material.AIR)) return;
+            Bukkit.broadcastMessage("worked2");
             handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
                     ChatColor.stripColor(event.getInventory().getItem(9).getItemMeta().getDisplayName()),
                     ChatColor.stripColor(stack.getItemMeta().getDisplayName()));
