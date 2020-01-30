@@ -140,7 +140,7 @@ public class PlayerInventoryListener implements Listener {
                 switch (displayName) {
                     case "Belohnung":
                     case "Premium Belohnung":
-                        plugin.getDailyRewardUtil().giveReward(cloudPlayer, displayName);
+                        plugin.getDailyRewardUtil().giveReward(cloudPlayer, plugin.getPrefix(), displayName);
                         break;
                 }
                 break;
@@ -166,6 +166,7 @@ public class PlayerInventoryListener implements Listener {
 
     private void handleAction(CloudPlayer cloudPlayer, ItemStack stack, String name, String displayName) {
         LobbyProfile profile = plugin.getProfileCache().getProfile(cloudPlayer.getPlayer());
+        Bukkit.broadcastMessage(name);
         switch (displayName) {
             case "Annehmen":
                 cloudPlayer.dispatchCommand("friend", new String[]{"accept", name});

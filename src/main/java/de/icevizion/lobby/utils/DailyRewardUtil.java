@@ -22,12 +22,6 @@ public final class DailyRewardUtil {
             setDisplayName("§6Premium Belohnung").build();;
     private static final long DAY_MILLIS = 1000*60*60*24;
 
-    private final String prefix;
-
-    public DailyRewardUtil(String prefix) {
-        this.prefix = prefix;
-    }
-
     public Inventory buildInventory(CloudPlayer cloudPlayer) {
         Inventory inventory = Bukkit.createInventory(null, 27, "Tägliche Belohnung");
         for (int i = 0; i < 9; i++) {
@@ -100,18 +94,18 @@ public final class DailyRewardUtil {
      * @param player The player who get the reward
      */
 
-    public void giveReward(CloudPlayer player, String itemName) {
+    public void giveReward(CloudPlayer player, String prefix, String itemName) {
         int streak = getAndUpdateRewardStreak(player);
         long timestamp;
         switch (itemName) {
             case "Belohnung":
                 if (!player.extradataContains("daily")) {
-                    setValue(player, "daily", 100, streak);
+                    setValue(player, "daily", prefix, 100, streak);
                 } else {
                     timestamp = (long) player.extradataGet("daily");
 
                     if (timestamp <= System.currentTimeMillis()) {
-                        setValue(player, "daily", 100, streak);
+                        setValue(player, "daily", prefix,100, streak);
                     } else {
                         player.sendMessage(prefix + "§cDu hast deine Belohnung schon abgeholt");
                     }
@@ -119,11 +113,11 @@ public final class DailyRewardUtil {
                 break;
             case "Premium Belohnung":
                 if (!player.extradataContains("daily-premium")) {
-                    setValue(player, "daily-premium", 150, streak);
+                    setValue(player, "daily-premium", prefix,150, streak);
                 } else {
                     timestamp = (long) player.extradataGet("daily-premium");
                     if (timestamp <= System.currentTimeMillis()) {
-                        setValue(player, "daily-premium", 150, streak);
+                        setValue(player, "daily-premium", prefix,150, streak);
                     } else {
                         player.sendMessage(prefix + "§cDu hast deine Belohnung schon abgeholt");
                     }
@@ -132,7 +126,7 @@ public final class DailyRewardUtil {
         }
     }
 
-    private void setValue(CloudPlayer player, String key, int coins, int streak) {
+    private void setValue(CloudPlayer player, String key, String prefix, int coins, int streak) {
         coins = coins + 50 * streak;
         player.extradataSet(key, System.currentTimeMillis() + getRestDayTime());
         player.addCoins(coins);
