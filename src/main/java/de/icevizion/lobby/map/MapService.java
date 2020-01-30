@@ -30,8 +30,6 @@ public class MapService {
                     return lobbyMap.get().getOneline();
                 case "bedwars":
                     return lobbyMap.get().getGuessIt();
-                case "bedwars":
-                    return lobbyMap.get().getBedwars();
                 case "suicidetnt":
 
                     break;
