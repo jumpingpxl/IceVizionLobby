@@ -59,8 +59,8 @@ public class PlayerInventoryListener implements Listener {
 
         switch (event.getView().getTitle()) {
             case "Einstellungen":
-                    plugin.getSettingsUtil().changeSettingsValue(cloudPlayer,
-                            event.getInventory(), stack, event.getSlot());
+                plugin.getSettingsUtil().changeSettingsValue(cloudPlayer,
+                        event.getInventory(), stack, event.getSlot());
             break;
             case "Minispiele":
                 if (displayName.equals("Coming Soon")) {
@@ -146,7 +146,8 @@ public class PlayerInventoryListener implements Listener {
                 break;
         }
 
-        if (friendPattern.matcher(event.getView().getTitle()).find()) {
+        if (event.getView().getTitle().startsWith("Einstellungen für") ||
+                (event.getView().getTitle().startsWith("Anfrage von"))) {
             Bukkit.broadcastMessage("worked1");
             if (stack.getType().equals(Material.AIR)) return;
             Bukkit.broadcastMessage("worked2");
