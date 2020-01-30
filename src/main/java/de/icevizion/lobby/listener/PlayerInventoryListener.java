@@ -149,7 +149,7 @@ public class PlayerInventoryListener implements Listener {
         if (event.getView().getTitle().startsWith("Einstellungen für") ||
                 (event.getView().getTitle().startsWith("Anfrage von"))) {
             if (stack.getType().equals(Material.AIR)) return;
-            handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
+                handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
                     ChatColor.stripColor(event.getInventory().getItem(9).getItemMeta().getDisplayName()),
                     ChatColor.stripColor(stack.getItemMeta().getDisplayName()));
             player.closeInventory();
@@ -167,7 +167,6 @@ public class PlayerInventoryListener implements Listener {
 
     private void handleAction(CloudPlayer cloudPlayer, ItemStack stack, String name, String displayName) {
         LobbyProfile profile = plugin.getProfileCache().getProfile(cloudPlayer.getPlayer());
-        Bukkit.broadcastMessage(name);
         switch (displayName) {
             case "Annehmen":
                 cloudPlayer.dispatchCommand("friend", new String[]{"accept", name});
