@@ -149,22 +149,21 @@ public class ItemUtil {
 
     /**
      * Set the items into the hotbar of a specific player.
-     * @param player The player to set the items
+     * @param cloudPlayer The player to set the items
      */
 
-    public void setItems(Player player) {
-        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+    public void setItems(CloudPlayer cloudPlayer) {
         ItemStack skull = new CustomPlayerHeadBuilder().setSkinOverValues(cloudPlayer.getSkinValue(), "")
                 .setDisplayName("§aProfil").build();
-        player.getInventory().clear();
+        cloudPlayer.getPlayer().getInventory().clear();
 
-        player.getInventory().setItem(0, teleporter);
-        player.getInventory().setItem(2, chest);
-        player.getInventory().setItem(6, lobby);
-        player.getInventory().setItem(8, skull);
+        cloudPlayer.getPlayer().getInventory().setItem(0, teleporter);
+        cloudPlayer.getPlayer().getInventory().setItem(2, chest);
+        cloudPlayer.getPlayer().getInventory().setItem(6, lobby);
+        cloudPlayer.getPlayer().getInventory().setItem(8, skull);
 
         if (cloudPlayer.hasPermission("player.nick.auto")) {
-            player.getInventory().setItem(4, nick);
+            cloudPlayer.getPlayer().getInventory().setItem(4, nick);
         }
     }
 

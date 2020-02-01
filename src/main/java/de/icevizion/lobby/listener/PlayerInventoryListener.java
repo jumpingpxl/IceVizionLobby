@@ -73,7 +73,7 @@ public class PlayerInventoryListener implements Listener {
             case "Freunde":
                 if (stack.getItemMeta().getDisplayName().equals("§cEinstellungen")) {
                     if (plugin.getProfileCache().getProfile(player).getSettingsInventory() == null) {
-                        Inventory inventory = plugin.getInventoryUtil().createPanelInventory(player);
+                        Inventory inventory = plugin.getInventoryUtil().createPanelInventory(cloudPlayer);
                         plugin.getProfileCache().getProfile(player).setSettingsInventory(inventory);
                         player.openInventory(inventory);
                     } else {
@@ -82,7 +82,7 @@ public class PlayerInventoryListener implements Listener {
                 }
 
                 if (stack.getItemMeta().getDisplayName().equals("Freundesanfragen")) {
-                    player.openInventory(plugin.getInventoryUtil().createFriendRequestInventory(player));
+                    player.openInventory(plugin.getInventoryUtil().createFriendRequestInventory(cloudPlayer));
                 }
 
                 if (event.getSlot() == 47 || event.getSlot() == 51) return;

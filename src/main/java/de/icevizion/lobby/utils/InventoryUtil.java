@@ -57,18 +57,16 @@ public class InventoryUtil {
         return inventory;
     }
 
-    public Inventory createPanelInventory(Player player) {
+    public Inventory createPanelInventory(CloudPlayer player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "Einstellungen");
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getSettingsLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
-        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
-
-        int privateMessage = cloudPlayer.getSetting(SettingsUtil.PRIVAT_MESSAGE);
-        int party = cloudPlayer.getSetting(SettingsUtil.PARTY);
-        int friend = cloudPlayer.getSetting(SettingsUtil.PLAYER_VISIBILITY);
-        int jump = cloudPlayer.getSetting(SettingsUtil.JUMP);
+        int privateMessage = player.getSetting(SettingsUtil.PRIVAT_MESSAGE);
+        int party = player.getSetting(SettingsUtil.PARTY);
+        int friend = player.getSetting(SettingsUtil.PLAYER_VISIBILITY);
+        int jump = player.getSetting(SettingsUtil.JUMP);
 
         settingsUtil.setState(inventory, 0, privateMessage,false);
         settingsUtil.setState(inventory, 9, party, false);
@@ -87,19 +85,25 @@ public class InventoryUtil {
         return inventory;
     }
 
-    public Inventory createFriendRequestInventory(Player player) {
+    public Inventory createFriendRequestInventory(CloudPlayer player) {
         Inventory inventory =  Bukkit.createInventory(null, 54, "Freundesanfragen");
 
-        FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(Cloud.getInstance().getPlayer(player));
+        FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(player);
 
         for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendRequests().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
-        for (CloudPlayer request : friendProfile.getRequests()) {
-            inventory.addItem(new CustomPlayerHeadBuilder()
-                    .setSkinOverValues(request.getSkinValue(), "")
-                    .setDisplayName(request.getFullDisplayName())
-                    .build());
+
+        if (friendProfile.getRequests().size() == 0) {
+            inventory.setItem(13, new ItemBuilder(Material.BARRIER).
+                    setDisplayName("§CKeiner möchte mit dir befreundet sein :(").build());
+        } else {
+            for (CloudPlayer request : friendProfile.getRequests()) {
+                inventory.addItem(new CustomPlayerHeadBuilder()
+                        .setSkinOverValues(request.getSkinValue(), "")
+                        .setDisplayName(request.getFullDisplayName())
+                        .build());
+            }
         }
         return inventory;
     }
