@@ -30,7 +30,6 @@ public class PlayerInteractListener implements Listener {
             switch (displayName) {
                 case "§bMinispiele":
                     player.openInventory(plugin.getInventoryUtil().getTeleporter());
-                    //player.updateInventory();
                     break;
                 case "§aProfil":
                     if (plugin.getProfileCache().getProfile(player).getFriendInventory() == null) {
