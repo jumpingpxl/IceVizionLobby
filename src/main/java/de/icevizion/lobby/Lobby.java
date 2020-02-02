@@ -51,6 +51,7 @@ public class Lobby extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        profileCache.getProfiles().clear();
         snowService.cancel();
     }
 
