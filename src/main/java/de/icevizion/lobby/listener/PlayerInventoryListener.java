@@ -59,8 +59,8 @@ public class PlayerInventoryListener implements Listener {
 
         switch (event.getView().getTitle()) {
             case "Einstellungen":
-                    plugin.getSettingsUtil().changeSettingsValue(cloudPlayer,
-                            event.getInventory(), stack, event.getSlot());
+                plugin.getSettingsUtil().changeSettingsValue(cloudPlayer,
+                        event.getInventory(), stack, event.getSlot());
             break;
             case "Minispiele":
                 if (displayName.equals("Coming Soon")) {
@@ -73,7 +73,7 @@ public class PlayerInventoryListener implements Listener {
             case "Freunde":
                 if (stack.getItemMeta().getDisplayName().equals("§cEinstellungen")) {
                     if (plugin.getProfileCache().getProfile(player).getSettingsInventory() == null) {
-                        Inventory inventory = plugin.getInventoryUtil().createPanelInventory(player);
+                        Inventory inventory = plugin.getInventoryUtil().createPanelInventory(cloudPlayer);
                         plugin.getProfileCache().getProfile(player).setSettingsInventory(inventory);
                         player.openInventory(inventory);
                     } else {
@@ -82,7 +82,7 @@ public class PlayerInventoryListener implements Listener {
                 }
 
                 if (stack.getItemMeta().getDisplayName().equals("Freundesanfragen")) {
-                    player.openInventory(plugin.getInventoryUtil().createFriendRequestInventory(player));
+                    player.openInventory(plugin.getInventoryUtil().createFriendRequestInventory(cloudPlayer));
                 }
 
                 if (event.getSlot() == 47 || event.getSlot() == 51) return;
@@ -140,16 +140,17 @@ public class PlayerInventoryListener implements Listener {
                 switch (displayName) {
                     case "Belohnung":
                     case "Premium Belohnung":
-                        plugin.getDailyRewardUtil().giveReward(cloudPlayer, displayName);
+                        plugin.getDailyRewardUtil().giveReward(cloudPlayer, plugin.getPrefix(), displayName);
                         break;
                 }
                 break;
         }
 
-        if (friendPattern.matcher(event.getView().getTitle()).find()) {
+        if (event.getView().getTitle().startsWith("Einstellungen für") ||
+                (event.getView().getTitle().startsWith("Anfrage von"))) {
             if (stack.getType().equals(Material.AIR)) return;
-            handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
-                    ChatColor.stripColor(event.getClickedInventory().getItem(9).getItemMeta().getDisplayName()),
+                handleAction(cloudPlayer, event.getClickedInventory().getItem(9),
+                    ChatColor.stripColor(event.getInventory().getItem(9).getItemMeta().getDisplayName()),
                     ChatColor.stripColor(stack.getItemMeta().getDisplayName()));
             player.closeInventory();
         }

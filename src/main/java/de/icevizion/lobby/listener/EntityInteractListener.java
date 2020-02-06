@@ -1,7 +1,6 @@
 package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.utils.DailyRewardUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ItemFrame;
@@ -23,11 +22,16 @@ public class EntityInteractListener implements Listener {
     @EventHandler
     public void onArmorInteract(PlayerInteractAtEntityEvent event) {
         if (event.getRightClicked().getType().equals(EntityType.ARMOR_STAND)) {
-            ArmorStand armorStand = (ArmorStand) event.getRightClicked();
+
+            if (event.getRightClicked().getCustomName() != null && event.getRightClicked().getCustomName().equals("§6Tägliche Belohnung")) {
+                dailyRewardUtil.checkDailyReward(prefix, event.getPlayer());
+            }
+
+          /*  ArmorStand armorStand = (ArmorStand) event.getRightClicked();
 
             if (armorStand.getCustomName() != null && armorStand.getCustomName().equals("§6Tägliche Belohnung")) {
                 dailyRewardUtil.checkDailyReward(prefix, event.getPlayer());
-            }
+            }*/
         }
     }
 

@@ -30,6 +30,8 @@ public class MapService {
                     return lobbyMap.get().getOneline();
                 case "bedwars":
                     return lobbyMap.get().getGuessIt();
+                case "suicidetnt":
+                    return lobbyMap.get().getSuicideTnt();
             }
         }
         return null;
@@ -72,6 +74,12 @@ public class MapService {
                 break;
             case "guessit":
                 lobbyMap.setGuessit(location);
+                break;
+            case "bedwars":
+                lobbyMap.setBedwars(location);
+                break;
+            case "tnt":
+                lobbyMap.setSuicideTnt(location);
                 break;
         }
     }

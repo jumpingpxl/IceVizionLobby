@@ -2,10 +2,8 @@ package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.CustomPlayerHeadBuilder;
 import de.icevizion.aves.item.ItemBuilder;
-import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
@@ -23,7 +21,6 @@ public class ItemUtil {
     private final Map<Integer, ItemStack> friendRequests;
     private final Map<Integer, ItemStack> friendActionLayout;
     private final Map<Integer, ItemStack> friendSubLayout;
-    private final Map<Integer, ItemStack> dailyReward;
 
     public ItemUtil() {
         this.teleporter = new ItemBuilder(Material.NETHER_STAR).setDisplayName("§bMinispiele").build();
@@ -35,20 +32,6 @@ public class ItemUtil {
         this.friendRequests = loadRequestLayout();
         this.friendActionLayout = loadFriendActionLayout();
         this.friendSubLayout = loadSubRequestLayout();
-        this.dailyReward = loadDailyReward();
-    }
-
-    private HashMap<Integer, ItemStack> loadDailyReward() {
-        HashMap<Integer, ItemStack> layout = new HashMap<>();
-        for (int i = 0; i < 8; i++) {
-            layout.put(i, PANE);
-        }
-
-        for (int i = 18; i < 26; i++) {
-            layout.put(i, PANE);
-        }
-
-        return layout;
     }
 
     /**
@@ -164,22 +147,21 @@ public class ItemUtil {
 
     /**
      * Set the items into the hotbar of a specific player.
-     * @param player The player to set the items
+     * @param cloudPlayer The player to set the items
      */
 
-    public void setItems(Player player) {
-        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
+    public void setItems(CloudPlayer cloudPlayer) {
         ItemStack skull = new CustomPlayerHeadBuilder().setSkinOverValues(cloudPlayer.getSkinValue(), "")
                 .setDisplayName("§aProfil").build();
-        player.getInventory().clear();
+        cloudPlayer.getPlayer().getInventory().clear();
 
-        player.getInventory().setItem(0, teleporter);
-        player.getInventory().setItem(2, chest);
-        player.getInventory().setItem(6, lobby);
-        player.getInventory().setItem(8, skull);
+        cloudPlayer.getPlayer().getInventory().setItem(0, teleporter);
+        cloudPlayer.getPlayer().getInventory().setItem(2, chest);
+        cloudPlayer.getPlayer().getInventory().setItem(6, lobby);
+        cloudPlayer.getPlayer().getInventory().setItem(8, skull);
 
         if (cloudPlayer.hasPermission("player.nick.auto")) {
-            player.getInventory().setItem(4, nick);
+            cloudPlayer.getPlayer().getInventory().setItem(4, nick);
         }
     }
 
@@ -226,14 +208,5 @@ public class ItemUtil {
 
     protected Map<Integer, ItemStack> getFriendSubLayout() {
         return friendSubLayout;
-    }
-
-    /**
-     * Returns the HashMap for the daily reward.
-     * @return The underlying map
-     */
-
-    public Map<Integer, ItemStack> getDailyReward() {
-        return dailyReward;
     }
 }

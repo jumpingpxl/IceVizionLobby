@@ -19,7 +19,7 @@ public class ProfileCache {
      */
 
     public void addProfile(Player player) {
-        this.profiles.putIfAbsent(player, new LobbyProfile(player));
+        this.profiles.putIfAbsent(player, new LobbyProfile());
     }
 
     /**
