@@ -26,6 +26,5 @@ public class PlayerQuitListener implements Listener {
 
         Cloud.getInstance().getPlayer(event.getPlayer()).extradataSet("location",
                 Lobby.GSON.toJson(event.getPlayer().getLocation()));
-
     }
 }
