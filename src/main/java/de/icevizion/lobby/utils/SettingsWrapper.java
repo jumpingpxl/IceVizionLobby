@@ -8,8 +8,8 @@ public enum SettingsWrapper {
     JUMP(103, 2),
     EVENT(199, 2);
 
-    private final int settingsID;
-    private final int values;
+    final int settingsID;
+    final int values;
 
     SettingsWrapper(int settingsID, int values) {
         this.settingsID = settingsID;
