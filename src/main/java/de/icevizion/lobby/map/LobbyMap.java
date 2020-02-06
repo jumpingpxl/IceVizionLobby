@@ -8,16 +8,17 @@ public class LobbyMap {
 
     @JsonAdapter(value = LocationTypeAdapter.class)
     private Location spawn, oneline, guessit, kbffa, bedwars;
-    private transient Location suicidetnt;
+    private Location suicidetnt;
 
     public LobbyMap() { }
 
-    public LobbyMap(Location spawn, Location oneline, Location guessit, Location kbffa, Location bedwars) {
+    public LobbyMap(Location spawn, Location oneline, Location guessit, Location kbffa, Location bedwars, Location suicidetnt) {
         this.spawn = spawn;
         this.oneline = oneline;
         this.guessit = guessit;
         this.kbffa = kbffa;
         this.bedwars = bedwars;
+        this.suicidetnt = suicidetnt;
     }
 
     public void setSpawn(Location spawn) {
@@ -40,6 +41,10 @@ public class LobbyMap {
         this.bedwars = bedwars;
     }
 
+    public void setSuicideTnt(Location suicidetnt) {
+        this.suicidetnt = suicidetnt;
+    }
+
     public Location getKBFFA() {
         return kbffa;
     }
@@ -58,5 +63,9 @@ public class LobbyMap {
 
     public Location getBedwars() {
         return bedwars;
+    }
+
+    public Location getSuicideTnt() {
+        return suicidetnt;
     }
 }
