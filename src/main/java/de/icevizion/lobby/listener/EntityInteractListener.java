@@ -26,12 +26,6 @@ public class EntityInteractListener implements Listener {
             if (event.getRightClicked().getCustomName() != null && event.getRightClicked().getCustomName().equals("§6Tägliche Belohnung")) {
                 dailyRewardUtil.checkDailyReward(prefix, event.getPlayer());
             }
-
-          /*  ArmorStand armorStand = (ArmorStand) event.getRightClicked();
-
-            if (armorStand.getCustomName() != null && armorStand.getCustomName().equals("§6Tägliche Belohnung")) {
-                dailyRewardUtil.checkDailyReward(prefix, event.getPlayer());
-            }*/
         }
     }
 
