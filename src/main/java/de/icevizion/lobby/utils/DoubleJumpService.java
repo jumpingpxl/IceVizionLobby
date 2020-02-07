@@ -72,7 +72,7 @@ public class DoubleJumpService implements Listener {
         Player player = event.getPlayer();
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         //Check if the player is currently spectating
-        if (cloudPlayer.offlineExtradataContains("specPlayerListName"))
+        if (cloudPlayer.redisExtradataContains("teamSpec"))
             return;
 
         if (player.getGameMode() == GameMode.ADVENTURE || event.getPlayer().getGameMode() == GameMode.SURVIVAL) {
