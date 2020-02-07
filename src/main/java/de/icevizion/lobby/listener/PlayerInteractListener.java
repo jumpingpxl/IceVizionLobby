@@ -4,6 +4,7 @@ import de.icevizion.lobby.Lobby;
 import net.sf.cglib.asm.$Type;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,7 +36,8 @@ public class PlayerInteractListener implements Listener {
                     && event.getClickedBlock().getLocation().subtract(0, -1, 0).
                     getBlock().getType().equals(Material.PURPUR_BLOCK)) {
                 Location arrow = event.getClickedBlock().getLocation().add(0.5, 0, 0.5);
-                player.getWorld().spawnArrow(arrow, new Vector(), 0.0f, 0.0f).addPassenger(player);
+                Arrow eArrow = (Arrow) player.getWorld().spawnArrow(arrow, new Vector(), 0.0f, 0.0f);
+                eArrow.setPassenger(player);
             }
         }
 
