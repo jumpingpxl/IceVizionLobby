@@ -117,11 +117,15 @@ public class InventoryUtil {
         List<CloudPlayer> sortedFriends = FriendSystem.getInstance().
                 getFriendProfile(Cloud.getInstance().getPlayer(player)).getFriends();
         sortedFriends.sort((cp1, cp2) -> {
-            if (cp1.isOnline() && cp2.isOnline())
-                return 0;
-            if (cp1.isOnline())
-                return -1;
-            return 1;
+            int online1 = cp1.isOnline() ? 1 : 0;
+            int online2 = cp2.isOnline() ? 1 : 0;
+            return online1 - online2;
+
+//            if (cp1.isOnline() && cp2.isOnline())
+//                return 0;
+//            if (cp1.isOnline())
+//                return -1;
+//            return 1;
         });
 
         for (CloudPlayer cloudPlayer : sortedFriends) {
