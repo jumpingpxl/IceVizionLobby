@@ -9,6 +9,7 @@ import net.titan.spigot.event.NetworkPlayerJoinEvent;
 import net.titan.spigot.event.NetworkPlayerQuitEvent;
 import net.titan.spigot.event.NetworkPlayerServerSwitchedEvent;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,6 +31,7 @@ public class PlayerFriendListener implements Listener {
 
     @EventHandler
     public void onQuit(NetworkPlayerQuitEvent event) {
+        Bukkit.broadcastMessage(event.getCloudPlayer().getFullDisplayName());
         for (Map.Entry<Player, LobbyProfile> profileEntry : plugin.getProfileCache().getProfiles().entrySet()) {
             if (profileEntry.getValue().getFriendInventory() != null) {
                 plugin.getFriendUtil().updateFriendInventory(event.getCloudPlayer(),
