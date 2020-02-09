@@ -2,6 +2,7 @@ package de.icevizion.lobby.listener;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
+import de.cosmiqglow.component.friendsystem.spigot.FriendUpdateEvent;
 import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.profile.LobbyProfile;
 import net.titan.spigot.Cloud;
@@ -9,7 +10,6 @@ import net.titan.spigot.event.NetworkPlayerJoinEvent;
 import net.titan.spigot.event.NetworkPlayerQuitEvent;
 import net.titan.spigot.event.NetworkPlayerServerSwitchedEvent;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,13 +31,17 @@ public class PlayerFriendListener implements Listener {
 
     @EventHandler
     public void onQuit(NetworkPlayerQuitEvent event) {
-        Bukkit.broadcastMessage(event.getCloudPlayer().getFullDisplayName());
         updateInventory(event.getCloudPlayer());
     }
 
     @EventHandler
     public void onSwitch(NetworkPlayerServerSwitchedEvent event) {
         plugin.getExecutorService().execute(() -> updateInventory(event.getCloudPlayer()));
+    }
+
+    @EventHandler
+    public void onFriendUpdate(FriendUpdateEvent event) {
+        updateInventory(event.getFriendPlayer());
     }
 
     private void updateInventory(CloudPlayer player) {
