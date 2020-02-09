@@ -18,15 +18,12 @@ import java.util.Map;
 
 public class InventoryUtil {
 
-    private final ItemUtil itemUtil;
-    private final SettingsUtil settingsUtil;
-
+    private final Lobby plugin;
     private Inventory teleporter;
     private Inventory privacy;
 
-    public InventoryUtil(ItemUtil itemUtil, SettingsUtil settingsUtil) {
-        this.itemUtil = itemUtil;
-        this.settingsUtil = settingsUtil;
+    public InventoryUtil(Lobby plugin) {
+        this.plugin = plugin;
         this.loadTeleporter();
         this.loadPrivacy();
     }
@@ -41,7 +38,7 @@ public class InventoryUtil {
 
     private void loadPrivacy() {
         privacy = Bukkit.createInventory(null, 27, "Nutzungsbedingungen");
-        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendSubLayout().entrySet()) {
+        for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getFriendSubLayout().entrySet()) {
             privacy.setItem(entry.getKey(), entry.getValue());
         }
         privacy.setItem(9, new ItemBuilder(Material.BOOK).setDisplayName("§aNutzungsbedingungen").
@@ -51,7 +48,7 @@ public class InventoryUtil {
     public Inventory loadActionInventory(String name, ItemStack skull) {
         Inventory inventory = Bukkit.createInventory(null, 27, "Einstellungen für " + name);
         inventory.setItem(9, skull);
-        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendActionLayout().entrySet()) {
+        for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getFriendActionLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
         return inventory;
@@ -59,7 +56,7 @@ public class InventoryUtil {
 
     public Inventory createPanelInventory(CloudPlayer player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "Einstellungen");
-        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getSettingsLayout().entrySet()) {
+        for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getSettingsLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
@@ -68,10 +65,10 @@ public class InventoryUtil {
         int friend = player.getSetting(SettingsUtil.PLAYER_VISIBILITY);
         int jump = player.getSetting(SettingsUtil.JUMP);
 
-        settingsUtil.setState(inventory, 0, privateMessage,false);
-        settingsUtil.setState(inventory, 9, party, false);
-        settingsUtil.setState(inventory, 18, friend, false);
-        settingsUtil.setState(inventory, 27, jump, false);
+        plugin.getSettingsUtil().setState(inventory, 0, privateMessage,false);
+        plugin.getSettingsUtil().setState(inventory, 9, party, false);
+        plugin.getSettingsUtil().setState(inventory, 18, friend, false);
+        plugin.getSettingsUtil().setState(inventory, 27, jump, false);
         return inventory;
     }
 
@@ -79,7 +76,7 @@ public class InventoryUtil {
         Inventory inventory = Bukkit.createInventory(null, 27, "Anfrage von " + name);
 
         inventory.setItem(9, skull);
-        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendSubLayout().entrySet()) {
+        for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getFriendSubLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
         return inventory;
@@ -90,7 +87,7 @@ public class InventoryUtil {
 
         FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(player);
 
-        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendRequests().entrySet()) {
+        for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getFriendRequests().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
@@ -110,21 +107,11 @@ public class InventoryUtil {
 
     public Inventory createFriendInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "Freunde");
-        for (Map.Entry<Integer, ItemStack> entry : itemUtil.getFriendLayout().entrySet()) {
+        for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getFriendLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
-        List<CloudPlayer> sortedFriends = FriendSystem.getInstance().
-                getFriendProfile(Cloud.getInstance().getPlayer(player)).getFriends();
-
-        if (sortedFriends.size() > 1) {
-            sortedFriends.sort((cp1, cp2) -> {
-                int online1 = cp1.isOnline() ? 1 : 0;
-                int online2 = cp2.isOnline() ? 1 : 0;
-                return online2 - online1;
-            });
-        }
-
+        List<CloudPlayer> sortedFriends = plugin.getFriendUtil().sortPlayers(Cloud.getInstance().getPlayer(player));
         for (CloudPlayer cloudPlayer : sortedFriends) {
             if (cloudPlayer.isOnline()) {
                 inventory.addItem(new CustomPlayerHeadBuilder()
