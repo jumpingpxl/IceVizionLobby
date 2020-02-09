@@ -32,12 +32,7 @@ public class PlayerFriendListener implements Listener {
     @EventHandler
     public void onQuit(NetworkPlayerQuitEvent event) {
         Bukkit.broadcastMessage(event.getCloudPlayer().getFullDisplayName());
-        for (Map.Entry<Player, LobbyProfile> profileEntry : plugin.getProfileCache().getProfiles().entrySet()) {
-            if (profileEntry.getValue().getFriendInventory() != null) {
-                plugin.getFriendUtil().updateFriendInventory(event.getCloudPlayer(),
-                        plugin.getItemUtil().getFriendLayout(), profileEntry.getValue().getFriendInventory());
-            }
-        }
+        updateInventory(event.getCloudPlayer());
     }
 
     @EventHandler
