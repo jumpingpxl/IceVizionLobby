@@ -9,18 +9,18 @@ public enum SettingsWrapper {
     EVENT(199, 2);
 
     final int settingsID;
-    final int values;
+    final int value;
 
-    SettingsWrapper(int settingsID, int values) {
+    SettingsWrapper(int settingsID, int value) {
         this.settingsID = settingsID;
-        this.values = values;
+        this.value = value;
     }
 
     public int getSettingsID() {
         return settingsID;
     }
 
-    public int getValues() {
-        return values;
+    public int getValue() {
+        return value;
     }
 }
