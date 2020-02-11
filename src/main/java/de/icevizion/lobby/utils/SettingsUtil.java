@@ -32,12 +32,14 @@ public class SettingsUtil {
             int currentRow = slot / 9;
             int category = currentRow * 9;
             int newValue = slot - category - CLICK_OFFSET;
-            int oldVal = -1;
-            if (currentRow >= 3) {
+            SettingsWrapper wrapper = getSetting(currentRow);
+            int oldVal = setForState(newValue, inventory, category, wrapper.getValues(), wrapper.getValues() == 3 ? 3 : 2);
+
+            /*if (currentRow >= 3) {
                 oldVal = setForState(newValue, inventory, category,2, 1);
             } else {
                 oldVal = setForState(newValue, inventory, category,3, 0);
-            }
+            }*/
 
             if (oldVal == -1) {
                 setState(inventory, category, 2, true);
@@ -84,7 +86,7 @@ public class SettingsUtil {
 
     private int setForState(int newValue, Inventory inventory, int category, int forInt, int offset) {
         for (int i = offset; i < forInt; i++) {
-            if (i != newValue && !inventory.getItem(category + (CLICK_OFFSET + i)).
+            if (i != newValue && !inventory.getItem(category + CLICK_OFFSET + i).
                     getType().equals(Material.GRAY_DYE)) {
                 return i;
             }
@@ -97,6 +99,7 @@ public class SettingsUtil {
      * @param row The clicked row to convert
      * @return The settings id for the database
      */
+    @Deprecated
     private int getSettingsID(int row) {
         switch (row) {
             case 0:
