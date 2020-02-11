@@ -33,7 +33,7 @@ public class SettingsUtil {
             int category = currentRow * 9;
             int newValue = slot - category - CLICK_OFFSET;
             SettingsWrapper wrapper = getSetting(currentRow);
-            int oldVal = setForState(newValue, inventory, category, wrapper.getValues(), wrapper.getValues() == 3 ? 3 : 2);
+            int oldVal = setForState(newValue, inventory, category, wrapper.getValue(), wrapper.getValue() == 3 ? 3 : 2);
 
             /*if (currentRow >= 3) {
                 oldVal = setForState(newValue, inventory, category,2, 1);
