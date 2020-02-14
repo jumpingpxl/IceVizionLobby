@@ -62,7 +62,7 @@ public class PlayerFriendListener implements Listener {
                     }
                 }
             }
-        }finally {
+        } finally {
             plugin.getProfileCache().getLock().unlock();
         }
     }

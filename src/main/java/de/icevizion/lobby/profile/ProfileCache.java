@@ -25,7 +25,7 @@ public class ProfileCache {
         getLock().lock();
         try {
             this.profiles.putIfAbsent(player, new LobbyProfile());
-        }finally {
+        } finally {
             getLock().unlock();
         }
     }
@@ -39,7 +39,7 @@ public class ProfileCache {
         getLock().lock();
         try {
             this.profiles.remove(player);
-        }finally {
+        } finally {
             getLock().unlock();
         }
     }
