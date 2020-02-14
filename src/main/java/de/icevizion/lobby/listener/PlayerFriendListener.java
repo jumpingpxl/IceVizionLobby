@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class PlayerFriendListener implements Listener {
 
-   private final Lobby plugin;
+    private final Lobby plugin;
 
     public PlayerFriendListener(Lobby plugin) {
         this.plugin = plugin;
