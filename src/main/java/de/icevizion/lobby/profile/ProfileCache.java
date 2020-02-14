@@ -4,13 +4,16 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ProfileCache {
 
+    private final ReentrantLock lock;
     private final Map<Player, LobbyProfile> profiles;
 
     public ProfileCache() {
         this.profiles = new HashMap<>();
+        lock = new ReentrantLock();
     }
 
     /**
@@ -19,7 +22,12 @@ public class ProfileCache {
      */
 
     public void addProfile(Player player) {
-        this.profiles.putIfAbsent(player, new LobbyProfile());
+        getLock().lock();
+        try {
+            this.profiles.putIfAbsent(player, new LobbyProfile());
+        }finally {
+            getLock().unlock();
+        }
     }
 
     /**
@@ -28,7 +36,12 @@ public class ProfileCache {
      */
 
     public void removeProfile(Player player) {
-        this.profiles.remove(player);
+        getLock().lock();
+        try {
+            this.profiles.remove(player);
+        }finally {
+            getLock().unlock();
+        }
     }
 
     /**
@@ -48,5 +61,9 @@ public class ProfileCache {
 
     public Map<Player, LobbyProfile> getProfiles() {
         return profiles;
+    }
+
+    public ReentrantLock getLock() {
+        return lock;
     }
 }
