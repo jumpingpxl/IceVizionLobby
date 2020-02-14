@@ -2,6 +2,7 @@ package de.icevizion.lobby.utils;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
+import de.cosmiqglow.component.friendsystem.spigot.FriendUpdateEvent;
 import de.icevizion.lobby.Lobby;
 import de.icevizion.scoreboard.Board;
 import de.icevizion.scoreboard.BoardAPI;
@@ -118,5 +119,13 @@ public class ScoreboardService implements Listener {
             for (Player player : Bukkit.getOnlinePlayers())
                 updateScoreboard(player);
         });
+    }
+
+    @EventHandler
+    public void onFriendUpdate(FriendUpdateEvent event) {
+        if (event.getCloudPlayer().getPlayer() != null)
+            updateScoreboard(event.getCloudPlayer().getPlayer());
+        if (event.getFriendPlayer().getPlayer() != null)
+            updateScoreboard(event.getFriendPlayer().getPlayer());
     }
 }
