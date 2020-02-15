@@ -54,7 +54,7 @@ public final class DailyRewardUtil {
             Inventory inventory = buildInventory(cloudPlayer);
             player.openInventory(inventory);
         } else {
-            player.sendMessage(prefix + "§cBitte komme morgen wieder um deinen Reward zu erhalten");
+            player.sendMessage(prefix + "§cBitte komme morgen wieder, um deine tägliche Belohnung zu erhalten");
         }
     }
 
