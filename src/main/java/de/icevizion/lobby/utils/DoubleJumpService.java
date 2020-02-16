@@ -2,7 +2,6 @@ package de.icevizion.lobby.utils;
 
 import me.konsolas.aac.api.AACAPIProvider;
 import me.konsolas.aac.api.HackType;
-import net.titan.cloudcore.player.ICloudPlayer;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.event.PlayerRankChangeEvent;
 import net.titan.spigot.event.RankReloadEvent;
