@@ -41,6 +41,21 @@ public class PlayerFriendListener implements Listener {
 
     @EventHandler
     public void onFriendUpdate(FriendUpdateEvent event) {
+        if (event.getCloudPlayer().getSpigot().getDisplayName().startsWith("Lobby")
+                || event.getFriendPlayer().getSpigot().getDisplayName().startsWith("Lobby")) {
+            LobbyProfile playerProfile = plugin.getProfileCache().getProfile(event.getCloudPlayer().getPlayer());
+            LobbyProfile friendProfile = plugin.getProfileCache().getProfile(event.getFriendPlayer().getPlayer());
+            
+            if (playerProfile != null) {
+                plugin.getFriendUtil().updateInventory(event.getCloudPlayer(), plugin.getItemUtil().getFriendLayout(),
+                        playerProfile.getFriendInventory());
+            }
+            
+            if (friendProfile != null) {
+                plugin.getFriendUtil().updateInventory(event.getFriendPlayer(), plugin.getItemUtil().getFriendLayout(),
+                        playerProfile.getFriendInventory());
+            }
+        }
         updateInventory(event.getFriendPlayer());
     }
 
