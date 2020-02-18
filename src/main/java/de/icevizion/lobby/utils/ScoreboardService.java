@@ -108,16 +108,14 @@ public class ScoreboardService implements Listener {
     @EventHandler
     public void onRankChange(PlayerRankChangeEvent event) {
         lobby.getExecutorService().execute(() -> {
-            for (Player player : Bukkit.getOnlinePlayers())
-                updateScoreboard(player);
+            updateScoreboard(event.getCloudPlayer().getPlayer());
         });
     }
 
     @EventHandler
     public void onCoinChange(PlayerCoinChangeEvent event) {
         lobby.getExecutorService().execute(() -> {
-            for (Player player : Bukkit.getOnlinePlayers())
-                updateScoreboard(player);
+            updateScoreboard(event.getCloudPlayer().getPlayer());
         });
     }
 
