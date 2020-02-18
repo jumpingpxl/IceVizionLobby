@@ -42,10 +42,10 @@ public class SettingsUtil {
 
             setState(inventory, category, newValue, false);
             cloudPlayer.getPlayer().updateInventory();
-            cloudPlayer.setSetting(getSettingsID(currentRow), newValue);
+            cloudPlayer.setSetting(wrapper.getSettingsID(), newValue);
 
             Bukkit.getPluginManager().callEvent(new SettingsChangeEvent(cloudPlayer,
-                    getSettingsID(currentRow), newValue));
+                    wrapper.getSettingsID(), newValue));
         }
     }
 
@@ -85,29 +85,6 @@ public class SettingsUtil {
             }
         }
         return -1;
-    }
-
-    /**
-     * Wraps the given row to the right database id of the setting.
-     * @param row The clicked row to convert
-     * @return The settings id for the database
-     */
-    @Deprecated
-    private int getSettingsID(int row) {
-        switch (row) {
-            case 0:
-                return PRIVAT_MESSAGE;
-            case 1:
-                return PARTY;
-            case 2:
-                return PLAYER_VISIBILITY;
-            case 3:
-                return JUMP;
-            case 4:
-                return SPAWN_LOCATION;
-            default:
-                return -1;
-        }
     }
 
     private SettingsWrapper getSetting(int row) {
