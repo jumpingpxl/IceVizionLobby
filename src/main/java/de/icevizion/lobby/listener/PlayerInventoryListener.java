@@ -18,16 +18,12 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.regex.Pattern;
-
 public class PlayerInventoryListener implements Listener {
 
-    private final Pattern friendPattern;
     private final Lobby plugin;
 
     public PlayerInventoryListener(Lobby plugin) {
         this.plugin = plugin;
-        this.friendPattern = Pattern.compile("(Anfrage von [a-zA-Z]{4,16})|(Einstellung für [a-zA-Z]{4,16})");
     }
 
     @EventHandler
