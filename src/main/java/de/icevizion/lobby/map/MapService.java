@@ -29,6 +29,8 @@ public class MapService {
                 case "oneline":
                     return lobbyMap.get().getOneline();
                 case "bedwars":
+                    return lobbyMap.get().getBedwars();
+                case "guessit":
                     return lobbyMap.get().getGuessIt();
                 case "suicidetnt":
                     return lobbyMap.get().getSuicideTnt();
