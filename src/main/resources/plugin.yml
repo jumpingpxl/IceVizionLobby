@@ -1,7 +1,7 @@
 name: Lobby
-version: 1.0.0
+version: 1.1.0
 api-version: 1.13
-main: de.cosmiqglow.lobby.Lobby
+main: de.icevizion.lobby.Lobby
 
 author: theEvilReaper
 
@@ -9,5 +9,4 @@ depend: [Aves, CloudSpigot, FriendSystem, PartySystem]
 
 commands:
   location:
-    usage:
-    description:
+  schnee:
