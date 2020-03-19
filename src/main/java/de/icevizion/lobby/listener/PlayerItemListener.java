@@ -2,17 +2,11 @@ package de.icevizion.lobby.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 
 public class PlayerItemListener implements Listener {
-
-    @EventHandler
-    public void onSwitch(PlayerSwapHandItemsEvent event) {
-        event.setCancelled(true);
-    }
 
     @EventHandler
     public void onDrop(PlayerDropItemEvent event) {
@@ -23,7 +17,7 @@ public class PlayerItemListener implements Listener {
     public void onConsume(PlayerItemConsumeEvent event) { event.setCancelled(true); }
 
     @EventHandler
-    public void onPickup(EntityPickupItemEvent event) {
+    public void onPickup(PlayerPickupItemEvent event) {
         event.setCancelled(true);
     }
 }

@@ -32,9 +32,9 @@ public class InventoryUtil {
         teleporter = Bukkit.createInventory(null, 27, "Minispiele");
         teleporter.setItem(4, new ItemBuilder(Material.NETHER_STAR).setDisplayName("§aSpawn").build());
         teleporter.setItem(11, new ItemBuilder(Material.STICK).setDisplayName("§aKnockbackFFA").build());
-        teleporter.setItem(13, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("§bGuessIt").build());
+        teleporter.setItem(13, new ItemBuilder(Material.BOOK_AND_QUILL).setDisplayName("§bGuessIt").build());
         teleporter.setItem(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
-        teleporter.setItem(22, new ItemBuilder(Material.RED_BED).setDisplayName("§2BedWars").build());
+        teleporter.setItem(22, new ItemBuilder(Material.BED).setDisplayName("§2BedWars").build());
     }
 
     private void loadPrivacy() {
@@ -120,7 +120,7 @@ public class InventoryUtil {
                         .addLore("§7Befindet sich auf: §e" + cloudPlayer.getSpigot().getDisplayName())
                         .setDisplayName(cloudPlayer.getFullUsername()).build());
             } else {
-                inventory.addItem(new ItemBuilder(Material.SKELETON_SKULL)
+                inventory.addItem(new CustomPlayerHeadBuilder().setSkullType(CustomPlayerHeadBuilder.SkullType.SKELETON)
                         .setDisplayName(cloudPlayer.getFullUsername())
                         .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(cloudPlayer.getLastLogout())).build());
             }

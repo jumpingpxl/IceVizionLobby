@@ -1,9 +1,11 @@
 package de.icevizion.lobby.utils;
 
+import de.icevizion.aves.item.ColoredBuilder;
 import de.icevizion.aves.item.ItemBuilder;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -16,8 +18,8 @@ import java.time.ZonedDateTime;
 
 public final class DailyRewardUtil {
 
-    private static final ItemStack PLAYER_REWARD = new ItemBuilder(Material.LIME_DYE).
-            setDisplayName("§7Belohnung").build();
+    private static final ItemStack PLAYER_REWARD = new ColoredBuilder(ColoredBuilder.DyeType.DYE)
+        .setColor(DyeColor.LIME).setDisplayName("§7Belohnung").build();
     private static final ItemStack PREMIUM_REWARD = new ItemBuilder(Material.GOLD_NUGGET).
             setDisplayName("§6Premium Belohnung").build();;
     private static final long DAY_MILLIS = 1000*60*60*24;

@@ -1,12 +1,16 @@
 package de.icevizion.lobby.utils;
 
+import de.icevizion.aves.item.ColoredBuilder;
 import de.icevizion.aves.item.ItemBuilder;
 import de.icevizion.lobby.utils.event.SettingsChangeEvent;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Colorable;
+import org.bukkit.material.Dye;
 
 public class SettingsUtil {
 
@@ -28,7 +32,7 @@ public class SettingsUtil {
      */
 
     public void changeSettingsValue(CloudPlayer cloudPlayer, Inventory inventory, ItemStack itemStack, int slot) {
-        if (itemStack.getType().equals(Material.GRAY_DYE)) {
+        if (itemStack.getData() instanceof Dye && ((Colorable)itemStack.getData()).getColor() == DyeColor.GRAY) {
             int currentRow = slot / 9;
             int category = currentRow * 9;
             int newValue = slot - category - CLICK_OFFSET;
@@ -61,26 +65,27 @@ public class SettingsUtil {
         ItemStack state;
         switch (value) {
             case 0:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.LIME_DYE).
-                        setDisplayName("§aAlle").build();
+                state = new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(gray ? DyeColor.GRAY : DyeColor.LIME)
+                        .setDisplayName("§aAlle").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 1:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ORANGE_DYE).
-                        setDisplayName(category == 4 ? "§aAn" : "§6Freunde").build();
+                state = new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(gray ? DyeColor.GRAY : DyeColor.LIME)
+                        .setDisplayName(category == 4 ? "§aAn" : "§6Freunde").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 2:
-                state = new ItemBuilder(gray ? Material.GRAY_DYE : Material.ROSE_RED).
-                        setDisplayName(category == 4 ? "§cAus" : "§cKeiner").build();
+                state = new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(gray ? DyeColor.GRAY : DyeColor.LIME)
+                        .setDisplayName(category == 4 ? "§cAus" : "§cKeiner").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
         }
     }
 
     private int setForState(int newValue, Inventory inventory, int category, int forInt, int offset) {
         for (int i = offset; i < forInt; i++) {
-            if (i != newValue && !inventory.getItem(category + CLICK_OFFSET + i).
-                    getType().equals(Material.GRAY_DYE)) {
+            if (i != newValue && !(inventory.getItem(category + CLICK_OFFSET + i).getData() instanceof Dye &&
+                    ((Colorable)inventory.getItem(category + CLICK_OFFSET + i)
+                            .getData()).getColor() == DyeColor.GRAY)) {
                 return i;
             }
         }

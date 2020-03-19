@@ -81,7 +81,7 @@ public class DoubleJumpService implements Listener {
 
             Vector v = player.getLocation().getDirection().multiply(1.5D).setY(1);
             player.setVelocity(v);
-            player.playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 10.0F, -10.0F);
+            player.playSound(player.getLocation(), Sound.ENDERDRAGON_WINGS, 10.0F, -10.0F);
         }
     }
 

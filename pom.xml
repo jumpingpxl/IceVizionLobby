@@ -46,13 +46,13 @@
         <dependency>
             <groupId>org.papermc</groupId>
             <artifactId>paper</artifactId>
-            <version>1.13.2-R0.1-SNAPSHOT</version>
+            <version>1.8.8</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.icevizion.lib</groupId>
-            <artifactId>Aves</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <artifactId>Aves-1.8</artifactId>
+            <version>1.0.4-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

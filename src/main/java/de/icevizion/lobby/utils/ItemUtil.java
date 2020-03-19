@@ -1,8 +1,10 @@
 package de.icevizion.lobby.utils;
 
+import de.icevizion.aves.item.ColoredBuilder;
 import de.icevizion.aves.item.CustomPlayerHeadBuilder;
 import de.icevizion.aves.item.ItemBuilder;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -12,9 +14,8 @@ import java.util.Map;
 
 public class ItemUtil {
 
-    public static final ItemStack PANE = new ItemBuilder(Material.LIGHT_BLUE_STAINED_GLASS_PANE).
-            setDisplayName("§0").build();
-
+    public static final ItemStack PANE = new ColoredBuilder(ColoredBuilder.DyeType.GLASS_PANE)
+            .setColor(DyeColor.LIGHT_BLUE).setDisplayName("§0").build();
     private final ItemStack teleporter, nick, chest, lobby;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
@@ -25,7 +26,7 @@ public class ItemUtil {
     public ItemUtil() {
         this.teleporter = new ItemBuilder(Material.NETHER_STAR).setDisplayName("§bMinispiele").build();
         this.nick = new ItemBuilder(Material.NAME_TAG).setDisplayName("§5Nick").build();
-        this.lobby = new ItemBuilder(Material.CLOCK).setDisplayName("§aLobby wechseln").build();
+        this.lobby = new ItemBuilder(Material.WATCH).setDisplayName("§aLobby wechseln").build();
         this.chest = new ItemBuilder(Material.CHEST).setDisplayName("§aDein Inventar").build();
         this.settingsLayout = loadLayout();
         this.friendLayout = loadFriendLayout();
@@ -41,26 +42,26 @@ public class ItemUtil {
 
     private HashMap<Integer, ItemStack> loadLayout() {
         HashMap<Integer, ItemStack> layout = new HashMap<>(32);
-        layout.put(0, new ItemBuilder(Material.WRITABLE_BOOK).setDisplayName("§6Privatnachrichten").build());
+        layout.put(0, new ItemBuilder(Material.BOOK_AND_QUILL).setDisplayName("§6Privatnachrichten").build());
         layout.put(1, PANE);
-        layout.put(6, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§aJeder").build());
-        layout.put(7, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§6Freunde").build());
-        layout.put(8, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§cKeiner").build());
-        layout.put(9, new ItemBuilder(Material.FIREWORK_ROCKET).setDisplayName("§dParty").build());
+        layout.put(6, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§aJeder").build());
+        layout.put(7, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§6Freunde").build());
+        layout.put(8, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§cKeiner").build());
+        layout.put(9, new ItemBuilder(Material.FIREWORK).setDisplayName("§dParty").build());
         layout.put(10, PANE);
-        layout.put(15, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§aJeder").build());
-        layout.put(16, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§6Freunde").build());
-        layout.put(17, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§cKeiner").build());
+        layout.put(15, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§aJeder").build());
+        layout.put(16, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§6Freunde").build());
+        layout.put(17, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§cKeiner").build());
         layout.put(18, new ItemBuilder(Material.BLAZE_ROD).setDisplayName("§bSpieler-Sichtbarkeit").
                 addItemFlag(ItemFlag.HIDE_ATTRIBUTES).build());
         layout.put(19, PANE);
-        layout.put(24, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§aJeder").build());
-        layout.put(25, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§6Freunde").build());
-        layout.put(26, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§cKeiner").build());
-        layout.put(27, new ItemBuilder(Material.ENDER_EYE).setDisplayName("§aNachspringen").build());
+        layout.put(24, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§aJeder").build());
+        layout.put(25, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§6Freunde").build());
+        layout.put(26, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§cKeiner").build());
+        layout.put(27, new ItemBuilder(Material.EYE_OF_ENDER).setDisplayName("§aNachspringen").build());
         layout.put(28, PANE);
-        layout.put(34, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§6Freunde").build());
-        layout.put(35, new ItemBuilder(Material.GRAY_DYE).setDisplayName("§cKeiner").build());
+        layout.put(34, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§6Freunde").build());
+        layout.put(35, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§cKeiner").build());
         layout.put(37, PANE);
         for (int i = 45; i < 54; i++) {
             layout.put(i, PANE);
@@ -85,7 +86,7 @@ public class ItemUtil {
         layout.put(51, new CustomPlayerHeadBuilder()
                 .setSkinOverValues("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjgyYWQxYjljYjRkZDIxMjU5YzBkNzVhYTMxNWZmMzg5YzNjZWY3NTJiZTM5NDkzMzgxNjRiYWM4NGE5NmUifX19","")
                 .setDisplayName("§aNächste").build());
-        layout.put(53, new ItemBuilder(Material.COMPARATOR).setDisplayName("§cEinstellungen").build());
+        layout.put(53, new ItemBuilder(Material.REDSTONE_COMPARATOR).setDisplayName("§cEinstellungen").build());
         return layout;
     }
 
@@ -99,11 +100,11 @@ public class ItemUtil {
         for (int i = 36; i < 45; i++) {
             layout.put(i, PANE);
         }
-        layout.put(47, new ItemBuilder(Material.GREEN_TERRACOTTA)
+        layout.put(47, new ColoredBuilder(ColoredBuilder.DyeType.CLAY_BLOCK).setColor(DyeColor.GREEN)
                 .setDisplayName("§aAlle annehmen")
                 .addLore("§7Nimmt alle Freundschaftsanfragen an")
                 .build());
-        layout.put(51, new ItemBuilder(Material.RED_TERRACOTTA)
+        layout.put(51, new ColoredBuilder(ColoredBuilder.DyeType.CLAY_BLOCK).setColor(DyeColor.RED)
                 .setDisplayName("§cAlle ablehnen")
                 .addLore("§7Lehnt alle derzeitigen Freundschaftsanfragen ab")
                 .build());
@@ -136,10 +137,10 @@ public class ItemUtil {
         layout.put(1, PANE);
         layout.put(10, PANE);
         layout.put(19, PANE);
-        layout.put(13, new ItemBuilder(Material.GREEN_TERRACOTTA)
+        layout.put(13, new ColoredBuilder(ColoredBuilder.DyeType.CLAY_BLOCK).setColor(DyeColor.GREEN)
                 .setDisplayName("§aAnnehmen")
                 .build());
-        layout.put(15, new ItemBuilder(Material.RED_TERRACOTTA)
+        layout.put(15, new ColoredBuilder(ColoredBuilder.DyeType.CLAY_BLOCK).setColor(DyeColor.RED)
                 .setDisplayName("§cAblehnen")
                 .build());
         return layout;

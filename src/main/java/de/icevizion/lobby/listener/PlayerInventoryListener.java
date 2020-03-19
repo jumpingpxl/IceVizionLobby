@@ -82,7 +82,7 @@ public class PlayerInventoryListener implements Listener {
                 }
 
                 if (event.getSlot() == 47 || event.getSlot() == 51) return;
-                if (stack.getType().equals(Material.PLAYER_HEAD) || (stack.getType().equals(Material.SKELETON_SKULL))) {
+                if (stack.getType().equals(Material.SKULL_ITEM)) {
                     player.openInventory(plugin.getInventoryUtil().
                             loadActionInventory(displayName, stack));
                 }
@@ -112,7 +112,7 @@ public class PlayerInventoryListener implements Listener {
                             player.closeInventory();
                             break;
                         default:
-                            if (stack.getType().equals(Material.PLAYER_HEAD)) {
+                            if (stack.getType().equals(Material.SKULL_ITEM)) {
                                 player.openInventory(plugin.getInventoryUtil().createAcceptInventory(displayName, stack));
                             }
                             break;

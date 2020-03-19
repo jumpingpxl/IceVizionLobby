@@ -18,7 +18,7 @@ public class PlayerSettingsListener implements Listener {
     public void onSettings(SettingsChangeEvent event) {
         switch (event.getSetting()) {
             case SettingsUtil.PLAYER_VISIBILITY:
-                plugin.getVisibilityUtil().changeVisibility(plugin, event.getPlayer(), event.getValue());
+                plugin.getVisibilityUtil().changeVisibility(event.getPlayer(), event.getValue());
                 break;
         }
     }

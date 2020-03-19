@@ -2,7 +2,6 @@ package de.icevizion.lobby.utils;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
-import de.icevizion.lobby.Lobby;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
@@ -11,14 +10,14 @@ import org.bukkit.plugin.Plugin;
 
 public class VisibilityUtil {
 
-    public void changeVisibility(Lobby plugin, CloudPlayer cloudPlayer, int value) {
+    public void changeVisibility(CloudPlayer cloudPlayer, int value) {
         Player player = cloudPlayer.getPlayer();
         switch (value) {
             case 0:
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     if (player == online) continue;
                     if (!player.canSee(online)) {
-                        player.showPlayer(plugin, online);
+                        player.showPlayer(online);
                     }
                 }
                 break;
@@ -29,7 +28,7 @@ public class VisibilityUtil {
                     if (online == player) continue;
                     if (!profile.getRawFriends().containsKey(online.getUniqueId().toString())) continue;
                     if (!player.canSee(online)) {
-                        player.showPlayer(plugin, online);
+                        player.showPlayer(online);
                     }
                 }
                 break;
@@ -37,7 +36,7 @@ public class VisibilityUtil {
                 for (Player online : Bukkit.getOnlinePlayers()) {
                     if (player == online) continue;
                     if (player.canSee(online)) {
-                        player.hidePlayer(plugin, online);
+                        player.hidePlayer(online);
                     }
                 }
                 break;
@@ -48,12 +47,12 @@ public class VisibilityUtil {
         for (CloudPlayer cloudPlayers : Cloud.getInstance().getCurrentOnlinePlayers()) {
             switch (cloudPlayers.getSetting(SettingsUtil.PLAYER_VISIBILITY)) {
                 case 2:
-                    cloudPlayers.getPlayer().hidePlayer(plugin, joiningPlayer);
+                    cloudPlayers.getPlayer().hidePlayer(joiningPlayer);
                     break;
                 case 1:
                     FriendProfile profile = FriendSystem.getInstance().getFriendProfile(cloudPlayers);
                     if (!profile.getRawFriends().containsKey(joiningPlayer.getUniqueId().toString())) {
-                        cloudPlayers.getPlayer().hidePlayer(plugin, joiningPlayer);
+                        cloudPlayers.getPlayer().hidePlayer(joiningPlayer);
                     }
                     break;
             }

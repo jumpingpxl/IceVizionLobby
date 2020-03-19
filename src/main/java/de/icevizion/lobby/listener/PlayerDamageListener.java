@@ -22,7 +22,7 @@ public class PlayerDamageListener implements Listener {
     public void onDamageOther(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player && (event.getDamager() instanceof Player)) {
             CloudPlayer player = Cloud.getInstance().getPlayer((Player) event.getDamager());
-            if (player.getPlayer().getItemInHand().getType().equals(Material.PLAYER_HEAD)) {
+            if (player.getPlayer().getItemInHand().getType().equals(Material.SKULL_ITEM)) {
                 CloudPlayer clickedPlayer = Cloud.getInstance().getPlayer((Player) event.getEntity());
                 FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(player);
                 FriendProfile clickedProfile = FriendSystem.getInstance().getFriendProfile(clickedPlayer);
