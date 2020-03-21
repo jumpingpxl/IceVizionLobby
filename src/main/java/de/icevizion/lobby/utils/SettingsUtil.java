@@ -70,12 +70,12 @@ public class SettingsUtil {
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 1:
-                state = new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(gray ? DyeColor.GRAY : DyeColor.LIME)
+                state = new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(gray ? DyeColor.GRAY : DyeColor.ORANGE)
                         .setDisplayName(category == 4 ? "§aAn" : "§6Freunde").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
                 break;
             case 2:
-                state = new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(gray ? DyeColor.GRAY : DyeColor.LIME)
+                state = new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(gray ? DyeColor.GRAY : DyeColor.RED)
                         .setDisplayName(category == 4 ? "§cAus" : "§cKeiner").build();
                 inv.setItem(category + CLICK_OFFSET + value, state);
         }
