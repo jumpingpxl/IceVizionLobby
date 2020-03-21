@@ -31,6 +31,7 @@ public class FriendUtil {
             CloudPlayer player = sortedFriends.get(i);
             if (player.isOnline()) {
                 inventory.setItem(i,new CustomPlayerHeadBuilder()
+                        .setSkullType(CustomPlayerHeadBuilder.SkullType.PLAYER)
                         .setSkinOverValues(player.getSkinValue(), "")
                         .addLore("§7Befindet sich auf: §e" + player.getSpigot().getDisplayName())
                         .setDisplayName(player.getFullUsername()).build());
