@@ -98,6 +98,7 @@ public class InventoryUtil {
         } else {
             for (CloudPlayer request : friendProfile.getRequests()) {
                 inventory.addItem(new CustomPlayerHeadBuilder()
+                        .setSkullType(CustomPlayerHeadBuilder.SkullType.PLAYER)
                         .setSkinOverValues(request.getSkinValue(), "")
                         .setDisplayName(request.getFullDisplayName())
                         .build());
@@ -116,11 +117,13 @@ public class InventoryUtil {
         for (CloudPlayer cloudPlayer : sortedFriends) {
             if (cloudPlayer.isOnline()) {
                 inventory.addItem(new CustomPlayerHeadBuilder()
+                        .setSkullType(CustomPlayerHeadBuilder.SkullType.PLAYER)
                         .setSkinOverValues(cloudPlayer.getSkinValue(), "")
                         .addLore("§7Befindet sich auf: §e" + cloudPlayer.getSpigot().getDisplayName())
                         .setDisplayName(cloudPlayer.getFullUsername()).build());
             } else {
-                inventory.addItem(new CustomPlayerHeadBuilder().setSkullType(CustomPlayerHeadBuilder.SkullType.SKELETON)
+                inventory.addItem(new CustomPlayerHeadBuilder()
+                        .setSkullType(CustomPlayerHeadBuilder.SkullType.SKELETON)
                         .setDisplayName(cloudPlayer.getFullUsername())
                         .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(cloudPlayer.getLastLogout())).build());
             }
