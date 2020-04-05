@@ -1,12 +1,10 @@
 package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ColoredBuilder;
-import de.icevizion.aves.item.ItemBuilder;
 import de.icevizion.lobby.utils.event.SettingsChangeEvent;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
-import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Colorable;

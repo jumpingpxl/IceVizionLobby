@@ -2,10 +2,8 @@ package de.icevizion.lobby.utils;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.icevizion.aves.item.CustomPlayerHeadBuilder;
-import de.icevizion.aves.item.ItemBuilder;
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 

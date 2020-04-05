@@ -32,13 +32,13 @@ public class LobbyUtil {
      */
 
     private void loadLobbies() {
-        System.out.println("[Lobby] Searching for lobby's");
+        //System.out.println("[Lobby] Searching for lobby's");
         for (ClusterSpigot spigot : Cloud.getInstance().getSpigots()) {
             if (spigot.getDisplayName().startsWith("Lobby")) {
                 addLobby(spigot);
             }
         }
-        System.out.println("[Lobby] Found " + activeLobbies.size() + " current active lobbys");
+        //System.out.println("[Lobby] Found " + activeLobbies.size() + " current active lobbys");
     }
 
     /**
