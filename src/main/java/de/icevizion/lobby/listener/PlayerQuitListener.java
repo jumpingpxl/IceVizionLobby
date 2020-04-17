@@ -10,11 +10,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerQuitListener implements Listener {
 
-    private final SnowService snowService;
     private final ProfileCache profileCache;
 
-    public PlayerQuitListener(SnowService snowService, ProfileCache profileCache) {
-        this.snowService = snowService;
+    public PlayerQuitListener(ProfileCache profileCache) {
         this.profileCache = profileCache;
     }
 
@@ -22,7 +20,6 @@ public class PlayerQuitListener implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         event.setQuitMessage(null);
         profileCache.removeProfile(event.getPlayer());
-        snowService.removePlayer(event.getPlayer());
 
         Cloud.getInstance().getPlayer(event.getPlayer()).extradataSet("location",
                 Lobby.GSON.toJson(event.getPlayer().getLocation()));

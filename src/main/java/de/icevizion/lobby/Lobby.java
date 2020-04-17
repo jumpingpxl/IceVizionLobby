@@ -37,7 +37,6 @@ public class Lobby extends JavaPlugin {
     private DoubleJumpService doubleJumpService;
     private LobbyUtil lobbyUtil;
     private FriendUtil friendUtil;
-    private SnowService snowService;
     private UselessChestService uselessChestService;
 
     @Override
@@ -53,7 +52,6 @@ public class Lobby extends JavaPlugin {
     @Override
     public void onDisable() {
         profileCache.getProfiles().clear();
-        snowService.cancel();
     }
 
     private void load() {
@@ -68,7 +66,6 @@ public class Lobby extends JavaPlugin {
         this.lobbyUtil = new LobbyUtil();
         this.friendUtil = new FriendUtil();
         this.uselessChestService = new UselessChestService(this);
-        snowService = new SnowService(this);
     }
 
     private void registerListener() {
@@ -82,7 +79,7 @@ public class Lobby extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerInventoryListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerItemListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
-        getServer().getPluginManager().registerEvents(new PlayerQuitListener(snowService, profileCache), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuitListener(profileCache), this);
         getServer().getPluginManager().registerEvents(new PlayerSettingsListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerSpawnListener(mapService), this);
         getServer().getPluginManager().registerEvents(new WeatherListener(), this);
@@ -121,10 +118,6 @@ public class Lobby extends JavaPlugin {
 
     public ProfileCache getProfileCache() {
         return profileCache;
-    }
-
-    public SnowService getSnowService() {
-        return snowService;
     }
 
     public LobbyUtil getLobbyUtil() {
