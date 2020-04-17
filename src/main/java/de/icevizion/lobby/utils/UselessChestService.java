@@ -46,14 +46,16 @@ public class UselessChestService implements Listener {
         if (location == null)
             return;
 
-        armorStand = Bukkit.getWorlds().get(0).spawn(location.clone().add(0.5, -1, 0.5), ArmorStand.class);
+        armorStand = location.getWorld().spawn(location.clone().add(0.5, -1, 0.5), ArmorStand.class);
         armorStand.setFireTicks(0);
+        armorStand.setGravity(false);
         armorStand.setCustomName("Test");
         armorStand.setCustomNameVisible(true);
         armorStand.setVisible(false);
 
-        ArmorStand textStand = Bukkit.getWorlds().get(0).spawn(location.clone().add(0.5, -0.75, 0.5), ArmorStand.class);
+        ArmorStand textStand = location.getWorld().spawn(location.clone().add(0.5, -0.75, 0.5), ArmorStand.class);
         textStand.setFireTicks(0);
+        textStand.setGravity(false);
         textStand.setVisible(false);
         textStand.setCustomName("§7Sinnlose Kiste");
         textStand.setCustomNameVisible(true);
