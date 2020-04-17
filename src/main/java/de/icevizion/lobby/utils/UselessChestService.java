@@ -104,7 +104,7 @@ public class UselessChestService implements Listener {
             armorStand = (ArmorStand) location.getWorld()
                     .spawnEntity(location.clone().add(0, 0.25, 0), EntityType.ARMOR_STAND);
             armorStand.setFireTicks(0);
-
+            armorStand.setCustomName("Test");
             armorStand.setCustomNameVisible(true);
           //  armorStand.setVisible(false);
             lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand at "+location);
