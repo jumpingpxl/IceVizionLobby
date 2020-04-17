@@ -38,6 +38,7 @@ public class Lobby extends JavaPlugin {
     private LobbyUtil lobbyUtil;
     private FriendUtil friendUtil;
     private SnowService snowService;
+    private UselessChestService uselessChestService;
 
     @Override
     public void onEnable() {
@@ -66,6 +67,7 @@ public class Lobby extends JavaPlugin {
         this.doubleJumpService = new DoubleJumpService();
         this.lobbyUtil = new LobbyUtil();
         this.friendUtil = new FriendUtil();
+        this.uselessChestService = new UselessChestService(this);
         snowService = new SnowService(this);
     }
 
