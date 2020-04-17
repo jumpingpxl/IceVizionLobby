@@ -10,15 +10,18 @@ public class LobbyMap {
     private Location spawn, oneline, guessit, kbffa, bedwars;
     private Location suicidetnt;
 
+    private Location uselessChest;
+
     public LobbyMap() { }
 
-    public LobbyMap(Location spawn, Location oneline, Location guessit, Location kbffa, Location bedwars, Location suicidetnt) {
+    public LobbyMap(Location spawn, Location oneline, Location guessit, Location kbffa, Location bedwars, Location suicidetnt, Location uselessChest) {
         this.spawn = spawn;
         this.oneline = oneline;
         this.guessit = guessit;
         this.kbffa = kbffa;
         this.bedwars = bedwars;
         this.suicidetnt = suicidetnt;
+        this.uselessChest = uselessChest;
     }
 
     public void setSpawn(Location spawn) {
@@ -45,6 +48,10 @@ public class LobbyMap {
         this.suicidetnt = suicidetnt;
     }
 
+    public void setUselessChest(Location uselessChest) {
+        this.uselessChest = uselessChest;
+    }
+
     public Location getKBFFA() {
         return kbffa;
     }
@@ -67,5 +74,9 @@ public class LobbyMap {
 
     public Location getSuicideTnt() {
         return suicidetnt;
+    }
+
+    public Location getUselessChest() {
+        return uselessChest;
     }
 }
