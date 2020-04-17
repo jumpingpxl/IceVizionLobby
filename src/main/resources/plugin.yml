@@ -8,4 +8,3 @@ depend: [Aves-1.8, CloudSpigot, FriendSystem, PartySystem]
 
 commands:
   location:
-  schnee:
