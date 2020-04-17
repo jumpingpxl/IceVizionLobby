@@ -9,12 +9,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
@@ -68,6 +68,22 @@ public class UselessChestService implements Listener {
         }
     }
 
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        if (armorStand == null) {
+            Location location = lobby.getMapService().getLobbyMap().get().getUselessChest();
+            if (location == null)
+                return;
+
+            armorStand = Bukkit.getWorlds().get(0).spawn(location.clone().add(0, 0.25, 0), ArmorStand.class);
+            armorStand.setFireTicks(0);
+            armorStand.setCustomName("Test");
+            armorStand.setCustomNameVisible(true);
+            armorStand.setVisible(true);
+            lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand at "+location);
+        }
+    }
+
     // =======
 
     private void startScheduler() {
@@ -96,18 +112,8 @@ public class UselessChestService implements Listener {
 
     private void displayCurrentCount() {
         //Update hologram here
-        if (armorStand == null) {
-            Location location = lobby.getMapService().getLobbyMap().get().getUselessChest();
-            if (location == null)
-                return;
-
-            armorStand = Bukkit.getWorlds().get(0).spawn(location.clone().add(0, 0.25, 0), ArmorStand.class);
-            armorStand.setFireTicks(0);
-            armorStand.setCustomName("Test");
-            armorStand.setCustomNameVisible(true);
-            armorStand.setVisible(true);
-            lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand at "+location);
-        }
+        if (armorStand == null)
+            return;
 
         armorStand.setCustomName("§3"+count+"x");
     }
