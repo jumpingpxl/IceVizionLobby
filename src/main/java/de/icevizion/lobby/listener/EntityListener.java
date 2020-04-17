@@ -17,7 +17,7 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onCreature(CreatureSpawnEvent event) {
-        event.setCancelled(true);
+       // event.setCancelled(true);
     }
 
     @EventHandler
