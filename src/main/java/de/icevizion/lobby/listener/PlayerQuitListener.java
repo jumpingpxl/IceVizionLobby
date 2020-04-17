@@ -1,7 +1,6 @@
 package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
-import de.icevizion.lobby.feature.SnowService;
 import de.icevizion.lobby.profile.ProfileCache;
 import net.titan.spigot.Cloud;
 import org.bukkit.event.EventHandler;
