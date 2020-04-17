@@ -24,12 +24,10 @@ public class EventCommand implements CommandExecutor {
             switch (cloudPlayer.getSetting(SettingsUtil.EVENT)) {
                 case 1:
                     cloudPlayer.setSetting(SettingsUtil.EVENT, 0);
-                    plugin.getSnowService().removePlayer(cloudPlayer.getPlayer());
                     cloudPlayer.sendMessage(plugin.getPrefix() + "§7Du hast den Schnee §cdeaktiviert");
                     break;
                 case 0:
                     cloudPlayer.setSetting(SettingsUtil.EVENT, 1);
-                    plugin.getSnowService().addPlayer(cloudPlayer.getPlayer());
                     cloudPlayer.sendMessage(plugin.getPrefix() + "§7Du hast den Schnee §aaktiviert");
                     break;
                 default:
