@@ -71,16 +71,18 @@ public class UselessChestService implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         if (armorStand == null) {
-            Location location = lobby.getMapService().getLobbyMap().get().getUselessChest();
-            if (location == null)
-                return;
+            Bukkit.getScheduler().runTaskLater(lobby, () -> {
+                Location location = lobby.getMapService().getLobbyMap().get().getUselessChest();
+                if (location == null)
+                    return;
 
-            armorStand = Bukkit.getWorlds().get(0).spawn(location.clone().add(0, 0.25, 0), ArmorStand.class);
-            armorStand.setFireTicks(0);
-            armorStand.setCustomName("Test");
-            armorStand.setCustomNameVisible(true);
-            armorStand.setVisible(true);
-            lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand at "+location);
+                armorStand = Bukkit.getWorlds().get(0).spawn(location.clone().add(0, 0.25, 0), ArmorStand.class);
+                armorStand.setFireTicks(0);
+                armorStand.setCustomName("Test");
+                armorStand.setCustomNameVisible(true);
+                armorStand.setVisible(true);
+                lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand at "+location);
+            },2000);
         }
     }
 
