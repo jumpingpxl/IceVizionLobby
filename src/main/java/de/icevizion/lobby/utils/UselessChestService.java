@@ -101,7 +101,7 @@ public class UselessChestService implements Listener {
             if (location == null)
                 return;
 
-            armorStand = (ArmorStand) Bukkit.getWorlds().get(0).spawnEntity(location.clone().add(0, 0.25, 0), EntityType.ARMOR_STAND);
+            armorStand = Bukkit.getWorlds().get(0).spawn(location.clone().add(0, 0.25, 0), ArmorStand.class);
             armorStand.setFireTicks(0);
             armorStand.setCustomName("Test");
             armorStand.setCustomNameVisible(true);
