@@ -3,7 +3,6 @@ package de.icevizion.lobby.utils;
 import com.mongodb.client.MongoCollection;
 import de.icevizion.aves.util.LocationUtil;
 import de.icevizion.lobby.Lobby;
-import net.minecraft.server.v1_8_R3.ILocationSource;
 import net.titan.spigot.Cloud;
 import org.bson.Document;
 import org.bukkit.Bukkit;
@@ -15,9 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
 import java.util.concurrent.locks.ReentrantLock;
@@ -110,18 +107,19 @@ public class UselessChestService implements Listener {
 
     private void loadFromDatabase() {
         lock.lock();
-            Document document = dataCollection.find(new Document("name", "UselessChest")).first();
-            if (document == null) {
-                document = new Document("name", "UselessChest");
-                document.append("count", 0L);
-                dataCollection.insertOne(document);
-            }
+        Document document = dataCollection.find(new Document("name", "UselessChest")).first();
+        if (document == null) {
+            document = new Document("name", "UselessChest");
+            document.append("count", 0L);
+            dataCollection.insertOne(document);
+        }
 
-            count = document.getLong("count");
-            displayCurrentCount();
+        count = document.getLong("count");
+        displayCurrentCount();
+
         try {
             Cloud.getInstance().getCloudMongo().getCollection("data");
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -140,7 +138,7 @@ public class UselessChestService implements Listener {
             count++;
             dataCollection.updateOne(new Document("name", "UselessChest"), new Document("$inc", new Document("count", 1)));
             displayCurrentCount();
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
