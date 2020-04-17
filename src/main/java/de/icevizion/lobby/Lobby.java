@@ -72,7 +72,6 @@ public class Lobby extends JavaPlugin {
     }
 
     private void registerListener() {
-        getServer().getPluginManager().registerEvents(new EntityInteractListener(prefix, dailyRewardUtil), this);
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
         getServer().getPluginManager().registerEvents(new NetworkListener(lobbyUtil, this), this);
         getServer().getPluginManager().registerEvents(new PlayerBlockListener(), this);
