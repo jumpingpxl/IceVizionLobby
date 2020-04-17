@@ -14,11 +14,6 @@ public class EntityListener implements Listener {
         event.blockList().clear();
     }
 
-   /* @EventHandler
-    public void onCreature(CreatureSpawnEvent event) {
-        if (!event.getEntityType().equals(EntityType.ARMOR_STAND)) event.setCancelled(true);
-    }*/
-
     @EventHandler
     public void onArmor(PlayerArmorStandManipulateEvent event) {
         event.setCancelled(true);
