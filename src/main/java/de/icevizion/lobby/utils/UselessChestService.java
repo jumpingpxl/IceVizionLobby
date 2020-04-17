@@ -56,7 +56,7 @@ public class UselessChestService implements Listener {
             return;
         }
         lobby.getLogger().info("PlayerInteractEvent with Chest!");
-
+        lobby.getLogger().info("Comparing: "+event.getClickedBlock().getLocation()+" with "+lobby.getMapService().getLobbyMap().get().getUselessChest());
         //Code to check if the chest is the useless chest
         if (LocationUtil.compare(event.getClickedBlock().getLocation(),
                 lobby.getMapService().getLobbyMap().get().getUselessChest(), false)) {
