@@ -74,7 +74,8 @@ public class UselessChestService {
         lock.lock();
             Document document = dataCollection.find(new Document("name", "UselessChest")).first();
             if (document == null) {
-                document = new Document("count", 0);
+                document = new Document("name", "UselessChest");
+                document.append("count", 0L);
                 dataCollection.insertOne(document);
             }
 
