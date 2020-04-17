@@ -40,11 +40,6 @@ public class UselessChestService implements Listener {
 
         lock = new ReentrantLock();
         dataCollection = Cloud.getInstance().getCloudMongo().getCollection("data");
-        Location location = lobby.getMapService().getLobbyMap().get().getUselessChest();
-        armorStand = (ArmorStand) location.getWorld().spawnEntity(location.add(0, 0.25, 0), EntityType.ARMOR_STAND);
-        armorStand.setCustomName("Test");
-        armorStand.setCustomNameVisible(true);
-        armorStand.setVisible(true);
 
         loadFromDatabase();
         startScheduler();
@@ -101,7 +96,7 @@ public class UselessChestService implements Listener {
 
     private void displayCurrentCount() {
         //Update hologram here
-        /*if (armorStand == null) {
+        if (armorStand == null) {
             Location location = lobby.getMapService().getLobbyMap().get().getUselessChest();
             if (location == null)
                 return;
@@ -113,7 +108,7 @@ public class UselessChestService implements Listener {
             armorStand.setCustomNameVisible(true);
           //  armorStand.setVisible(false);
             lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand at "+location);
-        }*/
+        }
 
         armorStand.setCustomName("§3"+count+"x");
     }
