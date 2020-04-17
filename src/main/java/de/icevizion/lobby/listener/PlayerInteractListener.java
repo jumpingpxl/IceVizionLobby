@@ -41,10 +41,11 @@ public class PlayerInteractListener implements Listener {
                     }
                     break;
                 case "§aLobby wechseln":
-                    player.openInventory(plugin.getLobbyUtil().getInventory());
-                    break;
-                case "§5Nick":
-                    player.sendMessage(plugin.getPrefix() + "§cDieses Feature ist noch nicht aktiv");
+                    if (plugin.getLobbyUtil().getCurrentSize() < 2) {
+                        player.sendMessage(plugin.getPrefix() + "§cEs sind derzeit keine weiteren Lobbies online");
+                    } else {
+                        player.openInventory(plugin.getLobbyUtil().getInventory());
+                    }
                     break;
             }
         }
