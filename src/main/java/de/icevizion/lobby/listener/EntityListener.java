@@ -1,5 +1,6 @@
 package de.icevizion.lobby.listener;
 
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -17,7 +18,7 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onCreature(CreatureSpawnEvent event) {
-       // event.setCancelled(true);
+        if (!event.getEntity().getType().equals(EntityType.ARMOR_STAND)) event.setCancelled(true);
     }
 
     @EventHandler
