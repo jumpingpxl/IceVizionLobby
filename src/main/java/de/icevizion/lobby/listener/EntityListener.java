@@ -9,6 +9,7 @@ import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.vehicle.VehicleDamageEvent;
 
 public class EntityListener implements Listener {
 
@@ -31,6 +32,9 @@ public class EntityListener implements Listener {
     public void onItemFrame(HangingBreakByEntityEvent event) {
         event.setCancelled(true);
     }
+
+    @EventHandler
+    public void onVehicle(VehicleDamageEvent event) { event.setCancelled(true); }
 
     @EventHandler
     public void onEntityInteract(PlayerInteractEntityEvent event) {
