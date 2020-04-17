@@ -51,15 +51,17 @@ public class UselessChestService implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onInteract(PlayerInteractEvent event) {
+        lobby.getLogger().info("PlayerInteractEvent");
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getClickedBlock().getType() != Material.CHEST) {
             return;
         }
+        lobby.getLogger().info("PlayerInteractEvent with Chest!");
 
         //Code to check if the chest is the useless chest
         if (LocationUtil.compare(event.getClickedBlock().getLocation(),
                 lobby.getMapService().getLobbyMap().get().getUselessChest(), false)) {
             //It is our chest, yay
-
+            lobby.getLogger().info("PlayerInteractEvent with OUR Chest!");
             event.setCancelled(false);
             //Perhaps call this async since it is being synchronized?
             increase();
@@ -104,8 +106,8 @@ public class UselessChestService implements Listener {
             armorStand.setFireTicks(0);
 
             armorStand.setCustomNameVisible(true);
-            armorStand.setVisible(false);
-            lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand");
+          //  armorStand.setVisible(false);
+            lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand at "+location);
         }
 
         armorStand.setCustomName("§3"+count+"x");
