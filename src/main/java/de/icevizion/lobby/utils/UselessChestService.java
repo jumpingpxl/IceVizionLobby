@@ -3,9 +3,11 @@ package de.icevizion.lobby.utils;
 import com.mongodb.client.MongoCollection;
 import de.icevizion.aves.util.LocationUtil;
 import de.icevizion.lobby.Lobby;
+import net.minecraft.server.v1_8_R3.ILocationSource;
 import net.titan.spigot.Cloud;
 import org.bson.Document;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -13,8 +15,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
 
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
@@ -32,6 +36,7 @@ public class UselessChestService implements Listener {
     private ReentrantLock lock;
     private MongoCollection<Document> dataCollection;
 
+    private Chunk chunk;
     private long count;
     private ArmorStand armorStand;
 
@@ -42,7 +47,10 @@ public class UselessChestService implements Listener {
         dataCollection = Cloud.getInstance().getCloudMongo().getCollection("data");
 
         Location location = lobby.getMapService().getLobbyMap().get().getUselessChest();
-        location.getWorld().loadChunk(location.getChunk());
+        chunk = location.getChunk();
+
+        location.getWorld().loadChunk(chunk);
+
         if (location == null)
             return;
 
@@ -84,6 +92,12 @@ public class UselessChestService implements Listener {
             //Perhaps call this async since it is being synchronized?
             increase();
         }
+    }
+
+    @EventHandler
+    public void onChunkUnload(ChunkUnloadEvent event) {
+        if (event.getChunk().equals(chunk))
+            event.setCancelled(true);
     }
 
     // =======
