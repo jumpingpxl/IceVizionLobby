@@ -82,7 +82,7 @@ public class UselessChestService implements Listener {
                 armorStand.setCustomNameVisible(true);
                 armorStand.setVisible(true);
                 lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand at "+location);
-            },2000);
+            },40);
         }
     }
 
