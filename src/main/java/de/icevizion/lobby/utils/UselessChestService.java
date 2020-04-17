@@ -46,11 +46,18 @@ public class UselessChestService implements Listener {
         if (location == null)
             return;
 
-        armorStand = Bukkit.getWorlds().get(0).spawn(location.clone().add(0.5, 0.25, 0.5), ArmorStand.class);
+        armorStand = Bukkit.getWorlds().get(0).spawn(location.clone().add(0.5, 0, 0.5), ArmorStand.class);
         armorStand.setFireTicks(0);
         armorStand.setCustomName("Test");
         armorStand.setCustomNameVisible(true);
-        armorStand.setVisible(true);
+        armorStand.setVisible(false);
+
+        ArmorStand textStand = Bukkit.getWorlds().get(0).spawn(location.clone().add(0.5, 0, 0.5), ArmorStand.class);
+        textStand.setFireTicks(0);
+        textStand.setVisible(false);
+        textStand.setCustomName("§7Sinnlose Kiste");
+        textStand.setCustomNameVisible(true);
+
         lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand at "+location);
 
         loadFromDatabase();
@@ -63,38 +70,26 @@ public class UselessChestService implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onInteract(PlayerInteractEvent event) {
-        lobby.getLogger().info("PlayerInteractEvent");
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getClickedBlock().getType() != Material.CHEST) {
             return;
         }
-        lobby.getLogger().info("PlayerInteractEvent with Chest!");
-        lobby.getLogger().info("Comparing: "+event.getClickedBlock().getLocation()+" with "+lobby.getMapService().getLobbyMap().get().getUselessChest());
+
         //Code to check if the chest is the useless chest
         if (LocationUtil.compare(event.getClickedBlock().getLocation(),
                 lobby.getMapService().getLobbyMap().get().getUselessChest(), false)) {
             //It is our chest, yay
-            lobby.getLogger().info("PlayerInteractEvent with OUR Chest!");
             event.setCancelled(false);
             //Perhaps call this async since it is being synchronized?
             increase();
         }
     }
 
-//    @EventHandler
-//    public void onJoin(PlayerJoinEvent event) {
-//        if (armorStand == null) {
-//            Bukkit.getScheduler().runTaskLater(lobby, () -> {
-//
-//            },40);
-//        }
-//    }
-
     // =======
 
     private void startScheduler() {
         Bukkit.getScheduler().runTaskTimer(lobby, () -> {
             loadFromDatabase();
-        }, 1000, 5000);
+        }, 20, 40);
     }
 
     private void loadFromDatabase() {
@@ -120,7 +115,7 @@ public class UselessChestService implements Listener {
         if (armorStand == null)
             return;
 
-        armorStand.setCustomName("§3"+count+"x");
+        armorStand.setCustomName("§3"+count+"§7x geöffnet!");
     }
 
     private void increase() {
