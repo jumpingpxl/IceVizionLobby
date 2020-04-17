@@ -165,9 +165,9 @@ public class ItemUtil {
         cloudPlayer.getPlayer().getInventory().setItem(6, lobby);
         cloudPlayer.getPlayer().getInventory().setItem(8, skull);
 
-        if (cloudPlayer.hasPermission("player.nick.auto")) {
+       /* if (cloudPlayer.hasPermission("player.nick.auto")) {
             cloudPlayer.getPlayer().getInventory().setItem(4, nick);
-        }
+        } */
     }
 
     /**
