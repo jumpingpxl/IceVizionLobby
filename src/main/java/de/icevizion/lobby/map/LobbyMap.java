@@ -8,20 +8,20 @@ public class LobbyMap {
 
     @JsonAdapter(value = LocationTypeAdapter.class)
     private Location spawn, oneline, guessit, kbffa, bedwars;
-    private Location suicidetnt;
 
     private Location uselessChest;
+    private Location dailyChest;
 
     public LobbyMap() { }
 
-    public LobbyMap(Location spawn, Location oneline, Location guessit, Location kbffa, Location bedwars, Location suicidetnt, Location uselessChest) {
+    public LobbyMap(Location spawn, Location oneline, Location guessit, Location kbffa, Location bedwars, Location uselessChest, Location dailyChest) {
         this.spawn = spawn;
         this.oneline = oneline;
         this.guessit = guessit;
         this.kbffa = kbffa;
         this.bedwars = bedwars;
-        this.suicidetnt = suicidetnt;
         this.uselessChest = uselessChest;
+        this.dailyChest = dailyChest;
     }
 
     public void setSpawn(Location spawn) {
@@ -44,12 +44,12 @@ public class LobbyMap {
         this.bedwars = bedwars;
     }
 
-    public void setSuicideTnt(Location suicidetnt) {
-        this.suicidetnt = suicidetnt;
-    }
-
     public void setUselessChest(Location uselessChest) {
         this.uselessChest = uselessChest;
+    }
+
+    public void setDailyChest(Location dailyChest) {
+        this.dailyChest = dailyChest;
     }
 
     public Location getKBFFA() {
@@ -72,11 +72,11 @@ public class LobbyMap {
         return bedwars;
     }
 
-    public Location getSuicideTnt() {
-        return suicidetnt;
-    }
-
     public Location getUselessChest() {
         return uselessChest;
+    }
+
+    public Location getDailyChest() {
+        return dailyChest;
     }
 }
