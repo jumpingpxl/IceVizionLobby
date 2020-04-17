@@ -105,7 +105,7 @@ public class UselessChestService implements Listener {
             armorStand.setFireTicks(0);
             armorStand.setCustomName("Test");
             armorStand.setCustomNameVisible(true);
-          //  armorStand.setVisible(false);
+            armorStand.setVisible(true);
             lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand at "+location);
         }
 
