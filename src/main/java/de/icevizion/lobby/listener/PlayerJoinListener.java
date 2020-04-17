@@ -35,9 +35,5 @@ public class PlayerJoinListener implements Listener {
             Bukkit.getScheduler().runTaskLater(plugin, () ->
                     cloudPlayer.getPlayer().openInventory(plugin.getInventoryUtil().getPrivacy()), 20);
         }
-
-        if (cloudPlayer.getSetting(199) == 1) {
-            cloudPlayer.setSetting(199, 0);
-        }
     }
 }
