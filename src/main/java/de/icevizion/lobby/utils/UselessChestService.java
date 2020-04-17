@@ -53,11 +53,11 @@ public class UselessChestService implements Listener {
         armorStand.setCustomNameVisible(true);
         armorStand.setVisible(false);
 
-        ArmorStand textStand = location.getWorld().spawn(location.clone().add(0.5, -0.5, 0.5), ArmorStand.class);
+        ArmorStand textStand = location.getWorld().spawn(location.clone().add(0.5, -0.4, 0.5), ArmorStand.class);
         textStand.setFireTicks(0);
         textStand.setGravity(false);
         textStand.setVisible(false);
-        textStand.setCustomName("§7Sinnlose Kiste");
+        textStand.setCustomName("§6Sinnlose Kiste");
         textStand.setCustomNameVisible(true);
 
         lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand at "+location);
