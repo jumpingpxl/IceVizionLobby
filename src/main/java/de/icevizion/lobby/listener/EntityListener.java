@@ -1,9 +1,7 @@
 package de.icevizion.lobby.listener;
 
-import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
@@ -16,10 +14,10 @@ public class EntityListener implements Listener {
         event.blockList().clear();
     }
 
-    @EventHandler
+   /* @EventHandler
     public void onCreature(CreatureSpawnEvent event) {
         if (!event.getEntityType().equals(EntityType.ARMOR_STAND)) event.setCancelled(true);
-    }
+    }*/
 
     @EventHandler
     public void onArmor(PlayerArmorStandManipulateEvent event) {
