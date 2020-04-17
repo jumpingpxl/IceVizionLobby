@@ -94,7 +94,7 @@ public class InventoryUtil {
 
         if (friendProfile.getRequests().size() == 0) {
             inventory.setItem(13, new ItemBuilder(Material.BARRIER).
-                    setDisplayName("§CKeiner möchte mit dir befreundet sein :(").build());
+                    setDisplayName("§cKeiner möchte mit dir befreundet sein :(").build());
         } else {
             for (CloudPlayer request : friendProfile.getRequests()) {
                 inventory.addItem(new CustomPlayerHeadBuilder()
