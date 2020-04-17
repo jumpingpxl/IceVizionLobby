@@ -12,10 +12,12 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
 
 /**
  * @author Patrick Zdarsky / Rxcki
@@ -23,7 +25,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 17/04/2020 17:21
  */
 
-public class UselessChestService {
+public class UselessChestService implements Listener {
 
     private final Lobby lobby;
 
@@ -41,6 +43,8 @@ public class UselessChestService {
 
         loadFromDatabase();
         startScheduler();
+
+        Bukkit.getPluginManager().registerEvents(this, lobby);
     }
 
     // =======
@@ -101,6 +105,7 @@ public class UselessChestService {
 
             armorStand.setCustomNameVisible(true);
             armorStand.setVisible(false);
+            lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand");
         }
 
         armorStand.setCustomName("§3"+count+"x");
