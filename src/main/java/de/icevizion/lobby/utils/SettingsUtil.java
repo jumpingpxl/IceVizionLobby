@@ -1,9 +1,8 @@
 package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ColoredBuilder;
-import de.icevizion.lobby.utils.event.SettingsChangeEvent;
+import de.icevizion.lobby.Lobby;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -12,14 +11,18 @@ import org.bukkit.material.Dye;
 
 public class SettingsUtil {
 
+    private final Lobby plugin;
+
     private static final int CLICK_OFFSET = 6;
 
     protected static final int PRIVAT_MESSAGE = 100;
     protected static final int PARTY = 101;
     public static final int PLAYER_VISIBILITY = 102;
     protected static final int JUMP = 103;
-    public static final int SPAWN_LOCATION = 104;
-    public static final int EVENT = 199;
+
+    public SettingsUtil(Lobby plugin) {
+        this.plugin = plugin;
+    }
 
     /**
      * Changes the current state of a setting.
@@ -46,8 +49,15 @@ public class SettingsUtil {
             cloudPlayer.getPlayer().updateInventory();
             cloudPlayer.setSetting(wrapper.getSettingsID(), newValue);
 
-            Bukkit.getPluginManager().callEvent(new SettingsChangeEvent(cloudPlayer,
-                    wrapper.getSettingsID(), newValue));
+            handleSettingsChange(cloudPlayer, wrapper, newValue);
+        }
+    }
+
+    public void handleSettingsChange(CloudPlayer cloudPlayer, SettingsWrapper wrapper, int newValue) {
+        switch (wrapper) {
+            case PLAYER_VISIBILITY:
+                plugin.getVisibilityUtil().changeVisibility(cloudPlayer, newValue);
+                break;
         }
     }
 
