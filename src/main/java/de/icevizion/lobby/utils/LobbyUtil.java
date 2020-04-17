@@ -32,13 +32,11 @@ public class LobbyUtil {
      */
 
     private void loadLobbies() {
-        //System.out.println("[Lobby] Searching for lobby's");
         for (ClusterSpigot spigot : Cloud.getInstance().getSpigots()) {
             if (spigot.getDisplayName().startsWith("Lobby")) {
                 addLobby(spigot);
             }
         }
-        //System.out.println("[Lobby] Found " + activeLobbies.size() + " current active lobbys");
     }
 
     /**
@@ -84,6 +82,15 @@ public class LobbyUtil {
             Player player = (Player) viewer;
             player.updateInventory();
         });
+    }
+
+    /**
+     * Getter for the current size of the underlying list.
+     * @return The current amount of registered lobbies
+     */
+
+    public int getCurrentSize() {
+        return activeLobbies.size();
     }
 
     /**
