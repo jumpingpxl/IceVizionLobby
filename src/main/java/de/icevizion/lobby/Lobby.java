@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.icevizion.aves.adapter.LocationTypeAdapter;
 import de.icevizion.lobby.commands.SetCommand;
-import de.icevizion.lobby.feature.SnowService;
 import de.icevizion.lobby.map.MapService;
 import de.icevizion.lobby.profile.ProfileCache;
 import de.icevizion.lobby.listener.*;
