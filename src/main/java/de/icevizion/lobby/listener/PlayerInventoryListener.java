@@ -55,19 +55,13 @@ public class PlayerInventoryListener implements Listener {
 
         switch (event.getView().getTitle()) {
             case "Einstellungen":
-                plugin.getSettingsUtil().changeSettingsValue(cloudPlayer,
-                        event.getInventory(), stack, event.getSlot());
+                plugin.getSettingsUtil().changeSettingsValue(cloudPlayer, event.getInventory(), stack, event.getSlot());
             break;
             case "Minispiele":
-                if (displayName.equals("Coming Soon")) {
-                    event.setCancelled(true);
-                    player.updateInventory();
-                } else {
-                    player.teleport(plugin.getMapService().getLocation(displayName));
-                }
+                player.teleport(plugin.getMapService().getLocation(displayName));
                 break;
             case "Freunde":
-                if (stack.getItemMeta().getDisplayName().equals("§cEinstellungen")) {
+                if (displayName.equals("Einstellungen")) {
                     if (plugin.getProfileCache().getProfile(player).getSettingsInventory() == null) {
                         Inventory inventory = plugin.getInventoryUtil().createPanelInventory(cloudPlayer);
                         plugin.getProfileCache().getProfile(player).setSettingsInventory(inventory);
@@ -77,7 +71,7 @@ public class PlayerInventoryListener implements Listener {
                     }
                 }
 
-                if (stack.getItemMeta().getDisplayName().equals("Freundesanfragen")) {
+                if (displayName.equals("Freundesanfragen")) {
                     player.openInventory(plugin.getInventoryUtil().createFriendRequestInventory(cloudPlayer));
                 }
 
