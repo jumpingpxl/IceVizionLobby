@@ -1,6 +1,7 @@
 package de.icevizion.lobby.commands;
 
 import de.icevizion.lobby.map.MapService;
+import net.titan.lib.utils.Messages;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.command.Command;
@@ -21,16 +22,22 @@ public class SetCommand implements CommandExecutor {
         if (sender instanceof Player) {
             CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer((Player) sender);
 
-            if (!cloudPlayer.hasPermission("lobby.location")) return false;
+            if (!cloudPlayer.hasPermission("lobby.location")) {
+                cloudPlayer.sendMessage(Messages.getSystemPrefix() + Messages.getNoPermission());
+                return true;
+            }
 
             if (args.length != 1) {
-                cloudPlayer.sendMessage("§7Bitte benutze §c/location <spawn,oneline,guessit,kbffa,bedwars,tnt>");
+                cloudPlayer.sendMessage(Messages.getSystemPrefix() +
+                        "§7Bitte benutze §c/location <spawn,oneline,guessit,kbffa,bedwars,tnt>");
             } else {
                 if (args[0].isEmpty()) {
-                    cloudPlayer.sendMessage("§cBitte gebe spawn,oneline,guessit,kbffa,bedwars,tnt an");
+                    cloudPlayer.sendMessage(Messages.getSystemPrefix() +
+                            "§cBitte gebe spawn,oneline,guessit,kbffa,bedwars,tnt an");
                 } else {
                     mapService.setValue(args[0].toLowerCase(), cloudPlayer.getPlayer().getLocation());
-                    cloudPlayer.sendMessage("§7Du hast die Location §6" + args[0] + " §7gesetzt");
+                    cloudPlayer.sendMessage(Messages.getSystemPrefix() +
+                            "§7Du hast die Location §6" + args[0] + " §7gesetzt");
                 }
             }
         }
