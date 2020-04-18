@@ -1,6 +1,5 @@
 package de.icevizion.lobby.listener;
 
-import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.map.MapService;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
@@ -23,8 +22,10 @@ public class PlayerSpawnListener implements Listener {
     public void onSpawn(PlayerSpawnLocationEvent event) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(event.getPlayer());
         if (cloudPlayer.extradataContains("location")) {
-            event.setSpawnLocation(mapService.getLocationFromMap((HashMap<String, Object>)
-                    cloudPlayer.extradataGet("location")));
+            Location location = mapService.getLocationFromMap((HashMap<String, Object>)
+                    cloudPlayer.extradataGet("location"));
+            event.setSpawnLocation(location != null ? location : mapService.getLobbyMap().get().getSpawn());
+
         } else{
             mapService.getLobbyMap().ifPresent(map -> {
                 if (map.getSpawn() != null) {
