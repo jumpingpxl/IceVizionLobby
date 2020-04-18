@@ -45,6 +45,7 @@ public class Lobby extends JavaPlugin {
         load();
         registerListener();
         registerCommands();
+        Cloud.getInstance().setPlayerLimit(50);
         Cloud.getInstance().setSpigotState(SpigotState.AVAILABLE);
     }
 
