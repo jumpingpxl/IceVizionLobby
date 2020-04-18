@@ -1,6 +1,5 @@
 package de.icevizion.lobby.listener;
 
-import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.profile.ProfileCache;
 import net.titan.spigot.Cloud;
 import org.bukkit.event.EventHandler;
@@ -21,6 +20,6 @@ public class PlayerQuitListener implements Listener {
         profileCache.removeProfile(event.getPlayer());
 
         Cloud.getInstance().getPlayer(event.getPlayer()).extradataSet("location",
-                Lobby.GSON.toJson(event.getPlayer().getLocation()));
+                event.getPlayer().getLocation().serialize());
     }
 }

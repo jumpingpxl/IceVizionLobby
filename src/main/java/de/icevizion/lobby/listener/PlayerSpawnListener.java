@@ -9,6 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
+import java.util.HashMap;
+
 public class PlayerSpawnListener implements Listener {
 
     private final MapService mapService;
@@ -21,8 +23,8 @@ public class PlayerSpawnListener implements Listener {
     public void onSpawn(PlayerSpawnLocationEvent event) {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(event.getPlayer());
         if (cloudPlayer.extradataContains("location")) {
-            event.setSpawnLocation(
-                    Lobby.GSON.fromJson((String)cloudPlayer.extradataGet("location"), Location.class));
+            event.setSpawnLocation(mapService.getLocationFromMap((HashMap<String, Object>)
+                    cloudPlayer.extradataGet("location")));
         } else{
             mapService.getLobbyMap().ifPresent(map -> {
                 if (map.getSpawn() != null) {
