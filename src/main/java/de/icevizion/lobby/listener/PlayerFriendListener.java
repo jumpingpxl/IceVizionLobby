@@ -46,12 +46,12 @@ public class PlayerFriendListener implements Listener {
             LobbyProfile playerProfile = plugin.getProfileCache().getProfile(event.getCloudPlayer().getPlayer());
             LobbyProfile friendProfile = plugin.getProfileCache().getProfile(event.getFriendPlayer().getPlayer());
             
-            if (playerProfile != null) {
+            if (playerProfile.getFriendInventory() != null) {
                 plugin.getFriendUtil().updateInventory(event.getCloudPlayer(), plugin.getItemUtil().getFriendLayout(),
                         playerProfile.getFriendInventory());
             }
             
-            if (friendProfile != null) {
+            if (friendProfile.getFriendInventory() != null) {
                 plugin.getFriendUtil().updateInventory(event.getFriendPlayer(), plugin.getItemUtil().getFriendLayout(),
                         playerProfile.getFriendInventory());
             }
