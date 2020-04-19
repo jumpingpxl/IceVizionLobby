@@ -2,14 +2,11 @@ package de.icevizion.lobby.map;
 
 import de.icevizion.aves.file.JsonFileLoader;
 import de.icevizion.lobby.Lobby;
-import net.minecraft.server.v1_8_R3.BlockIce;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Optional;
 
 public class MapService {
