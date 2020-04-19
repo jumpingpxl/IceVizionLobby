@@ -3,11 +3,11 @@ package de.icevizion.lobby.listener;
 import de.icevizion.lobby.map.MapService;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerSpawnListener implements Listener {
@@ -25,8 +25,7 @@ public class PlayerSpawnListener implements Listener {
             if (!(cloudPlayer.extradataGet("location") instanceof Map)) {
                 event.setSpawnLocation(mapService.getLobbyMap().get().getSpawn());
             } else {
-                event.setSpawnLocation(mapService.getLocationFromMap((HashMap<String, Object>)
-                        cloudPlayer.extradataGet("location")));
+                event.setSpawnLocation(Location.deserialize((Map<String, Object>) cloudPlayer.extradataGet("location")));
             }
         } else{
             mapService.getLobbyMap().ifPresent(map -> {
