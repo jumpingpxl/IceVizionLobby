@@ -30,9 +30,9 @@ public class InventoryUtil {
 
     public void loadTeleporter() {
         teleporter = Bukkit.createInventory(null, 27, "Minispiele");
-        teleporter.setItem(4, new ItemBuilder(Material.NETHER_STAR).setDisplayName("§aSpawn").build());
+        teleporter.setItem(4, new ItemBuilder(Material.BOOK_AND_QUILL).setDisplayName("§bGuessIt").build());
         teleporter.setItem(11, new ItemBuilder(Material.STICK).setDisplayName("§aKnockbackFFA").build());
-        teleporter.setItem(13, new ItemBuilder(Material.BOOK_AND_QUILL).setDisplayName("§bGuessIt").build());
+        teleporter.setItem(13, new ItemBuilder(Material.NETHER_STAR).setDisplayName("§aSpawn").build());
         teleporter.setItem(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
         teleporter.setItem(22, new ItemBuilder(Material.BED).setDisplayName("§2BedWars").build());
     }
