@@ -84,41 +84,6 @@ public class MapService {
         }
     }
 
-    /**
-     * Get a location from a serialized location.
-     * @param locationMap The serialized location
-     * @return The converted location
-     */
-
-    public Location getLocationFromMap(HashMap<String, Object> locationMap) {
-        double x = 0;
-        double y = 0;
-        double z = 0;
-        float yaw = 0;
-        float pitch = 0;
-
-        for (Map.Entry<String, Object> entrySet : locationMap.entrySet()) {
-            switch (entrySet.getKey()) {
-                case "x":
-                    x = (double) entrySet.getValue();
-                    break;
-                case "y":
-                    y = (double) entrySet.getValue();
-                    break;
-                case "z":
-                    z = (double) entrySet.getValue();
-                    break;
-                case "yaw":
-                    yaw = (float) entrySet.getValue();
-                    break;
-                case "pitch":
-                    pitch = (float) entrySet.getValue();
-                    break;
-            }
-        }
-        return new Location(Bukkit.getWorlds().get(0), x, y, z, yaw, pitch);
-    }
-
     public Optional<LobbyMap> getLobbyMap() {
         return lobbyMap;
     }
