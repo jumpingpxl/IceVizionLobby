@@ -31,7 +31,8 @@ public class FriendUtil {
                 inventory.setItem(i,new CustomPlayerHeadBuilder()
                         .setSkullType(CustomPlayerHeadBuilder.SkullType.PLAYER)
                         .setSkinOverValues(player.getSkinValue(), "")
-                        .addLore("§7Befindet sich auf: §e" + player.getSpigot().getDisplayName())
+                        .addLore(player.getSpigot() == null ? "§cFehler" :
+                                "§7Befindet sich auf: §e" + player.getSpigot().getDisplayName())
                         .setDisplayName(player.getFullUsername()).build());
             } else {
                 inventory.setItem(i, new CustomPlayerHeadBuilder()
