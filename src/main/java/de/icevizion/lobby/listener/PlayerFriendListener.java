@@ -53,7 +53,7 @@ public class PlayerFriendListener implements Listener {
             
             if (friendProfile != null && friendProfile.getFriendInventory() != null) {
                 plugin.getFriendUtil().updateInventory(event.getFriendPlayer(), plugin.getItemUtil().getFriendLayout(),
-                        playerProfile.getFriendInventory());
+                        friendProfile.getFriendInventory());
             }
         }
     }
