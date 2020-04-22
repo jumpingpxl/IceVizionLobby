@@ -2,7 +2,11 @@ package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.utils.LobbyUtil;
-import net.titan.spigot.event.*;
+import net.titan.spigot.event.NetworkPlayerServerSwitchedEvent;
+import net.titan.spigot.event.SpigotAvailableEvent;
+import net.titan.spigot.event.SpigotUnavailableEvent;
+import net.titan.spigot.event.NetworkPlayerJoinEvent;
+import net.titan.spigot.event.NetworkPlayerQuitEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
