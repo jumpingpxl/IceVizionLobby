@@ -1,7 +1,7 @@
 package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
-import de.icevizion.lobby.utils.SettingsUtil;
+import de.icevizion.lobby.utils.SettingsWrapper;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
@@ -29,7 +29,7 @@ public class PlayerJoinListener implements Listener {
         plugin.getProfileCache().addProfile(cloudPlayer.getPlayer());
         plugin.getVisibilityUtil().hideOnJoin(plugin, cloudPlayer.getPlayer());
         plugin.getVisibilityUtil().changeVisibility(
-                cloudPlayer, cloudPlayer.getSetting(SettingsUtil.PLAYER_VISIBILITY));
+                cloudPlayer, cloudPlayer.getSetting(SettingsWrapper.PLAYER_VISIBILITY.getID()));
 
         if (cloudPlayer.getField("tos") == null) {
             Bukkit.getScheduler().runTaskLater(plugin, () ->

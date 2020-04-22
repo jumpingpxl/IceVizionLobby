@@ -61,10 +61,10 @@ public class InventoryUtil {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
-        int privateMessage = player.getSetting(SettingsUtil.PRIVAT_MESSAGE);
-        int party = player.getSetting(SettingsUtil.PARTY);
-        int friend = player.getSetting(SettingsUtil.PLAYER_VISIBILITY);
-        int jump = player.getSetting(SettingsUtil.JUMP);
+        int privateMessage = player.getSetting(SettingsWrapper.PRIVATE_MESSAGE.getID());
+        int party = player.getSetting(SettingsWrapper.PARTY.getID());
+        int friend = player.getSetting(SettingsWrapper.PLAYER_VISIBILITY.getID());
+        int jump = player.getSetting(SettingsWrapper.JUMP.getID());
 
         plugin.getSettingsUtil().setState(inventory, 0, privateMessage,false);
         plugin.getSettingsUtil().setState(inventory, 9, party, false);

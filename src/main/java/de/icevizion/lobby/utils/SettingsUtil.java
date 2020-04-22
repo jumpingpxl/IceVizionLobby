@@ -47,7 +47,7 @@ public class SettingsUtil {
 
             setState(inventory, category, newValue, false);
             cloudPlayer.getPlayer().updateInventory();
-            cloudPlayer.setSetting(wrapper.getSettingsID(), newValue);
+            cloudPlayer.setSetting(wrapper.getID(), newValue);
 
             handleSettingsChange(cloudPlayer, wrapper, newValue);
         }
