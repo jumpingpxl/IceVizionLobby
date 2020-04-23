@@ -23,16 +23,17 @@ public class PlayerInteractListener implements Listener {
         event.setCancelled(true);
         Player player = event.getPlayer();
 
-        if (event.getItem() == null) return;
-        if (!event.getItem().hasItemMeta()) return;
-        if (!event.getItem().getItemMeta().hasDisplayName()) return;
-
         if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && (event.getClickedBlock().getType().equals(Material.ENDER_CHEST))) {
             if (LocationUtil.compare(event.getClickedBlock().getLocation(), plugin.getMapService().getLobbyMap().get().getDailyChest(), false)) {
                 event.setCancelled(true);
                 plugin.getDailyRewardUtil().checkDailyReward(plugin.getPrefix(), player);
             }
         }
+
+        if (event.getItem() == null) return;
+        if (!event.getItem().hasItemMeta()) return;
+        if (!event.getItem().getItemMeta().hasDisplayName()) return;
+
 
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
             String displayName = event.getItem().getItemMeta().getDisplayName();
