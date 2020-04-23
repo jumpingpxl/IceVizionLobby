@@ -20,7 +20,6 @@ public class PlayerInteractListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        event.setCancelled(true);
         Player player = event.getPlayer();
 
         if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && (event.getClickedBlock().getType().equals(Material.ENDER_CHEST))) {
@@ -29,6 +28,8 @@ public class PlayerInteractListener implements Listener {
                 plugin.getDailyRewardUtil().checkDailyReward(plugin.getPrefix(), player);
             }
         }
+
+        event.setCancelled(true);
 
         if (event.getItem() == null) return;
         if (!event.getItem().hasItemMeta()) return;
