@@ -24,7 +24,7 @@ public class PlayerInteractListener implements Listener {
 
         if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && (event.getClickedBlock().getType().equals(Material.ENDER_CHEST))) {
             if (LocationUtil.compare(event.getClickedBlock().getLocation(), plugin.getMapService().getLobbyMap().get().getDailyChest(), false)) {
-                event.setCancelled(true);
+                event.setCancelled(false);
                 plugin.getDailyRewardUtil().checkDailyReward(plugin.getPrefix(), player);
             }
         }
