@@ -1,6 +1,8 @@
 package de.icevizion.lobby.listener;
 
+import de.icevizion.aves.util.LocationUtil;
 import de.icevizion.lobby.Lobby;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +26,13 @@ public class PlayerInteractListener implements Listener {
         if (event.getItem() == null) return;
         if (!event.getItem().hasItemMeta()) return;
         if (!event.getItem().getItemMeta().hasDisplayName()) return;
+
+        if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && (event.getClickedBlock().getType().equals(Material.ENDER_CHEST))) {
+            if (LocationUtil.compare(event.getClickedBlock().getLocation(), plugin.getMapService().getLobbyMap().get().getDailyChest(), false)) {
+                event.setCancelled(true);
+                plugin.getDailyRewardUtil().checkDailyReward(plugin.getPrefix(), player);
+            }
+        }
 
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || (event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
             String displayName = event.getItem().getItemMeta().getDisplayName();
