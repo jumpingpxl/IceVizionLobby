@@ -34,7 +34,7 @@ public class FriendUtil {
                                 "§7Befindet sich auf: §e" + player.getSpigot().getDisplayName())
                         .setDisplayName(player.getFullUsername()).build());
             } else {
-                inventory.setItem(i, new SkullBuilder()
+                inventory.setItem(i, new SkullBuilder(SkullBuilder.SkullType.SKELETON)
                         .setDisplayName(player.getFullUsername())
                         .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(player.getLastLogout())).build());
             }

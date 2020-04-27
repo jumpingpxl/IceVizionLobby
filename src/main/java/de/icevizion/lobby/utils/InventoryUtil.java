@@ -121,7 +121,7 @@ public class InventoryUtil {
                         .addLore("§7Befindet sich auf: §e" + cloudPlayer.getSpigot().getDisplayName())
                         .setDisplayName(cloudPlayer.getFullUsername()).build());
             } else {
-                inventory.addItem(new SkullBuilder()
+                inventory.addItem(new SkullBuilder(SkullBuilder.SkullType.SKELETON)
                         .setDisplayName(cloudPlayer.getFullUsername())
                         .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(cloudPlayer.getLastLogout())).build());
             }
