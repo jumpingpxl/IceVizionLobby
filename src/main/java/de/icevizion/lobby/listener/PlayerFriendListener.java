@@ -9,12 +9,9 @@ import net.titan.spigot.event.NetworkPlayerJoinEvent;
 import net.titan.spigot.event.NetworkPlayerQuitEvent;
 import net.titan.spigot.event.NetworkPlayerServerSwitchedEvent;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
-
-import java.util.Map;
 
 public class PlayerFriendListener implements Listener {
 
