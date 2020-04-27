@@ -4,6 +4,7 @@ import de.icevizion.aves.util.LocationUtil;
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -51,6 +52,7 @@ public class PlayerInteractListener implements Listener {
                         player.offlineExtradataSet("profile", inventory);
                         player.getPlayer().openInventory(inventory);
                     } else {
+                        Bukkit.broadcastMessage("Fetched wrong offline data");
                         player.getPlayer().openInventory((Inventory)player.offlineExtradataGet("profile"));
                     }
                     break;
