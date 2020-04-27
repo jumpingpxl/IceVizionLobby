@@ -62,12 +62,12 @@ public class PlayerInventoryListener implements Listener {
                 break;
             case "Freunde":
                 if (displayName.equals("Einstellungen")) {
-                    if (!cloudPlayer.extradataContains("settings")) {
+                    if (!cloudPlayer.offlineExtradataContains("settings")) {
                         Inventory inventory = plugin.getInventoryUtil().createPanelInventory(cloudPlayer);
-                        cloudPlayer.extradataSet("settings", inventory);
+                        cloudPlayer.offlineExtradataSet("settings", inventory);
                         player.openInventory(inventory);
                     } else {
-                        player.openInventory((Inventory) cloudPlayer.extradataGet("settings"));
+                        player.openInventory((Inventory) cloudPlayer.offlineExtradataGet("settings"));
                     }
                 }
 

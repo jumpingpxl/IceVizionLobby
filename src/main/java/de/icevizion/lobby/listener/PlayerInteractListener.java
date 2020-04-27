@@ -46,12 +46,12 @@ public class PlayerInteractListener implements Listener {
                     player.getPlayer().openInventory(plugin.getInventoryUtil().getTeleporter());
                     break;
                 case "§aProfil":
-                    if (!player.extradataContains("profile")) {
+                    if (!player.offlineExtradataContains("profile")) {
                         Inventory inventory = plugin.getInventoryUtil().createFriendInventory(player);
                         player.offlineExtradataSet("profile", inventory);
                         player.getPlayer().openInventory(inventory);
                     } else {
-                        player.getPlayer().openInventory((Inventory)player.extradataGet("profile"));
+                        player.getPlayer().openInventory((Inventory)player.offlineExtradataGet("profile"));
                     }
                     break;
                 case "§aLobby wechseln":
