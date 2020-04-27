@@ -1,7 +1,7 @@
 package de.icevizion.lobby.utils;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
-import de.icevizion.aves.item.CustomPlayerHeadBuilder;
+import de.icevizion.aves.item.SkullBuilder;
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.inventory.Inventory;
@@ -28,15 +28,13 @@ public class FriendUtil {
         for (int i = 0; i < 35 && i < sortedFriends.size(); i++) {
             CloudPlayer player = sortedFriends.get(i);
             if (player.isOnline()) {
-                inventory.setItem(i,new CustomPlayerHeadBuilder()
-                        .setSkullType(CustomPlayerHeadBuilder.SkullType.PLAYER)
+                inventory.setItem(i,new SkullBuilder()
                         .setSkinOverValues(player.getSkinValue(), "")
                         .addLore(player.getSpigot() == null ? "§cFehler" :
                                 "§7Befindet sich auf: §e" + player.getSpigot().getDisplayName())
                         .setDisplayName(player.getFullUsername()).build());
             } else {
-                inventory.setItem(i, new CustomPlayerHeadBuilder()
-                        .setSkullType(CustomPlayerHeadBuilder.SkullType.SKELETON)
+                inventory.setItem(i, new SkullBuilder()
                         .setDisplayName(player.getFullUsername())
                         .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(player.getLastLogout())).build());
             }

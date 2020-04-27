@@ -2,13 +2,14 @@ package de.icevizion.lobby.utils;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
-import de.icevizion.aves.item.CustomPlayerHeadBuilder;
 import de.icevizion.aves.item.ItemBuilder;
+import de.icevizion.aves.item.SkullBuilder;
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.Skull;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -97,8 +98,7 @@ public class InventoryUtil {
                     setDisplayName("§cKeiner möchte mit dir befreundet sein :(").build());
         } else {
             for (CloudPlayer request : friendProfile.getRequests()) {
-                inventory.addItem(new CustomPlayerHeadBuilder()
-                        .setSkullType(CustomPlayerHeadBuilder.SkullType.PLAYER)
+                inventory.addItem(new SkullBuilder()
                         .setSkinOverValues(request.getSkinValue(), "")
                         .setDisplayName(request.getFullDisplayName())
                         .build());
@@ -116,14 +116,12 @@ public class InventoryUtil {
         List<CloudPlayer> sortedFriends = plugin.getFriendUtil().sortPlayers(Cloud.getInstance().getPlayer(player));
         for (CloudPlayer cloudPlayer : sortedFriends) {
             if (cloudPlayer.isOnline()) {
-                inventory.addItem(new CustomPlayerHeadBuilder()
-                        .setSkullType(CustomPlayerHeadBuilder.SkullType.PLAYER)
+                inventory.addItem(new SkullBuilder()
                         .setSkinOverValues(cloudPlayer.getSkinValue(), "")
                         .addLore("§7Befindet sich auf: §e" + cloudPlayer.getSpigot().getDisplayName())
                         .setDisplayName(cloudPlayer.getFullUsername()).build());
             } else {
-                inventory.addItem(new CustomPlayerHeadBuilder()
-                        .setSkullType(CustomPlayerHeadBuilder.SkullType.SKELETON)
+                inventory.addItem(new SkullBuilder()
                         .setDisplayName(cloudPlayer.getFullUsername())
                         .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(cloudPlayer.getLastLogout())).build());
             }
