@@ -4,7 +4,6 @@ import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.cosmiqglow.component.friendsystem.spigot.FriendUpdateEvent;
 import de.icevizion.lobby.Lobby;
-import de.icevizion.lobby.profile.LobbyProfile;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.event.NetworkPlayerJoinEvent;
 import net.titan.spigot.event.NetworkPlayerQuitEvent;
@@ -13,6 +12,7 @@ import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.Inventory;
 
 import java.util.Map;
 
@@ -43,41 +43,33 @@ public class PlayerFriendListener implements Listener {
     public void onFriendUpdate(FriendUpdateEvent event) {
         if (event.getCloudPlayer().getSpigot().getDisplayName().startsWith("Lobby")
                 || event.getFriendPlayer().getSpigot().getDisplayName().startsWith("Lobby")) {
-            LobbyProfile playerProfile = plugin.getProfileCache().getProfile(event.getCloudPlayer().getPlayer());
-            LobbyProfile friendProfile = plugin.getProfileCache().getProfile(event.getFriendPlayer().getPlayer());
-            
-            if (playerProfile != null && playerProfile.getFriendInventory() != null) {
+
+            if (event.getCloudPlayer().offlineExtradataContains("profile")) {
                 plugin.getFriendUtil().updateInventory(event.getCloudPlayer(), plugin.getItemUtil().getFriendLayout(),
-                        playerProfile.getFriendInventory());
+                        (Inventory) event.getCloudPlayer().offlineExtradataGet("profile"));
             }
-            
-            if (friendProfile != null && friendProfile.getFriendInventory() != null) {
+
+            if (event.getFriendPlayer().offlineExtradataContains("profile")) {
                 plugin.getFriendUtil().updateInventory(event.getFriendPlayer(), plugin.getItemUtil().getFriendLayout(),
-                        friendProfile.getFriendInventory());
+                        (Inventory) event.getFriendPlayer().offlineExtradataGet("profile"));
             }
         }
     }
 
     private void updateInventory(CloudPlayer player) {
-        plugin.getProfileCache().getLock().lock();
-        try {
-            for (Map.Entry<Player, LobbyProfile> profileEntry : plugin.getProfileCache().getProfiles().entrySet()) {
-                if (profileEntry.getValue().getFriendInventory() != null) {
-                    CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(profileEntry.getKey());
+        for (CloudPlayer cloudPlayer : Cloud.getInstance().getCurrentOnlinePlayers()) {
+            if (cloudPlayer.offlineExtradataContains("profile")) {
+                if (cloudPlayer.isOnline()) {
+                    FriendProfile friendProfile = FriendSystem.getInstance().
+                            getFriendProfile(cloudPlayer);
 
-                    if (cloudPlayer.isOnline()) {
-                        FriendProfile friendProfile = FriendSystem.getInstance().
-                                getFriendProfile(cloudPlayer);
-
-                        if (friendProfile.getRawFriends().containsKey(player.getUuid())) {
-                            plugin.getFriendUtil().updateInventory(cloudPlayer, plugin.getItemUtil().getFriendLayout(),
-                                    profileEntry.getValue().getFriendInventory());
-                        }
+                    if (friendProfile.getRawFriends().containsKey(player.getUuid())) {
+                        plugin.getFriendUtil().updateInventory(cloudPlayer, plugin.getItemUtil().getFriendLayout(),
+                                (Inventory) cloudPlayer.offlineExtradataGet("profile"));
                     }
+
                 }
             }
-        } finally {
-            plugin.getProfileCache().getLock().unlock();
         }
     }
 }

@@ -1,7 +1,6 @@
 package de.icevizion.lobby.listener;
 
 import de.icevizion.lobby.Lobby;
-import de.icevizion.lobby.profile.LobbyProfile;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
@@ -156,7 +155,6 @@ public class PlayerInventoryListener implements Listener {
     }
 
     private void handleAction(CloudPlayer cloudPlayer, ItemStack stack, String name, String displayName) {
-        LobbyProfile profile = plugin.getProfileCache().getProfile(cloudPlayer.getPlayer());
         switch (displayName) {
             case "Annehmen":
                 cloudPlayer.dispatchCommand("friend", new String[]{"accept", name});
@@ -172,8 +170,7 @@ public class PlayerInventoryListener implements Listener {
                 break;
             case "Freund entfernen":
                 cloudPlayer.dispatchCommand("friend", new String[]{"remove", name});
-                //Inventory updaten
-                profile.getFriendInventory().remove(stack);
+                ((Inventory)cloudPlayer.offlineExtradataGet("profile")).remove(stack);
                 break;
             default:
                 break;

@@ -4,10 +4,30 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.icevizion.aves.adapter.LocationTypeAdapter;
 import de.icevizion.lobby.commands.SetCommand;
+import de.icevizion.lobby.listener.EntityListener;
+import de.icevizion.lobby.listener.NetworkListener;
+import de.icevizion.lobby.listener.PlayerBlockListener;
+import de.icevizion.lobby.listener.PlayerDamageListener;
+import de.icevizion.lobby.listener.PlayerFoodListener;
+import de.icevizion.lobby.listener.PlayerFriendListener;
+import de.icevizion.lobby.listener.PlayerInteractListener;
+import de.icevizion.lobby.listener.PlayerInventoryListener;
+import de.icevizion.lobby.listener.PlayerItemListener;
+import de.icevizion.lobby.listener.PlayerJoinListener;
+import de.icevizion.lobby.listener.PlayerQuitListener;
+import de.icevizion.lobby.listener.PlayerSpawnListener;
+import de.icevizion.lobby.listener.WeatherListener;
 import de.icevizion.lobby.map.MapService;
-import de.icevizion.lobby.profile.ProfileCache;
-import de.icevizion.lobby.listener.*;
-import de.icevizion.lobby.utils.*;
+import de.icevizion.lobby.utils.DailyRewardUtil;
+import de.icevizion.lobby.utils.DoubleJumpService;
+import de.icevizion.lobby.utils.FriendUtil;
+import de.icevizion.lobby.utils.InventoryUtil;
+import de.icevizion.lobby.utils.ItemUtil;
+import de.icevizion.lobby.utils.LobbyUtil;
+import de.icevizion.lobby.utils.ScoreboardService;
+import de.icevizion.lobby.utils.SettingsUtil;
+import de.icevizion.lobby.utils.UselessChestService;
+import de.icevizion.lobby.utils.VisibilityUtil;
 import net.titan.lib.network.spigot.SpigotState;
 import net.titan.spigot.Cloud;
 import org.bukkit.Location;
@@ -32,7 +52,6 @@ public class Lobby extends JavaPlugin {
     private VisibilityUtil visibilityUtil;
     private SettingsUtil settingsUtil;
     private DailyRewardUtil dailyRewardUtil;
-    private ProfileCache profileCache;
     private DoubleJumpService doubleJumpService;
     private LobbyUtil lobbyUtil;
     private FriendUtil friendUtil;
@@ -51,7 +70,6 @@ public class Lobby extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        profileCache.getProfiles().clear();
     }
 
     private void load() {
@@ -59,7 +77,6 @@ public class Lobby extends JavaPlugin {
         this.itemUtil = new ItemUtil();
         this.settingsUtil = new SettingsUtil(this);
         this.inventoryUtil = new InventoryUtil(this);
-        this.profileCache = new ProfileCache();
         this.visibilityUtil = new VisibilityUtil();
         this.dailyRewardUtil = new DailyRewardUtil();
         this.doubleJumpService = new DoubleJumpService();
@@ -79,7 +96,7 @@ public class Lobby extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerInventoryListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerItemListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
-        getServer().getPluginManager().registerEvents(new PlayerQuitListener(profileCache), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerSpawnListener(mapService), this);
         getServer().getPluginManager().registerEvents(new WeatherListener(), this);
         getServer().getPluginManager().registerEvents(doubleJumpService, this);
@@ -112,10 +129,6 @@ public class Lobby extends JavaPlugin {
 
     public SettingsUtil getSettingsUtil() {
         return settingsUtil;
-    }
-
-    public ProfileCache getProfileCache() {
-        return profileCache;
     }
 
     public LobbyUtil getLobbyUtil() {
