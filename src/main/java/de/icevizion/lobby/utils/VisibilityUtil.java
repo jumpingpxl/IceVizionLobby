@@ -6,7 +6,6 @@ import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 public class VisibilityUtil {
 
@@ -43,7 +42,7 @@ public class VisibilityUtil {
         }
     }
 
-    public void hideOnJoin(Plugin plugin, Player joiningPlayer) {
+    public void hideOnJoin(Player joiningPlayer) {
         for (CloudPlayer cloudPlayers : Cloud.getInstance().getCurrentOnlinePlayers()) {
             switch (cloudPlayers.getSetting(SettingsWrapper.PLAYER_VISIBILITY.getID())) {
                 case 2:

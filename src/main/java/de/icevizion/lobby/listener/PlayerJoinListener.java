@@ -27,7 +27,7 @@ public class PlayerJoinListener implements Listener {
 
         plugin.getItemUtil().setItems(cloudPlayer);
         plugin.getProfileCache().addProfile(cloudPlayer.getPlayer());
-        plugin.getVisibilityUtil().hideOnJoin(plugin, cloudPlayer.getPlayer());
+        plugin.getVisibilityUtil().hideOnJoin(cloudPlayer.getPlayer());
         plugin.getVisibilityUtil().changeVisibility(
                 cloudPlayer, cloudPlayer.getSetting(SettingsWrapper.PLAYER_VISIBILITY.getID()));
 
