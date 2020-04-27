@@ -50,11 +50,10 @@ public final class DailyRewardUtil {
      * @param player The player to check
      */
 
-    public void checkDailyReward(String prefix, Player player) {
-        CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
-        if (canAccessReward(cloudPlayer)) {
-            Inventory inventory = buildInventory(cloudPlayer);
-            player.openInventory(inventory);
+    public void checkDailyReward(String prefix, CloudPlayer player) {
+        if (canAccessReward(player)) {
+            Inventory inventory = buildInventory(player);
+            player.getPlayer().openInventory(inventory);
         } else {
             player.sendMessage(prefix + "§cBitte komme morgen wieder, um deine tägliche Belohnung zu erhalten");
         }

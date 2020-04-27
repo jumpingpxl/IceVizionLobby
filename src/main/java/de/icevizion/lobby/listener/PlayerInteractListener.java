@@ -2,8 +2,9 @@ package de.icevizion.lobby.listener;
 
 import de.icevizion.aves.util.LocationUtil;
 import de.icevizion.lobby.Lobby;
+import net.titan.spigot.Cloud;
+import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -20,10 +21,12 @@ public class PlayerInteractListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
+        CloudPlayer player = Cloud.getInstance().getPlayer(event.getPlayer());
 
-        if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && (event.getClickedBlock().getType().equals(Material.ENDER_CHEST))) {
-            if (LocationUtil.compare(event.getClickedBlock().getLocation(), plugin.getMapService().getLobbyMap().get().getDailyChest(), false)) {
+        if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
+                && event.getClickedBlock().getType().equals(Material.ENDER_CHEST)) {
+            if (LocationUtil.compare(event.getClickedBlock().getLocation(),
+                    plugin.getMapService().getLobbyMap().get().getDailyChest(), false)) {
                 event.setCancelled(false);
                 plugin.getDailyRewardUtil().checkDailyReward(plugin.getPrefix(), player);
             }
@@ -40,22 +43,22 @@ public class PlayerInteractListener implements Listener {
             String displayName = event.getItem().getItemMeta().getDisplayName();
             switch (displayName) {
                 case "§bMinispiele":
-                    player.openInventory(plugin.getInventoryUtil().getTeleporter());
+                    player.getPlayer().openInventory(plugin.getInventoryUtil().getTeleporter());
                     break;
                 case "§aProfil":
-                    if (plugin.getProfileCache().getProfile(player).getFriendInventory() == null) {
+                    if (!player.extradataContains("profile")) {
                         Inventory inventory = plugin.getInventoryUtil().createFriendInventory(player);
-                        plugin.getProfileCache().getProfile(player).setFriendInventory(inventory);
-                        player.openInventory(inventory);
+                        player.offlineExtradataSet("profile", inventory);
+                        player.getPlayer().openInventory(inventory);
                     } else {
-                        player.openInventory(plugin.getProfileCache().getProfile(player).getFriendInventory());
+                        player.getPlayer().openInventory((Inventory)player.extradataGet("profile"));
                     }
                     break;
                 case "§aLobby wechseln":
                     if (plugin.getLobbyUtil().getCurrentSize() < 2) {
                         player.sendMessage(plugin.getPrefix() + "§cEs sind derzeit keine weiteren Lobbies online");
                     } else {
-                        player.openInventory(plugin.getLobbyUtil().getInventory());
+                        player.getPlayer().openInventory(plugin.getLobbyUtil().getInventory());
                     }
                     break;
             }

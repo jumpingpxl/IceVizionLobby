@@ -107,13 +107,13 @@ public class InventoryUtil {
         return inventory;
     }
 
-    public Inventory createFriendInventory(Player player) {
+    public Inventory createFriendInventory(CloudPlayer player) {
         Inventory inventory = Bukkit.createInventory(null, 54, "Freunde");
         for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getFriendLayout().entrySet()) {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
-        List<CloudPlayer> sortedFriends = plugin.getFriendUtil().sortPlayers(Cloud.getInstance().getPlayer(player));
+        List<CloudPlayer> sortedFriends = plugin.getFriendUtil().sortPlayers(player);
         for (CloudPlayer cloudPlayer : sortedFriends) {
             if (cloudPlayer.isOnline()) {
                 inventory.addItem(new SkullBuilder()
