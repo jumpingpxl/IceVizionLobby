@@ -41,12 +41,12 @@ public class PlayerFriendListener implements Listener {
         if (event.getCloudPlayer().getSpigot().getDisplayName().startsWith("Lobby")
                 || event.getFriendPlayer().getSpigot().getDisplayName().startsWith("Lobby")) {
 
-            if (event.getCloudPlayer().offlineExtradataContains("profile")) {
+            if (event.getCloudPlayer() != null && event.getCloudPlayer().offlineExtradataContains("profile")) {
                 plugin.getFriendUtil().updateInventory(event.getCloudPlayer(), plugin.getItemUtil().getFriendLayout(),
                         (Inventory) event.getCloudPlayer().offlineExtradataGet("profile"));
             }
 
-            if (event.getFriendPlayer().offlineExtradataContains("profile")) {
+            if (event.getFriendPlayer() != null && event.getFriendPlayer().offlineExtradataContains("profile")) {
                 plugin.getFriendUtil().updateInventory(event.getFriendPlayer(), plugin.getItemUtil().getFriendLayout(),
                         (Inventory) event.getFriendPlayer().offlineExtradataGet("profile"));
             }
