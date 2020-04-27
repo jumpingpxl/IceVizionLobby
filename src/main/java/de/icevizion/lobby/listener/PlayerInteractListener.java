@@ -52,7 +52,6 @@ public class PlayerInteractListener implements Listener {
                         player.offlineExtradataSet("profile", inventory);
                         player.getPlayer().openInventory(inventory);
                     } else {
-                        Bukkit.broadcastMessage("Fetched wrong offline data");
                         player.getPlayer().openInventory((Inventory)player.offlineExtradataGet("profile"));
                     }
                     break;

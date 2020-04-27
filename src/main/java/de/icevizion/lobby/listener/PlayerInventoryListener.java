@@ -67,7 +67,6 @@ public class PlayerInventoryListener implements Listener {
                         cloudPlayer.offlineExtradataSet("settings", inventory);
                         player.openInventory(inventory);
                     } else {
-                        Bukkit.broadcastMessage("Fetched wrong offline data");
                         player.openInventory((Inventory) cloudPlayer.offlineExtradataGet("settings"));
                     }
                 }
