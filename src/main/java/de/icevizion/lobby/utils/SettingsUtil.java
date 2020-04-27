@@ -12,13 +12,7 @@ import org.bukkit.material.Dye;
 public class SettingsUtil {
 
     private final Lobby plugin;
-
     private static final int CLICK_OFFSET = 6;
-
-    protected static final int PRIVAT_MESSAGE = 100;
-    protected static final int PARTY = 101;
-    public static final int PLAYER_VISIBILITY = 102;
-    protected static final int JUMP = 103;
 
     public SettingsUtil(Lobby plugin) {
         this.plugin = plugin;
