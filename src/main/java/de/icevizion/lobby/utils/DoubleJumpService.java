@@ -1,7 +1,5 @@
 package de.icevizion.lobby.utils;
 
-import me.konsolas.aac.api.AACAPIProvider;
-import me.konsolas.aac.api.HackType;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.event.PlayerRankChangeEvent;
 import net.titan.spigot.event.RankReloadEvent;
@@ -33,8 +31,6 @@ public class DoubleJumpService implements Listener {
 
     public DoubleJumpService() {
         allowedPlayers = new HashSet<>();
-        if (Bukkit.getPluginManager().getPlugin("AAC") != null)
-            AACAPIProvider.getAPI().disableCheck(HackType.MOVE);
     }
 
     @EventHandler
