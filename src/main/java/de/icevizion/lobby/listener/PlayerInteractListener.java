@@ -4,7 +4,6 @@ import de.icevizion.aves.util.LocationUtil;
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
