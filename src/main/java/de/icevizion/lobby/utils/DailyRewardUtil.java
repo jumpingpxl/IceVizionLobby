@@ -2,12 +2,10 @@ package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ColoredBuilder;
 import de.icevizion.aves.item.ItemBuilder;
-import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -128,7 +126,7 @@ public final class DailyRewardUtil {
     }
 
     private void setValue(CloudPlayer player, String key, String prefix, int coins, int streak) {
-        coins = coins + 50 * streak;
+        coins = coins + (50 * streak);
         player.extradataSet(key, System.currentTimeMillis() + getRestDayTime());
         player.addCoins(coins);
         player.sendMessage(prefix + "§7Du hast §6" + coins + " §7Coins bekommen!" + (streak > 0
