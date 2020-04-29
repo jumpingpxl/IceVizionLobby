@@ -30,15 +30,17 @@ public class SetCommand implements CommandExecutor {
             if (args.length != 1) {
                 cloudPlayer.sendMessage(Messages.getSystemPrefix() +
                         "§7Bitte benutze §c/location <spawn,oneline,guessit,kbffa,bedwars,tnt>");
+                return true;
             } else {
                 if (args[0].isEmpty()) {
                     cloudPlayer.sendMessage(Messages.getSystemPrefix() +
-                            "§cBitte gebe spawn,oneline,guessit,kbffa,bedwars,tnt an");
+                            "§7Bitte benutze §c/location <spawn,oneline,guessit,kbffa,bedwars,tnt>");
                 } else {
                     mapService.setValue(args[0].toLowerCase(), cloudPlayer.getPlayer().getLocation());
                     cloudPlayer.sendMessage(Messages.getSystemPrefix() +
                             "§7Du hast die Location §6" + args[0] + " §7gesetzt");
                 }
+                return true;
             }
         }
         return true;
