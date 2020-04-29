@@ -44,14 +44,6 @@ public class LobbyMap {
         this.bedwars = bedwars;
     }
 
-    public void setUselessChest(Location uselessChest) {
-        this.uselessChest = uselessChest;
-    }
-
-    public void setDailyChest(Location dailyChest) {
-        this.dailyChest = dailyChest;
-    }
-
     public Location getKBFFA() {
         return kbffa;
     }
