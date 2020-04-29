@@ -4,7 +4,6 @@ import net.titan.spigot.Cloud;
 import net.titan.spigot.event.PlayerRankChangeEvent;
 import net.titan.spigot.event.RankReloadEvent;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.block.BlockFace;
