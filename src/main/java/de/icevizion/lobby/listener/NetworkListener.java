@@ -9,7 +9,6 @@ import net.titan.lib.redisevent.events.ServerAvailableEvent;
 import net.titan.lib.redisevent.events.ServerUnavailableEvent;
 import net.titan.spigot.Cloud;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 public class NetworkListener implements Listener {
@@ -20,7 +19,6 @@ public class NetworkListener implements Listener {
     public NetworkListener(LobbyUtil lobbyUtil, Lobby lobby) {
         this.lobbyUtil = lobbyUtil;
         this.lobby = lobby;
-
         initRedisEvents();
     }
 
@@ -28,13 +26,13 @@ public class NetworkListener implements Listener {
         Cloud.getInstance().getRedisEventManager().registerListener(PlayerJoinEvent.class, rEvent -> {
             PlayerJoinEvent joinEvent = (PlayerJoinEvent) rEvent;
 
-            updateLobbySlots();
+            lobbyUtil.updateSlot(joinEvent.getServer());
         });
 
         Cloud.getInstance().getRedisEventManager().registerListener(PlayerQuitEvent.class, rEvent -> {
             PlayerQuitEvent quitEvent = (PlayerQuitEvent) rEvent;
 
-            updateLobbySlots();
+            lobbyUtil.updateSlot(quitEvent.getServer());
         });
 
         Cloud.getInstance().getRedisEventManager().registerListener(PlayerServerSwitchEvent.class, rEvent -> {
@@ -42,76 +40,20 @@ public class NetworkListener implements Listener {
 
             //Delay this update because the event is too fast and sometimes redis has not the right data yet
             Bukkit.getScheduler().runTaskLater(lobby, () -> {
-                updateLobbySlots();
+                lobbyUtil.updateSlot(switchEvent.getFrom());
             }, 5);
         });
 
         Cloud.getInstance().getRedisEventManager().registerListener(ServerAvailableEvent.class, rEvent -> {
             ServerAvailableEvent availableEvent = (ServerAvailableEvent) rEvent;
 
-            updateLobbySlots();
+            lobbyUtil.updateSlots();
         });
 
         Cloud.getInstance().getRedisEventManager().registerListener(ServerUnavailableEvent.class, rEvent -> {
             ServerUnavailableEvent unavailableEvent = (ServerUnavailableEvent) rEvent;
 
-            updateLobbySlots();
+            lobbyUtil.updateSlots();
         });
     }
-
-    private void updateLobbySlots() {
-        lobbyUtil.updateSlots();
-        lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
-    }
-
-    /*
-    @EventHandler
-    public void onAvailable(SpigotAvailableEvent event) {
-        if (event.getSpigot().getDisplayName().startsWith("Lobby")) {
-            lobbyUtil.updateSlots();
-            lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
-        }
-    }
-
-    @EventHandler
-    public void onUnavailable(SpigotUnavailableEvent event) {
-        if (event.getSpigot().getDisplayName().startsWith("Lobby")) {
-            lobbyUtil.updateSlots();
-            lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
-        }
-    }
-
-    @EventHandler
-    public void onSwitch(NetworkPlayerServerSwitchedEvent event) {
-        //Delay this update because the event is too fast and sometimes redis has not the right data yet
-        Bukkit.getScheduler().runTaskLater(lobby, () -> {
-            lobbyUtil.updateSlots();
-            lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
-        }, 5);
-    }
-
-    @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        lobbyUtil.updateSlots();
-        lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
-    }
-
-    @EventHandler
-    public void onQuit(PlayerQuitEvent event) {
-        lobbyUtil.updateSlots();
-        lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
-    }
-
-    @EventHandler
-    public void onQuit(NetworkPlayerQuitEvent event) {
-        lobbyUtil.updateSlots();
-        lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
-    }
-
-    @EventHandler
-    public void onJoin(NetworkPlayerJoinEvent event) {
-        lobbyUtil.updateSlots();
-        lobbyUtil.getInventory().getViewers().forEach(humanEntity -> ((Player)humanEntity).updateInventory());
-    }
-    */
 }

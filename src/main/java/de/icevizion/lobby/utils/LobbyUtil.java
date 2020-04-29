@@ -13,17 +13,20 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 public class LobbyUtil {
 
-    private final ConcurrentHashMap<String, ItemStack> activeLobbies;
+    private final Map<String, ItemStack> activeLobbies;
+    private final ReentrantLock lock;
     private final Inventory inventory;
 
     public LobbyUtil() {
         this.inventory = Bukkit.createInventory(null, 27, "Waehle eine Lobby");
         this.inventory.setMaxStackSize(1);
-        this.activeLobbies = new ConcurrentHashMap<>();
+        this.activeLobbies = new HashMap<>();
+        this.lock = new ReentrantLock();
         this.loadLobbies();
     }
 
@@ -52,36 +55,46 @@ public class LobbyUtil {
         this.inventory.addItem(server);
     }
 
-    public void updateSlots() {
-        List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
-                .filter(clusterSpigot -> clusterSpigot.getDisplayName().startsWith("Lobby"))
-                .sorted(new SpigotComparator())
-                .collect(Collectors.toList());
-
-       // Bukkit.getLogger().info("Lobby Update!");
-       // lobbies.forEach((spigot)-> Bukkit.getLogger().info(spigot.getDisplayName()+" -> " + spigot.getPlayerCount()));
-        this.inventory.clear();
-        this.activeLobbies.clear();
-       // lobbies.forEach(this::removeLobby);
-        lobbies.forEach(this::addLobby);
-        this.inventory.getViewers().forEach(viewer-> {
-            Player player = (Player) viewer;
-            player.updateInventory();
-        });
-    }
-
     /**
-     * Removes a specific spigot from the service
-     * @param iClusterSpigot to remove
+     * Updates the current lobbies when a lobby starts or shutdown
      */
 
-    private void removeLobby(IClusterSpigot iClusterSpigot) {
-        ItemStack stack = this.activeLobbies.remove(iClusterSpigot.getUuid());
-        this.inventory.remove(stack);
-        this.inventory.getViewers().forEach(viewer-> {
-            Player player = (Player) viewer;
-            player.updateInventory();
-        });
+    public void updateSlots() {
+        lock.lock();
+        try {
+            List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
+                    .filter(clusterSpigot -> clusterSpigot.getDisplayName().startsWith("Lobby"))
+                    .sorted(new SpigotComparator())
+                    .collect(Collectors.toList());
+            this.inventory.clear();
+            this.activeLobbies.clear();
+            lobbies.forEach(this::addLobby);
+            this.inventory.getViewers().forEach(viewer-> {
+                Player player = (Player) viewer;
+                player.updateInventory();
+            });
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void updateSlot(String serverName) {
+        lock.lock();
+        try {
+            if (activeLobbies.containsKey(serverName)) {
+                IClusterSpigot iClusterSpigot = Cloud.getInstance().getSpigot(serverName);
+                new ItemBuilder(activeLobbies.get(serverName))
+                        .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build();
+            } else {
+                addLobby(Cloud.getInstance().getSpigot(serverName));
+            }
+            this.inventory.getViewers().forEach(viewer-> {
+                Player player = (Player) viewer;
+                player.updateInventory();
+            });
+        } finally {
+            lock.unlock();
+        }
     }
 
     /**
