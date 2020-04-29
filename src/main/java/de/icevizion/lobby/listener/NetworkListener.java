@@ -26,17 +26,24 @@ public class NetworkListener implements Listener {
         Cloud.getInstance().getRedisEventManager().registerListener(PlayerJoinEvent.class, rEvent -> {
             PlayerJoinEvent joinEvent = (PlayerJoinEvent) rEvent;
 
+            System.out.println("Player joined on Server " + joinEvent.getServer());
+
             lobbyUtil.updateSlot(joinEvent.getServer());
         });
 
         Cloud.getInstance().getRedisEventManager().registerListener(PlayerQuitEvent.class, rEvent -> {
             PlayerQuitEvent quitEvent = (PlayerQuitEvent) rEvent;
 
+            System.out.println("Player left on Server " + quitEvent.getServer());
+
             lobbyUtil.updateSlot(quitEvent.getServer());
         });
 
         Cloud.getInstance().getRedisEventManager().registerListener(PlayerServerSwitchEvent.class, rEvent -> {
             PlayerServerSwitchEvent switchEvent = (PlayerServerSwitchEvent) rEvent;
+
+            System.out.println("Player switched from " + switchEvent.getFrom());
+            System.out.println("Player switched to " + switchEvent.getTo());
 
             //Delay this update because the event is too fast and sometimes redis has not the right data yet
             Bukkit.getScheduler().runTaskLater(lobby, () -> {
@@ -52,6 +59,8 @@ public class NetworkListener implements Listener {
 
         Cloud.getInstance().getRedisEventManager().registerListener(ServerUnavailableEvent.class, rEvent -> {
             ServerUnavailableEvent unavailableEvent = (ServerUnavailableEvent) rEvent;
+
+            System.out.println("Lobby " + unavailableEvent.getServer() + " goes away");
 
             lobbyUtil.updateSlots();
         });
