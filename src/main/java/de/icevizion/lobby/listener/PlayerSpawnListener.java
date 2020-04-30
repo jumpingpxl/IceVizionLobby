@@ -27,7 +27,7 @@ public class PlayerSpawnListener implements Listener {
             } else {
                 event.setSpawnLocation(Location.deserialize((Map<String, Object>) cloudPlayer.extradataGet("location")));
             }
-        } else{
+        } else {
             mapService.getLobbyMap().ifPresent(map -> {
                 if (map.getSpawn() != null) {
                     event.setSpawnLocation(map.getSpawn());
