@@ -65,8 +65,6 @@ public class UselessChestService implements Listener {
         textStand.setCustomName("§6Sinnlose Kiste");
         textStand.setCustomNameVisible(true);
 
-        lobby.getLogger().log(Level.INFO, "Spawned UselessChest Armorstand at "+location);
-
         loadFromDatabase();
         startScheduler();
 
