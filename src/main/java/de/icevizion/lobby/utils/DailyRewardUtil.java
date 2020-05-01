@@ -19,7 +19,9 @@ public final class DailyRewardUtil {
     private static final ItemStack PLAYER_REWARD = new ColoredBuilder(ColoredBuilder.DyeType.DYE)
         .setColor(DyeColor.LIME).setDisplayName("§7Belohnung").build();
     private static final ItemStack PREMIUM_REWARD = new ItemBuilder(Material.GOLD_NUGGET).
-            setDisplayName("§6Premium Belohnung").build();;
+            setDisplayName("§6Premium Belohnung").build();
+    private static final ItemStack REWARD_CLAIMED = new ColoredBuilder(ColoredBuilder.DyeType.DYE)
+            .setColor(DyeColor.GRAY).setDisplayName("§7Belohnung wurde schon abgeholt").build();
     private static final long DAY_MILLIS = 1000*60*60*24;
 
     public Inventory buildInventory(CloudPlayer cloudPlayer) {
@@ -29,15 +31,30 @@ public final class DailyRewardUtil {
         }
 
         if (cloudPlayer.hasPermission("lobby.premiumreward")) {
-            inventory.setItem(12, PLAYER_REWARD);
-            inventory.setItem(14, PREMIUM_REWARD);
+            if ((long)cloudPlayer.extradataGet("daily") > System.currentTimeMillis()) {
+                inventory.setItem(12, REWARD_CLAIMED);
+            } else {
+                inventory.setItem(12, PLAYER_REWARD);
+            }
+
+            if ((long)cloudPlayer.extradataGet("daily-premium") > System.currentTimeMillis()) {
+                inventory.setItem(14, REWARD_CLAIMED);
+            } else {
+                inventory.setItem(14, PREMIUM_REWARD);
+            }
         } else {
-            inventory.setItem(13, PLAYER_REWARD);
+            if ((long)cloudPlayer.extradataGet("daily") > System.currentTimeMillis()) {
+                inventory.setItem(13, REWARD_CLAIMED);
+            } else {
+                inventory.setItem(13, PLAYER_REWARD);
+            }
         }
 
         for (int i = 18; i < 27; i++) {
             inventory.setItem(i, ItemUtil.PANE);
         }
+
+        cloudPlayer.offlineExtradataSet("dailyReward", inventory);
 
         return inventory;
     }

@@ -28,7 +28,11 @@ public class PlayerInteractListener implements Listener {
             if (LocationUtil.compare(event.getClickedBlock().getLocation(),
                     plugin.getMapService().getLobbyMap().get().getDailyChest(), false)) {
                 event.setCancelled(false);
-                plugin.getDailyRewardUtil().checkDailyReward(plugin.getPrefix(), player);
+                if (player.offlineExtradataContains("dailyReward")) {
+                    player.getPlayer().openInventory((Inventory) player.offlineExtradataGet("dailyReward"));
+                } else {
+                    player.getPlayer().openInventory(plugin.getDailyRewardUtil().buildInventory(player));
+                }
             }
         }
 
