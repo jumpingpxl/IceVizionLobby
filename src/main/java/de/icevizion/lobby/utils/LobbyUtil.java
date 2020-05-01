@@ -63,7 +63,7 @@ public class LobbyUtil {
         lock.lock();
         try {
             List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
-                    .filter(clusterSpigot -> clusterSpigot.getDisplayName().startsWith("Lobby"))
+                    .filter(clusterSpigot -> clusterSpigot.getServerType().equals("Lobby"))
                     .sorted(new SpigotComparator())
                     .collect(Collectors.toList());
             this.inventory.clear();
