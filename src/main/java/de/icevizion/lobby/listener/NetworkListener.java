@@ -38,6 +38,7 @@ public class NetworkListener implements Listener {
             //Delay this update because the event is too fast and sometimes redis has not the right data yet
             Bukkit.getScheduler().runTaskLater(lobby, () -> {
                 lobbyUtil.updateSlot(switchEvent.getFrom());
+                lobbyUtil.updateSlot(switchEvent.getTo());
             }, 5);
         });
 

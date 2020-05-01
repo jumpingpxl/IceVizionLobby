@@ -63,7 +63,7 @@ public class LobbyUtil {
         lock.lock();
         try {
             List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
-                    .filter(clusterSpigot -> clusterSpigot.getDisplayName().startsWith("Lobby"))
+                    .filter(clusterSpigot -> clusterSpigot.getServerType().equals("Lobby"))
                     .sorted(new SpigotComparator())
                     .collect(Collectors.toList());
             this.inventory.clear();
@@ -79,14 +79,18 @@ public class LobbyUtil {
     }
 
     public void updateSlot(String serverName) {
+        IClusterSpigot iClusterSpigot = Cloud.getInstance().getSpigot(serverName);
+        if (!iClusterSpigot.getServerType().equals("Lobby"))
+            return;
+
         lock.lock();
         try {
             if (activeLobbies.containsKey(serverName)) {
-                IClusterSpigot iClusterSpigot = Cloud.getInstance().getSpigot(serverName);
+
                 new ItemBuilder(activeLobbies.get(serverName))
                         .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build();
             } else {
-                addLobby(Cloud.getInstance().getSpigot(serverName));
+                addLobby(iClusterSpigot);
             }
             this.inventory.getViewers().forEach(viewer-> {
                 Player player = (Player) viewer;
