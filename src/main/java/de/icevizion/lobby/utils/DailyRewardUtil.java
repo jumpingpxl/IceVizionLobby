@@ -21,7 +21,7 @@ public final class DailyRewardUtil {
     private static final ItemStack PREMIUM_REWARD = new ItemBuilder(Material.GOLD_NUGGET).
             setDisplayName("§6Premium Belohnung").build();
     private static final ItemStack REWARD_CLAIMED = new ColoredBuilder(ColoredBuilder.DyeType.DYE)
-            .setColor(DyeColor.GRAY).setDisplayName("§7Belohnung wurde schon abgeholt").build();
+            .setColor(DyeColor.GRAY).setDisplayName("§cBelohnung wurde schon abgeholt").build();
     private static final long DAY_MILLIS = 1000*60*60*24;
 
     public Inventory buildInventory(CloudPlayer cloudPlayer) {
@@ -110,7 +110,7 @@ public final class DailyRewardUtil {
      * @param player The player who get the reward
      */
 
-    public void giveReward(CloudPlayer player, String prefix, String itemName) {
+    public void giveReward(CloudPlayer player, Inventory inventory, String prefix, String itemName) {
         int streak = getAndUpdateRewardStreak(player);
         long timestamp;
         switch (itemName) {
@@ -126,6 +126,13 @@ public final class DailyRewardUtil {
                         player.sendMessage(prefix + "§cDu hast deine Belohnung schon abgeholt");
                     }
                 }
+
+                if (player.hasPermission("daily-Premium")) {
+                    inventory.setItem(12, REWARD_CLAIMED);
+                } else{
+                    inventory.setItem(13, REWARD_CLAIMED);
+                }
+
                 break;
             case "Premium Belohnung":
                 if (!player.extradataContains("daily-premium")) {
@@ -138,6 +145,7 @@ public final class DailyRewardUtil {
                         player.sendMessage(prefix + "§cDu hast deine Belohnung schon abgeholt");
                     }
                 }
+                inventory.setItem(14, REWARD_CLAIMED);
                 break;
         }
     }
