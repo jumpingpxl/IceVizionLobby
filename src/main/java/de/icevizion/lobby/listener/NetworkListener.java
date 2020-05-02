@@ -47,8 +47,10 @@ public class NetworkListener implements Listener {
         });
 
         Cloud.getInstance().getRedisEventManager().registerListener(ServerUnavailableEvent.class, rEvent -> {
-            System.out.println("A lobby went down: " + ((ServerUnavailableEvent)rEvent).getServer());
-            lobbyUtil.updateSlots();
+            ServerUnavailableEvent event = (ServerUnavailableEvent) rEvent;
+            if (event.getServer().equalsIgnoreCase("Lobby")) {
+                lobbyUtil.updateSlots();
+            }
         });
     }
 }
