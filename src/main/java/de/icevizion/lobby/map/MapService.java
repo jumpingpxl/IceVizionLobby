@@ -2,6 +2,7 @@ package de.icevizion.lobby.map;
 
 import de.icevizion.aves.file.JsonFileLoader;
 import de.icevizion.lobby.Lobby;
+import io.sentry.Sentry;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -34,6 +35,7 @@ public class MapService {
                     return lobbyMap.get().getGuessIt();
             }
         }
+        Sentry.capture("The requested location is null. The name was " + name);
         return null;
     }
 
