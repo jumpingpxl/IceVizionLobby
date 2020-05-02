@@ -31,22 +31,22 @@ public final class DailyRewardUtil {
         }
 
         if (cloudPlayer.hasPermission("lobby.premiumreward")) {
-            if (cloudPlayer.offlineExtradataContains("daily")
-                    && (long) cloudPlayer.offlineExtradataGet("daily") > System.currentTimeMillis())  {
+            if (cloudPlayer.extradataContains("daily")
+                    && (long) cloudPlayer.extradataGet("daily") > System.currentTimeMillis())  {
                 inventory.setItem(12, REWARD_CLAIMED);
             } else {
                 inventory.setItem(12, PLAYER_REWARD);
             }
 
-            if (cloudPlayer.offlineExtradataContains("daily-premium")
-                    && (long) cloudPlayer.offlineExtradataGet("daily-premium") > System.currentTimeMillis())  {
+            if (cloudPlayer.extradataContains("daily-premium")
+                    && (long) cloudPlayer.extradataGet("daily-premium") > System.currentTimeMillis())  {
                 inventory.setItem(14, REWARD_CLAIMED);
             } else {
                 inventory.setItem(14, PREMIUM_REWARD);
             }
         } else {
-            if (cloudPlayer.offlineExtradataContains("daily")
-                    && (long) cloudPlayer.offlineExtradataGet("daily") > System.currentTimeMillis())  {
+            if (cloudPlayer.extradataContains("daily")
+                    && (long) cloudPlayer.extradataGet("daily") > System.currentTimeMillis())  {
                 inventory.setItem(13, REWARD_CLAIMED);
             } else {
                 inventory.setItem(13, PLAYER_REWARD);
