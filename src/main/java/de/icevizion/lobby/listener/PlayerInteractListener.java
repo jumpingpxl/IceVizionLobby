@@ -4,6 +4,7 @@ import de.icevizion.aves.util.LocationUtil;
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,10 +30,10 @@ public class PlayerInteractListener implements Listener {
                     plugin.getMapService().getLobbyMap().get().getDailyChest(), false)) {
                 event.setCancelled(false);
                 if (player.offlineExtradataContains("dailyReward")) {
-                    System.out.println("Loaded from cache");
+                    Bukkit.broadcastMessage("Loaded from cache");
                     player.getPlayer().openInventory((Inventory) player.offlineExtradataGet("dailyReward"));
                 } else {
-                    System.out.println("Created inventory");
+                    Bukkit.broadcastMessage("Created inventory");
                     player.getPlayer().openInventory(plugin.getDailyRewardUtil().buildInventory(player));
                 }
             }
