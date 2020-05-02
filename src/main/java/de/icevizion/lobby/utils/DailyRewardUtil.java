@@ -24,6 +24,12 @@ public final class DailyRewardUtil {
             .setColor(DyeColor.GRAY).setDisplayName("§cBelohnung wurde schon abgeholt").build();
     private static final long DAY_MILLIS = 1000*60*60*24;
 
+    /**
+     * Creates the view for the daily reward.-
+     * @param cloudPlayer The player for the view
+     * @return The created inventory
+     */
+
     public Inventory buildInventory(CloudPlayer cloudPlayer) {
         Inventory inventory = Bukkit.createInventory(null, 27, "Tägliche Belohnung");
         for (int i = 0; i < 9; i++) {
@@ -40,6 +46,12 @@ public final class DailyRewardUtil {
 
         return inventory;
     }
+
+    /**
+     * Checks if the dyes need to be updated for the reward.
+     * @param cloudPlayer The given player
+     * @param inventory The given inventory from the player
+     */
 
     public void updateDyes(CloudPlayer cloudPlayer, Inventory inventory) {
         if (cloudPlayer.hasPermission("lobby.premiumreward")) {
