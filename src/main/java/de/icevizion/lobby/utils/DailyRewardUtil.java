@@ -30,6 +30,18 @@ public final class DailyRewardUtil {
           inventory.setItem(i, ItemUtil.PANE);
         }
 
+        updateDyes(cloudPlayer, inventory);
+
+        for (int i = 18; i < 27; i++) {
+            inventory.setItem(i, ItemUtil.PANE);
+        }
+
+        cloudPlayer.offlineExtradataSet("dailyReward", inventory);
+
+        return inventory;
+    }
+
+    public void updateDyes(CloudPlayer cloudPlayer, Inventory inventory) {
         if (cloudPlayer.hasPermission("lobby.premiumreward")) {
             if (cloudPlayer.extradataContains("daily")
                     && (long) cloudPlayer.extradataGet("daily") > System.currentTimeMillis())  {
@@ -52,14 +64,6 @@ public final class DailyRewardUtil {
                 inventory.setItem(13, PLAYER_REWARD);
             }
         }
-
-        for (int i = 18; i < 27; i++) {
-            inventory.setItem(i, ItemUtil.PANE);
-        }
-
-        cloudPlayer.offlineExtradataSet("dailyReward", inventory);
-
-        return inventory;
     }
 
     /**
