@@ -56,6 +56,9 @@ public final class DailyRewardUtil {
         for (int i = 18; i < 27; i++) {
             inventory.setItem(i, ItemUtil.PANE);
         }
+
+        cloudPlayer.offlineExtradataSet("dailyReward", inventory);
+
         return inventory;
     }
 
@@ -110,7 +113,7 @@ public final class DailyRewardUtil {
      * @param player The player who get the reward
      */
 
-    public void giveReward(CloudPlayer player, String prefix, String itemName) {
+    public void giveReward(CloudPlayer player, Inventory inventory, String prefix, String itemName) {
         int streak = getAndUpdateRewardStreak(player);
         long timestamp;
         switch (itemName) {
@@ -126,6 +129,12 @@ public final class DailyRewardUtil {
                         player.sendMessage(prefix + "§cDu hast deine Belohnung schon abgeholt");
                     }
                 }
+
+                if (player.hasPermission("lobby.rewardPremium")) {
+                    inventory.setItem(12, REWARD_CLAIMED);
+                } else {
+                    inventory.setItem(13, REWARD_CLAIMED);
+                }
                 break;
             case "Premium Belohnung":
                 if (!player.extradataContains("daily-premium")) {
@@ -138,6 +147,7 @@ public final class DailyRewardUtil {
                         player.sendMessage(prefix + "§cDu hast deine Belohnung schon abgeholt");
                     }
                 }
+                inventory.setItem(14, REWARD_CLAIMED);
                 break;
         }
     }
