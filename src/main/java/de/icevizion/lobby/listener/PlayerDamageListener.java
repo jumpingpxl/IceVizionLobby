@@ -20,7 +20,7 @@ public class PlayerDamageListener implements Listener {
 
     @EventHandler
     public void onDamageOther(EntityDamageByEntityEvent event) {
-        if (event.getDamager() instanceof Player && (event.getDamager() instanceof Player)) {
+        if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
             CloudPlayer player = Cloud.getInstance().getPlayer((Player) event.getDamager());
             if (player.getPlayer().getItemInHand().getType().equals(Material.SKULL_ITEM)) {
                 CloudPlayer clickedPlayer = Cloud.getInstance().getPlayer((Player) event.getEntity());
