@@ -18,7 +18,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
 
 /**
  * @author Patrick Zdarsky / Rxcki
@@ -29,9 +28,8 @@ import java.util.logging.Level;
 public class UselessChestService implements Listener {
 
     private final Lobby lobby;
-
+    private final MongoCollection<Document> dataCollection;
     private ReentrantLock lock;
-    private MongoCollection<Document> dataCollection;
 
     private Chunk chunk;
     private long count;
@@ -127,14 +125,15 @@ public class UselessChestService implements Listener {
         if (armorStand == null)
             return;
 
-        armorStand.setCustomName("§3"+count+"§7x geöffnet!");
+        armorStand.setCustomName("§3" + count + "§7x geöffnet!");
     }
 
     private void increase() {
         lock.lock();
         try {
             count++;
-            dataCollection.updateOne(new Document("name", "UselessChest"), new Document("$inc", new Document("count", 1)));
+            dataCollection.updateOne(new Document("name", "UselessChest"),
+                    new Document("$inc", new Document("count", 1)));
             displayCurrentCount();
         } finally {
             lock.unlock();
