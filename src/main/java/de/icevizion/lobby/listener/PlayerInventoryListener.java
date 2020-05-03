@@ -84,13 +84,13 @@ public class PlayerInventoryListener implements Listener {
                 IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(displayName);
                 if (spigot == null) {
                     player.sendMessage(plugin.getPrefix() + "§cDieser Server ist nicht online");
-                }
-
-                if (cloudPlayer.getSpigot().getDisplayName().equals(spigot.getDisplayName())) {
-                    player.sendMessage(plugin.getPrefix() + "§cDu befindest dich schon auf dem Server");
-                    player.closeInventory();
                 } else {
-                    cloudPlayer.sendToServer(spigot);
+                    if (cloudPlayer.getSpigot().getDisplayName().equals(spigot.getDisplayName())) {
+                        player.sendMessage(plugin.getPrefix() + "§cDu befindest dich schon auf dem Server");
+                        player.closeInventory();
+                    } else {
+                        cloudPlayer.sendToServer(spigot);
+                    }
                 }
                 break;
             case "Freundesanfragen":
