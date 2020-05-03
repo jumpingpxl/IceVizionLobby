@@ -43,7 +43,6 @@ public class MapService {
         this.file = new File(Bukkit.getWorlds().get(0).getWorldFolder(), "map.json");
         if (file.exists()) {
             lobbyMap = JsonFileLoader.load(file, LobbyMap.class, Lobby.GSON);
-            Bukkit.getConsoleSender().sendMessage("Daten wurden geladen");
         } else {
             lobbyMap = Optional.of(new LobbyMap());
             JsonFileLoader.save(file, lobbyMap.get(), Lobby.GSON);
