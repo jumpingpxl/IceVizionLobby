@@ -16,7 +16,7 @@ public class ItemUtil {
 
     public static final ItemStack PANE = new ColoredBuilder(ColoredBuilder.DyeType.GLASS_PANE)
             .setColor(DyeColor.LIGHT_BLUE).setDisplayName("§0").build();
-    private final ItemStack teleporter, nick, chest, lobby;
+    private final ItemStack teleporter, lobby;
     private final Map<Integer, ItemStack> settingsLayout;
     private final Map<Integer, ItemStack> friendLayout;
     private final Map<Integer, ItemStack> friendRequests;
@@ -25,9 +25,7 @@ public class ItemUtil {
 
     public ItemUtil() {
         this.teleporter = new ItemBuilder(Material.NETHER_STAR).setDisplayName("§bMinispiele").build();
-        this.nick = new ItemBuilder(Material.NAME_TAG).setDisplayName("§5Nick").build();
         this.lobby = new ItemBuilder(Material.WATCH).setDisplayName("§aLobby wechseln").build();
-        this.chest = new ItemBuilder(Material.CHEST).setDisplayName("§aDein Inventar").build();
         this.settingsLayout = loadLayout();
         this.friendLayout = loadFriendLayout();
         this.friendRequests = loadRequestLayout();
@@ -158,13 +156,8 @@ public class ItemUtil {
         cloudPlayer.getPlayer().getInventory().clear();
 
         cloudPlayer.getPlayer().getInventory().setItem(0, teleporter);
-        cloudPlayer.getPlayer().getInventory().setItem(2, chest);
-        cloudPlayer.getPlayer().getInventory().setItem(6, lobby);
+        cloudPlayer.getPlayer().getInventory().setItem(4, lobby);
         cloudPlayer.getPlayer().getInventory().setItem(8, skull);
-
-       /* if (cloudPlayer.hasPermission("player.nick.auto")) {
-            cloudPlayer.getPlayer().getInventory().setItem(4, nick);
-        } */
     }
 
     /**
