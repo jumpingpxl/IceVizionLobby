@@ -79,52 +79,6 @@ public final class DailyRewardUtil {
     }
 
     /**
-     * Checks if a player can receive his daily reward
-     * @param prefix The prefix for the chat
-     * @param player The player to check
-     */
-
-    public void checkDailyReward(String prefix, CloudPlayer player) {
-        if (canAccessReward(player)) {
-            Inventory inventory = buildInventory(player);
-            player.getPlayer().openInventory(inventory);
-        } else {
-            player.sendMessage(prefix + "§cBitte komme morgen wieder, um deine tägliche Belohnung zu erhalten");
-        }
-    }
-
-    private boolean canAccessReward(CloudPlayer cloudPlayer) {
-        //Check if the player has never got his normal reward
-        if (!cloudPlayer.extradataContains("daily")) {
-            return true;
-        }
-
-        //Check if the player can get his normal reward again
-        long timestamp = (long) cloudPlayer.extradataGet("daily");
-        if (timestamp <= System.currentTimeMillis()) {
-            return true;
-        }
-
-        //End here if the player doesn't have permission for premium reward
-        if (!cloudPlayer.hasPermission("lobby.rewardPremium")) {
-            return false;
-        }
-
-        //Check if the player has never got his premium reward
-        if (!cloudPlayer.extradataContains("daily-premium")) {
-            return true;
-        }
-
-        //Check if the player can get his premium reward again
-        timestamp = (long) cloudPlayer.extradataGet("daily-premium");
-        if (timestamp <= System.currentTimeMillis()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Give the reward to a specific player
      * @param player The player who get the reward
      */
@@ -146,7 +100,7 @@ public final class DailyRewardUtil {
                     }
                 }
 
-                if (player.hasPermission("lobby.rewardPremium")) {
+                if (player.hasPermission("lobby.premiumreward")) {
                     inventory.setItem(12, REWARD_CLAIMED);
                 } else {
                     inventory.setItem(13, REWARD_CLAIMED);
