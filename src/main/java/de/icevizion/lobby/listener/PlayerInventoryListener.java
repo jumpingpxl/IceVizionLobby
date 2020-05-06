@@ -44,8 +44,10 @@ public class PlayerInventoryListener implements Listener {
         CloudPlayer cloudPlayer = Cloud.getInstance().getPlayer(player);
         ItemStack stack = event.getCurrentItem();
 
-        event.setCancelled(true);
+
         event.setResult(Event.Result.DENY);
+        event.setCancelled(true);
+
 
         //Don´t remove this line of code
         player.updateInventory();
@@ -76,8 +78,7 @@ public class PlayerInventoryListener implements Listener {
 
                 if (event.getSlot() == 47 || event.getSlot() == 51) return;
                 if (stack.getType().equals(Material.SKULL_ITEM)) {
-                    player.openInventory(plugin.getInventoryUtil().
-                            loadActionInventory(displayName, stack));
+                    player.openInventory(plugin.getInventoryUtil().loadActionInventory(displayName, stack));
                 }
                 break;
             case "Waehle eine Lobby":
@@ -87,11 +88,11 @@ public class PlayerInventoryListener implements Listener {
                 } else {
                     if (cloudPlayer.getSpigot().getDisplayName().equals(spigot.getDisplayName())) {
                         player.sendMessage(plugin.getPrefix() + "§cDu befindest dich schon auf dem Server");
-                        player.closeInventory();
                     } else {
                         cloudPlayer.sendToServer(spigot);
                     }
                 }
+                player.closeInventory();
                 break;
             case "Freundesanfragen":
                 if (!stack.getType().equals(Material.AIR)) {
