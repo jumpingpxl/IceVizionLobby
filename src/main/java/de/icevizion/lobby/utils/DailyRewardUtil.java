@@ -25,7 +25,7 @@ public final class DailyRewardUtil {
     private static final long DAY_MILLIS = 1000*60*60*24;
 
     /**
-     * Creates the view for the daily reward.-
+     * Creates the view for the daily reward.
      * @param cloudPlayer The player for the view
      * @return The created inventory
      */
@@ -79,7 +79,7 @@ public final class DailyRewardUtil {
     }
 
     /**
-     * Give the reward to a specific player
+     * Gives the reward to a specific player.
      * @param player The player who get the reward
      */
 
@@ -132,7 +132,7 @@ public final class DailyRewardUtil {
     }
 
     /**
-     * Get the rest time of the current day
+     * Get the rest time of the current day.
      * @return The rest time of the day
      */
 
@@ -145,7 +145,7 @@ public final class DailyRewardUtil {
     }
 
     /**
-     * Updates the reward streak of a specific player
+     * Updates the reward streak of a specific player.
      * @param cloudPlayer The player
      * @return The current streak
      */
@@ -155,10 +155,12 @@ public final class DailyRewardUtil {
                 ? (int) cloudPlayer.extradataGet("dailyStreak") : 0;
         long timestamp = cloudPlayer.extradataContains("daily")
                 ? (long) cloudPlayer.extradataGet("daily") : 0;
+        long premiumTimestamp = cloudPlayer.extradataContains("daily-premium") ?
+                (long) cloudPlayer.extradataGet("daily-premium") : 0;
 
         //The player can't even collect his reward currently
         // so just return the current streak
-        if (timestamp > System.currentTimeMillis())
+        if (timestamp > System.currentTimeMillis() || premiumTimestamp > System.currentTimeMillis())
             return currentStreak;
 
         //Check if last reward collection was over a day ago.
