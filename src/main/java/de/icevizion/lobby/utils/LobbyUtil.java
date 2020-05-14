@@ -37,7 +37,7 @@ public class LobbyUtil {
 
     private void loadLobbies() {
         for (ClusterSpigot spigot : Cloud.getInstance().getSpigots()) {
-            if (spigot.getDisplayName().startsWith("Lobby")) {
+            if (spigot.getServerType().equals("Lobby")) {
                 addLobby(spigot);
             }
         }
