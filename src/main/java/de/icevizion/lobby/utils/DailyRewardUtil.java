@@ -6,6 +6,7 @@ import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -123,6 +124,7 @@ public final class DailyRewardUtil {
     }
 
     private void setValue(CloudPlayer player, String key, String prefix, int coins, int streak) {
+        player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.NOTE_PLING, 1F, 1F);
         coins = coins + (50 * streak);
         player.extradataSet(key, System.currentTimeMillis() + getRestDayTime());
         player.addCoins(coins);
