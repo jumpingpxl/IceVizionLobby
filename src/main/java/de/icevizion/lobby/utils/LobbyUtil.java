@@ -81,7 +81,7 @@ public class LobbyUtil {
 
     public void updateSlot(String serverName) {
         IClusterSpigot iClusterSpigot = Cloud.getInstance().getSpigot(serverName);
-        if (!iClusterSpigot.getServerType().equals("Lobby"))
+        if (iClusterSpigot == null || !iClusterSpigot.getServerType().equals("Lobby"))
             return;
 
         lock.lock();
