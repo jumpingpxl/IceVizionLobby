@@ -52,8 +52,8 @@ public class LobbyUtil {
         ItemStack server =  new ItemBuilder(Material.GLOWSTONE_DUST)
                 .setDisplayName("§6" + iClusterSpigot.getDisplayName())
                 .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build();
-        this.activeLobbies.putIfAbsent(iClusterSpigot.getUuid(), server);
-        this.inventory.addItem(server);
+        activeLobbies.putIfAbsent(iClusterSpigot.getUuid(), server);
+        inventory.addItem(server);
     }
 
     /**
@@ -67,10 +67,10 @@ public class LobbyUtil {
                     .filter(clusterSpigot -> clusterSpigot.getServerType().equals("Lobby"))
                     .sorted(new SpigotComparator())
                     .collect(Collectors.toList());
-            this.inventory.clear();
-            this.activeLobbies.clear();
+            inventory.clear();
+            activeLobbies.clear();
             lobbies.forEach(this::addLobby);
-            this.inventory.getViewers().forEach(viewer-> {
+            inventory.getViewers().forEach(viewer-> {
                 Player player = (Player) viewer;
                 player.updateInventory();
             });
@@ -87,7 +87,6 @@ public class LobbyUtil {
         lock.lock();
         try {
             if (activeLobbies.containsKey(serverName)) {
-
                 new ItemBuilder(activeLobbies.get(serverName))
                         .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build();
             } else {
