@@ -4,19 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.icevizion.aves.adapter.LocationTypeAdapter;
 import de.icevizion.lobby.commands.SetCommand;
-import de.icevizion.lobby.listener.EntityListener;
-import de.icevizion.lobby.listener.NetworkListener;
-import de.icevizion.lobby.listener.PlayerBlockListener;
-import de.icevizion.lobby.listener.PlayerDamageListener;
-import de.icevizion.lobby.listener.PlayerFoodListener;
-import de.icevizion.lobby.listener.PlayerFriendListener;
-import de.icevizion.lobby.listener.PlayerInteractListener;
-import de.icevizion.lobby.listener.PlayerInventoryListener;
-import de.icevizion.lobby.listener.PlayerItemListener;
-import de.icevizion.lobby.listener.PlayerJoinListener;
-import de.icevizion.lobby.listener.PlayerQuitListener;
-import de.icevizion.lobby.listener.PlayerSpawnListener;
-import de.icevizion.lobby.listener.WeatherListener;
+import de.icevizion.lobby.listener.*;
 import de.icevizion.lobby.map.MapService;
 import de.icevizion.lobby.utils.DailyRewardUtil;
 import de.icevizion.lobby.utils.DoubleJumpService;
@@ -70,6 +58,7 @@ public class Lobby extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        uselessChestService.despawn();
     }
 
     private void load() {

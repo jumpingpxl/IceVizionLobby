@@ -34,6 +34,7 @@ public class UselessChestService implements Listener {
     private Chunk chunk;
     private long count;
     private ArmorStand armorStand;
+    private ArmorStand textStand;
 
     public UselessChestService(Lobby lobby) {
         this.lobby = lobby;
@@ -56,7 +57,7 @@ public class UselessChestService implements Listener {
         armorStand.setCustomNameVisible(true);
         armorStand.setVisible(false);
 
-        ArmorStand textStand = location.getWorld().spawn(location.clone().add(0.5, -0.4, 0.5), ArmorStand.class);
+        textStand = location.getWorld().spawn(location.clone().add(0.5, -0.4, 0.5), ArmorStand.class);
         textStand.setFireTicks(0);
         textStand.setGravity(false);
         textStand.setVisible(false);
@@ -70,6 +71,11 @@ public class UselessChestService implements Listener {
     }
 
     // =======
+
+    public void despawn() {
+        armorStand.remove();
+        textStand.remove();
+    }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onInteract(PlayerInteractEvent event) {
