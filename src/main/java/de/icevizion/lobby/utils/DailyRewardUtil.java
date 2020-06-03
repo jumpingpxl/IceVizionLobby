@@ -124,7 +124,7 @@ public final class DailyRewardUtil {
     }
 
     private void setValue(CloudPlayer player, String key, String prefix, int coins, int streak) {
-        player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.NOTE_PLING, 1F, 1F);
+        player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.LEVEL_UP, 1F, 1F);
         coins = coins + (50 * streak);
         player.extradataSet(key, System.currentTimeMillis() + getRestDayTime());
         player.addCoins(coins);
