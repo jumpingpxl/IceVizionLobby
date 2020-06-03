@@ -30,7 +30,6 @@ public class SetCommand implements CommandExecutor {
             if (args.length != 1) {
                 cloudPlayer.sendMessage(Messages.getSystemPrefix() +
                         "§7Bitte benutze §c/location <spawn,oneline,guessit,kbffa,bedwars,tnt>");
-                return true;
             } else {
                 if (args[0].isEmpty()) {
                     cloudPlayer.sendMessage(Messages.getSystemPrefix() +
@@ -40,8 +39,8 @@ public class SetCommand implements CommandExecutor {
                     cloudPlayer.sendMessage(Messages.getSystemPrefix() +
                             "§7Du hast die Location §6" + args[0] + " §7gesetzt");
                 }
-                return true;
             }
+            return true;
         }
         return true;
     }
