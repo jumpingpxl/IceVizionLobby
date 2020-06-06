@@ -13,7 +13,7 @@ import java.util.Map;
 public class FriendUtil {
 
     /**
-     * Updates the friend skulls in the given inventory
+     * Updates the friend skulls in the given inventory.
      * @param cloudPlayer The player
      * @param inventory The inventory to update
      */
@@ -41,6 +41,12 @@ public class FriendUtil {
         }
         cloudPlayer.getPlayer().updateInventory();
     }
+
+    /**
+     * Sort a player's list of friends by the players who are online.
+     * @param cloudPlayer The given player
+     * @return The sorted list
+     */
 
     public List<CloudPlayer> sortPlayers(CloudPlayer cloudPlayer) {
         List<CloudPlayer> sortedFriends = FriendSystem.getInstance().getFriendProfile(cloudPlayer).getFriends();
