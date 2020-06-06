@@ -90,16 +90,11 @@ public class InventoryUtil {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
-        if (friendProfile.getRequests().size() == 0) {
-            inventory.setItem(13, new ItemBuilder(Material.BARRIER).
-                    setDisplayName("§cKeiner möchte mit dir befreundet sein :(").build());
-        } else {
-            for (CloudPlayer request : friendProfile.getRequests()) {
-                inventory.addItem(new SkullBuilder()
-                        .setSkinOverValues(request.getSkinValue(), "")
-                        .setDisplayName(request.getFullDisplayName())
-                        .build());
-            }
+        for (CloudPlayer request : friendProfile.getRequests()) {
+            inventory.addItem(new SkullBuilder()
+                    .setSkinOverValues(request.getSkinValue(), "")
+                    .setDisplayName(request.getFullDisplayName())
+                    .build());
         }
         return inventory;
     }
