@@ -1,5 +1,6 @@
 package de.icevizion.lobby.listener;
 
+import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.icevizion.lobby.Lobby;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.spigot.Cloud;
@@ -72,11 +73,13 @@ public class PlayerInventoryListener implements Listener {
                     }
                 }
 
-                if (displayName.equals("Freundesanfragen")) {
+                if (displayName.equals("Freundesanfragen")
+                        && FriendSystem.getInstance().getFriendProfile(cloudPlayer).getRequests().size() != 0) {
                     player.openInventory(plugin.getInventoryUtil().createFriendRequestInventory(cloudPlayer));
+                } else {
+                    player.sendMessage(plugin.getPrefix() + "§cDu hast derzeit keine Anfragen");
                 }
 
-                if (event.getSlot() == 47 || event.getSlot() == 51) return;
                 if (stack.getType().equals(Material.SKULL_ITEM)) {
                     player.openInventory(plugin.getInventoryUtil().loadActionInventory(displayName, stack));
                 }
@@ -84,12 +87,13 @@ public class PlayerInventoryListener implements Listener {
             case "Waehle eine Lobby":
                 if (cloudPlayer.getSpigot().getDisplayName().equals(displayName)) {
                     player.sendMessage(plugin.getPrefix() + "§cDu befindest dich schon auf diesem Server");
-                }
-                IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(displayName);
-                if (spigot == null) {
-                    player.sendMessage(plugin.getPrefix() + "§cDieser Server ist nicht online");
                 } else {
-                    cloudPlayer.sendToServer(spigot);
+                    IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(displayName);
+                    if (spigot == null) {
+                        player.sendMessage(plugin.getPrefix() + "§cDieser Server ist nicht online");
+                    } else {
+                        cloudPlayer.sendToServer(spigot);
+                    }
                 }
                 player.closeInventory();
                 break;
