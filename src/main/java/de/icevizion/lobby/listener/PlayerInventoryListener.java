@@ -119,7 +119,7 @@ public class PlayerInventoryListener implements Listener {
             case "Nutzungsbedingungen":
                 switch (displayName) {
                     case "Annehmen":
-                        player.sendMessage(plugin.getPrefix() + "§7Du hast die §aNutzungsbedigungen §aaktzeptiert");
+                        player.sendMessage(plugin.getPrefix() + "§7Du hast die §aNutzungsbedigungen §aakzeptiert");
                         cloudPlayer.setField("tos", System.currentTimeMillis());
                         player.closeInventory();
                         break;
