@@ -76,8 +76,6 @@ public class PlayerInventoryListener implements Listener {
                 if (displayName.equals("Freundesanfragen")
                         && FriendSystem.getInstance().getFriendProfile(cloudPlayer).getRequests().size() != 0) {
                     player.openInventory(plugin.getInventoryUtil().createFriendRequestInventory(cloudPlayer));
-                } else {
-                    player.sendMessage(plugin.getPrefix() + "§cDu hast derzeit keine Anfragen");
                 }
 
                 if (stack.getType().equals(Material.SKULL_ITEM)) {
@@ -85,7 +83,7 @@ public class PlayerInventoryListener implements Listener {
                 }
                 break;
             case "Waehle eine Lobby":
-                if (cloudPlayer.getSpigot().getDisplayName().equals(displayName)) {
+                    if (cloudPlayer.getSpigot().getDisplayName().equals(displayName)) {
                     player.sendMessage(plugin.getPrefix() + "§cDu befindest dich schon auf diesem Server");
                 } else {
                     IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(displayName);
