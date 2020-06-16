@@ -84,6 +84,7 @@ public class LobbyUtil {
                     .sorted(new SpigotComparator())
                     .collect(Collectors.toList());
             clearLobbySlots();
+            currentSlot = 11;
             activeLobbies.clear();
             lobbies.forEach(this::addLobby);
             inventory.getViewers().forEach(viewer-> {
