@@ -67,6 +67,7 @@ public class LobbyUtil {
                 .setDisplayName("§6" + iClusterSpigot.getDisplayName())
                 .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build();
         activeLobbies.putIfAbsent(iClusterSpigot.getUuid(), server);
+        System.out.println(currentSlot);
         inventory.setItem(currentSlot, server);
         currentSlot++;
     }
