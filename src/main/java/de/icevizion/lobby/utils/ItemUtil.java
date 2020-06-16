@@ -77,8 +77,8 @@ public class ItemUtil {
         for (int i = 36; i < 45; i++) {
             layout.put(i, PANE);
         }
-        layout.put(49, new ItemBuilder(Material.EMERALD).setDisplayName("Freundesanfragen").build());
-        layout.put(53, new ItemBuilder(Material.REDSTONE_COMPARATOR).setDisplayName("§cEinstellungen").build());
+        layout.put(47 , new ItemBuilder(Material.EMERALD).setDisplayName("§aFreundesanfragen").build());
+        layout.put(51, new ItemBuilder(Material.REDSTONE_COMPARATOR).setDisplayName("§cEinstellungen").build());
         return layout;
     }
 

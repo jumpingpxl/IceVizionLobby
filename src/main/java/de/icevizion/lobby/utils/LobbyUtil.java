@@ -23,12 +23,26 @@ public class LobbyUtil {
     private final ReentrantLock lock;
     private final Inventory inventory;
 
+    private int currentSlot;
+
     public LobbyUtil() {
+        this.currentSlot = 11;
         this.inventory = Bukkit.createInventory(null, 27, "Waehle eine Lobby");
         this.inventory.setMaxStackSize(1);
         this.activeLobbies = new HashMap<>();
         this.lock = new ReentrantLock();
+        this.loadLayout();
         this.loadLobbies();
+
+    }
+
+    private void loadLayout() {
+        inventory.setItem(0, ItemUtil.PANE);
+        inventory.setItem(8, ItemUtil.PANE);
+        inventory.setItem(9, ItemUtil.PANE);
+        inventory.setItem(17, ItemUtil.PANE);
+        inventory.setItem(18, ItemUtil.PANE);
+        inventory.setItem(26, ItemUtil.PANE);
     }
 
     /**
@@ -53,7 +67,8 @@ public class LobbyUtil {
                 .setDisplayName("§6" + iClusterSpigot.getDisplayName())
                 .addLore("§a" + iClusterSpigot.getPlayerCount() + " §fSpieler online").build();
         activeLobbies.putIfAbsent(iClusterSpigot.getUuid(), server);
-        inventory.addItem(server);
+        inventory.setItem(currentSlot, server);
+        currentSlot++;
     }
 
     /**
@@ -67,7 +82,7 @@ public class LobbyUtil {
                     .filter(clusterSpigot -> clusterSpigot.getServerType().equals("Lobby"))
                     .sorted(new SpigotComparator())
                     .collect(Collectors.toList());
-            inventory.clear();
+            clearLobbySlots();
             activeLobbies.clear();
             lobbies.forEach(this::addLobby);
             inventory.getViewers().forEach(viewer-> {
@@ -76,6 +91,12 @@ public class LobbyUtil {
             });
         } finally {
             lock.unlock();
+        }
+    }
+
+    private void clearLobbySlots() {
+        for (int i = 11; i <= 15; i++) {
+            inventory.remove(inventory.getItem(i));
         }
     }
 
