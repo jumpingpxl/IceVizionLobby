@@ -9,15 +9,18 @@ import org.bukkit.entity.Player;
 
 public class VisibilityUtil {
 
+    /**
+     * Changes a player's visibility to the specified value.
+     * @param cloudPlayer Player from which the visibility should be changed
+     * @param value New state of visibility
+     */
+
     public void changeVisibility(CloudPlayer cloudPlayer, int value) {
         Player player = cloudPlayer.getPlayer();
         switch (value) {
             case 0:
-                for (Player online : Bukkit.getOnlinePlayers()) {
-                    if (player == online) continue;
-                    if (!player.canSee(online)) {
-                        player.showPlayer(online);
-                    }
+                for (Player online : cloudPlayer.getPlayer().spigot().getHiddenPlayers()) {
+                    cloudPlayer.getPlayer().showPlayer(online);
                 }
                 break;
             case 1:
@@ -33,8 +36,7 @@ public class VisibilityUtil {
                 break;
             case 2:
                 for (Player online : Bukkit.getOnlinePlayers()) {
-                    if (player == online) continue;
-                    if (player.canSee(online)) {
+                    if (player != online && player.canSee(online)) {
                         player.hidePlayer(online);
                     }
                 }
