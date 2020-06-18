@@ -14,7 +14,8 @@ public class LobbyMap {
 
     public LobbyMap() { }
 
-    public LobbyMap(Location spawn, Location oneline, Location guessit, Location kbffa, Location bedwars, Location uselessChest, Location dailyChest) {
+    public LobbyMap(Location spawn, Location oneline, Location guessit, Location kbffa, Location bedwars,
+                    Location uselessChest, Location dailyChest) {
         this.spawn = spawn;
         this.oneline = oneline;
         this.guessit = guessit;
