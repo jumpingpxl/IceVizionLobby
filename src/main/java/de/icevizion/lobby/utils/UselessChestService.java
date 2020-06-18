@@ -3,6 +3,7 @@ package de.icevizion.lobby.utils;
 import com.mongodb.client.MongoCollection;
 import de.icevizion.aves.util.LocationUtil;
 import de.icevizion.lobby.Lobby;
+import io.sentry.Sentry;
 import net.titan.spigot.Cloud;
 import org.bson.Document;
 import org.bukkit.Bukkit;
@@ -47,27 +48,30 @@ public class UselessChestService implements Listener {
 
         location.getWorld().loadChunk(chunk);
 
-        if (location == null)
-            return;
+        if (location != null) {
 
-        armorStand = location.getWorld().spawn(location.clone().add(0.5, -0.75, 0.5), ArmorStand.class);
-        armorStand.setFireTicks(0);
-        armorStand.setGravity(false);
-        armorStand.setCustomName("Test");
-        armorStand.setCustomNameVisible(true);
-        armorStand.setVisible(false);
 
-        textStand = location.getWorld().spawn(location.clone().add(0.5, -0.4, 0.5), ArmorStand.class);
-        textStand.setFireTicks(0);
-        textStand.setGravity(false);
-        textStand.setVisible(false);
-        textStand.setCustomName("§6Sinnlose Kiste");
-        textStand.setCustomNameVisible(true);
+            armorStand = location.getWorld().spawn(location.clone().add(0.5, -0.75, 0.5), ArmorStand.class);
+            armorStand.setFireTicks(0);
+            armorStand.setGravity(false);
+            armorStand.setCustomName("Test");
+            armorStand.setCustomNameVisible(true);
+            armorStand.setVisible(false);
 
-        loadFromDatabase();
-        startScheduler();
+            textStand = location.getWorld().spawn(location.clone().add(0.5, -0.4, 0.5), ArmorStand.class);
+            textStand.setFireTicks(0);
+            textStand.setGravity(false);
+            textStand.setVisible(false);
+            textStand.setCustomName("§6Sinnlose Kiste");
+            textStand.setCustomNameVisible(true);
 
-        Bukkit.getPluginManager().registerEvents(this, lobby);
+            loadFromDatabase();
+            startScheduler();
+
+            Bukkit.getPluginManager().registerEvents(this, lobby);
+        } else {
+            Sentry.capture("The given location for the useless chest is null");
+        }
     }
 
     // =======
