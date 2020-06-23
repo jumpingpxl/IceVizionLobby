@@ -83,7 +83,7 @@ public class PlayerInventoryListener implements Listener {
                 }
                 break;
             case "Waehle eine Lobby":
-                    if (cloudPlayer.getSpigot().getDisplayName().equals(displayName)) {
+                if (cloudPlayer.getSpigot().getDisplayName().equals(displayName)) {
                     player.sendMessage(plugin.getPrefix() + "§cDu befindest dich schon auf diesem Server");
                 } else {
                     IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(displayName);
