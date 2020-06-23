@@ -10,15 +10,16 @@ import net.titan.lib.redisevent.events.ServerUnavailableEvent;
 import net.titan.spigot.Cloud;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 
 public class NetworkListener implements Listener {
 
+    private final Plugin plugin;
     private final LobbyUtil lobbyUtil;
-    private final Lobby lobby;
 
-    public NetworkListener(LobbyUtil lobbyUtil, Lobby lobby) {
+    public NetworkListener(Plugin plugin, LobbyUtil lobbyUtil) {
+        this.plugin = plugin;
         this.lobbyUtil = lobbyUtil;
-        this.lobby = lobby;
         initRedisEvents();
     }
 
@@ -36,7 +37,7 @@ public class NetworkListener implements Listener {
         Cloud.getInstance().getRedisEventManager().registerListener(PlayerServerSwitchEvent.class, rEvent -> {
             PlayerServerSwitchEvent switchEvent = (PlayerServerSwitchEvent) rEvent;
             //Delay this update because the event is too fast and sometimes redis has not the right data yet
-            Bukkit.getScheduler().runTaskLater(lobby, () -> {
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
                 lobbyUtil.updateSlot(switchEvent.getFrom());
                 lobbyUtil.updateSlot(switchEvent.getTo());
             }, 5);
