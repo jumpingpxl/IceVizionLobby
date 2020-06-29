@@ -41,14 +41,14 @@ public class PlayerFriendListener implements Listener {
         if (event.getCloudPlayer().getSpigot() != null &&
                 event.getCloudPlayer().getSpigot().getDisplayName().startsWith("Lobby") &&
                     event.getCloudPlayer().offlineExtradataContains("profile")) {
-            plugin.getFriendUtil().updateInventory(event.getCloudPlayer(), plugin.getItemUtil().getFriendLayout(),
+            plugin.getFriendUtil().updateInventory(event.getCloudPlayer(),
                     (Inventory) event.getCloudPlayer().offlineExtradataGet("profile"));
         }
 
         if (event.getFriendPlayer().getSpigot() != null &&
                 event.getFriendPlayer().getSpigot().getDisplayName().startsWith("Lobby") &&
                 event.getFriendPlayer().offlineExtradataContains("profile")) {
-            plugin.getFriendUtil().updateInventory(event.getFriendPlayer(), plugin.getItemUtil().getFriendLayout(),
+            plugin.getFriendUtil().updateInventory(event.getFriendPlayer(),
                     (Inventory) event.getFriendPlayer().offlineExtradataGet("profile"));
         }
     }
@@ -61,7 +61,7 @@ public class PlayerFriendListener implements Listener {
                             getFriendProfile(cloudPlayer);
 
                     if (friendProfile.getRawFriends().containsKey(player.getUuid())) {
-                        plugin.getFriendUtil().updateInventory(cloudPlayer, plugin.getItemUtil().getFriendLayout(),
+                        plugin.getFriendUtil().updateInventory(cloudPlayer,
                                 (Inventory) cloudPlayer.offlineExtradataGet("profile"));
                     }
                 }

@@ -4,11 +4,10 @@ import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.icevizion.aves.item.SkullBuilder;
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
-import java.util.Map;
 
 public class FriendUtil {
 
@@ -18,17 +17,13 @@ public class FriendUtil {
      * @param inventory The inventory to update
      */
 
-    public void updateInventory(CloudPlayer cloudPlayer, Map<Integer, ItemStack> layout, Inventory inventory) {
-        inventory.clear();
-        for (Map.Entry<Integer, ItemStack> entry : layout.entrySet()) {
-            inventory.setItem(entry.getKey(), entry.getValue());
-        }
-
+    public void updateInventory(CloudPlayer cloudPlayer, Inventory inventory) {
+        clearFriendSlots(inventory);
         List<CloudPlayer> sortedFriends = sortPlayers(cloudPlayer);
-        for (int i = 0; i < 35 && i < sortedFriends.size(); i++) {
+        for (int i = 0; i < 36 && i < sortedFriends.size(); i++) {
             CloudPlayer player = sortedFriends.get(i);
             if (player.isOnline()) {
-                inventory.setItem(i,new SkullBuilder()
+                inventory.setItem(i, new SkullBuilder()
                         .setSkinOverValues(player.getSkinValue(), "")
                         .addLore(player.getSpigot() == null ? "§cFehler" :
                                 "§7Befindet sich auf: §e" + player.getSpigot().getDisplayName())
@@ -40,6 +35,19 @@ public class FriendUtil {
             }
         }
         cloudPlayer.getPlayer().updateInventory();
+    }
+
+    /**
+     * Removes a part of the itemStacks in a inventory.
+     * @param inventory The inventory from a player
+     */
+
+    private void clearFriendSlots(Inventory inventory) {
+        int i = 0;
+        while (i < 36 && inventory.getItem(i).getType() != Material.AIR) {
+            inventory.remove(inventory.getItem(i));
+            i++;
+        }
     }
 
     /**
