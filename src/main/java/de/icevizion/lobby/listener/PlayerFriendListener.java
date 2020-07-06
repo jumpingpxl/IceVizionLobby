@@ -56,7 +56,7 @@ public class PlayerFriendListener implements Listener {
     private void updateInventory(CloudPlayer player) {
         for (CloudPlayer cloudPlayer : Cloud.getInstance().getCurrentOnlinePlayers()) {
             if (cloudPlayer != null && cloudPlayer.offlineExtradataContains("profile")) {
-                if (cloudPlayer.isOnline()) {
+                if (cloudPlayer.isOnline() && cloudPlayer.offlineExtradataGet("profile") != null) {
                     FriendProfile friendProfile = FriendSystem.getInstance().
                             getFriendProfile(cloudPlayer);
 
