@@ -30,9 +30,8 @@ public class UselessChestService implements Listener {
 
     private final Lobby lobby;
     private final MongoCollection<Document> dataCollection;
-    private ReentrantLock lock;
-
-    private Chunk chunk;
+    private final ReentrantLock lock;
+    private final Chunk chunk;
     private long count;
     private ArmorStand armorStand;
     private ArmorStand textStand;
