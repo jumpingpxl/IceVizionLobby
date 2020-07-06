@@ -3,7 +3,6 @@ package de.icevizion.lobby.utils;
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.cosmiqglow.component.friendsystem.spigot.FriendUpdateEvent;
-import de.icevizion.lobby.Lobby;
 import de.icevizion.scoreboard.Board;
 import de.icevizion.scoreboard.BoardAPI;
 import net.titan.cloudcore.player.ICloudPlayer;
@@ -21,6 +20,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.concurrent.ExecutorService;
+
 /**
  * @author Patrick Zdarsky / Rxcki
  * @version 1.0
@@ -29,10 +30,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class ScoreboardService implements Listener {
 
-    private final Lobby lobby;
+    private final ExecutorService service;
 
-    public ScoreboardService(Lobby lobby) {
-        this.lobby = lobby;
+    public ScoreboardService(ExecutorService service) {
+        this.service = service;
     }
 
     public void createScoreboard(Player player) {
@@ -51,7 +52,7 @@ public class ScoreboardService implements Listener {
 
         board.setLine(1, "§1");
 
-        lobby.getExecutorService().execute(() -> {
+        service.execute(() -> {
             updateScoreboard(player);
         });
         board.show();
@@ -73,7 +74,7 @@ public class ScoreboardService implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         createScoreboard(event.getPlayer());
-        lobby.getExecutorService().execute(() -> {
+        service.execute(() -> {
             for (Player player : Bukkit.getOnlinePlayers())
                 updateScoreboard(player);
         });
@@ -81,7 +82,7 @@ public class ScoreboardService implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        lobby.getExecutorService().execute(() -> {
+        service.execute(() -> {
             for (Player player : Bukkit.getOnlinePlayers())
                 if (player != event.getPlayer()) {
                     updateScoreboard(player);
@@ -91,7 +92,7 @@ public class ScoreboardService implements Listener {
 
     @EventHandler
     public void onGlobalPlayerJoin(NetworkPlayerJoinEvent event) {
-        lobby.getExecutorService().execute(() -> {
+        service.execute(() -> {
             for (Player player : Bukkit.getOnlinePlayers())
                 updateScoreboard(player);
         });
@@ -99,7 +100,7 @@ public class ScoreboardService implements Listener {
 
     @EventHandler
     public void onGlobalPlayerQuit(NetworkPlayerQuitEvent event) {
-        lobby.getExecutorService().execute(() -> {
+        service.execute(() -> {
             for (Player player : Bukkit.getOnlinePlayers())
                 updateScoreboard(player);
         });
@@ -107,14 +108,14 @@ public class ScoreboardService implements Listener {
 
     @EventHandler
     public void onRankChange(PlayerRankChangeEvent event) {
-        lobby.getExecutorService().execute(() -> {
+        service.execute(() -> {
             updateScoreboard(event.getCloudPlayer().getPlayer());
         });
     }
 
     @EventHandler
     public void onCoinChange(PlayerCoinChangeEvent event) {
-        lobby.getExecutorService().execute(() -> {
+        service.execute(() -> {
             updateScoreboard(event.getCloudPlayer().getPlayer());
         });
     }

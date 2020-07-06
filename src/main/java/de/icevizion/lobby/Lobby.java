@@ -64,9 +64,9 @@ public class Lobby extends JavaPlugin {
     private void load() {
         this.mapService = new MapService();
         this.itemUtil = new ItemUtil();
-        this.settingsUtil = new SettingsUtil(this);
-        this.inventoryUtil = new InventoryUtil(this);
         this.visibilityUtil = new VisibilityUtil();
+        this.inventoryUtil = new InventoryUtil(this);
+        this.settingsUtil = new SettingsUtil(visibilityUtil);
         this.dailyRewardUtil = new DailyRewardUtil();
         this.doubleJumpService = new DoubleJumpService();
         this.lobbyUtil = new LobbyUtil();
@@ -90,7 +90,7 @@ public class Lobby extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerSpectatorListener(itemUtil), this);
         getServer().getPluginManager().registerEvents(new WeatherListener(), this);
         getServer().getPluginManager().registerEvents(doubleJumpService, this);
-        getServer().getPluginManager().registerEvents(new ScoreboardService(this), this);
+        getServer().getPluginManager().registerEvents(new ScoreboardService(executorService), this);
     }
 
     private void registerCommands() {

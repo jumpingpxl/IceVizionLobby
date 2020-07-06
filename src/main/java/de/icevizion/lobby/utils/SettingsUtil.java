@@ -1,7 +1,6 @@
 package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ColoredBuilder;
-import de.icevizion.lobby.Lobby;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.DyeColor;
 import org.bukkit.inventory.Inventory;
@@ -11,11 +10,11 @@ import org.bukkit.material.Dye;
 
 public class SettingsUtil {
 
-    private final Lobby plugin;
+    private final VisibilityUtil visibilityUtil;
     private static final int CLICK_OFFSET = 6;
 
-    public SettingsUtil(Lobby plugin) {
-        this.plugin = plugin;
+    public SettingsUtil(VisibilityUtil visibilityUtil) {
+        this.visibilityUtil = visibilityUtil;
     }
 
     /**
@@ -50,7 +49,7 @@ public class SettingsUtil {
     public void handleSettingsChange(CloudPlayer cloudPlayer, SettingsWrapper wrapper, int newValue) {
         switch (wrapper) {
             case PLAYER_VISIBILITY:
-                plugin.getVisibilityUtil().changeVisibility(cloudPlayer, newValue);
+                visibilityUtil.changeVisibility(cloudPlayer, newValue);
                 break;
         }
     }
