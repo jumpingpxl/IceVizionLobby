@@ -5,7 +5,6 @@ import de.icevizion.aves.item.ItemBuilder;
 import de.icevizion.aves.item.SkullBuilder;
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -47,7 +46,7 @@ public class FriendUtil {
 
     private void clearFriendSlots(Inventory inventory) {
         int i = 0;
-        while (i < 36 && inventory.getItem(i) != null && inventory.getItem(i).getType() == Material.SKULL_ITEM) {
+        while (i < 36 && inventory.getItem(i) != null) {
             inventory.remove(inventory.getItem(i));
             i++;
         }
