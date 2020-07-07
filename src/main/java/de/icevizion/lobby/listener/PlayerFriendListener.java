@@ -9,6 +9,7 @@ import net.titan.spigot.event.NetworkPlayerJoinEvent;
 import net.titan.spigot.event.NetworkPlayerQuitEvent;
 import net.titan.spigot.event.NetworkPlayerServerSwitchedEvent;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
@@ -62,6 +63,7 @@ public class PlayerFriendListener implements Listener {
                             getFriendProfile(cloudPlayer);
 
                     if (friendProfile.getRawFriends().containsKey(player.getUuid())) {
+                        Bukkit.broadcastMessage("CloudPlayer: " + player.getDisplayName());
                         plugin.getFriendUtil().updateInventory(cloudPlayer,
                                 (Inventory) cloudPlayer.offlineExtradataGet("profile"));
                     }
