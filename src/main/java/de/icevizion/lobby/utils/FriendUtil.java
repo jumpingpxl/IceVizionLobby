@@ -47,7 +47,7 @@ public class FriendUtil {
 
     private void clearFriendSlots(Inventory inventory) {
         int i = 0;
-        while (i < 36 && inventory.getItem(i).getType() != Material.AIR) {
+        while (i < 36 && inventory.getItem(i).getType() == Material.SKULL_ITEM) {
             inventory.remove(inventory.getItem(i));
             i++;
         }

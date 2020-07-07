@@ -64,7 +64,7 @@ public class PlayerFriendListener implements Listener {
                             getFriendProfile(cloudPlayer);
 
                     if (friendProfile.getRawFriends().containsKey(friendPlayer.getUuid())) {
-                        Bukkit.broadcastMessage("CloudPlayer: " + friendPlayer.getDisplayName());
+                        Bukkit.broadcastMessage("FriendPlayer: " + friendPlayer.getDisplayName());
                         Bukkit.broadcastMessage("Is Inventory null? " + cloudPlayer.extradataContains("profile"));
                         plugin.getFriendUtil().updateInventory(cloudPlayer, (Inventory) cloudPlayer.offlineExtradataGet("profile"));
                     }
