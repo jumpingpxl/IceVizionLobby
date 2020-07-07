@@ -56,7 +56,6 @@ public class PlayerFriendListener implements Listener {
 
     private void updateInventory(CloudPlayer friendPlayer) {
         for (CloudPlayer cloudPlayer : Cloud.getInstance().getCurrentOnlinePlayers()) {
-            Bukkit.broadcastMessage("For Player: " + cloudPlayer.getDisplayName());
             if (!cloudPlayer.getDisplayName().equals(friendPlayer.getDisplayName())
                         && cloudPlayer.offlineExtradataContains("profile")) {
                 if (cloudPlayer.isOnline()) {
@@ -64,9 +63,8 @@ public class PlayerFriendListener implements Listener {
                             getFriendProfile(cloudPlayer);
 
                     if (friendProfile.getRawFriends().containsKey(friendPlayer.getUuid())) {
-                        Bukkit.broadcastMessage("FriendPlayer: " + friendPlayer.getDisplayName());
-                        Bukkit.broadcastMessage("Is Inventory null? " + cloudPlayer.extradataContains("profile"));
-                        plugin.getFriendUtil().updateInventory(cloudPlayer, (Inventory) cloudPlayer.offlineExtradataGet("profile"));
+                        plugin.getFriendUtil().updateInventory(cloudPlayer,
+                                (Inventory) cloudPlayer.offlineExtradataGet("profile"));
                     }
                 }
             }
