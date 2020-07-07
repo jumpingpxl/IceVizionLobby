@@ -56,6 +56,7 @@ public class PlayerFriendListener implements Listener {
 
     private void updateInventory(CloudPlayer player) {
         for (CloudPlayer cloudPlayer : Cloud.getInstance().getCurrentOnlinePlayers()) {
+            Bukkit.broadcastMessage("For Player: " + cloudPlayer.getDisplayName());
             if (!cloudPlayer.getDisplayName().equals(player.getDisplayName())
                         && cloudPlayer.offlineExtradataContains("profile")) {
                 if (cloudPlayer.isOnline()) {
