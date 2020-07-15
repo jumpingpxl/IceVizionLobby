@@ -1,6 +1,5 @@
 package de.icevizion.lobby.listener;
 
-import de.icevizion.lobby.Lobby;
 import de.icevizion.lobby.utils.LobbyUtil;
 import net.titan.lib.redisevent.events.PlayerJoinEvent;
 import net.titan.lib.redisevent.events.PlayerQuitEvent;
