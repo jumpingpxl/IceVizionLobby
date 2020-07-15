@@ -40,7 +40,6 @@ public class SetCommand implements CommandExecutor {
                             "§7Du hast die Location §6" + args[0] + " §7gesetzt");
                 }
             }
-            return true;
         }
         return true;
     }
