@@ -47,10 +47,8 @@ public class SettingsUtil {
     }
 
     public void handleSettingsChange(CloudPlayer cloudPlayer, SettingsWrapper wrapper, int newValue) {
-        switch (wrapper) {
-            case PLAYER_VISIBILITY:
-                visibilityUtil.changeVisibility(cloudPlayer, newValue);
-                break;
+        if (wrapper == SettingsWrapper.PLAYER_VISIBILITY) {
+            visibilityUtil.changeVisibility(cloudPlayer, newValue);
         }
     }
 
