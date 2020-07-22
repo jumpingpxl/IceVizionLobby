@@ -76,8 +76,8 @@ public class LobbyUtil {
      */
 
     public void updateSlots() {
-        lock.lock();
         try {
+            lock.lock();
             List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
                     .filter(clusterSpigot -> clusterSpigot.getServerType().equals("Lobby"))
                     .sorted(new SpigotComparator())
