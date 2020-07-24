@@ -82,7 +82,7 @@ public class LobbyUtil {
             lock.lock();
             List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
                     .filter(clusterSpigot -> clusterSpigot.getServerType().equals("Lobby"))
-                    .filter(clusterSpigot -> clusterSpigot.getState() == SpigotState.RUNNING)
+                    .filter(clusterSpigot -> clusterSpigot.getState() == SpigotState.AVAILABLE)
                     .sorted(new SpigotComparator())
                     .collect(Collectors.toList());
             clearLobbySlots();
