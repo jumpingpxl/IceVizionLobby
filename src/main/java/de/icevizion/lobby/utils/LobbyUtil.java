@@ -76,6 +76,7 @@ public class LobbyUtil {
      */
 
     public void updateSlots() {
+        System.out.println("Updated lobby reason: server goes off or on");
         try {
             lock.lock();
             List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
