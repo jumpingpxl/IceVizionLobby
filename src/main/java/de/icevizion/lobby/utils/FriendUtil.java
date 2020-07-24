@@ -1,12 +1,9 @@
 package de.icevizion.lobby.utils;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
-import de.icevizion.aves.item.ItemBuilder;
 import de.icevizion.aves.item.SkullBuilder;
 import de.icevizion.lobby.Lobby;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import java.util.List;
@@ -49,29 +46,6 @@ public class FriendUtil {
         while (i < 36 && inventory.getItem(i) != null) {
             inventory.remove(inventory.getItem(i));
             i++;
-        }
-    }
-
-    /**
-     *
-     * @param inventory
-     * @param friendPlayer
-     */
-
-    public void updateServerLore(Inventory inventory, CloudPlayer friendPlayer) {
-        int i = 0;
-        while (!inventory.getItem(i).getItemMeta().getDisplayName().equals(friendPlayer.getFullDisplayName())) {
-            i++;
-        }
-
-        inventory.setItem(i, new ItemBuilder(inventory.getItem(i)).addLore(friendPlayer.getSpigot() == null
-                            ? "Fehler"
-                            : "§7Befindet sich auf: §e" + friendPlayer.getSpigot().getDisplayName()).build());
-
-        if (inventory.getViewers().size() != 0) {
-            for (HumanEntity viewer : inventory.getViewers()) {
-                ((Player)viewer).updateInventory();
-            }
         }
     }
 
