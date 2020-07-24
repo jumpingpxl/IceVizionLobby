@@ -25,7 +25,7 @@ public class NetworkListener implements Listener {
     private void initRedisEvents() {
         Cloud.getInstance().getRedisEventManager().registerListener(PlayerJoinEvent.class, rEvent -> {
             PlayerJoinEvent joinEvent = (PlayerJoinEvent) rEvent;
-            if (joinEvent.getServer().startsWith("Lobby")) {
+            if (joinEvent.getServer().startsWith("LOBBY")) {
                 lobbyUtil.updateSlot(joinEvent.getServer());
             }
         });
@@ -33,7 +33,7 @@ public class NetworkListener implements Listener {
         Cloud.getInstance().getRedisEventManager().registerListener(PlayerQuitEvent.class, rEvent -> {
             PlayerQuitEvent quitEvent = (PlayerQuitEvent) rEvent;
 
-            if (quitEvent.getServer().startsWith("Lobby")) {
+            if (quitEvent.getServer().startsWith("LOBBY")) {
                 lobbyUtil.updateSlot(quitEvent.getServer());
             }
         });
@@ -49,7 +49,7 @@ public class NetworkListener implements Listener {
 
         Cloud.getInstance().getRedisEventManager().registerListener(ServerAvailableEvent.class, rEvent -> {
             ServerAvailableEvent event = (ServerAvailableEvent) rEvent;
-            if (event.getServer().startsWith("Lobby")) {
+            if (event.getServer().startsWith("LOBBY")) {
                 lobbyUtil.updateSlots();
             }
         });
@@ -57,7 +57,7 @@ public class NetworkListener implements Listener {
         Cloud.getInstance().getRedisEventManager().registerListener(ServerUnavailableEvent.class, rEvent -> {
             ServerUnavailableEvent event = (ServerUnavailableEvent) rEvent;
             System.out.println(event.getServer());
-            if (event.getServer().startsWith("Lobby")) {
+            if (event.getServer().startsWith("LOBBY")) {
                 lobbyUtil.updateSlots();
             }
         });
