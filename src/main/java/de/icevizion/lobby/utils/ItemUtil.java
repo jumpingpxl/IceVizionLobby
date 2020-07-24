@@ -42,18 +42,18 @@ public class ItemUtil {
         HashMap<Integer, ItemStack> layout = new HashMap<>(32);
         layout.put(0, new ItemBuilder(Material.BOOK_AND_QUILL).setDisplayName("§6Privatnachrichten").build());
         layout.put(1, PANE);
-        layout.put(6, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§aJeder").build());
+        layout.put(6, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§aAlle").build());
         layout.put(7, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§6Freunde").build());
         layout.put(8, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§cKeiner").build());
         layout.put(9, new ItemBuilder(Material.FIREWORK).setDisplayName("§dParty").build());
         layout.put(10, PANE);
-        layout.put(15, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§aJeder").build());
+        layout.put(15, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§aAlle").build());
         layout.put(16, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§6Freunde").build());
         layout.put(17, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§cKeiner").build());
         layout.put(18, new ItemBuilder(Material.BLAZE_ROD).setDisplayName("§bSpieler-Sichtbarkeit").
                 addItemFlag(ItemFlag.HIDE_ATTRIBUTES).build());
         layout.put(19, PANE);
-        layout.put(24, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§aJeder").build());
+        layout.put(24, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§aAlle").build());
         layout.put(25, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§6Freunde").build());
         layout.put(26, new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY).setDisplayName("§cKeiner").build());
         layout.put(27, new ItemBuilder(Material.EYE_OF_ENDER).setDisplayName("§aNachspringen").build());
