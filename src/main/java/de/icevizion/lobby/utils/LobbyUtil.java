@@ -2,6 +2,7 @@ package de.icevizion.lobby.utils;
 
 import de.icevizion.aves.item.ItemBuilder;
 import net.titan.lib.network.spigot.IClusterSpigot;
+import net.titan.lib.network.spigot.SpigotState;
 import net.titan.lib.utils.SpigotComparator;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.network.spigot.ClusterSpigot;
@@ -81,6 +82,7 @@ public class LobbyUtil {
             lock.lock();
             List<IClusterSpigot> lobbies = Cloud.getInstance().getSpigots().stream()
                     .filter(clusterSpigot -> clusterSpigot.getServerType().equals("Lobby"))
+                    .filter(clusterSpigot -> clusterSpigot.getState() == SpigotState.RUNNING)
                     .sorted(new SpigotComparator())
                     .collect(Collectors.toList());
             clearLobbySlots();
