@@ -1,7 +1,7 @@
 package de.icevizion.lobby.listener;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
-import de.icevizion.lobby.Lobby;
+import de.icevizion.lobby.LobbyPlugin;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.spigot.Cloud;
 import net.titan.spigot.player.CloudPlayer;
@@ -20,9 +20,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class PlayerInventoryListener implements Listener {
 
-    private final Lobby plugin;
+    private final LobbyPlugin plugin;
 
-    public PlayerInventoryListener(Lobby plugin) {
+    public PlayerInventoryListener(LobbyPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -59,9 +59,6 @@ public class PlayerInventoryListener implements Listener {
             case "Einstellungen":
                 plugin.getSettingsUtil().changeSettingsValue(cloudPlayer, event.getInventory(), stack, event.getSlot());
             break;
-            case "Minispiele":
-                player.teleport(plugin.getMapService().getLocation(displayName));
-                break;
             case "Freunde":
                 if (displayName.equals("Einstellungen")) {
                     if (!cloudPlayer.offlineExtradataContains("settings")) {
@@ -82,19 +79,6 @@ public class PlayerInventoryListener implements Listener {
                     player.openInventory(plugin.getInventoryUtil().loadActionInventory(displayName, stack));
                 }
                 break;
-            case "Waehle eine Lobby":
-                if (cloudPlayer.getSpigot().getDisplayName().equals(displayName)) {
-                    player.sendMessage(plugin.getPrefix() + "§cDu befindest dich schon auf diesem Server");
-                } else {
-                    IClusterSpigot spigot = Cloud.getInstance().getSpigotByDisplayName(displayName);
-                    if (spigot == null) {
-                        player.sendMessage(plugin.getPrefix() + "§cDieser Server ist nicht online");
-                    } else {
-                        cloudPlayer.sendToServer(spigot);
-                    }
-                }
-                player.closeInventory();
-                break;
             case "Freundesanfragen":
                 if (!stack.getType().equals(Material.AIR)) {
                     switch (displayName) {
@@ -112,28 +96,6 @@ public class PlayerInventoryListener implements Listener {
                             }
                             break;
                     }
-                }
-                break;
-            case "Nutzungsbedingungen":
-                switch (displayName) {
-                    case "Annehmen":
-                        player.sendMessage(plugin.getPrefix() + "§7Du hast die §aNutzungsbedigungen §aakzeptiert");
-                        cloudPlayer.setField("tos", System.currentTimeMillis());
-                        player.closeInventory();
-                        break;
-                    case "Ablehnen":
-                        cloudPlayer.kick("§cUm auf dem §f§oI§fce§3V§fizion.de §cNetzwerk spielen zu können,\n"+
-                                "musst du unsere Nutzungsbedingungen akzeptieren!\n\n§ahttps://icevizion.de/tos-server/");
-                        break;
-                }
-                break;
-            case "Tägliche Belohnung":
-                switch (displayName) {
-                    case "Belohnung":
-                    case "Premium Belohnung":
-                        plugin.getDailyRewardUtil().
-                                giveReward(cloudPlayer, event.getInventory(), plugin.getPrefix(), displayName);
-                        break;
                 }
                 break;
         }

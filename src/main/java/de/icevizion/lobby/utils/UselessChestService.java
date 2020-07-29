@@ -2,7 +2,7 @@ package de.icevizion.lobby.utils;
 
 import com.mongodb.client.MongoCollection;
 import de.icevizion.aves.util.LocationUtil;
-import de.icevizion.lobby.Lobby;
+import de.icevizion.lobby.LobbyPlugin;
 import io.sentry.Sentry;
 import net.titan.spigot.Cloud;
 import org.bson.Document;
@@ -25,10 +25,10 @@ import java.util.concurrent.locks.ReentrantLock;
  * @version 1.0
  * @since 17/04/2020 17:21
  */
-
+@Deprecated
 public class UselessChestService implements Listener {
 
-    private final Lobby lobby;
+    private final LobbyPlugin lobbyPlugin;
     private final MongoCollection<Document> dataCollection;
     private final ReentrantLock lock;
     private final Chunk chunk;
@@ -36,13 +36,13 @@ public class UselessChestService implements Listener {
     private ArmorStand armorStand;
     private ArmorStand textStand;
 
-    public UselessChestService(Lobby lobby) {
-        this.lobby = lobby;
+    public UselessChestService(LobbyPlugin lobbyPlugin) {
+        this.lobbyPlugin = lobbyPlugin;
 
         lock = new ReentrantLock();
         dataCollection = Cloud.getInstance().getCloudMongo().getCollection("data");
 
-        Location location = lobby.getMapService().getLobbyMap().get().getUselessChest();
+        Location location = lobbyPlugin.getMapService().getLobbyMap().get().getUselessChest();
         chunk = location.getChunk();
 
         location.getWorld().loadChunk(chunk);
@@ -67,7 +67,7 @@ public class UselessChestService implements Listener {
             loadFromDatabase();
             startScheduler();
 
-            Bukkit.getPluginManager().registerEvents(this, lobby);
+            Bukkit.getPluginManager().registerEvents(this, lobbyPlugin);
         } else {
             Sentry.capture("The given location for the useless chest is null");
         }
@@ -88,7 +88,7 @@ public class UselessChestService implements Listener {
 
         //Code to check if the chest is the useless chest
         if (LocationUtil.compare(event.getClickedBlock().getLocation(),
-                lobby.getMapService().getLobbyMap().get().getUselessChest(), false)) {
+                lobbyPlugin.getMapService().getLobbyMap().get().getUselessChest(), false)) {
             //It is our chest, yay
             event.setCancelled(false);
             //Perhaps call this async since it is being synchronized?
@@ -105,7 +105,7 @@ public class UselessChestService implements Listener {
     // =======
 
     private void startScheduler() {
-        Bukkit.getScheduler().runTaskTimer(lobby, () -> {
+        Bukkit.getScheduler().runTaskTimer(lobbyPlugin, () -> {
             loadFromDatabase();
         }, 20, 40);
     }

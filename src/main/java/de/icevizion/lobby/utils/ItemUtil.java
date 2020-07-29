@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Deprecated
 public class ItemUtil {
 
     public static final ItemStack PANE = new ColoredBuilder(ColoredBuilder.DyeType.GLASS_PANE)

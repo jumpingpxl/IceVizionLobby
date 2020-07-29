@@ -4,7 +4,7 @@ import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.icevizion.aves.item.ItemBuilder;
 import de.icevizion.aves.item.SkullBuilder;
-import de.icevizion.lobby.Lobby;
+import de.icevizion.lobby.LobbyPlugin;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -13,41 +13,17 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 import java.util.Map;
-
+@Deprecated
 public class InventoryUtil {
 
-    private final Lobby plugin;
+    private final LobbyPlugin plugin;
     private Inventory teleporter;
     private Inventory privacy;
 
-    public InventoryUtil(Lobby plugin) {
+    public InventoryUtil(LobbyPlugin plugin) {
         this.plugin = plugin;
         this.loadTeleporter();
         this.loadPrivacy();
-    }
-
-    public void loadTeleporter() {
-        teleporter = Bukkit.createInventory(null, 27, "Minispiele");
-        teleporter.setItem(0, ItemUtil.PANE);
-        teleporter.setItem(4, new ItemBuilder(Material.BOOK_AND_QUILL).setDisplayName("§bGuessIt").build());
-        teleporter.setItem(8, ItemUtil.PANE);
-        teleporter.setItem(9, ItemUtil.PANE);
-        teleporter.setItem(11, new ItemBuilder(Material.STICK).setDisplayName("§aKnockbackFFA").build());
-        teleporter.setItem(13, new ItemBuilder(Material.NETHER_STAR).setDisplayName("§aSpawn").build());
-        teleporter.setItem(15, new ItemBuilder(Material.SANDSTONE).setDisplayName("§eOneLine").build());
-        teleporter.setItem(17, ItemUtil.PANE);
-        teleporter.setItem(18, ItemUtil.PANE);
-        teleporter.setItem(22, new ItemBuilder(Material.BED).setDisplayName("§2BedWars").build());
-        teleporter.setItem(26, ItemUtil.PANE);
-    }
-
-    private void loadPrivacy() {
-        privacy = Bukkit.createInventory(null, 27, "Nutzungsbedingungen");
-        for (Map.Entry<Integer, ItemStack> entry : plugin.getItemUtil().getFriendSubLayout().entrySet()) {
-            privacy.setItem(entry.getKey(), entry.getValue());
-        }
-        privacy.setItem(9, new ItemBuilder(Material.BOOK).setDisplayName("§aNutzungsbedingungen").
-                addLore("§6icevizion.de/tos-server").build());
     }
 
     public Inventory loadActionInventory(String name, ItemStack skull) {
@@ -121,7 +97,7 @@ public class InventoryUtil {
             } else {
                 inventory.addItem(new SkullBuilder(SkullBuilder.SkullType.SKELETON)
                         .setDisplayName(cloudPlayer.getFullUsername())
-                        .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(cloudPlayer.getLastLogout())).build());
+                        .addLore("§7Zuletzt Online: §e" + LobbyPlugin.DATE_FORMAT.format(cloudPlayer.getLastLogout())).build());
             }
         }
         return inventory;

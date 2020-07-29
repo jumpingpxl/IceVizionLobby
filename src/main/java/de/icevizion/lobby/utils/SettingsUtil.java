@@ -7,14 +7,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Colorable;
 import org.bukkit.material.Dye;
-
+@Deprecated
 public class SettingsUtil {
 
-    private final VisibilityUtil visibilityUtil;
+    private final VisibilityTool visibilityTool;
     private static final int CLICK_OFFSET = 6;
 
-    public SettingsUtil(VisibilityUtil visibilityUtil) {
-        this.visibilityUtil = visibilityUtil;
+    public SettingsUtil(VisibilityTool visibilityTool) {
+        this.visibilityTool = visibilityTool;
     }
 
     /**
@@ -48,7 +48,7 @@ public class SettingsUtil {
 
     public void handleSettingsChange(CloudPlayer cloudPlayer, SettingsWrapper wrapper, int newValue) {
         if (wrapper == SettingsWrapper.PLAYER_VISIBILITY) {
-            visibilityUtil.changeVisibility(cloudPlayer, newValue);
+            visibilityTool.changeVisibility(cloudPlayer, newValue);
         }
     }
 

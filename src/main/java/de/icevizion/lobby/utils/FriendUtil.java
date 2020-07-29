@@ -2,12 +2,13 @@ package de.icevizion.lobby.utils;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
 import de.icevizion.aves.item.SkullBuilder;
-import de.icevizion.lobby.Lobby;
+import de.icevizion.lobby.LobbyPlugin;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.inventory.Inventory;
 
 import java.util.List;
 
+@Deprecated
 public class FriendUtil {
 
     /**
@@ -30,7 +31,7 @@ public class FriendUtil {
             } else {
                 inventory.setItem(i, new SkullBuilder(SkullBuilder.SkullType.SKELETON)
                         .setDisplayName(player.getFullUsername())
-                        .addLore("§7Zuletzt Online: §e" + Lobby.DATE_FORMAT.format(player.getLastLogout())).build());
+                        .addLore("§7Zuletzt Online: §e" + LobbyPlugin.DATE_FORMAT.format(player.getLastLogout())).build());
             }
         }
         cloudPlayer.getPlayer().updateInventory();
