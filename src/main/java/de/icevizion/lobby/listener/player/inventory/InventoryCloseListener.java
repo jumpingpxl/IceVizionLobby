@@ -27,10 +27,12 @@ public class InventoryCloseListener implements Listener {
 			return;
 		}
 
-		InventoryBuilder closedInventory = lobbyPlugin.getInventoryLoader().getOpenInventories().get(event.getPlayer());
+		InventoryBuilder closedInventory = lobbyPlugin.getInventoryLoader().getOpenInventories().get(
+				event.getPlayer());
 		if (Objects.nonNull(closedInventory) && event.getInventory().getTitle().equals(
-				closedInventory.getInventory().getTitle()) && closedInventory.getInventory().getViewers().contains(
-				event.getPlayer())) {
+				closedInventory.getInventory().getTitle()) && closedInventory.getInventory()
+				.getViewers()
+				.contains(event.getPlayer())) {
 			boolean cancel = closedInventory.onInventoryClose(event);
 			if (cancel) {
 				event.getPlayer().openInventory(closedInventory.getInventory());

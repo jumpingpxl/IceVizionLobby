@@ -1,12 +1,23 @@
 package de.icevizion.lobby.utils;
 
-import com.google.gson.*;
+import com.google.common.collect.Maps;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import de.icevizion.lobby.LobbyPlugin;
 import org.bukkit.Location;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -25,7 +36,7 @@ public class LocationProvider {
 		this.lobbyPlugin = lobbyPlugin;
 		gson = new GsonBuilder().setPrettyPrinting().create();
 		file = new File(lobbyPlugin.getServer().getWorlds().get(0).getWorldFolder(), "map.json");
-		locations = new HashMap<>();
+		locations = Maps.newHashMap();
 		load();
 	}
 
@@ -35,7 +46,7 @@ public class LocationProvider {
 
 	private void load() {
 		JsonArray jsonArray = getJsonArrayFromFile();
-		if(Objects.isNull(jsonArray)){
+		if (Objects.isNull(jsonArray)) {
 			return;
 		}
 
@@ -49,7 +60,8 @@ public class LocationProvider {
 			float yaw = jsonObject.get("yaw").getAsFloat();
 			float pitch = jsonObject.get("pitch").getAsFloat();
 
-			Location location = new Location(lobbyPlugin.getServer().getWorld(worldName), x, y, z, yaw, pitch);
+			Location location = new Location(lobbyPlugin.getServer().getWorld(worldName), x, y, z, yaw,
+					pitch);
 			locations.put(key, location);
 		});
 	}
@@ -59,12 +71,12 @@ public class LocationProvider {
 		locations.forEach((key, location) -> {
 			JsonObject jsonObject = new JsonObject();
 			jsonObject.addProperty("key", key);
-			jsonObject.add("world", new JsonPrimitive(location.getWorld().getName()));
-			jsonObject.add("x", new JsonPrimitive(location.getX()));
-			jsonObject.add("y", new JsonPrimitive(location.getY()));
-			jsonObject.add("z", new JsonPrimitive(location.getZ()));
-			jsonObject.add("yaw", new JsonPrimitive(location.getYaw()));
-			jsonObject.add("pitch", new JsonPrimitive(location.getPitch()));
+			jsonObject.addProperty("world", location.getWorld().getName());
+			jsonObject.addProperty("x", location.getX());
+			jsonObject.addProperty("y", location.getY());
+			jsonObject.addProperty("z", location.getZ());
+			jsonObject.addProperty("yaw", location.getYaw());
+			jsonObject.addProperty("pitch", location.getPitch());
 			jsonArray.add(jsonObject);
 		});
 
@@ -73,9 +85,12 @@ public class LocationProvider {
 
 	private JsonArray getJsonArrayFromFile() {
 		try {
-			InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
-			return (JsonArray) new JsonParser().parse(inputStreamReader);
-		} catch (FileNotFoundException e) {
+			InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file),
+					StandardCharsets.UTF_8);
+			JsonArray jsonArray = (JsonArray) new JsonParser().parse(inputStreamReader);
+			inputStreamReader.close();
+			return jsonArray;
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -90,6 +105,7 @@ public class LocationProvider {
 			writer.write(gson.toJson(jsonArray));
 			writer.flush();
 			writer.close();
+			outputStreamWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

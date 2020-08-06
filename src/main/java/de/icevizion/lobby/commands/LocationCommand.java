@@ -16,12 +16,12 @@ public class LocationCommand implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
-		if (!(commandSender instanceof Player)) {
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if (!(sender instanceof Player)) {
 			return true;
 		}
 
-		Player player = (Player) commandSender;
+		Player player = (Player) sender;
 		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(player);
 		if (cloudPlayer.hasPermission("lobby.location")) {
 			lobbyPlugin.getLocales().sendMessage(cloudPlayer, "noPermission");

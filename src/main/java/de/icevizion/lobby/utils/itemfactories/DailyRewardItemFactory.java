@@ -21,26 +21,28 @@ public class DailyRewardItemFactory {
 	}
 
 	public ItemBuilder getBackgroundItem() {
-		return new ItemBuilder(Material.STAINED_GLASS_PANE).setDurability((short) 3).setDisplayName("§0");
+		return new ItemBuilder(Material.STAINED_GLASS_PANE).setDurability((short) 3).setDisplayName(
+				"§0");
 	}
 
 	public ItemBuilder getRewardItem() {
-		return new ItemBuilder(Material.INK_SACK).setDurability((short) 10).setDisplayName(locales, cloudPlayer,
-				"dailyName");
+		return new ItemBuilder(Material.INK_SACK).setDurability((short) 10).setDisplayName(locales,
+				cloudPlayer, "dailyName");
 	}
 
 	public ItemBuilder getClaimedRewardItem() {
-		return new ItemBuilder(Material.INK_SACK).setDurability((short) 8).setDisplayName(locales, cloudPlayer,
-				"dailyClaimedName").setLore(locales, cloudPlayer, "dailyClaimedLore");
+		return new ItemBuilder(Material.INK_SACK).setDurability((short) 8).setDisplayName(locales,
+				cloudPlayer, "dailyClaimedName").setLore(locales, cloudPlayer, "dailyClaimedLore");
 	}
 
 	public ItemBuilder getPremiumRewardItem() {
-		return new ItemBuilder(Material.INK_SACK).setDurability((short) 10).setDisplayName(locales, cloudPlayer,
-				"dailyPremiumName");
+		return new ItemBuilder(Material.INK_SACK).setDurability((short) 10).setDisplayName(locales,
+				cloudPlayer, "dailyPremiumName");
 	}
 
 	public ItemBuilder getClaimedPremiumRewardItem() {
-		return new ItemBuilder(Material.INK_SACK).setDurability((short) 8).setDisplayName(locales, cloudPlayer,
-				"dailyClaimedPremiumName").setLore(locales, cloudPlayer, "dailyClaimedPremiumLore");
+		return new ItemBuilder(Material.INK_SACK).setDurability((short) 8).setDisplayName(locales,
+				cloudPlayer, "dailyClaimedPremiumName").setLore(locales, cloudPlayer,
+				"dailyClaimedPremiumLore");
 	}
 }

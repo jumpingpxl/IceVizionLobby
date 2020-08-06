@@ -19,9 +19,12 @@ public class FriendUpdateListener implements Listener {
 
 	@EventHandler
 	public void onFriendUpdate(FriendUpdateEvent event) {
-		if (event.getCloudPlayer().getPlayer() != null)
-			lobbyPlugin.getScoreboard().updateFriendsTeam(event.getCloudPlayer());
-		if (event.getFriendPlayer().getPlayer() != null)
-			lobbyPlugin.getScoreboard().updateFriendsTeam(event.getFriendPlayer());
+		if (event.getCloudPlayer().getPlayer() != null) {
+			lobbyPlugin.getLobbyScoreboard().updateFriendsTeam(event.getCloudPlayer());
+		}
+
+		if (event.getFriendPlayer().getPlayer() != null) {
+			lobbyPlugin.getLobbyScoreboard().updateFriendsTeam(event.getFriendPlayer());
+		}
 	}
 }

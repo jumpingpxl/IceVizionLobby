@@ -1,11 +1,15 @@
 package de.icevizion.lobby.utils.inventorybuilder;
 
+import com.google.common.collect.Maps;
 import de.icevizion.lobby.LobbyPlugin;
+import de.icevizion.lobby.utils.inventories.GamesInventory;
+import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Nico (JumpingPxl) Middendorf
@@ -14,22 +18,56 @@ import java.util.Map;
 public class InventoryLoader {
 
 	private final LobbyPlugin lobbyPlugin;
+	private final Map<Locale, InventoryBuilder> cachedInventories;
 	private final Map<HumanEntity, InventoryBuilder> openInventories;
 
 	public InventoryLoader(LobbyPlugin lobbyPlugin) {
 		this.lobbyPlugin = lobbyPlugin;
-		openInventories = new HashMap<>();
+		cachedInventories = Maps.newHashMap();
+		openInventories = Maps.newHashMap();
 	}
 
-	public void openInventory(InventoryBuilder inventoryBuilder) {
-		Player player = inventoryBuilder.getCloudPlayer().getPlayer();
+	public Optional<InventoryBuilder> getCachedInventory(Locale locale,
+	                                                     Class<? extends InventoryBuilder> inventory) {
+		for (Map.Entry<Locale, InventoryBuilder> cachedInventoryEntry : cachedInventories.entrySet()) {
+			if (cachedInventoryEntry.getKey() == locale
+					&& cachedInventoryEntry.getValue().getClass() == inventory) {
+				return Optional.of(cachedInventoryEntry.getValue());
+			}
+		}
+
+		return Optional.empty();
+	}
+
+	public void openInventory(CloudPlayer cloudPlayer, InventoryBuilder inventoryBuilder) {
+		Player player = cloudPlayer.getPlayer();
 
 		inventoryBuilder.buildInventory();
 		openInventories.put(player, inventoryBuilder);
 		player.openInventory(inventoryBuilder.getInventory());
+
+		if (inventoryBuilder.isCacheable()) {
+			cachedInventories.put(cloudPlayer.getLocale(), inventoryBuilder);
+		}
+	}
+
+	public boolean openCachedInventory(CloudPlayer cloudPlayer,
+	                                   Class<? extends InventoryBuilder> inventory) {
+		Optional<InventoryBuilder> optionalInventory = lobbyPlugin.getInventoryLoader()
+				.getCachedInventory(cloudPlayer.getLocale(), GamesInventory.class);
+		if (optionalInventory.isPresent()) {
+			lobbyPlugin.getInventoryLoader().openInventory(cloudPlayer, optionalInventory.get());
+			return true;
+		}
+
+		return false;
 	}
 
 	public Map<HumanEntity, InventoryBuilder> getOpenInventories() {
 		return openInventories;
+	}
+
+	public Map<Locale, InventoryBuilder> getCachedInventories() {
+		return cachedInventories;
 	}
 }

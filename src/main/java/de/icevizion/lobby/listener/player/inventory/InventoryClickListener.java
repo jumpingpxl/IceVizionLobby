@@ -23,8 +23,8 @@ public class InventoryClickListener implements Listener {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
-		if (event.getClickedInventory() == null || event.getClickedInventory() == event.getWhoClicked().getInventory()
-				|| event.getClickedInventory().getHolder() != event.getWhoClicked()) {
+		if (event.getClickedInventory() == null || event.getClickedInventory() == event.getWhoClicked()
+				.getInventory() || event.getClickedInventory().getHolder() != event.getWhoClicked()) {
 			event.setCancelled(true);
 			return;
 		}
@@ -32,11 +32,13 @@ public class InventoryClickListener implements Listener {
 		InventoryBuilder clickedInventory = lobbyPlugin.getInventoryLoader().getOpenInventories().get(
 				event.getWhoClicked());
 		if (Objects.nonNull(clickedInventory) && event.getClickedInventory().getTitle().equals(
-				clickedInventory.getInventory().getTitle()) && clickedInventory.getInventory().getViewers().contains(
-				event.getWhoClicked())) {
+				clickedInventory.getInventory().getTitle()) && clickedInventory.getInventory()
+				.getViewers()
+				.contains(event.getWhoClicked())) {
 			event.setCancelled(true);
 
-			Consumer<InventoryClickEvent> clickEvent = clickedInventory.getClickEvents().get(event.getRawSlot());
+			Consumer<InventoryClickEvent> clickEvent = clickedInventory.getClickEvents().get(
+					event.getRawSlot());
 			if (clickEvent != null) {
 				clickEvent.accept(event);
 			}

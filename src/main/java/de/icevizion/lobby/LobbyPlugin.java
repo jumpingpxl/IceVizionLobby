@@ -2,19 +2,52 @@ package de.icevizion.lobby;
 
 import de.icevizion.lobby.commands.LocationCommand;
 import de.icevizion.lobby.listener.WeatherChangeListener;
-import de.icevizion.lobby.listener.block.*;
-import de.icevizion.lobby.listener.entity.*;
-import de.icevizion.lobby.listener.network.*;
-import de.icevizion.lobby.listener.player.*;
+import de.icevizion.lobby.listener.block.BlockBreakListener;
+import de.icevizion.lobby.listener.block.BlockIgniteListener;
+import de.icevizion.lobby.listener.block.BlockPhysicsListener;
+import de.icevizion.lobby.listener.block.BlockPlaceListener;
+import de.icevizion.lobby.listener.block.LeavesDecayListener;
+import de.icevizion.lobby.listener.entity.EntityExplodeListener;
+import de.icevizion.lobby.listener.entity.EntityInteractListener;
+import de.icevizion.lobby.listener.entity.HangingBreakByEntityListener;
+import de.icevizion.lobby.listener.entity.VehicleDamageListener;
+import de.icevizion.lobby.listener.entity.VehicleEnterListener;
+import de.icevizion.lobby.listener.network.FriendUpdateListener;
+import de.icevizion.lobby.listener.network.NetworkPlayerJoinListener;
+import de.icevizion.lobby.listener.network.NetworkPlayerQuitListener;
+import de.icevizion.lobby.listener.network.PlayerCoinChangeListener;
+import de.icevizion.lobby.listener.network.PlayerRankChangeListener;
+import de.icevizion.lobby.listener.network.PlayerServerSwitchListener;
+import de.icevizion.lobby.listener.network.RankReloadListener;
+import de.icevizion.lobby.listener.network.ServerAvailableListener;
+import de.icevizion.lobby.listener.network.ServerUnavailableListener;
+import de.icevizion.lobby.listener.player.FoodLevelChangeListener;
+import de.icevizion.lobby.listener.player.PlayerArmorStandManipulateListener;
+import de.icevizion.lobby.listener.player.PlayerInteractEntityListener;
+import de.icevizion.lobby.listener.player.PlayerInteractListener;
+import de.icevizion.lobby.listener.player.PlayerJoinListener;
+import de.icevizion.lobby.listener.player.PlayerMoveListener;
+import de.icevizion.lobby.listener.player.PlayerQuitListener;
+import de.icevizion.lobby.listener.player.PlayerSpawnListener;
+import de.icevizion.lobby.listener.player.PlayerToggleFlightListener;
 import de.icevizion.lobby.listener.player.inventory.InventoryClickListener;
 import de.icevizion.lobby.listener.player.inventory.InventoryCloseListener;
 import de.icevizion.lobby.listener.player.item.PlayerDropItemListener;
 import de.icevizion.lobby.listener.player.item.PlayerItemConsumeListener;
 import de.icevizion.lobby.listener.player.item.PlayerPickupItemListener;
-import de.icevizion.lobby.utils.*;
+import de.icevizion.lobby.utils.DoubleJump;
+import de.icevizion.lobby.utils.Inventories;
+import de.icevizion.lobby.utils.Items;
+import de.icevizion.lobby.utils.LobbyScoreboard;
+import de.icevizion.lobby.utils.LobbySwitcher;
+import de.icevizion.lobby.utils.Locales;
+import de.icevizion.lobby.utils.LocationProvider;
+import de.icevizion.lobby.utils.VisibilityTool;
 import de.icevizion.lobby.utils.inventorybuilder.InventoryLoader;
 import net.titan.lib.network.spigot.SpigotState;
 import net.titan.lib.redisevent.events.PlayerServerSwitchEvent;
+import net.titan.lib.redisevent.events.ServerAvailableEvent;
+import net.titan.lib.redisevent.events.ServerUnavailableEvent;
 import net.titan.spigot.Cloud;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,8 +63,11 @@ public class LobbyPlugin extends JavaPlugin {
 	private LocationProvider locationProvider;
 	private InventoryLoader inventoryLoader;
 	private LobbySwitcher lobbySwitcher;
-	private Scoreboard scoreboard;
+	private LobbyScoreboard lobbyScoreboard;
 	private Items items;
+	private DoubleJump doubleJump;
+	private VisibilityTool visibilityTool;
+	private Inventories inventories;
 
 	@Override
 	public void onEnable() {
@@ -55,20 +91,12 @@ public class LobbyPlugin extends JavaPlugin {
 		locales = new Locales(this);
 		locationProvider = new LocationProvider(this);
 		inventoryLoader = new InventoryLoader(this);
+		inventories = new Inventories(this);
 		lobbySwitcher = new LobbySwitcher(this);
-		scoreboard = new Scoreboard(this);
+		lobbyScoreboard = new LobbyScoreboard(this);
 		items = new Items(this);
-
-/*        this.mapService = new MapService();
-        this.itemUtil = new ItemUtil();
-        this.visibilityUtil = new VisibilityUtil();
-        this.inventoryUtil = new InventoryUtil(this);
-        this.settingsUtil = new SettingsUtil(visibilityUtil);
-        this.dailyRewardUtil = new DailyRewardUtil();
-        this.doubleJumpService = new DoubleJumpService();
-        this.lobbyUtil = new LobbyUtil();
-        this.friendUtil = new FriendUtil();
-        this.uselessChestService = new UselessChestService(this); */
+		doubleJump = new DoubleJump();
+		visibilityTool = new VisibilityTool(this);
 	}
 
 	private void registerListener() {
@@ -91,7 +119,13 @@ public class LobbyPlugin extends JavaPlugin {
 		pluginManager.registerEvents(new NetworkPlayerQuitListener(this), this);
 		pluginManager.registerEvents(new PlayerCoinChangeListener(this), this);
 		pluginManager.registerEvents(new PlayerRankChangeListener(this), this);
-		cloud.getRedisEventManager().registerListener(PlayerServerSwitchEvent.class, new PlayerServerSwitchListener(this));
+		cloud.getRedisEventManager().registerListener(PlayerServerSwitchEvent.class,
+				new PlayerServerSwitchListener(this));
+		pluginManager.registerEvents(new RankReloadListener(this), this);
+		cloud.getRedisEventManager().registerListener(ServerAvailableEvent.class,
+				new ServerAvailableListener(this));
+		cloud.getRedisEventManager().registerListener(ServerUnavailableEvent.class,
+				new ServerUnavailableListener(this));
 
 		pluginManager.registerEvents(new InventoryClickListener(this), this);
 		pluginManager.registerEvents(new InventoryCloseListener(this), this);
@@ -105,7 +139,10 @@ public class LobbyPlugin extends JavaPlugin {
 		pluginManager.registerEvents(new PlayerInteractEntityListener(), this);
 		pluginManager.registerEvents(new PlayerInteractListener(this), this);
 		pluginManager.registerEvents(new PlayerJoinListener(this), this);
+		pluginManager.registerEvents(new PlayerMoveListener(this), this);
 		pluginManager.registerEvents(new PlayerQuitListener(this), this);
+		pluginManager.registerEvents(new PlayerSpawnListener(this), this);
+		pluginManager.registerEvents(new PlayerToggleFlightListener(this), this);
 
 		pluginManager.registerEvents(new WeatherChangeListener(), this);
 	}
@@ -134,11 +171,24 @@ public class LobbyPlugin extends JavaPlugin {
 		return lobbySwitcher;
 	}
 
-	public Scoreboard getScoreboard() {
-		return scoreboard;
+	public LobbyScoreboard getLobbyScoreboard() {
+		return lobbyScoreboard;
 	}
 
 	public Items getItems() {
 		return items;
 	}
+
+	public DoubleJump getDoubleJump() {
+		return doubleJump;
+	}
+
+	public VisibilityTool getVisibilityTool() {
+		return visibilityTool;
+	}
+
+	public Inventories getInventories() {
+		return inventories;
+	}
 }
+

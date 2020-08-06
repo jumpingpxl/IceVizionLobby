@@ -23,6 +23,7 @@ public class PlayerQuitListener implements Listener {
 
 		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(event.getPlayer());
 		cloudPlayer.extradataSet("location", player.getLocation().serialize());
-		lobbyPlugin.getScoreboard().resetScoreboard(cloudPlayer);
+		lobbyPlugin.getLobbyScoreboard().resetScoreboard(cloudPlayer);
+		lobbyPlugin.getDoubleJump().getAllowedPlayers().remove(player.getUniqueId());
 	}
 }

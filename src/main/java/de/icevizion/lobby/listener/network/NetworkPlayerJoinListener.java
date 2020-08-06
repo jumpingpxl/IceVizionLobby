@@ -19,6 +19,7 @@ public class NetworkPlayerJoinListener implements Listener {
 
 	@EventHandler
 	public void onNetworkPlayerJoin(NetworkPlayerJoinEvent event) {
-		lobbyPlugin.getServer().getOnlinePlayers().forEach(player -> lobbyPlugin.getScoreboard().updateFriendsTeam(player));
+		lobbyPlugin.getServer().getOnlinePlayers().forEach(
+				player -> lobbyPlugin.getLobbyScoreboard().updateFriendsTeam(player));
 	}
 }

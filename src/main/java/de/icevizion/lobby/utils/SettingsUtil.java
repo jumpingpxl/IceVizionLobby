@@ -27,10 +27,13 @@ public class SettingsUtil {
 
     public void changeSettingsValue(CloudPlayer cloudPlayer, Inventory inventory, ItemStack itemStack, int slot) {
         if (itemStack.getData() instanceof Dye && ((Colorable)itemStack.getData()).getColor() == DyeColor.GRAY) {
-            int currentRow = slot / 9;
-            int category = currentRow * 9;
-            int newValue = slot - category - CLICK_OFFSET;
-            SettingsWrapper wrapper = getSetting(currentRow);
+
+            //slot = 8
+
+            int currentRow = slot / 9; //1
+            int category = currentRow * 9; //9?
+            int newValue = slot - category - CLICK_OFFSET; //-7????????
+            Setting wrapper = getSetting(currentRow);
             int oldVal = setForState(newValue, inventory, category, wrapper.getValue(), wrapper.getValue() == 3 ? 0 : 1);
             if (oldVal == -1) {
                 setState(inventory, category, 2, true);
@@ -46,8 +49,8 @@ public class SettingsUtil {
         }
     }
 
-    public void handleSettingsChange(CloudPlayer cloudPlayer, SettingsWrapper wrapper, int newValue) {
-        if (wrapper == SettingsWrapper.PLAYER_VISIBILITY) {
+    public void handleSettingsChange(CloudPlayer cloudPlayer, Setting wrapper, int newValue) {
+        if (wrapper == Setting.PLAYER_VISIBILITY) {
             visibilityTool.changeVisibility(cloudPlayer, newValue);
         }
     }
@@ -91,16 +94,16 @@ public class SettingsUtil {
         return -1;
     }
 
-    private SettingsWrapper getSetting(int row) {
+    private Setting getSetting(int row) {
         switch (row) {
             case 0:
-                return SettingsWrapper.PRIVATE_MESSAGE;
+                return Setting.PRIVATE_MESSAGE;
             case 1:
-                return SettingsWrapper.PARTY;
+                return Setting.PARTY_INVITE;
             case 2:
-                return SettingsWrapper.PLAYER_VISIBILITY;
+                return Setting.PLAYER_VISIBILITY;
             case 3:
-                return SettingsWrapper.JUMP;
+                return Setting.FRIEND_JUMP;
             default:
                 return null;
         }

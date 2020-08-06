@@ -32,16 +32,17 @@ public class Items {
 	}
 
 	public ItemBuilder getGamesItem(CloudPlayer cloudPlayer) {
-		return new ItemBuilder(Material.NETHER_STAR).setDisplayName(lobbyPlugin.getLocales(), cloudPlayer,
-				"itemGamesName");
+		return new ItemBuilder(Material.NETHER_STAR).setDisplayName(lobbyPlugin.getLocales(),
+				cloudPlayer, "itemGamesName");
 	}
 
 	public ItemBuilder getLobbiesItem(CloudPlayer cloudPlayer) {
-		return new ItemBuilder(Material.WATCH).setDisplayName(lobbyPlugin.getLocales(), cloudPlayer, "itemLobbiesName");
+		return new ItemBuilder(Material.WATCH).setDisplayName(lobbyPlugin.getLocales(), cloudPlayer,
+				"itemLobbiesName");
 	}
 
 	public ItemBuilder getProfileItem(CloudPlayer cloudPlayer) {
-		return new ItemBuilder(cloudPlayer.getSkinValue()).setDisplayName(lobbyPlugin.getLocales(), cloudPlayer,
-				"itemProfileName");
+		return new ItemBuilder(cloudPlayer.getSkinValue()).setDisplayName(lobbyPlugin.getLocales(),
+				cloudPlayer, "itemProfileName");
 	}
 }

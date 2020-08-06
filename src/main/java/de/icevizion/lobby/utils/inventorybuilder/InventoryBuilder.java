@@ -1,6 +1,6 @@
 package de.icevizion.lobby.utils.inventorybuilder;
 
-import net.titan.spigot.player.CloudPlayer;
+import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -8,7 +8,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -18,7 +17,6 @@ import java.util.function.Consumer;
 
 public class InventoryBuilder {
 
-	private final CloudPlayer cloudPlayer;
 	private final String title;
 	private final int size;
 	private final Map<Integer, Consumer<InventoryClickEvent>> clickEvents;
@@ -27,11 +25,10 @@ public class InventoryBuilder {
 	private Inventory inventory;
 	private boolean firstDraw;
 
-	public InventoryBuilder(CloudPlayer cloudPlayer, String title, int size) {
-		items = new HashMap<>();
-		backGroundItems = new HashMap<>();
-		clickEvents = new HashMap<>();
-		this.cloudPlayer = cloudPlayer;
+	public InventoryBuilder(String title, int size) {
+		items = Maps.newHashMap();
+		backGroundItems = Maps.newHashMap();
+		clickEvents = Maps.newHashMap();
 		this.title = title;
 		this.size = size;
 		firstDraw = true;
@@ -53,7 +50,8 @@ public class InventoryBuilder {
 		items.put(index, itemBuilder);
 	}
 
-	public final void setItem(int index, ItemBuilder itemBuilder, Consumer<InventoryClickEvent> event) {
+	public final void setItem(int index, ItemBuilder itemBuilder,
+	                          Consumer<InventoryClickEvent> event) {
 		setItem(index, itemBuilder);
 		clickEvents.put(index, event);
 	}
@@ -70,10 +68,6 @@ public class InventoryBuilder {
 
 	public final Inventory getInventory() {
 		return inventory;
-	}
-
-	public final CloudPlayer getCloudPlayer() {
-		return cloudPlayer;
 	}
 
 	public final ItemBuilder getItem(int slot) {
@@ -119,7 +113,8 @@ public class InventoryBuilder {
 			}
 		}
 
-		items.forEach((key, value) -> inventory.setItem(key, value == null ? new ItemStack(Material.AIR) : value.build()));
+		items.forEach((key, value) -> inventory.setItem(key,
+				value == null ? new ItemStack(Material.AIR) : value.build()));
 	}
 
 	public final void setFirstDraw(boolean firstDraw) {

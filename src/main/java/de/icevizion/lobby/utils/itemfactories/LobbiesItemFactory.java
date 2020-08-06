@@ -3,10 +3,11 @@ package de.icevizion.lobby.utils.itemfactories;
 import de.icevizion.lobby.LobbyPlugin;
 import de.icevizion.lobby.utils.Locales;
 import de.icevizion.lobby.utils.inventorybuilder.ItemBuilder;
-import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
+
+import java.util.Locale;
 
 /**
  * @author Nico (JumpingPxl) Middendorf
@@ -15,25 +16,27 @@ import org.bukkit.inventory.ItemFlag;
 public class LobbiesItemFactory {
 
 	private final Locales locales;
-	private final CloudPlayer cloudPlayer;
+	private final Locale locale;
 
-	public LobbiesItemFactory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
+	public LobbiesItemFactory(LobbyPlugin lobbyPlugin, Locale locale) {
 		locales = lobbyPlugin.getLocales();
-		this.cloudPlayer = cloudPlayer;
+		this.locale = locale;
 	}
 
 	public ItemBuilder getBackgroundItem() {
-		return new ItemBuilder(Material.STAINED_GLASS_PANE).setDurability((short) 3).setDisplayName("§0");
+		return new ItemBuilder(Material.STAINED_GLASS_PANE).setDurability((short) 3).setDisplayName(
+				"§0");
 	}
 
 	public ItemBuilder getLobbyItem(String serverName, Integer playerCount) {
-		return new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName(locales, cloudPlayer, "lobbyName", serverName)
-				.setLore(locales, cloudPlayer, "lobbyLore", playerCount);
+		return new ItemBuilder(Material.GLOWSTONE_DUST).setDisplayName(locales, locale, "lobbyName",
+				serverName).setLore(locales, locale, "lobbyLore", playerCount);
 	}
 
 	public ItemBuilder getCurrentLobbyItem(String serverName, Integer playerCount) {
-		return new ItemBuilder(Material.GLOWSTONE_DUST).addEnchant(Enchantment.KNOCKBACK, 1).addItemFlags(
-				ItemFlag.HIDE_ENCHANTS).setDisplayName(locales, cloudPlayer, "currentLobbyName", serverName).setLore(locales,
-				cloudPlayer, "currentLobbyLore", playerCount);
+		return new ItemBuilder(Material.DIAMOND).addEnchant(Enchantment.KNOCKBACK, 1)
+				.addItemFlags(ItemFlag.HIDE_ENCHANTS)
+				.setDisplayName(locales, locale, "currentLobbyName", serverName)
+				.setLore(locales, locale, "currentLobbyLore", playerCount);
 	}
 }

@@ -1,8 +1,6 @@
 package de.icevizion.lobby.listener.player;
 
 import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.SettingsWrapper;
-import de.icevizion.lobby.utils.inventories.ToSInventory;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -26,20 +24,18 @@ public class PlayerJoinListener implements Listener {
 		event.setJoinMessage(null);
 		Player player = event.getPlayer();
 		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(player);
-
 		player.setGameMode(GameMode.ADVENTURE);
 
-		lobbyPlugin.getScoreboard().createScoreboard(cloudPlayer);
+		lobbyPlugin.getLobbyScoreboard().createScoreboard(cloudPlayer);
 		lobbyPlugin.getItems().setItems(cloudPlayer);
-
-		//TODO -> optimize
-		lobbyPlugin.getVisibilityTool().hideOnJoin(cloudPlayer.getPlayer());
-		lobbyPlugin.getVisibilityTool().changeVisibility(cloudPlayer,
-				cloudPlayer.getSetting(SettingsWrapper.PLAYER_VISIBILITY.getID()));
+		lobbyPlugin.getVisibilityTool().handleJoin(cloudPlayer);
+		if (cloudPlayer.hasPermission(lobbyPlugin.getDoubleJump().getDoubleJumpPermission())) {
+			lobbyPlugin.getDoubleJump().getAllowedPlayers().add(player.getUniqueId());
+		}
 
 		if (Objects.isNull(cloudPlayer.getField("tos"))) {
 			Bukkit.getScheduler().runTaskLaterAsynchronously(lobbyPlugin,
-					() -> lobbyPlugin.getInventoryLoader().openInventory(new ToSInventory(lobbyPlugin, cloudPlayer)), 20);
+					() -> lobbyPlugin.getInventories().openToSInventory(cloudPlayer), 20);
 		}
 	}
 }

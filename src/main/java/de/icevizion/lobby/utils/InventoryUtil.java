@@ -2,12 +2,10 @@ package de.icevizion.lobby.utils;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
-import de.icevizion.aves.item.ItemBuilder;
 import de.icevizion.aves.item.SkullBuilder;
 import de.icevizion.lobby.LobbyPlugin;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -41,10 +39,10 @@ public class InventoryUtil {
             inventory.setItem(entry.getKey(), entry.getValue());
         }
 
-        int privateMessage = player.getSetting(SettingsWrapper.PRIVATE_MESSAGE.getID());
-        int party = player.getSetting(SettingsWrapper.PARTY.getID());
-        int friend = player.getSetting(SettingsWrapper.PLAYER_VISIBILITY.getID());
-        int jump = player.getSetting(SettingsWrapper.JUMP.getID());
+        int privateMessage = player.getSetting(Setting.PRIVATE_MESSAGE.getID());
+        int party = player.getSetting(Setting.PARTY_INVITE.getID());
+        int friend = player.getSetting(Setting.PLAYER_VISIBILITY.getID());
+        int jump = player.getSetting(Setting.FRIEND_JUMP.getID());
 
         plugin.getSettingsUtil().setState(inventory, 0, privateMessage,false);
         plugin.getSettingsUtil().setState(inventory, 9, party, false);

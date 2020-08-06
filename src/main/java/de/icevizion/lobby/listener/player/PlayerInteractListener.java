@@ -1,7 +1,6 @@
 package de.icevizion.lobby.listener.player;
 
 import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.inventories.GamesInventory;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -28,7 +27,8 @@ public class PlayerInteractListener implements Listener {
 		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(event.getPlayer());
 		Action action = event.getAction();
 
-		if (action == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock().getType() == Material.ENDER_CHEST) {
+		if (action == Action.RIGHT_CLICK_BLOCK
+				&& event.getClickedBlock().getType() == Material.ENDER_CHEST) {
         /*
         			if (LocationUtil.compare(event.getClickedBlock().getLocation(),
 					lobbyPlugin.getMapService().getLobbyMap().get().getDailyChest(), false)) {
@@ -38,10 +38,12 @@ public class PlayerInteractListener implements Listener {
 					lobbyPlugin.getDailyRewardUtil().updateDyes(player, inventory);
 					player.getPlayer().openInventory(inventory);
 				} else {
-					player.getPlayer().openInventory(lobbyPlugin.getDailyRewardUtil().buildInventory(player));
+					player.getPlayer().openInventory(lobbyPlugin.getDailyRewardUtil().buildInventory
+					(player));
 				}
 			}
          */
+			lobbyPlugin.getInventories().openDailyRewardInventory(cloudPlayer);
 			return;
 		}
 
@@ -51,7 +53,8 @@ public class PlayerInteractListener implements Listener {
 		}
 
 		ItemStack itemStack = event.getItem();
-		if (Objects.isNull(itemStack) || !itemStack.hasItemMeta() || !itemStack.getItemMeta().hasDisplayName()) {
+		if (Objects.isNull(itemStack) || !itemStack.hasItemMeta() || !itemStack.getItemMeta()
+				.hasDisplayName()) {
 			return;
 		}
 
@@ -62,32 +65,17 @@ public class PlayerInteractListener implements Listener {
 		String itemLobbies = lobbyPlugin.getLocales().getString(cloudPlayer, "itemLobbiesName");
 
 		if (itemDisplayName.equals(itemGames)) {
-			GamesInventory gamesInventory = new GamesInventory(lobbyPlugin, cloudPlayer);
-			lobbyPlugin.getInventoryLoader().openInventory(gamesInventory);
+			lobbyPlugin.getInventories().openGamesInventory(cloudPlayer);
 			return;
 		}
 
 		if (itemDisplayName.equals(itemProfile)) {
-			/*
-			if (!player.offlineExtradataContains("profile")) {
-						Inventory inventory = lobbyPlugin.getInventoryUtil().createFriendInventory(player);
-						player.offlineExtradataSet("profile", inventory);
-						player.getPlayer().openInventory(inventory);
-					} else {
-						player.getPlayer().openInventory((Inventory) player.offlineExtradataGet("profile"));
-					}
-					*/
+			lobbyPlugin.getInventories().openProfileInventory(cloudPlayer);
 			return;
 		}
 
 		if (itemDisplayName.equals(itemLobbies)) {
-			/*
-					if (lobbyPlugin.getLobbyUtil().getCurrentSize() < 2) {
-						player.sendMessage(lobbyPlugin.getPrefix() + "§cEs sind derzeit keine weiteren Lobbies online");
-					} else {
-						player.getPlayer().openInventory(lobbyPlugin.getLobbyUtil().getInventory());
-					}
-			 */
+			lobbyPlugin.getInventories().openLobbiesInventory(cloudPlayer);
 			return;
 		}
 	}

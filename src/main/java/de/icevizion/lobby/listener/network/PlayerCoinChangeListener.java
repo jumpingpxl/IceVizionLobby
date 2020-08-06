@@ -19,6 +19,6 @@ public class PlayerCoinChangeListener implements Listener {
 
 	@EventHandler
 	public void onPlayerCoinChange(PlayerCoinChangeEvent event) {
-		lobbyPlugin.getScoreboard().updateCoinsTeam(event.getCloudPlayer());
+		lobbyPlugin.getLobbyScoreboard().updateCoinsTeam(event.getCloudPlayer());
 	}
 }

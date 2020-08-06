@@ -5,10 +5,12 @@ import de.icevizion.lobby.utils.inventorybuilder.InventoryBuilder;
 import de.icevizion.lobby.utils.itemfactories.LobbiesItemFactory;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -17,18 +19,25 @@ import java.util.Map;
 
 public class LobbiesInventory extends InventoryBuilder {
 
-	private static final Integer[][] LOBBY_POSITIONS = {{4}, {3, 5}, {3, 4, 5}, {2, 3, 5, 6}, {2, 3, 4, 5, 6}};
+	private static final int[][] LOBBY_POSITIONS = {{4}, {3, 5}, {3, 4, 5}, {2, 3, 5, 6},
+			{2, 3, 4, 5, 6}};
 	private final LobbyPlugin lobbyPlugin;
 	private final LobbiesItemFactory itemFactory;
 	private Map<String, Integer> itemPositions;
 
-	public LobbiesInventory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer, List<IClusterSpigot> activeLobbies) {
-		super(cloudPlayer, lobbyPlugin.getLocales().getString(cloudPlayer, "inventoryLobbiesTitle"),
+	public LobbiesInventory(LobbyPlugin lobbyPlugin, Locale locale,
+	                        List<IClusterSpigot> activeLobbies) {
+		super(lobbyPlugin.getLocales().getString(locale, "inventoryLobbiesTitle"),
 				18 + 9 * (int) Math.ceil((double) activeLobbies.size() / LOBBY_POSITIONS.length));
 		this.lobbyPlugin = lobbyPlugin;
-		itemFactory = new LobbiesItemFactory(lobbyPlugin, cloudPlayer);
+		itemFactory = new LobbiesItemFactory(lobbyPlugin, locale);
 		itemPositions = new HashMap<>();
 		calculateItemPositions(activeLobbies);
+	}
+
+	@Override
+	public boolean isCacheable() {
+		return true;
 	}
 
 	@Override
@@ -56,7 +65,7 @@ public class LobbiesInventory extends InventoryBuilder {
 				tempLobbyList.add(lobbyList.get(i));
 				tempIndex++;
 			} else {
-				Integer[] positions = LOBBY_POSITIONS[tempIndex];
+				int[] positions = LOBBY_POSITIONS[tempIndex];
 
 				for (int i1 = 0; i1 < tempLobbyList.size(); i1++) {
 					IClusterSpigot lobby = tempLobbyList.get(i1);
@@ -84,12 +93,17 @@ public class LobbiesInventory extends InventoryBuilder {
 	}
 
 	private void setLobbyItem(int index, IClusterSpigot lobby) {
-		if (getCloudPlayer().getSpigot().getID() == lobby.getID()) {
-			setItem(index, itemFactory.getCurrentLobbyItem(lobby.getDisplayName(), lobby.getPlayerCount()));
+		if (lobbyPlugin.getCloud().getIdentifier().equals(String.valueOf(lobby.getID()))) {
+			setItem(index,
+					itemFactory.getCurrentLobbyItem(lobby.getDisplayName(), lobby.getPlayerCount()));
 			return;
 		}
 
 		setItem(index, itemFactory.getLobbyItem(lobby.getDisplayName(), lobby.getPlayerCount()),
-				event -> getCloudPlayer().sendToServer(lobby));
+				event -> {
+					CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(
+							(Player) event.getWhoClicked());
+					cloudPlayer.sendToServer(lobby);
+				});
 	}
 }

@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -67,8 +68,14 @@ public class ItemBuilder {
 		return this;
 	}
 
-	public ItemBuilder setDisplayName(Translator translator, CloudPlayer cloudPlayer, String key, Object... arguments) {
-		return setDisplayName(translator.getString(cloudPlayer, key, arguments));
+	public ItemBuilder setDisplayName(Translator translator, Locale locale, String key,
+	                                  Object... arguments) {
+		return setDisplayName(translator.getString(locale, key, arguments));
+	}
+
+	public ItemBuilder setDisplayName(Translator translator, CloudPlayer cloudPlayer, String key,
+	                                  Object... arguments) {
+		return setDisplayName(translator, cloudPlayer.getLocale(), key, arguments);
 	}
 
 	public ItemBuilder setLore(String... lore) {
@@ -81,8 +88,14 @@ public class ItemBuilder {
 		return this;
 	}
 
-	public ItemBuilder setLore(Translator translator, CloudPlayer cloudPlayer, String key, Object... arguments) {
-		return setLore(translator.getString(cloudPlayer, key, arguments));
+	public ItemBuilder setLore(Translator translator, Locale locale, String key,
+	                           Object... arguments) {
+		return setLore(translator.getString(locale, key, arguments));
+	}
+
+	public ItemBuilder setLore(Translator translator, CloudPlayer cloudPlayer, String key,
+	                           Object... arguments) {
+		return setLore(translator, cloudPlayer.getLocale(), key, arguments);
 	}
 
 	public ItemBuilder setUnbreakable(boolean unbreakable) {

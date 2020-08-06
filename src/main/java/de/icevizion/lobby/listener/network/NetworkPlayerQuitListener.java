@@ -19,6 +19,7 @@ public class NetworkPlayerQuitListener implements Listener {
 
 	@EventHandler
 	public void onNetworkPlayerQuit(NetworkPlayerQuitEvent event) {
-		lobbyPlugin.getServer().getOnlinePlayers().forEach(player -> lobbyPlugin.getScoreboard().updateFriendsTeam(player));
+		lobbyPlugin.getServer().getOnlinePlayers().forEach(
+				player -> lobbyPlugin.getLobbyScoreboard().updateFriendsTeam(player));
 	}
 }

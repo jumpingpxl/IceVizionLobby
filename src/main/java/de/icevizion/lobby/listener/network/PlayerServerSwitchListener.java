@@ -3,6 +3,7 @@ package de.icevizion.lobby.listener.network;
 import de.icevizion.lobby.LobbyPlugin;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.lib.redisevent.events.PlayerServerSwitchEvent;
+import org.bukkit.Bukkit;
 
 import java.util.function.Consumer;
 
@@ -20,14 +21,16 @@ public class PlayerServerSwitchListener implements Consumer<PlayerServerSwitchEv
 
 	@Override
 	public void accept(PlayerServerSwitchEvent event) {
-		IClusterSpigot from = lobbyPlugin.getCloud().getSpigot(event.getFrom());
-		IClusterSpigot to = lobbyPlugin.getCloud().getSpigot(event.getTo());
-		if (from.getServerType().equals("Lobby")) {
-			lobbyPlugin.getLobbySwitcher().updateLobby(from);
-		}
+		Bukkit.getScheduler().runTaskLaterAsynchronously(lobbyPlugin, () -> {
+			IClusterSpigot from = lobbyPlugin.getCloud().getSpigot(event.getFrom());
+			IClusterSpigot to = lobbyPlugin.getCloud().getSpigot(event.getTo());
+			if (from.getServerType().equals("Lobby")) {
+				lobbyPlugin.getLobbySwitcher().updateLobby(from);
+			}
 
-		if (to.getServerType().equals("Lobby")) {
-			lobbyPlugin.getLobbySwitcher().updateLobby(to);
-		}
+			if (to.getServerType().equals("Lobby")) {
+				lobbyPlugin.getLobbySwitcher().updateLobby(to);
+			}
+		}, 5L);
 	}
 }
