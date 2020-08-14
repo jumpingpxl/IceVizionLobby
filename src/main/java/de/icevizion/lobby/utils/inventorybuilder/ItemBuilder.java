@@ -49,6 +49,7 @@ public class ItemBuilder {
 		}
 
 		skullItemStack.setItemMeta(skullMeta);
+
 		this.itemStack = skullItemStack;
 		this.itemMeta = skullMeta;
 	}

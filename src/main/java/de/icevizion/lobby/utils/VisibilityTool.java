@@ -13,6 +13,7 @@ public class VisibilityTool {
 
 	public VisibilityTool(LobbyPlugin lobbyPlugin) {
 		this.lobbyPlugin = lobbyPlugin;
+
 		//TODO -> Remove Singleton Pattern
 		friendSystem = FriendSystem.getInstance();
 	}

@@ -16,39 +16,43 @@ public class ProfileInventory extends InventoryBuilder {
 	private final LobbyPlugin lobbyPlugin;
 	private final ProfileItemFactory profileItemFactory;
 	private final CloudPlayer cloudPlayer;
+	private final ProfileSite currentSite;
 	private ProfileFriendsInventory friendsInventory;
 	private ProfileRequestsInventory requestsInventory;
 	private ProfileSettingsInventory settingsInventory;
-	private final int currentSite;
 
 	public ProfileInventory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer, String title,
-	                        int currentSite) {
+	                        ProfileSite currentSite) {
 		super(title, 54);
 		this.lobbyPlugin = lobbyPlugin;
-		profileItemFactory = new ProfileItemFactory(lobbyPlugin, cloudPlayer);
 		this.cloudPlayer = cloudPlayer;
 		this.currentSite = currentSite;
+
+		profileItemFactory = new ProfileItemFactory(lobbyPlugin, cloudPlayer);
 	}
 
 	@Override
 	public void draw() {
 		for (int i = 36; i < 45; i++) {
-			setItem(i, profileItemFactory.getBackgroundItem());
+			setBackgroundItem(i, profileItemFactory.getBackgroundItem());
 		}
 
-		setItem(45, profileItemFactory.getBackgroundItem());
+		setBackgroundItem(45, profileItemFactory.getBackgroundItem());
 
-		setItem(47, profileItemFactory.getFriendsItem(), event -> lobbyPlugin.getInventoryLoader()
-				.openInventory(cloudPlayer, getFriendsInventory()));
-		setItem(49, profileItemFactory.getRequestsItem(), event -> lobbyPlugin.getInventoryLoader()
-				.openInventory(cloudPlayer, getRequestsInventory()));
-		setItem(51, profileItemFactory.getSettingsItem(), event -> lobbyPlugin.getInventoryLoader()
-				.openInventory(cloudPlayer, getSettingsInventory()));
+		setItem(ProfileSite.FRIEND_LIST.getIndex(), profileItemFactory.getFriendsItem(),
+				event -> lobbyPlugin.getInventoryLoader()
+						.openInventory(cloudPlayer, getFriendsInventory()));
+		setItem(ProfileSite.FRIEND_REQUESTS.getIndex(), profileItemFactory.getRequestsItem(),
+				event -> lobbyPlugin.getInventoryLoader()
+						.openInventory(cloudPlayer, getRequestsInventory()));
+		setItem(ProfileSite.SETTINGS.getIndex(), profileItemFactory.getSettingsItem(),
+				event -> lobbyPlugin.getInventoryLoader()
+						.openInventory(cloudPlayer, getSettingsInventory()));
 
-		setItem(53, profileItemFactory.getBackgroundItem());
+		setBackgroundItem(53, profileItemFactory.getBackgroundItem());
 
-		getClickEvents().remove(currentSite);
-		profileItemFactory.setCurrentItem(getItem(currentSite));
+		getClickEvents().remove(currentSite.getIndex());
+		profileItemFactory.setCurrentItem(getItem(currentSite.getIndex()));
 	}
 
 	public final ProfileItemFactory getProfileItemFactory() {
@@ -57,6 +61,10 @@ public class ProfileInventory extends InventoryBuilder {
 
 	public CloudPlayer getCloudPlayer() {
 		return cloudPlayer;
+	}
+
+	public ProfileSite getCurrentSite() {
+		return currentSite;
 	}
 
 	public final ProfileFriendsInventory getFriendsInventory() {
@@ -81,5 +89,21 @@ public class ProfileInventory extends InventoryBuilder {
 		}
 
 		return settingsInventory;
+	}
+
+	public enum ProfileSite {
+		FRIEND_LIST(47),
+		FRIEND_REQUESTS(49),
+		SETTINGS(51);
+
+		private final int index;
+
+		ProfileSite(int index) {
+			this.index = index;
+		}
+
+		public int getIndex() {
+			return index;
+		}
 	}
 }

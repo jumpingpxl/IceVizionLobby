@@ -8,6 +8,8 @@ import org.bukkit.event.Listener;
 
 public class PlayerSpectatorListener implements Listener {
 
+    //TODO -> finish
+
     private final ItemUtil itemUtil;
 
     public PlayerSpectatorListener(ItemUtil itemUtil) {

@@ -34,9 +34,11 @@ public class LocationProvider {
 
 	public LocationProvider(LobbyPlugin lobbyPlugin) {
 		this.lobbyPlugin = lobbyPlugin;
+
 		gson = new GsonBuilder().setPrettyPrinting().create();
 		file = new File(lobbyPlugin.getServer().getWorlds().get(0).getWorldFolder(), "map.json");
 		locations = Maps.newHashMap();
+
 		load();
 	}
 

@@ -7,8 +7,10 @@ import org.bukkit.event.Listener;
  * @version 1.0
  * @since 17/04/2020 17:21
  */
-@Deprecated
+
 public class UselessChestService implements Listener {
+
+	//TODO -> integrate
 
  /*   private final LobbyPlugin lobbyPlugin;
     private final MongoCollection<Document> dataCollection;

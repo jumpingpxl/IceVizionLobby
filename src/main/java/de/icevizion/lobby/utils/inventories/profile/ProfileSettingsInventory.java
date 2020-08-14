@@ -29,7 +29,8 @@ public class ProfileSettingsInventory extends ProfileInventory {
 
 	public ProfileSettingsInventory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
 		super(lobbyPlugin, cloudPlayer,
-				lobbyPlugin.getLocales().getString(cloudPlayer, "inventorySettingsTitle"), 51);
+				lobbyPlugin.getLocales().getString(cloudPlayer, "inventorySettingsTitle"),
+				ProfileSite.SETTINGS);
 		this.lobbyPlugin = lobbyPlugin;
 
 		itemFactory = new ProfileSettingsItemFactory(lobbyPlugin, cloudPlayer);
@@ -71,15 +72,16 @@ public class ProfileSettingsInventory extends ProfileInventory {
 
 	private Consumer<InventoryClickEvent> onSettingClick(Setting setting, int i) {
 		return event -> {
-			if(cooldown) {
+			if (cooldown) {
 				lobbyPlugin.getLocales().sendMessage(getCloudPlayer(), "settingCooldown");
 				return;
 			}
 
 			cooldown = true;
-			lobbyPlugin.getServer().getScheduler().runTaskLater(lobbyPlugin, () -> cooldown = false, 20L);
+			lobbyPlugin.getServer().getScheduler().runTaskLater(lobbyPlugin, () -> cooldown = false,
+					20L);
 			getCloudPlayer().setSetting(setting.getId(), i);
-			if(setting == Setting.PLAYER_VISIBILITY) {
+			if (setting == Setting.PLAYER_VISIBILITY) {
 				lobbyPlugin.getVisibilityTool().changeVisibility(getCloudPlayer(), i);
 			}
 
@@ -113,8 +115,8 @@ public class ProfileSettingsInventory extends ProfileInventory {
 				setItem(SETTING_POSITIONS[colors.length][i],
 						itemFactory.getSelectedSettingItem(setting, i));
 			} else {
-				setItem(SETTING_POSITIONS[colors.length][i],
-						itemFactory.getSettingItem(setting, i), onSettingClick(setting, i));
+				setItem(SETTING_POSITIONS[colors.length][i], itemFactory.getSettingItem(setting, i),
+						onSettingClick(setting, i));
 			}
 		}
 	}

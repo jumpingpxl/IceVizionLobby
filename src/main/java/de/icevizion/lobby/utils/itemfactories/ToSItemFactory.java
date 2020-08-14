@@ -17,8 +17,9 @@ public class ToSItemFactory {
 	private final Locale locale;
 
 	public ToSItemFactory(LobbyPlugin lobbyPlugin, Locale locale) {
-		locales = lobbyPlugin.getLocales();
 		this.locale = locale;
+
+		locales = lobbyPlugin.getLocales();
 	}
 
 	public ItemBuilder getBackgroundItem() {
@@ -32,12 +33,12 @@ public class ToSItemFactory {
 	}
 
 	public ItemBuilder getAcceptItem() {
-		return new ItemBuilder(Material.HARD_CLAY).setDurability((short) 13).setDisplayName(locales,
+		return new ItemBuilder(Material.STAINED_CLAY).setDurability((short) 13).setDisplayName(locales,
 				locale, "tosAcceptName").setLore(locales, locale, "tosAcceptLore");
 	}
 
 	public ItemBuilder getDenyItem() {
-		return new ItemBuilder(Material.HARD_CLAY).setDurability((short) 14).setDisplayName(locales,
+		return new ItemBuilder(Material.STAINED_CLAY).setDurability((short) 14).setDisplayName(locales,
 				locale, "tosDenyName").setLore(locales, locale, "tosDenyLore");
 	}
 }

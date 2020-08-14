@@ -19,8 +19,9 @@ public class LobbiesItemFactory {
 	private final Locale locale;
 
 	public LobbiesItemFactory(LobbyPlugin lobbyPlugin, Locale locale) {
-		locales = lobbyPlugin.getLocales();
 		this.locale = locale;
+
+		locales = lobbyPlugin.getLocales();
 	}
 
 	public ItemBuilder getBackgroundItem() {

@@ -19,8 +19,9 @@ public class ProfileSettingsItemFactory {
 	private final CloudPlayer cloudPlayer;
 
 	public ProfileSettingsItemFactory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
-		locales = lobbyPlugin.getLocales();
 		this.cloudPlayer = cloudPlayer;
+
+		locales = lobbyPlugin.getLocales();
 	}
 
 	public ItemBuilder getSecondaryBackgroundItem() {

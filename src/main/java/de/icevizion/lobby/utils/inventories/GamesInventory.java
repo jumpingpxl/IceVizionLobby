@@ -22,6 +22,7 @@ public class GamesInventory extends InventoryBuilder {
 	public GamesInventory(LobbyPlugin lobbyPlugin, Locale locale) {
 		super(lobbyPlugin.getLocales().getString(locale, "inventoryGamesTitle"), 27);
 		this.lobbyPlugin = lobbyPlugin;
+
 		itemFactory = new GamesItemFactory(lobbyPlugin, locale);
 	}
 

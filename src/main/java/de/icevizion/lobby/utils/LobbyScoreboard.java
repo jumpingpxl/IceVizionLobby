@@ -6,6 +6,7 @@ import de.icevizion.lobby.LobbyPlugin;
 import de.icevizion.scoreboard.Board;
 import de.icevizion.scoreboard.BoardAPI;
 import net.titan.cloudcore.player.ICloudPlayer;
+import net.titan.cloudcore.player.rank.Rank;
 import net.titan.protocol.utils.TimeUtilities;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.entity.Player;
@@ -60,10 +61,11 @@ public class LobbyScoreboard {
 	}
 
 	public void updateRankTeam(CloudPlayer cloudPlayer, Board board) {
-		Team playerName = getTeam(board, 11, "rank", "§2§1" + cloudPlayer.getRank().getColor());
+		Rank rank = cloudPlayer.getRank();
+		Team playerName = getTeam(board, 11, "rank", "§2§1" + rank.getColor());
 		playerName.setPrefix(lobbyPlugin.getLocales().getString(cloudPlayer, "scoreboardRankPrefix"));
 		playerName.setSuffix(lobbyPlugin.getLocales()
-				.getString(cloudPlayer, "scoreboardRankSuffix", cloudPlayer.getRank().getName()));
+				.getString(cloudPlayer, "scoreboardRankSuffix", rank.getColor(), rank.getName()));
 	}
 
 	public void updateRankTeam(CloudPlayer cloudPlayer) {

@@ -24,13 +24,16 @@ public class InventoryBuilder {
 	private final Map<Integer, ItemBuilder> backGroundItems;
 	private Inventory inventory;
 	private boolean firstDraw;
+	private boolean staticDraw;
 
 	public InventoryBuilder(String title, int size) {
+		this.title = title;
+		this.size = size;
+
 		items = Maps.newHashMap();
 		backGroundItems = Maps.newHashMap();
 		clickEvents = Maps.newHashMap();
-		this.title = title;
-		this.size = size;
+
 		firstDraw = true;
 	}
 
@@ -44,6 +47,10 @@ public class InventoryBuilder {
 
 	public boolean isCacheable() {
 		return false;
+	}
+
+	public final void setStaticDraw(boolean value) {
+		staticDraw = value;
 	}
 
 	public final void setItem(int index, ItemBuilder itemBuilder) {
@@ -91,7 +98,10 @@ public class InventoryBuilder {
 			inventory = Bukkit.createInventory(null, size, title);
 		}
 
-		draw();
+		if(!staticDraw || firstDraw) {
+			draw();
+		}
+
 		setItems();
 		return this;
 	}

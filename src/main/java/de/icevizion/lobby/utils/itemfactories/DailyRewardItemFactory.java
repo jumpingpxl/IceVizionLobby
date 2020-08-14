@@ -16,8 +16,9 @@ public class DailyRewardItemFactory {
 	private final CloudPlayer cloudPlayer;
 
 	public DailyRewardItemFactory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
-		locales = lobbyPlugin.getLocales();
 		this.cloudPlayer = cloudPlayer;
+
+		locales = lobbyPlugin.getLocales();
 	}
 
 	public ItemBuilder getBackgroundItem() {

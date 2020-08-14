@@ -22,6 +22,7 @@ public class ToSInventory extends InventoryBuilder {
 	public ToSInventory(LobbyPlugin lobbyPlugin, Locale locale) {
 		super(lobbyPlugin.getLocales().getString(locale, "inventoryToSTitle"), 27);
 		this.lobbyPlugin = lobbyPlugin;
+
 		itemFactory = new ToSItemFactory(lobbyPlugin, locale);
 	}
 

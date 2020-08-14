@@ -32,8 +32,10 @@ public class LobbiesInventory extends InventoryBuilder {
 				18 + 9 * (int) Math.ceil((double) activeLobbies.size() / LOBBY_POSITIONS.length));
 		this.lobbyPlugin = lobbyPlugin;
 		this.currentLobby = currentLobby;
+
 		itemFactory = new LobbiesItemFactory(lobbyPlugin, locale);
 		itemPositions = new HashMap<>();
+
 		calculateItemPositions(activeLobbies);
 	}
 

@@ -22,6 +22,7 @@ public class InventoryLoader {
 
 	public InventoryLoader(LobbyPlugin lobbyPlugin) {
 		this.lobbyPlugin = lobbyPlugin;
+
 		cachedInventories = Maps.newHashMap();
 		openInventories = Maps.newHashMap();
 	}

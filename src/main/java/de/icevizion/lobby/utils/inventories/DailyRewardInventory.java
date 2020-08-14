@@ -31,8 +31,9 @@ public class DailyRewardInventory extends InventoryBuilder {
 	public DailyRewardInventory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
 		super(lobbyPlugin.getLocales().getString(cloudPlayer, "inventoryDailyTitle"), 27);
 		this.lobbyPlugin = lobbyPlugin;
-		itemFactory = new DailyRewardItemFactory(lobbyPlugin, cloudPlayer);
 		this.cloudPlayer = cloudPlayer;
+
+		itemFactory = new DailyRewardItemFactory(lobbyPlugin, cloudPlayer);
 	}
 
 	@Override
