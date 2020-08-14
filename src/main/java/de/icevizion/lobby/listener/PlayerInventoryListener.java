@@ -1,26 +1,10 @@
 package de.icevizion.lobby.listener;
 
-import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
-import de.icevizion.lobby.LobbyPlugin;
-import net.titan.lib.network.spigot.IClusterSpigot;
-import net.titan.spigot.Cloud;
-import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 public class PlayerInventoryListener implements Listener {
 
-    private final LobbyPlugin plugin;
+/*    private final LobbyPlugin plugin;
 
     public PlayerInventoryListener(LobbyPlugin plugin) {
         this.plugin = plugin;
@@ -140,5 +124,5 @@ public class PlayerInventoryListener implements Listener {
             default:
                 break;
         }
-    }
+    } */
 }

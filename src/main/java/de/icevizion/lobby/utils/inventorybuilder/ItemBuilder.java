@@ -90,7 +90,9 @@ public class ItemBuilder {
 
 	public ItemBuilder setLore(Translator translator, Locale locale, String key,
 	                           Object... arguments) {
-		return setLore(translator.getString(locale, key, arguments));
+		String[] lore = translator.getString(locale, key, arguments).split("\n");
+		List<String> loreList = Arrays.asList(lore);
+		return setLore(loreList);
 	}
 
 	public ItemBuilder setLore(Translator translator, CloudPlayer cloudPlayer, String key,

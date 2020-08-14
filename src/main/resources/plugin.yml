@@ -1,8 +1,8 @@
 name: Lobby-1.8
 version: 1.1.0
-main: de.icevizion.lobby.Lobby
+main: de.icevizion.lobby.LobbyPlugin
 
-author: theEvilReaper
+author: [theEvilReaper, JumpingPxl]
 
 depend: [Aves-1.8, CloudSpigot, FriendSystem, PartySystem, SpectatorSystem]
 

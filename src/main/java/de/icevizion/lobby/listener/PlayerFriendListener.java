@@ -1,20 +1,10 @@
 package de.icevizion.lobby.listener;
 
-import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
-import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
-import de.cosmiqglow.component.friendsystem.spigot.FriendUpdateEvent;
-import de.icevizion.lobby.LobbyPlugin;
-import net.titan.spigot.Cloud;
-import net.titan.spigot.event.NetworkPlayerQuitEvent;
-import net.titan.spigot.event.NetworkPlayerServerSwitchedEvent;
-import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.Inventory;
 
 public class PlayerFriendListener implements Listener {
 
-    private final LobbyPlugin plugin;
+/*    private final LobbyPlugin plugin;
 
     public PlayerFriendListener(LobbyPlugin plugin) {
         this.plugin = plugin;
@@ -61,5 +51,5 @@ public class PlayerFriendListener implements Listener {
                 }
             }
         }
-    }
+    } */
 }

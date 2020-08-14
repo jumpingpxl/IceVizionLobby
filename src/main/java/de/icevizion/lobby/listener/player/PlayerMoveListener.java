@@ -35,7 +35,7 @@ public class PlayerMoveListener implements Listener {
 
 		Block block = player.getLocation().getBlock();
 		Block blockRelative = block.getRelative(BlockFace.DOWN);
-		if (blockRelative.getType().isSolid()) {
+		if (!blockRelative.getType().isSolid()) {
 			return;
 		}
 

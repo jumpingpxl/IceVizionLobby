@@ -3,6 +3,7 @@ package de.icevizion.lobby.listener.player;
 import de.icevizion.lobby.LobbyPlugin;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -26,28 +27,18 @@ public class PlayerInteractListener implements Listener {
 	public void onInteract(PlayerInteractEvent event) {
 		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(event.getPlayer());
 		Action action = event.getAction();
+		event.setCancelled(true);
 
-		if (action == Action.RIGHT_CLICK_BLOCK
-				&& event.getClickedBlock().getType() == Material.ENDER_CHEST) {
-        /*
-        			if (LocationUtil.compare(event.getClickedBlock().getLocation(),
-					lobbyPlugin.getMapService().getLobbyMap().get().getDailyChest(), false)) {
-				event.setCancelled(false);
-				if (player.offlineExtradataContains("dailyReward")) {
-					Inventory inventory = (Inventory) player.offlineExtradataGet("dailyReward");
-					lobbyPlugin.getDailyRewardUtil().updateDyes(player, inventory);
-					player.getPlayer().openInventory(inventory);
-				} else {
-					player.getPlayer().openInventory(lobbyPlugin.getDailyRewardUtil().buildInventory
-					(player));
-				}
+		Block block = event.getClickedBlock();
+		if (action == Action.RIGHT_CLICK_BLOCK && block.getType() == Material.ENDER_CHEST) {
+			if (!lobbyPlugin.getLocationProvider().matches(block.getLocation(), "dailyChest")) {
+				return;
 			}
-         */
+
 			lobbyPlugin.getInventories().openDailyRewardInventory(cloudPlayer);
 			return;
 		}
 
-		event.setCancelled(true);
 		if (action != Action.RIGHT_CLICK_AIR && action != Action.RIGHT_CLICK_BLOCK) {
 			return;
 		}

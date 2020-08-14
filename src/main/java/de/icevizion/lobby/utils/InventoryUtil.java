@@ -1,20 +1,9 @@
 package de.icevizion.lobby.utils;
 
-import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
-import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
-import de.icevizion.aves.item.SkullBuilder;
-import de.icevizion.lobby.LobbyPlugin;
-import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Bukkit;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.List;
-import java.util.Map;
 @Deprecated
 public class InventoryUtil {
 
-    private final LobbyPlugin plugin;
+/*    private final LobbyPlugin plugin;
     private Inventory teleporter;
     private Inventory privacy;
 
@@ -101,21 +90,11 @@ public class InventoryUtil {
         return inventory;
     }
 
-    /**
-     * Returns the inventory for the teleporter
-     * @return The Inventory for the teleporter
-     */
-
     public Inventory getTeleporter() {
         return teleporter;
     }
 
-    /**
-     * Returns the inventory for the privacy query
-     * @return The inventory for privacy
-     */
-
     public Inventory getPrivacy() {
         return privacy;
-    }
+    } */
 }

@@ -40,12 +40,12 @@ public class ProfileSettingsItemFactory {
 
 	public ItemBuilder getSettingItem(Setting setting, int i) {
 		return new ItemBuilder(Material.INK_SACK).setDurability((short) 8).setDisplayName(locales,
-				cloudPlayer, setting.getKey() + "Setting" + i);
+				cloudPlayer, setting.getKey() + "Setting" + (i + 1));
 	}
 
 	public ItemBuilder getSelectedSettingItem(Setting setting, int i) {
 		return new ItemBuilder(Material.INK_SACK).setDurability(setting.getColors()[i]).setDisplayName(
-				locales, cloudPlayer, setting.getKey() + "Setting" + i).setLore(locales, cloudPlayer,
+				locales, cloudPlayer, setting.getKey() + "Setting" + (i + 1)).setLore(locales, cloudPlayer,
 				"settingsSettingSelectedLore");
 	}
 

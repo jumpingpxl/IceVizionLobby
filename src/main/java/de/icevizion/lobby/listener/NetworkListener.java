@@ -1,19 +1,10 @@
 package de.icevizion.lobby.listener;
 
-import de.icevizion.lobby.utils.LobbyUtil;
-import net.titan.lib.redisevent.events.PlayerJoinEvent;
-import net.titan.lib.redisevent.events.PlayerQuitEvent;
-import net.titan.lib.redisevent.events.PlayerServerSwitchEvent;
-import net.titan.lib.redisevent.events.ServerAvailableEvent;
-import net.titan.lib.redisevent.events.ServerUnavailableEvent;
-import net.titan.spigot.Cloud;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 
 public class NetworkListener implements Listener {
 
-    private final Plugin plugin;
+/*    private final Plugin plugin;
     private final LobbyUtil lobbyUtil;
 
     public NetworkListener(Plugin plugin, LobbyUtil lobbyUtil) {
@@ -61,5 +52,5 @@ public class NetworkListener implements Listener {
                 lobbyUtil.updateSlots();
             }
         });
-    }
+    } */
 }

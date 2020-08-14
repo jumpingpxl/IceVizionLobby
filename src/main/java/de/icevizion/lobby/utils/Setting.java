@@ -9,9 +9,9 @@ public enum Setting {
 			(short) 1),
 	PARTY_INVITE("settingsPartyInvite", Material.FIREWORK, 101, 3, (short) 10, (short) 14,
 			(short) 1),
-	FRIEND_JUMP("settingsFriendJump", Material.ENDER_PEARL, 103, 2, (short) 10, (short) 14,
+	FRIEND_JUMP("settingsFriendJump", Material.ENDER_PEARL, 103, 2, (short) 14,
 			(short) 1),
-	PLAYER_VISIBILITY("settingsVisibility", Material.BLAZE_ROD, 102, 3, (short) 14, (short) 1);
+	PLAYER_VISIBILITY("settingsVisibility", Material.BLAZE_ROD, 102, 3, (short) 10, (short) 14, (short) 1);
 
 	private final String key;
 	private final Material material;

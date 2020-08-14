@@ -22,18 +22,24 @@ public class Inventories {
 
 	public void openGamesInventory(CloudPlayer cloudPlayer) {
 		if (!lobbyPlugin.getInventoryLoader().openCachedInventory(cloudPlayer, GamesInventory.class)) {
+			System.out.println("NonCached Games");
 			GamesInventory gamesInventory = new GamesInventory(lobbyPlugin, cloudPlayer.getLocale());
 			lobbyPlugin.getInventoryLoader().openInventory(cloudPlayer, gamesInventory);
+		} else {
+			System.out.println("Cached Games");
 		}
 	}
 
 	public void openLobbiesInventory(CloudPlayer cloudPlayer) {
 		if (!lobbyPlugin.getInventoryLoader().openCachedInventory(cloudPlayer,
 				LobbiesInventory.class)) {
+			System.out.println("NonCached Lobbies");
 			LobbiesInventory lobbiesInventory = new LobbiesInventory(lobbyPlugin,
 					cloudPlayer.getLocale(),
-					lobbyPlugin.getLobbySwitcher().getActiveLobbies());
+					cloudPlayer.getSpigot(), lobbyPlugin.getLobbySwitcher().getActiveLobbies());
 			lobbyPlugin.getInventoryLoader().openInventory(cloudPlayer, lobbiesInventory);
+		} else {
+			System.out.println("Cached Lobbies");
 		}
 	}
 

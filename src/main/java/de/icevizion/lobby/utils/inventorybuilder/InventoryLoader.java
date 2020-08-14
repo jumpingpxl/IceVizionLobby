@@ -2,7 +2,6 @@ package de.icevizion.lobby.utils.inventorybuilder;
 
 import com.google.common.collect.Maps;
 import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.inventories.GamesInventory;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -54,7 +53,7 @@ public class InventoryLoader {
 	public boolean openCachedInventory(CloudPlayer cloudPlayer,
 	                                   Class<? extends InventoryBuilder> inventory) {
 		Optional<InventoryBuilder> optionalInventory = lobbyPlugin.getInventoryLoader()
-				.getCachedInventory(cloudPlayer.getLocale(), GamesInventory.class);
+				.getCachedInventory(cloudPlayer.getLocale(), inventory);
 		if (optionalInventory.isPresent()) {
 			lobbyPlugin.getInventoryLoader().openInventory(cloudPlayer, optionalInventory.get());
 			return true;

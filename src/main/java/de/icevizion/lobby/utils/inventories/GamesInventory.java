@@ -42,7 +42,7 @@ public class GamesInventory extends InventoryBuilder {
 				event -> teleportPlayer(event.getWhoClicked(), "kbffa"));
 		setItem(13, itemFactory.getSpawnItem(),
 				event -> teleportPlayer(event.getWhoClicked(), "spawn"));
-		setItem(14, itemFactory.getOneLineItem(),
+		setItem(15, itemFactory.getOneLineItem(),
 				event -> teleportPlayer(event.getWhoClicked(), "oneline"));
 		setItem(17, itemFactory.getBackgroundItem());
 

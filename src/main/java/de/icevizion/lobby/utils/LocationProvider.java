@@ -44,6 +44,21 @@ public class LocationProvider {
 		return locations.get(key);
 	}
 
+	public boolean matches(Location location, String key) {
+		return matches(location, getLocation(key));
+	}
+
+	public boolean matches(Location location, Location compareTo) {
+		return location.getBlockX() == compareTo.getBlockX()
+				&& location.getBlockY() == compareTo.getBlockY()
+				&& location.getBlockZ() == compareTo.getBlockZ();
+	}
+
+	public void addLocation(String key, Location location) {
+		locations.put(key, location);
+		save();
+	}
+
 	private void load() {
 		JsonArray jsonArray = getJsonArrayFromFile();
 		if (Objects.isNull(jsonArray)) {

@@ -1,29 +1,9 @@
 package de.icevizion.lobby.utils;
 
-import de.icevizion.aves.item.ColoredBuilder;
-import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.DyeColor;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Colorable;
-import org.bukkit.material.Dye;
 @Deprecated
 public class SettingsUtil {
 
-    private final VisibilityTool visibilityTool;
-    private static final int CLICK_OFFSET = 6;
-
-    public SettingsUtil(VisibilityTool visibilityTool) {
-        this.visibilityTool = visibilityTool;
-    }
-
-    /**
-     * Changes the current state of a setting.
-     * @param cloudPlayer The player who changed something
-     * @param inventory The used inventory
-     * @param itemStack The clicked {@link ItemStack}
-     * @param slot The clicked slot from the inventory
-     */
+/*
 
     public void changeSettingsValue(CloudPlayer cloudPlayer, Inventory inventory, ItemStack itemStack, int slot) {
         if (itemStack.getData() instanceof Dye && ((Colorable)itemStack.getData()).getColor() == DyeColor.GRAY) {
@@ -54,14 +34,6 @@ public class SettingsUtil {
             visibilityTool.changeVisibility(cloudPlayer, newValue);
         }
     }
-
-    /**
-     * Updates the state of a specific {@link ItemStack}.
-     * @param inv The used inventory
-     * @param category The category where something should be changed
-     * @param value The new value
-     * @param gray If the new state is gray or not
-     */
 
     public void setState(Inventory inv, int category, int value, boolean gray) {
         ItemStack state;
@@ -107,5 +79,5 @@ public class SettingsUtil {
             default:
                 return null;
         }
-    }
+    } */
 }

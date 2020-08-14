@@ -49,17 +49,22 @@ public class VisibilityTool {
 	}
 
 	private void hidePlayer(Player player) {
-		lobbyPlugin.getCloud().getCurrentOnlinePlayers().forEach(cloudPlayer -> {
-			switch (cloudPlayer.getSetting(Setting.PLAYER_VISIBILITY.getId())) {
+		lobbyPlugin.getCloud().getCurrentOnlinePlayers().forEach(onlinePlayer -> {
+			switch (onlinePlayer.getSetting(Setting.PLAYER_VISIBILITY.getId())) {
+				case 0:
+					onlinePlayer.getPlayer().showPlayer(player);
+					break;
 				case 1:
-					FriendProfile profile = friendSystem.getFriendProfile(cloudPlayer);
-					if (!profile.getRawFriends().containsKey(player.getUniqueId().toString())) {
-						cloudPlayer.getPlayer().hidePlayer(player);
+					FriendProfile profile = friendSystem.getFriendProfile(onlinePlayer);
+					if (profile.getRawFriends().containsKey(player.getUniqueId().toString())) {
+						onlinePlayer.getPlayer().showPlayer(player);
+					} else {
+						onlinePlayer.getPlayer().hidePlayer(player);
 					}
 
 					break;
 				case 2:
-					cloudPlayer.getPlayer().hidePlayer(player);
+					onlinePlayer.getPlayer().hidePlayer(player);
 					break;
 			}
 		});

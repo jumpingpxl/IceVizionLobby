@@ -51,18 +51,20 @@ public class DailyRewardInventory extends InventoryBuilder {
 				}
 
 				claimReward(PREMIUM_REWARD_KEY, PREMIUM_REWARD);
+				buildInventory();
 			});
 		}
 
-		setItem(hasPremiumReward ? 12 : 13, hasClaimed(NORMAL_REWARD_KEY) ? itemFactory.getRewardItem()
-				: itemFactory.getClaimedRewardItem(), event -> {
-			if (hasClaimed(NORMAL_REWARD_KEY)) {
-				lobbyPlugin.getLocales().sendMessage(cloudPlayer, "dailyClaimAlreadyClaimed");
-				return;
-			}
+		setItem(hasPremiumReward ? 12 : 13, hasClaimed(NORMAL_REWARD_KEY)
+				? itemFactory.getClaimedRewardItem() : itemFactory.getRewardItem(), event -> {
+					if (hasClaimed(NORMAL_REWARD_KEY)) {
+						lobbyPlugin.getLocales().sendMessage(cloudPlayer, "dailyClaimAlreadyClaimed");
+						return;
+					}
 
-			claimReward(NORMAL_REWARD_KEY, NORMAL_REWARD);
-		});
+					claimReward(NORMAL_REWARD_KEY, NORMAL_REWARD);
+					buildInventory();
+				});
 
 		for (int i = 18; i < 27; i++) {
 			setItem(i, itemFactory.getBackgroundItem());
@@ -95,10 +97,10 @@ public class DailyRewardInventory extends InventoryBuilder {
 	private int calculateCurrentStreak() {
 		int currentStreak = cloudPlayer.extradataContains(STREAK_KEY) ? (int) cloudPlayer.extradataGet(
 				STREAK_KEY) : 0;
-		int normalTimestamp = cloudPlayer.extradataContains(NORMAL_REWARD_KEY)
-				? (int) cloudPlayer.extradataGet(NORMAL_REWARD_KEY) : 0;
-		int premiumTimestamp = cloudPlayer.extradataContains(PREMIUM_REWARD_KEY)
-				? (int) cloudPlayer.extradataGet(PREMIUM_REWARD_KEY) : 0;
+		long normalTimestamp = cloudPlayer.extradataContains(NORMAL_REWARD_KEY)
+				? (long) cloudPlayer.extradataGet(NORMAL_REWARD_KEY) : 0;
+		long premiumTimestamp = cloudPlayer.extradataContains(PREMIUM_REWARD_KEY)
+				? (long) cloudPlayer.extradataGet(PREMIUM_REWARD_KEY) : 0;
 		if (normalTimestamp > System.currentTimeMillis()
 				|| premiumTimestamp > System.currentTimeMillis()) {
 			return currentStreak;

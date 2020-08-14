@@ -7,6 +7,8 @@ import de.icevizion.lobby.listener.block.BlockIgniteListener;
 import de.icevizion.lobby.listener.block.BlockPhysicsListener;
 import de.icevizion.lobby.listener.block.BlockPlaceListener;
 import de.icevizion.lobby.listener.block.LeavesDecayListener;
+import de.icevizion.lobby.listener.entity.EntityDamageByEntityListener;
+import de.icevizion.lobby.listener.entity.EntityDamageListener;
 import de.icevizion.lobby.listener.entity.EntityExplodeListener;
 import de.icevizion.lobby.listener.entity.EntityInteractListener;
 import de.icevizion.lobby.listener.entity.HangingBreakByEntityListener;
@@ -84,7 +86,7 @@ public class LobbyPlugin extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		uselessChestService.despawn();
+
 	}
 
 	private void loadUtilities() {
@@ -108,6 +110,8 @@ public class LobbyPlugin extends JavaPlugin {
 		pluginManager.registerEvents(new BlockPlaceListener(), this);
 		pluginManager.registerEvents(new LeavesDecayListener(), this);
 
+		pluginManager.registerEvents(new EntityDamageByEntityListener(this), this);
+		pluginManager.registerEvents(new EntityDamageListener(), this);
 		pluginManager.registerEvents(new EntityExplodeListener(), this);
 		pluginManager.registerEvents(new EntityInteractListener(), this);
 		pluginManager.registerEvents(new HangingBreakByEntityListener(), this);

@@ -24,7 +24,7 @@ public class InventoryClickListener implements Listener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
 		if (event.getClickedInventory() == null || event.getClickedInventory() == event.getWhoClicked()
-				.getInventory() || event.getClickedInventory().getHolder() != event.getWhoClicked()) {
+				.getInventory()) {
 			event.setCancelled(true);
 			return;
 		}

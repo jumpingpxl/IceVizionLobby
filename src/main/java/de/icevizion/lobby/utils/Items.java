@@ -28,7 +28,7 @@ public class Items {
 		inventory.setItem(4, getGamesItem(cloudPlayer).build());
 		inventory.setHeldItemSlot(4);
 
-		inventory.setItem(1, getProfileItem(cloudPlayer).build());
+		inventory.setItem(7, getProfileItem(cloudPlayer).build());
 	}
 
 	public ItemBuilder getGamesItem(CloudPlayer cloudPlayer) {

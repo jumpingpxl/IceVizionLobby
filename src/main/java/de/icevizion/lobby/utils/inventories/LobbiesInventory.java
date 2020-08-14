@@ -23,13 +23,15 @@ public class LobbiesInventory extends InventoryBuilder {
 			{2, 3, 4, 5, 6}};
 	private final LobbyPlugin lobbyPlugin;
 	private final LobbiesItemFactory itemFactory;
+	private final IClusterSpigot currentLobby;
 	private Map<String, Integer> itemPositions;
 
-	public LobbiesInventory(LobbyPlugin lobbyPlugin, Locale locale,
+	public LobbiesInventory(LobbyPlugin lobbyPlugin, Locale locale, IClusterSpigot currentLobby,
 	                        List<IClusterSpigot> activeLobbies) {
 		super(lobbyPlugin.getLocales().getString(locale, "inventoryLobbiesTitle"),
 				18 + 9 * (int) Math.ceil((double) activeLobbies.size() / LOBBY_POSITIONS.length));
 		this.lobbyPlugin = lobbyPlugin;
+		this.currentLobby = currentLobby;
 		itemFactory = new LobbiesItemFactory(lobbyPlugin, locale);
 		itemPositions = new HashMap<>();
 		calculateItemPositions(activeLobbies);
@@ -61,8 +63,8 @@ public class LobbiesInventory extends InventoryBuilder {
 		int tempIndex = 0;
 		List<IClusterSpigot> tempLobbyList = new ArrayList<>();
 		for (int i = 0; i < lobbyList.size(); i++) {
+			tempLobbyList.add(lobbyList.get(i));
 			if (tempIndex < LOBBY_POSITIONS.length - 1 && i < lobbyList.size() - 1) {
-				tempLobbyList.add(lobbyList.get(i));
 				tempIndex++;
 			} else {
 				int[] positions = LOBBY_POSITIONS[tempIndex];
@@ -93,7 +95,7 @@ public class LobbiesInventory extends InventoryBuilder {
 	}
 
 	private void setLobbyItem(int index, IClusterSpigot lobby) {
-		if (lobbyPlugin.getCloud().getIdentifier().equals(String.valueOf(lobby.getID()))) {
+		if (currentLobby.getID() == lobby.getID()) {
 			setItem(index,
 					itemFactory.getCurrentLobbyItem(lobby.getDisplayName(), lobby.getPlayerCount()));
 			return;

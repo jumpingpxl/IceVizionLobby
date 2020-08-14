@@ -25,6 +25,7 @@ public class ProfileSettingsInventory extends ProfileInventory {
 	private final ProfileSettingsItemFactory itemFactory;
 	private Setting currentSetting;
 	private int currentSlot;
+	private boolean cooldown;
 
 	public ProfileSettingsInventory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
 		super(lobbyPlugin, cloudPlayer,
@@ -54,10 +55,13 @@ public class ProfileSettingsInventory extends ProfileInventory {
 			setBackgroundItem(35, itemFactory.getSecondaryBackgroundItem());
 		}
 
+		for (int i : SETTING_POSITIONS[5]) {
+			setItem(i, null);
+		}
 		setSettingItems();
 	}
 
-	private Consumer<InventoryClickEvent> getCategoryClickEvent(Setting setting) {
+	private Consumer<InventoryClickEvent> onCategoryClick(Setting setting) {
 		return event -> {
 			currentSetting = setting;
 			currentSlot = event.getRawSlot();
@@ -65,8 +69,19 @@ public class ProfileSettingsInventory extends ProfileInventory {
 		};
 	}
 
-	private Consumer<InventoryClickEvent> getSettingClickEvent(Setting setting) {
+	private Consumer<InventoryClickEvent> onSettingClick(Setting setting, int i) {
 		return event -> {
+			if(cooldown) {
+				lobbyPlugin.getLocales().sendMessage(getCloudPlayer(), "settingCooldown");
+				return;
+			}
+
+			cooldown = true;
+			lobbyPlugin.getServer().getScheduler().runTaskLater(lobbyPlugin, () -> cooldown = false, 20L);
+			getCloudPlayer().setSetting(setting.getId(), i);
+			if(setting == Setting.PLAYER_VISIBILITY) {
+				lobbyPlugin.getVisibilityTool().changeVisibility(getCloudPlayer(), i);
+			}
 
 			buildInventory();
 		};
@@ -76,7 +91,7 @@ public class ProfileSettingsInventory extends ProfileInventory {
 		Setting[] settings = Setting.values();
 		for (int i = 0; i < settings.length; i++) {
 			setItem(CATEGORY_POSITIONS[settings.length][i], itemFactory.getCategoryItem(settings[i]),
-					getCategoryClickEvent(settings[i]));
+					onCategoryClick(settings[i]));
 		}
 
 		if (Objects.isNull(currentSetting)) {
@@ -92,8 +107,15 @@ public class ProfileSettingsInventory extends ProfileInventory {
 
 	private void setCurrentSettingItems(Setting setting) {
 		short[] colors = setting.getColors();
+		int currentValue = getCloudPlayer().getSetting(setting.getId());
 		for (int i = 0; i < colors.length; i++) {
-			setItem(SETTING_POSITIONS[colors.length][i], itemFactory.getSettingItem(setting, i));
+			if (currentValue == i) {
+				setItem(SETTING_POSITIONS[colors.length][i],
+						itemFactory.getSelectedSettingItem(setting, i));
+			} else {
+				setItem(SETTING_POSITIONS[colors.length][i],
+						itemFactory.getSettingItem(setting, i), onSettingClick(setting, i));
+			}
 		}
 	}
 }

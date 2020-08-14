@@ -22,8 +22,7 @@ public class InventoryCloseListener implements Listener {
 
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent event) {
-		if (event.getInventory() == event.getPlayer().getInventory()
-				|| event.getInventory().getHolder() != event.getPlayer()) {
+		if (event.getInventory() == event.getPlayer().getInventory()) {
 			return;
 		}
 

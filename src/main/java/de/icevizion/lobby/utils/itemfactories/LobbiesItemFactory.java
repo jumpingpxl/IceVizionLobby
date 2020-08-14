@@ -34,7 +34,7 @@ public class LobbiesItemFactory {
 	}
 
 	public ItemBuilder getCurrentLobbyItem(String serverName, Integer playerCount) {
-		return new ItemBuilder(Material.DIAMOND).addEnchant(Enchantment.KNOCKBACK, 1)
+		return new ItemBuilder(Material.GLOWSTONE_DUST).addEnchant(Enchantment.KNOCKBACK, 1)
 				.addItemFlags(ItemFlag.HIDE_ENCHANTS)
 				.setDisplayName(locales, locale, "currentLobbyName", serverName)
 				.setLore(locales, locale, "currentLobbyLore", playerCount);

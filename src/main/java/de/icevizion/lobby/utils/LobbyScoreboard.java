@@ -49,6 +49,7 @@ public class LobbyScoreboard {
 		board.setLine(1, "§1§5");
 
 		updateScoreboard(cloudPlayer, board);
+		board.show();
 	}
 
 	public void resetScoreboard(CloudPlayer cloudPlayer) {
@@ -58,16 +59,15 @@ public class LobbyScoreboard {
 		board.reset();
 	}
 
-	public void updatePlayerNameTeam(CloudPlayer cloudPlayer, Board board) {
-		Team playerName = getTeam(board, 11, "playerName", "§2§1");
-		playerName.setPrefix(lobbyPlugin.getLocales()
-				.getString(cloudPlayer, "scoreboardNameTeamPrefix", cloudPlayer.getRank().getColor()));
+	public void updateRankTeam(CloudPlayer cloudPlayer, Board board) {
+		Team playerName = getTeam(board, 11, "rank", "§2§1" + cloudPlayer.getRank().getColor());
+		playerName.setPrefix(lobbyPlugin.getLocales().getString(cloudPlayer, "scoreboardRankPrefix"));
 		playerName.setSuffix(lobbyPlugin.getLocales()
-				.getString(cloudPlayer, "scoreboardNameTeamSuffix", cloudPlayer.getDisplayName()));
+				.getString(cloudPlayer, "scoreboardRankSuffix", cloudPlayer.getRank().getName()));
 	}
 
-	public void updatePlayerNameTeam(CloudPlayer cloudPlayer) {
-		updatePlayerNameTeam(cloudPlayer, boardApi.getBoard(cloudPlayer.getPlayer()));
+	public void updateRankTeam(CloudPlayer cloudPlayer) {
+		updateRankTeam(cloudPlayer, boardApi.getBoard(cloudPlayer.getPlayer()));
 	}
 
 	public void updateFriendsTeam(CloudPlayer cloudPlayer, Board board) {
@@ -106,7 +106,7 @@ public class LobbyScoreboard {
 	}
 
 	public void updateOnlineTimeTeam(CloudPlayer cloudPlayer, Board board) {
-		Team onlineTime = getTeam(board, 5, "onlineTime", "§2§3");
+		Team onlineTime = getTeam(board, 2, "onlineTime", "§2§4");
 		//TODO -> Remove Singleton Pattern
 		onlineTime.setPrefix(lobbyPlugin.getLocales()
 				.getString(cloudPlayer, "scoreboardOnlineTimeTeamPrefix",
@@ -120,7 +120,7 @@ public class LobbyScoreboard {
 	}
 
 	public void updateScoreboard(CloudPlayer cloudPlayer, Board board) {
-		updatePlayerNameTeam(cloudPlayer, board);
+		updateRankTeam(cloudPlayer, board);
 		updateFriendsTeam(cloudPlayer, board);
 		updateCoinsTeam(cloudPlayer, board);
 		updateOnlineTimeTeam(cloudPlayer, board);

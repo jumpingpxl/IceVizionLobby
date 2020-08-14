@@ -14,6 +14,8 @@ import java.util.UUID;
 
 public class DoubleJump implements Listener {
 
+	//TODO -> Prevent DoubleJump while in Air
+
 	private static final String DOUBLE_JUMP_PERMISSION = "lobby.doublejump";
 	private final Set<UUID> allowedPlayers;
 

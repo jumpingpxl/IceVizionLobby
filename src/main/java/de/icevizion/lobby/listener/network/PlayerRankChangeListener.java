@@ -24,7 +24,7 @@ public class PlayerRankChangeListener implements Listener {
 	@EventHandler
 	public void onPlayerRankChange(PlayerRankChangeEvent event) {
 		CloudPlayer cloudPlayer = event.getCloudPlayer();
-		lobbyPlugin.getLobbyScoreboard().updatePlayerNameTeam(cloudPlayer);
+		lobbyPlugin.getLobbyScoreboard().updateRankTeam(cloudPlayer);
 
 		Set<UUID> allowedPlayers = lobbyPlugin.getDoubleJump().getAllowedPlayers();
 		UUID playerUuid = event.getCloudPlayer().getPlayer().getUniqueId();

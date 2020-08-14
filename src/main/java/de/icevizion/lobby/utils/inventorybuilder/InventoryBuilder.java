@@ -75,12 +75,7 @@ public class InventoryBuilder {
 	}
 
 	public final boolean isFirstDraw() {
-		if (firstDraw) {
-			firstDraw = false;
-			return true;
-		}
-
-		return false;
+		return firstDraw;
 	}
 
 	public final Map<Integer, ItemBuilder> getItems() {
@@ -102,9 +97,9 @@ public class InventoryBuilder {
 	}
 
 	public final void setItems() {
-		if (firstDraw) {
-			backGroundItems.forEach((key, value) -> inventory.setItem(key, value.build()));
-		}
+		inventory.clear();
+		firstDraw = false;
+		backGroundItems.forEach((key, value) -> inventory.setItem(key, value.build()));
 
 		for (int i = 0; i < inventory.getContents().length; i++) {
 			if (!backGroundItems.containsKey(i) && !items.containsKey(i)) {

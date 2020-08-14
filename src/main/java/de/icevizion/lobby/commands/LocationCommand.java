@@ -33,7 +33,7 @@ public class LocationCommand implements CommandExecutor {
 			return true;
 		}
 
-		lobbyPlugin.getMapService().setValue(args[0].toLowerCase(), player.getLocation());
+		lobbyPlugin.getLocationProvider().addLocation(args[0].toLowerCase(), player.getLocation());
 		lobbyPlugin.getLocales().sendMessage(cloudPlayer, "locationSet", args[0].toUpperCase());
 		return true;
 	}

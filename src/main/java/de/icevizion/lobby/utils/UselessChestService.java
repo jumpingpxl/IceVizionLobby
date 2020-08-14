@@ -1,24 +1,6 @@
 package de.icevizion.lobby.utils;
 
-import com.mongodb.client.MongoCollection;
-import de.icevizion.aves.util.LocationUtil;
-import de.icevizion.lobby.LobbyPlugin;
-import io.sentry.Sentry;
-import net.titan.spigot.Cloud;
-import org.bson.Document;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.world.ChunkUnloadEvent;
-
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author Patrick Zdarsky / Rxcki
@@ -28,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @Deprecated
 public class UselessChestService implements Listener {
 
-    private final LobbyPlugin lobbyPlugin;
+ /*   private final LobbyPlugin lobbyPlugin;
     private final MongoCollection<Document> dataCollection;
     private final ReentrantLock lock;
     private final Chunk chunk;
@@ -147,5 +129,5 @@ public class UselessChestService implements Listener {
         } finally {
             lock.unlock();
         }
-    }
+    } */
 }
