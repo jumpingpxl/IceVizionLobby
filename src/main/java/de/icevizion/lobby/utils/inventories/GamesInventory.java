@@ -53,7 +53,7 @@ public class GamesInventory extends InventoryBuilder {
 	}
 
 	private void teleportPlayer(HumanEntity humanEntity, String locationName) {
-		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer((Player) humanEntity);
+		CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer((Player) humanEntity);
 		Location location = lobbyPlugin.getLocationProvider().getLocation(locationName);
 		cloudPlayer.getPlayer().teleport(location);
 	}

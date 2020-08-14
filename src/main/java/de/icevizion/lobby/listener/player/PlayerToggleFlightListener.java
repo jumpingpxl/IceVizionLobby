@@ -25,11 +25,11 @@ public class PlayerToggleFlightListener implements Listener {
 	@EventHandler
 	public void onPlayerToggleFlight(PlayerToggleFlightEvent event) {
 		Player player = event.getPlayer();
-		if(player.getGameMode() != GameMode.ADVENTURE) {
+		if (player.getGameMode() != GameMode.ADVENTURE) {
 			return;
 		}
 
-		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(player);
+		CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer(player);
 		if (cloudPlayer.redisExtradataContains("teamSpec")) {
 			return;
 		}

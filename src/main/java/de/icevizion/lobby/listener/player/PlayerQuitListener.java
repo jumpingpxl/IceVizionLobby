@@ -21,7 +21,7 @@ public class PlayerQuitListener implements Listener {
 		Player player = event.getPlayer();
 		player.getInventory().clear();
 
-		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(event.getPlayer());
+		CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer(event.getPlayer());
 		cloudPlayer.extradataSet("location", player.getLocation().serialize());
 		lobbyPlugin.getLobbyScoreboard().resetScoreboard(cloudPlayer);
 		lobbyPlugin.getDoubleJump().getAllowedPlayers().remove(player.getUniqueId());

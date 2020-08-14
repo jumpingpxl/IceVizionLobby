@@ -49,7 +49,7 @@ public class VisibilityTool {
 	}
 
 	private void hidePlayer(Player player) {
-		lobbyPlugin.getCloud().getCurrentOnlinePlayers().forEach(onlinePlayer -> {
+		lobbyPlugin.getTitanService().getOnlinePlayers().forEach(onlinePlayer -> {
 			switch (onlinePlayer.getSetting(Setting.PLAYER_VISIBILITY.getId())) {
 				case 0:
 					onlinePlayer.getPlayer().showPlayer(player);

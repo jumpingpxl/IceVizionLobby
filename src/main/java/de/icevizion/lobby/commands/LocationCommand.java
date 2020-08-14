@@ -22,7 +22,7 @@ public class LocationCommand implements CommandExecutor {
 		}
 
 		Player player = (Player) sender;
-		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(player);
+		CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer(player);
 		if (cloudPlayer.hasPermission("lobby.location")) {
 			lobbyPlugin.getLocales().sendMessage(cloudPlayer, "noPermission");
 			return true;

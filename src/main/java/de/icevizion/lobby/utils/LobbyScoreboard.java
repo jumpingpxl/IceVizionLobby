@@ -90,7 +90,7 @@ public class LobbyScoreboard {
 	}
 
 	public void updateFriendsTeam(Player player) {
-		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(player);
+		CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer(player);
 		updateFriendsTeam(cloudPlayer, boardApi.getBoard(cloudPlayer.getPlayer()));
 	}
 

@@ -103,7 +103,7 @@ public class LobbiesInventory extends InventoryBuilder {
 
 		setItem(index, itemFactory.getLobbyItem(lobby.getDisplayName(), lobby.getPlayerCount()),
 				event -> {
-					CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(
+					CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer(
 							(Player) event.getWhoClicked());
 					cloudPlayer.sendToServer(lobby);
 				});

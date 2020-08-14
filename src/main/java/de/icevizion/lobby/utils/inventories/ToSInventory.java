@@ -35,20 +35,20 @@ public class ToSInventory extends InventoryBuilder {
 		setItem(1, itemFactory.getBackgroundItem());
 
 		setItem(9, itemFactory.getInfoItem(), event -> {
-			CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer((Player) event.getWhoClicked());
+			CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer((Player) event.getWhoClicked());
 			lobbyPlugin.getLocales().sendMessage(cloudPlayer, "tosInfoClick");
 		});
 
 		setItem(10, itemFactory.getBackgroundItem());
 		setItem(13, itemFactory.getAcceptItem(), event -> {
-			CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer((Player) event.getWhoClicked());
+			CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer((Player) event.getWhoClicked());
 			cloudPlayer.setField("tos", System.currentTimeMillis());
 			lobbyPlugin.getLocales().sendMessage(cloudPlayer, "tosAcceptClick");
 			event.getWhoClicked().closeInventory();
 		});
 
 		setItem(15, itemFactory.getDenyItem(), event -> {
-			CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer((Player) event.getWhoClicked());
+			CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer((Player) event.getWhoClicked());
 			cloudPlayer.kick(lobbyPlugin.getLocales().getString(cloudPlayer, "tosDenyClick"));
 		});
 		setItem(19, itemFactory.getBackgroundItem());
@@ -56,7 +56,7 @@ public class ToSInventory extends InventoryBuilder {
 
 	@Override
 	public boolean onInventoryClose(InventoryCloseEvent event) {
-		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer((Player) event.getPlayer());
+		CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer((Player) event.getPlayer());
 		return Objects.isNull(cloudPlayer.getField("tos"));
 	}
 }

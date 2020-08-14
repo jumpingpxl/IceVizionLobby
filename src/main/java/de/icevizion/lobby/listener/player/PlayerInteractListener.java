@@ -21,11 +21,9 @@ public class PlayerInteractListener implements Listener {
 		this.lobbyPlugin = lobbyPlugin;
 	}
 
-	//TODO -> finish
-
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
-		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(event.getPlayer());
+		CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer(event.getPlayer());
 		Action action = event.getAction();
 		event.setCancelled(true);
 

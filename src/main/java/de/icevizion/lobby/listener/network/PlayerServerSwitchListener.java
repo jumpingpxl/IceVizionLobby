@@ -22,8 +22,9 @@ public class PlayerServerSwitchListener implements Consumer<PlayerServerSwitchEv
 	@Override
 	public void accept(PlayerServerSwitchEvent event) {
 		Bukkit.getScheduler().runTaskLaterAsynchronously(lobbyPlugin, () -> {
-			IClusterSpigot from = lobbyPlugin.getCloud().getSpigot(event.getFrom());
-			IClusterSpigot to = lobbyPlugin.getCloud().getSpigot(event.getTo());
+			IClusterSpigot from = lobbyPlugin.getTitanService().getGameServerByIdentifier(
+					event.getFrom());
+			IClusterSpigot to = lobbyPlugin.getTitanService().getGameServerByIdentifier(event.getTo());
 			if (from.getServerType().equals("Lobby")) {
 				lobbyPlugin.getLobbySwitcher().updateLobby(from);
 			}

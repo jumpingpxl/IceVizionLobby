@@ -42,7 +42,7 @@ public class EntityDamageByEntityListener implements Listener {
 			return;
 		}
 
-		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(player);
+		CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer(player);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		String itemDisplayName = itemMeta.getDisplayName();
 		String itemProfile = lobbyPlugin.getLocales().getString(cloudPlayer, "itemProfileName");
@@ -51,7 +51,7 @@ public class EntityDamageByEntityListener implements Listener {
 		}
 
 		Player target = (Player) event.getEntity();
-		CloudPlayer targetPlayer = lobbyPlugin.getCloud().getPlayer(target);
+		CloudPlayer targetPlayer = lobbyPlugin.getTitanService().getPlayer(target);
 		FriendProfile playerProfile = friendSystem.getFriendProfile(cloudPlayer);
 		if (playerProfile.getRawRequests().containsKey(targetPlayer.getUuid())) {
 			cloudPlayer.dispatchCommand("friend", "accept", targetPlayer.getUuid());
@@ -60,28 +60,4 @@ public class EntityDamageByEntityListener implements Listener {
 
 		cloudPlayer.dispatchCommand("friend", "add", targetPlayer.getUuid());
 	}
-
-/*		if(playerProfile.getRawFriends().containsKey(targetPlayer.getUuid())) {
-			cloudPlayer.dispatchCommand("friend", "add", targetPlayer.getUuid());
-			return;
-		}
-
-		FriendProfile targetProfile = friendSystem.getFriendProfile(targetPlayer);
-		if(targetProfile.getRawRequests().containsKey(cloudPlayer.getUuid())) {
-			cloudPlayer.dispatchCommand("friend", "add", targetPlayer.getUuid());
-			return;
-		}
-
-		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
-			CloudPlayer player = Cloud.getInstance().getPlayer((Player) event.getDamager());
-			if (player.getPlayer().getItemInHand().getType().equals(Material.SKULL_ITEM)) {
-				CloudPlayer clickedPlayer = Cloud.getInstance().getPlayer((Player) event.getEntity());
-				FriendProfile friendProfile = FriendSystem.getInstance().getFriendProfile(player);
-				FriendProfile clickedProfile = FriendSystem.getInstance().getFriendProfile(clickedPlayer);
-				if (friendProfile.getFriends().contains(clickedPlayer)) return;
-				if (clickedProfile.getRawRequests().containsKey(player.getUuid())) return;
-				player.dispatchCommand("friend", new String[]{"add", clickedPlayer.getUuid()});
-			}
-		}
-	}*/
 }

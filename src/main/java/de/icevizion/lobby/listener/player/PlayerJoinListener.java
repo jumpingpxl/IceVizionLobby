@@ -25,7 +25,7 @@ public class PlayerJoinListener implements Listener {
 	public void onJoin(PlayerJoinEvent event) {
 		event.setJoinMessage(null);
 		Player player = event.getPlayer();
-		CloudPlayer cloudPlayer = lobbyPlugin.getCloud().getPlayer(player);
+		CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer(player);
 		player.setGameMode(GameMode.ADVENTURE);
 
 		lobbyPlugin.getLobbyScoreboard().createScoreboard(cloudPlayer);

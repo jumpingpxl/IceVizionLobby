@@ -25,8 +25,8 @@ public class LobbySwitcher {
 	}
 
 	public List<IClusterSpigot> getActiveLobbies() {
-		return lobbyPlugin.getCloud()
-				.getSpigots()
+		return lobbyPlugin.getTitanService()
+				.getGameServers()
 				.stream()
 				.filter(clusterSpigot -> clusterSpigot.getServerType().equals("Lobby")
 						&& clusterSpigot.getState() == SpigotState.AVAILABLE)
