@@ -37,7 +37,7 @@ public class DailyRewardItemFactory {
 	}
 
 	public ItemBuilder getPremiumRewardItem() {
-		return new ItemBuilder(Material.INK_SACK).setDurability((short) 10).setDisplayName(locales,
+		return new ItemBuilder(Material.INK_SACK).setDurability((short) 14).setDisplayName(locales,
 				cloudPlayer, "dailyPremiumName");
 	}
 
