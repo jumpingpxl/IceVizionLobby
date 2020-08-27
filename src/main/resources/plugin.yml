@@ -1,5 +1,5 @@
 name: Lobby-1.8
-version: 1.1.0
+version: 0.2.0-SNAPSHOT
 main: de.icevizion.lobby.LobbyPlugin
 
 author: [theEvilReaper, JumpingPxl]
