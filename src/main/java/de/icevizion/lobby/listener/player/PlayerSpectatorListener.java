@@ -16,7 +16,7 @@ public class PlayerSpectatorListener implements Listener {
 
     @EventHandler
     public void onEnd(SpectateEndEvent event) {
-        CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer(event.getPlayer());
+        CloudPlayer cloudPlayer = lobbyPlugin.getCloudService().getPlayer(event.getPlayer());
         lobbyPlugin.getItems().setItems(cloudPlayer);
     }
 }

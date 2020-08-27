@@ -23,7 +23,7 @@ public class PlayerInteractListener implements Listener {
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
-		CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer(event.getPlayer());
+		CloudPlayer cloudPlayer = lobbyPlugin.getCloudService().getPlayer(event.getPlayer());
 		Action action = event.getAction();
 		event.setCancelled(true);
 

@@ -29,7 +29,7 @@ public class PlayerToggleFlightListener implements Listener {
 			return;
 		}
 
-		CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer(player);
+		CloudPlayer cloudPlayer = lobbyPlugin.getCloudService().getPlayer(player);
 		if (cloudPlayer.redisExtradataContains("teamSpec")) {
 			return;
 		}

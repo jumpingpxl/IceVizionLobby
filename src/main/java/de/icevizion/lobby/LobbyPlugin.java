@@ -50,8 +50,8 @@ import net.titan.lib.network.spigot.SpigotState;
 import net.titan.lib.redisevent.events.PlayerServerSwitchEvent;
 import net.titan.lib.redisevent.events.ServerAvailableEvent;
 import net.titan.lib.redisevent.events.ServerUnavailableEvent;
+import net.titan.spigot.CloudService;
 import net.titan.spigot.plugin.Plugin;
-import net.titan.spigotcore.TitanService;
 import org.bukkit.plugin.PluginManager;
 
 import java.text.SimpleDateFormat;
@@ -60,7 +60,7 @@ public class LobbyPlugin extends Plugin {
 
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
 
-	private TitanService titanService;
+	private CloudService cloudService;
 	private Locales locales;
 	private LocationProvider locationProvider;
 	private InventoryLoader inventoryLoader;
@@ -73,14 +73,14 @@ public class LobbyPlugin extends Plugin {
 
 	@Override
 	public void onEnable() {
-		titanService = getService(TitanService.class);
+		cloudService = getService(CloudService.class);
 
 		loadUtilities();
 		registerListener();
 		registerCommands();
 
-		titanService.setPlayerLimit(50);
-		titanService.setSpigotState(SpigotState.AVAILABLE);
+		cloudService.setPlayerLimit(50);
+		cloudService.setSpigotState(SpigotState.AVAILABLE);
 	}
 
 	@Override
@@ -122,12 +122,12 @@ public class LobbyPlugin extends Plugin {
 		pluginManager.registerEvents(new NetworkPlayerQuitListener(this), this);
 		pluginManager.registerEvents(new PlayerCoinChangeListener(this), this);
 		pluginManager.registerEvents(new PlayerRankChangeListener(this), this);
-		titanService.getRedisEvents().registerListener(PlayerServerSwitchEvent.class,
+		cloudService.getRedisEvents().registerListener(PlayerServerSwitchEvent.class,
 				new PlayerServerSwitchListener(this));
 		pluginManager.registerEvents(new RankReloadListener(this), this);
-		titanService.getRedisEvents().registerListener(ServerAvailableEvent.class,
+		cloudService.getRedisEvents().registerListener(ServerAvailableEvent.class,
 				new ServerAvailableListener(this));
-		titanService.getRedisEvents().registerListener(ServerUnavailableEvent.class,
+		cloudService.getRedisEvents().registerListener(ServerUnavailableEvent.class,
 				new ServerUnavailableListener(this));
 
 		pluginManager.registerEvents(new InventoryClickListener(this), this);
@@ -154,8 +154,8 @@ public class LobbyPlugin extends Plugin {
 		getCommand("location").setExecutor(new LocationCommand(this));
 	}
 
-	public TitanService getTitanService() {
-		return titanService;
+	public CloudService getCloudService() {
+		return cloudService;
 	}
 
 	public Locales getLocales() {

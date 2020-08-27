@@ -25,7 +25,7 @@ public class RankReloadListener implements Listener {
 		Set<UUID> allowedPlayers = lobbyPlugin.getDoubleJump().getAllowedPlayers();
 		allowedPlayers.clear();
 
-		lobbyPlugin.getTitanService().getOnlinePlayers().stream().filter(
+		lobbyPlugin.getCloudService().getOnlinePlayers().stream().filter(
 				cloudPlayer -> cloudPlayer.hasPermission(
 						lobbyPlugin.getDoubleJump().getDoubleJumpPermission())).forEach(
 				cloudPlayer -> allowedPlayers.add(cloudPlayer.getPlayer().getUniqueId()));

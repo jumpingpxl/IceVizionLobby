@@ -42,7 +42,7 @@ public class EntityDamageByEntityListener implements Listener {
 			return;
 		}
 
-		CloudPlayer cloudPlayer = lobbyPlugin.getTitanService().getPlayer(player);
+		CloudPlayer cloudPlayer = lobbyPlugin.getCloudService().getPlayer(player);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		String itemDisplayName = itemMeta.getDisplayName();
 		String itemProfile = lobbyPlugin.getLocales().getString(cloudPlayer, "itemProfileName");
@@ -51,7 +51,7 @@ public class EntityDamageByEntityListener implements Listener {
 		}
 
 		Player target = (Player) event.getEntity();
-		CloudPlayer targetPlayer = lobbyPlugin.getTitanService().getPlayer(target);
+		CloudPlayer targetPlayer = lobbyPlugin.getCloudService().getPlayer(target);
 		FriendProfile playerProfile = friendSystem.getFriendProfile(cloudPlayer);
 		if (playerProfile.getRawRequests().containsKey(targetPlayer.getUuid())) {
 			cloudPlayer.dispatchCommand("friend", "accept", targetPlayer.getUuid());
