@@ -2,17 +2,13 @@ package de.icevizion.lobby.utils;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
+import de.icevizion.aves.scoreboard.ScoreboardBuilder;
 import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.scoreboard.Board;
-import de.icevizion.scoreboard.BoardAPI;
 import net.titan.cloudcore.player.ICloudPlayer;
 import net.titan.cloudcore.player.rank.Rank;
 import net.titan.protocol.utils.TimeUtilities;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Team;
-
-import java.util.Objects;
 
 /**
  * @author Nico (JumpingPxl) Middendorf
@@ -21,121 +17,96 @@ import java.util.Objects;
 public class LobbyScoreboard {
 
 	private final LobbyPlugin lobbyPlugin;
-	private final BoardAPI boardApi;
 	private final FriendSystem friendSystem;
 
 	public LobbyScoreboard(LobbyPlugin lobbyPlugin) {
 		this.lobbyPlugin = lobbyPlugin;
-		//TODO -> Remove Singleton Pattern
-		boardApi = BoardAPI.getInstance();
 		//TODO -> Remove Singleton Pattern
 		friendSystem = FriendSystem.getInstance();
 	}
 
 	public void createScoreboard(CloudPlayer cloudPlayer) {
 		Player player = cloudPlayer.getPlayer();
-		Board board = boardApi.getBoard(player);
-		board.setDisplayName(lobbyPlugin.getLocales().getString(cloudPlayer, "scoreboardTitle"));
-		board.setLine(12, "§1§1");
+		ScoreboardBuilder scoreboard = ScoreboardBuilder.create(lobbyPlugin.getLocales(), cloudPlayer);
 
-		board.setLine(10, "§1§2");
-		board.setLine(9, lobbyPlugin.getLocales().getString(cloudPlayer, "scoreboardFriendsTitle"));
+		scoreboard.setDisplayName("scoreboardTitle");
 
-		board.setLine(7, "§1§3");
-		board.setLine(6, lobbyPlugin.getLocales().getString(cloudPlayer, "scoreboardCoinsTitle"));
+		scoreboard.getLine(12).apply();
+		updateRankTeam(cloudPlayer, scoreboard);
+		scoreboard.getLine(10).apply();
+		scoreboard.getLine(9).setValue("scoreboardFriendsTitle");
 
-		board.setLine(4, "§1§4");
-		board.setLine(3, lobbyPlugin.getLocales().getString(cloudPlayer, "scoreboardOnlineTimeTitle"));
+		scoreboard.getLine(7).apply();
+		scoreboard.getLine(6).setValue("scoreboardCoinsTitle");
 
-		board.setLine(1, "§1§5");
+		scoreboard.getLine(4).apply();
+		scoreboard.getLine(3).setValue("scoreboardOnlineTimeTitle");
 
-		updateScoreboard(cloudPlayer, board);
-		board.show();
+		scoreboard.getLine(1).apply();
+
+		scoreboard.setScoreboard();
 	}
 
 	public void resetScoreboard(CloudPlayer cloudPlayer) {
-		Player player = cloudPlayer.getPlayer();
-		Board board = boardApi.getBoard(player);
-		board.removeAllTeams();
-		board.reset();
+		ScoreboardBuilder scoreboard = ScoreboardBuilder.of(lobbyPlugin.getLocales(), cloudPlayer);
+		scoreboard.delete();
 	}
 
-	public void updateRankTeam(CloudPlayer cloudPlayer, Board board) {
-		Rank rank = cloudPlayer.getRank();
-		Team playerName = getTeam(board, 11, "rank", "§2§1" + rank.getColor());
-		playerName.setPrefix(lobbyPlugin.getLocales().getString(cloudPlayer, "scoreboardRankPrefix"));
-		playerName.setSuffix(lobbyPlugin.getLocales()
-				.getString(cloudPlayer, "scoreboardRankSuffix", rank.getColor(), rank.getName()));
+	public void updateRankTeam(CloudPlayer cloudPlayer, ScoreboardBuilder scoreboard) {
+		lobbyPlugin.getServer().getScheduler().runTaskAsynchronously(lobbyPlugin, () -> {
+			Rank rank = cloudPlayer.getRank();
+			scoreboard.getLine(11).setPrefix("scoreboardRankPrefix").setSuffix("scoreboardRankSuffix",
+					rank.getColor(), rank.getName()).apply();
+		});
 	}
 
 	public void updateRankTeam(CloudPlayer cloudPlayer) {
-		updateRankTeam(cloudPlayer, boardApi.getBoard(cloudPlayer.getPlayer()));
+		updateRankTeam(cloudPlayer, ScoreboardBuilder.of(lobbyPlugin.getLocales(), cloudPlayer));
 	}
 
-	public void updateFriendsTeam(CloudPlayer cloudPlayer, Board board) {
-		FriendProfile friendProfile = friendSystem.getFriendProfile(cloudPlayer);
-		int onlineFriends = (int) friendProfile.getFriends()
-				.stream()
-				.filter(ICloudPlayer::isOnline)
-				.count();
-		Team friends = getTeam(board, 8, "friends", "§2§2");
-		friends.setPrefix(lobbyPlugin.getLocales()
-				.getString(cloudPlayer, "scoreboardFriendsTeamPrefix",
-						onlineFriends == 0 ? "§c0" : "§a" + onlineFriends));
-		friends.setSuffix(lobbyPlugin.getLocales()
-				.getString(cloudPlayer, "scoreboardFriendsTeamSuffix",
-						friendProfile.getRawFriends().size()));
+	public void updateFriendsTeam(CloudPlayer cloudPlayer, ScoreboardBuilder scoreboard) {
+		lobbyPlugin.getServer().getScheduler().runTaskAsynchronously(lobbyPlugin, () -> {
+			FriendProfile friendProfile = friendSystem.getFriendProfile(cloudPlayer);
+			int onlineFriends = (int) friendProfile.getFriends()
+					.stream()
+					.filter(ICloudPlayer::isOnline)
+					.count();
+			scoreboard.getLine(8).setPrefix("scoreboardFriendsTeamPrefix",
+					onlineFriends == 0 ? "§c0" : "§a" + onlineFriends).setSuffix(
+					"scoreboardFriendsTeamSuffix", friendProfile.getRawFriends().size()).apply();
+		});
 	}
 
 	public void updateFriendsTeam(CloudPlayer cloudPlayer) {
-		updateFriendsTeam(cloudPlayer, boardApi.getBoard(cloudPlayer.getPlayer()));
+		updateFriendsTeam(cloudPlayer, ScoreboardBuilder.of(lobbyPlugin.getLocales(), cloudPlayer));
 	}
 
 	public void updateFriendsTeam(Player player) {
 		CloudPlayer cloudPlayer = lobbyPlugin.getCloudService().getPlayer(player);
-		updateFriendsTeam(cloudPlayer, boardApi.getBoard(cloudPlayer.getPlayer()));
+		updateFriendsTeam(cloudPlayer, ScoreboardBuilder.of(lobbyPlugin.getLocales(), cloudPlayer));
 	}
 
-	public void updateCoinsTeam(CloudPlayer cloudPlayer, Board board) {
-		Team coins = getTeam(board, 5, "coins", "§2§3");
-		coins.setPrefix(lobbyPlugin.getLocales().getString(cloudPlayer, "scoreboardCoinsTeamPrefix"));
-		coins.setSuffix(lobbyPlugin.getLocales()
-				.getString(cloudPlayer, "scoreboardCoinsTeamSuffix", cloudPlayer.getCoins()));
+	public void updateCoinsTeam(CloudPlayer cloudPlayer, ScoreboardBuilder scoreboard) {
+		lobbyPlugin.getServer().getScheduler().runTaskAsynchronously(lobbyPlugin,
+				() -> scoreboard.getLine(5)
+						.setPrefix("scoreboardCoinsTeamPrefix")
+						.setSuffix("scoreboardCoinsTeamSuffix", cloudPlayer.getCoins())
+						.apply());
 	}
 
 	public void updateCoinsTeam(CloudPlayer cloudPlayer) {
-		updateCoinsTeam(cloudPlayer, boardApi.getBoard(cloudPlayer.getPlayer()));
+		updateCoinsTeam(cloudPlayer, ScoreboardBuilder.of(lobbyPlugin.getLocales(), cloudPlayer));
 	}
 
-	public void updateOnlineTimeTeam(CloudPlayer cloudPlayer, Board board) {
-		Team onlineTime = getTeam(board, 2, "onlineTime", "§2§4");
-		//TODO -> Remove Singleton Pattern
-		onlineTime.setPrefix(lobbyPlugin.getLocales()
-				.getString(cloudPlayer, "scoreboardOnlineTimeTeamPrefix",
-						TimeUtilities.getHours(cloudPlayer.getOnlineTime())));
-		onlineTime.setSuffix(
-				lobbyPlugin.getLocales().getString(cloudPlayer, "scoreboardOnlineTimeTeamSuffix"));
+	public void updateOnlineTimeTeam(CloudPlayer cloudPlayer, ScoreboardBuilder scoreboard) {
+		lobbyPlugin.getServer().getScheduler().runTaskAsynchronously(lobbyPlugin,
+				() -> scoreboard.getLine(2)
+						.setPrefix("scoreboardOnlineTimeTeamPrefix",
+								TimeUtilities.getHours(cloudPlayer.getOnlineTime()))
+						.setSuffix("scoreboardOnlineTimeTeamSuffix"));
 	}
 
 	public void updateOnlineTimeTeam(CloudPlayer cloudPlayer) {
-		updateOnlineTimeTeam(cloudPlayer, boardApi.getBoard(cloudPlayer.getPlayer()));
-	}
-
-	public void updateScoreboard(CloudPlayer cloudPlayer, Board board) {
-		updateRankTeam(cloudPlayer, board);
-		updateFriendsTeam(cloudPlayer, board);
-		updateCoinsTeam(cloudPlayer, board);
-		updateOnlineTimeTeam(cloudPlayer, board);
-	}
-
-	private Team getTeam(Board board, int line, String teamName, String defaultEntry) {
-		Team team = board.getTeam(teamName);
-		if (Objects.isNull(team)) {
-			team = board.getScoreboard().registerNewTeam(teamName);
-			team.addEntry(defaultEntry);
-			board.setScore(defaultEntry, line);
-		}
-
-		return team;
+		updateOnlineTimeTeam(cloudPlayer, ScoreboardBuilder.of(lobbyPlugin.getLocales(), cloudPlayer));
 	}
 }
