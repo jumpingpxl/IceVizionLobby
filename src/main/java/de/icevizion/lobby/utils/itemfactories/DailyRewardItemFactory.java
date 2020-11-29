@@ -1,49 +1,46 @@
 package de.icevizion.lobby.utils.itemfactories;
 
-import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.Locales;
-import de.icevizion.lobby.utils.inventorybuilder.ItemBuilder;
+import de.icevizion.aves.inventory.InventoryItem;
+import de.icevizion.aves.inventory.InventoryItemFactory;
+import de.icevizion.aves.item.ColoredBuilder;
+import net.titan.cloudcore.i18n.Translator;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.Material;
+import org.bukkit.DyeColor;
 
 /**
  * @author Nico (JumpingPxl) Middendorf
  */
 
-public class DailyRewardItemFactory {
+public class DailyRewardItemFactory extends InventoryItemFactory {
 
-	private final Locales locales;
-	private final CloudPlayer cloudPlayer;
+	public DailyRewardItemFactory(Translator translator, CloudPlayer cloudPlayer) {
+		super(translator, cloudPlayer);
 
-	public DailyRewardItemFactory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
-		this.cloudPlayer = cloudPlayer;
-
-		locales = lobbyPlugin.getLocales();
+		setBackgroundItem(
+				new ColoredBuilder(ColoredBuilder.DyeType.GLASS_PANE).setColor(DyeColor.LIGHT_BLUE));
 	}
 
-	public ItemBuilder getBackgroundItem() {
-		return new ItemBuilder(Material.STAINED_GLASS_PANE).setDurability((short) 3).setDisplayName(
-				"§0");
+	public InventoryItem getRewardItem() {
+		return createItem(
+				new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.LIME)).setDisplayName(
+				"dailyName");
 	}
 
-	public ItemBuilder getRewardItem() {
-		return new ItemBuilder(Material.INK_SACK).setDurability((short) 10).setDisplayName(locales,
-				cloudPlayer, "dailyName");
+	public InventoryItem getClaimedRewardItem() {
+		return createItem(
+				new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY)).setDisplayName(
+				"dailyClaimedName").setLore("dailyClaimedLore");
 	}
 
-	public ItemBuilder getClaimedRewardItem() {
-		return new ItemBuilder(Material.INK_SACK).setDurability((short) 8).setDisplayName(locales,
-				cloudPlayer, "dailyClaimedName").setLore(locales, cloudPlayer, "dailyClaimedLore");
+	public InventoryItem getPremiumRewardItem() {
+		return createItem(
+				new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.ORANGE)).setDisplayName(
+				"dailyPremiumName");
 	}
 
-	public ItemBuilder getPremiumRewardItem() {
-		return new ItemBuilder(Material.INK_SACK).setDurability((short) 14).setDisplayName(locales,
-				cloudPlayer, "dailyPremiumName");
-	}
-
-	public ItemBuilder getClaimedPremiumRewardItem() {
-		return new ItemBuilder(Material.INK_SACK).setDurability((short) 8).setDisplayName(locales,
-				cloudPlayer, "dailyClaimedPremiumName").setLore(locales, cloudPlayer,
-				"dailyClaimedPremiumLore");
+	public InventoryItem getClaimedPremiumRewardItem() {
+		return createItem(
+				new ColoredBuilder(ColoredBuilder.DyeType.DYE).setColor(DyeColor.GRAY)).setDisplayName(
+				"dailyClaimedPremiumName").setLore("dailyClaimedPremiumLore");
 	}
 }

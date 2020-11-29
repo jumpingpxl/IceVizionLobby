@@ -1,9 +1,11 @@
 package de.icevizion.lobby.utils.itemfactories.profile;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
-import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.Locales;
-import de.icevizion.lobby.utils.inventorybuilder.ItemBuilder;
+import de.icevizion.aves.inventory.InventoryItem;
+import de.icevizion.aves.inventory.InventoryItemFactory;
+import de.icevizion.aves.item.ItemBuilder;
+import de.icevizion.aves.item.SkullBuilder;
+import net.titan.cloudcore.i18n.Translator;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
 
@@ -11,35 +13,28 @@ import org.bukkit.Material;
  * @author Nico (JumpingPxl) Middendorf
  */
 
-public class ProfileRequestsItemFactory {
+public class ProfileRequestsItemFactory extends InventoryItemFactory {
 
-	private final Locales locales;
-	private final CloudPlayer cloudPlayer;
-
-	public ProfileRequestsItemFactory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
-		this.cloudPlayer = cloudPlayer;
-
-		locales = lobbyPlugin.getLocales();
+	public ProfileRequestsItemFactory(Translator translator, CloudPlayer cloudPlayer) {
+		super(translator, cloudPlayer);
 	}
 
-	public ItemBuilder getNoRequestsItem() {
-		return new ItemBuilder(Material.BARRIER).setDisplayName(locales, cloudPlayer, "requestsEmpty");
+	public InventoryItem getNoRequestsItem() {
+		return createItem(new ItemBuilder(Material.BARRIER)).setDisplayName("requestsEmpty");
 	}
 
-	public ItemBuilder getRequestItem(FriendProfile friendProfile, CloudPlayer requestPlayer) {
-		return new ItemBuilder(requestPlayer.getSkinValue()).setDisplayName(locales, cloudPlayer,
+	public InventoryItem getRequestItem(FriendProfile friendProfile, CloudPlayer requestPlayer) {
+		return createItem(
+				new SkullBuilder().setSkinOverValues(requestPlayer.getSkinValue())).setDisplayName(
 				"requestsListName", requestPlayer.getRank().getColor(), requestPlayer.getDisplayName())
-				.setLore(locales, cloudPlayer, "requestsListLore",
-						friendProfile.getRawRequests().get(requestPlayer.getUuid()));
+				.setLore("requestsListLore", friendProfile.getRawRequests().get(requestPlayer.getUuid()));
 	}
 
-	public ItemBuilder getPreviousPageItem() {
-		return new ItemBuilder(Material.ARROW).setDisplayName(locales, cloudPlayer,
-				"requestsPreviousPageName");
+	public InventoryItem getPreviousPageItem() {
+		return createItem(new ItemBuilder(Material.ARROW)).setDisplayName("requestsPreviousPageName");
 	}
 
-	public ItemBuilder getNextPageItem() {
-		return new ItemBuilder(Material.ARROW).setDisplayName(locales, cloudPlayer,
-				"requestsNextPageName");
+	public InventoryItem getNextPageItem() {
+		return createItem(new ItemBuilder(Material.ARROW)).setDisplayName("requestsNextPageName");
 	}
 }

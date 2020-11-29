@@ -21,43 +21,28 @@ public class Inventories {
 	}
 
 	public void openGamesInventory(CloudPlayer cloudPlayer) {
-		if (!lobbyPlugin.getInventoryLoader().openCachedInventory(cloudPlayer, GamesInventory.class)) {
-			System.out.println("NonCached Games");
-			GamesInventory gamesInventory = new GamesInventory(lobbyPlugin, cloudPlayer.getLocale());
-			lobbyPlugin.getInventoryLoader().openInventory(cloudPlayer, gamesInventory);
-		} else {
-			System.out.println("Cached Games");
-		}
+		lobbyPlugin.getInventoryService().openTranslatedInventory(cloudPlayer, GamesInventory.class,
+				ifAbsent -> new GamesInventory(lobbyPlugin, cloudPlayer.getLocale()));
 	}
 
 	public void openLobbiesInventory(CloudPlayer cloudPlayer) {
-		if (!lobbyPlugin.getInventoryLoader().openCachedInventory(cloudPlayer,
-				LobbiesInventory.class)) {
-			System.out.println("NonCached Lobbies");
-			LobbiesInventory lobbiesInventory = new LobbiesInventory(lobbyPlugin,
-					cloudPlayer.getLocale(),
-					cloudPlayer.getSpigot(), lobbyPlugin.getLobbySwitcher().getActiveLobbies());
-			lobbyPlugin.getInventoryLoader().openInventory(cloudPlayer, lobbiesInventory);
-		} else {
-			System.out.println("Cached Lobbies");
-		}
+		lobbyPlugin.getInventoryService().openTranslatedInventory(cloudPlayer, LobbiesInventory.class,
+				ifAbsent -> new LobbiesInventory(lobbyPlugin, cloudPlayer.getLocale(),
+						cloudPlayer.getSpigot(), lobbyPlugin.getLobbySwitcher().getActiveLobbies()));
 	}
 
 	public void openToSInventory(CloudPlayer cloudPlayer) {
-		if (!lobbyPlugin.getInventoryLoader().openCachedInventory(cloudPlayer, ToSInventory.class)) {
-			ToSInventory toSInventory = new ToSInventory(lobbyPlugin, cloudPlayer.getLocale());
-			lobbyPlugin.getInventoryLoader().openInventory(cloudPlayer, toSInventory);
-		}
+		lobbyPlugin.getInventoryService().openTranslatedInventory(cloudPlayer, ToSInventory.class,
+				ifAbsent -> new ToSInventory(lobbyPlugin, cloudPlayer.getLocale()));
 	}
 
 	public void openProfileInventory(CloudPlayer cloudPlayer) {
-		ProfileFriendsInventory profileInventory = new ProfileFriendsInventory(lobbyPlugin,
-				cloudPlayer);
-		lobbyPlugin.getInventoryLoader().openInventory(cloudPlayer, profileInventory);
+		lobbyPlugin.getInventoryService().openPersonalInventory(cloudPlayer,
+				new ProfileFriendsInventory(lobbyPlugin, cloudPlayer));
 	}
 
 	public void openDailyRewardInventory(CloudPlayer cloudPlayer) {
-		DailyRewardInventory dailyRewardInventory = new DailyRewardInventory(lobbyPlugin, cloudPlayer);
-		lobbyPlugin.getInventoryLoader().openInventory(cloudPlayer, dailyRewardInventory);
+		lobbyPlugin.getInventoryService().openPersonalInventory(cloudPlayer,
+				new DailyRewardInventory(lobbyPlugin, cloudPlayer));
 	}
 }

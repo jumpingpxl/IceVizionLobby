@@ -1,11 +1,10 @@
 package de.icevizion.lobby.utils.inventories.profile;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
+import de.icevizion.aves.inventory.events.ClickEvent;
 import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.inventorybuilder.InventoryBuilder;
 import de.icevizion.lobby.utils.itemfactories.profile.ProfileFriendManageItemFactory;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.function.Consumer;
 
@@ -25,18 +24,16 @@ public class ProfileFriendManageInventory extends ProfileInventory {
 	                                    FriendProfile friendProfile,
 	                                    ProfileFriendsInventory fallback,
 	                                    CloudPlayer friendPlayer) {
-		super(lobbyPlugin, cloudPlayer, lobbyPlugin.getLocales()
-						.getString(cloudPlayer, "inventoryFriendManageTitle",
-								friendPlayer.getFullDisplayName()),
-				ProfileSite.FRIEND_LIST);
+		super(lobbyPlugin, cloudPlayer, ProfileSite.FRIEND_LIST, "inventoryFriendManageTitle",
+				friendPlayer.getFullDisplayName());
 		this.lobbyPlugin = lobbyPlugin;
 		this.fallback = fallback;
 		this.friendProfile = friendProfile;
 		this.friendPlayer = friendPlayer;
 
-		itemFactory = new ProfileFriendManageItemFactory(lobbyPlugin, cloudPlayer);
+		itemFactory = new ProfileFriendManageItemFactory(getTranslator(), cloudPlayer);
 
-		setStaticDraw(true);
+		setDrawOnce(true);
 	}
 
 	@Override
@@ -47,7 +44,7 @@ public class ProfileFriendManageInventory extends ProfileInventory {
 
 			boolean isOnline = friendPlayer.isOnline();
 
-			if(isOnline) {
+			if (isOnline) {
 				setItem(21, itemFactory.getJumpItem(),
 						event -> getCloudPlayer().dispatchCommand("friend", "jump",
 								friendPlayer.getDisplayName()));
@@ -58,10 +55,10 @@ public class ProfileFriendManageInventory extends ProfileInventory {
 			}
 
 			setItem(isOnline ? 25 : 23, itemFactory.getRemoveItem(), event -> {
-				event.getWhoClicked().closeInventory();
+				event.getPlayer().closeInventory();
 				ProfileFriendRemoveInventory friendRemoveInventory = new ProfileFriendRemoveInventory(
 						lobbyPlugin, getCloudPlayer(), this, friendPlayer);
-				lobbyPlugin.getInventoryLoader().openInventory(getCloudPlayer(), friendRemoveInventory);
+				lobbyPlugin.getInventoryService().openPersonalInventory(getCloudPlayer(), friendRemoveInventory);
 			});
 		}
 	}
@@ -70,22 +67,23 @@ public class ProfileFriendManageInventory extends ProfileInventory {
 		return fallback;
 	}
 
-	public void setLayout(InventoryBuilder inventoryBuilder) {
+	public void setLayout(ProfileInventory profileInventory) {
 		for (int i = 0; i < 9; i++) {
-			inventoryBuilder.setItem(i, itemFactory.getCancelItem(), onCancelClick());
+			profileInventory.setItem(i, itemFactory.getCancelItem(), onCancelClick());
 		}
 
-		inventoryBuilder.setBackgroundItem(10, getProfileItemFactory().getBackgroundItem());
+		profileInventory.setBackgroundItem(10, getProfileItemFactory().getBackgroundItem());
 
-		inventoryBuilder.setItem(18, itemFactory.getFriendItem(friendProfile, friendPlayer));
-		inventoryBuilder.setBackgroundItem(19, getProfileItemFactory().getBackgroundItem());
+		profileInventory.setItem(18, itemFactory.getFriendItem(friendProfile, friendPlayer));
+		profileInventory.setBackgroundItem(19, getProfileItemFactory().getBackgroundItem());
 
-		inventoryBuilder.setBackgroundItem(28, getProfileItemFactory().getBackgroundItem());
+		profileInventory.setBackgroundItem(28, getProfileItemFactory().getBackgroundItem());
 
-		inventoryBuilder.getClickEvents().put(getCurrentSite().getIndex(), onCancelClick());
+		profileInventory.getClickEvents().put(getCurrentSite().getIndex(), onCancelClick());
 	}
 
-	private Consumer<InventoryClickEvent> onCancelClick() {
-		return event -> lobbyPlugin.getInventoryLoader().openInventory(getCloudPlayer(), fallback);
+	private Consumer<ClickEvent> onCancelClick() {
+		return event -> lobbyPlugin.getInventoryService().openPersonalInventory(getCloudPlayer(),
+				fallback);
 	}
 }

@@ -1,7 +1,8 @@
 package de.icevizion.lobby.utils.inventories;
 
+import de.icevizion.aves.inventory.InventoryRows;
+import de.icevizion.aves.inventory.PersonalInventory;
 import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.inventorybuilder.InventoryBuilder;
 import de.icevizion.lobby.utils.itemfactories.DailyRewardItemFactory;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Sound;
@@ -15,7 +16,7 @@ import java.time.ZonedDateTime;
  * @author Nico (JumpingPxl) Middendorf
  */
 
-public class DailyRewardInventory extends InventoryBuilder {
+public class DailyRewardInventory extends PersonalInventory {
 
 	private final static String PREMIUM_REWARD_PERMISSION = "lobby.premiumreward";
 	private final static String PREMIUM_REWARD_KEY = "daily-premium";
@@ -26,28 +27,30 @@ public class DailyRewardInventory extends InventoryBuilder {
 	private static final long DAY_MILLIS = 60 * 60 * 24 * 1000;
 	private final LobbyPlugin lobbyPlugin;
 	private final DailyRewardItemFactory itemFactory;
-	private final CloudPlayer cloudPlayer;
 
 	public DailyRewardInventory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
-		super(lobbyPlugin.getLocales().getString(cloudPlayer, "inventoryDailyTitle"), 27);
+		super(lobbyPlugin.getLocales(), cloudPlayer, InventoryRows.THREE, "inventoryDailyTitle");
 		this.lobbyPlugin = lobbyPlugin;
-		this.cloudPlayer = cloudPlayer;
 
-		itemFactory = new DailyRewardItemFactory(lobbyPlugin, cloudPlayer);
+		itemFactory = new DailyRewardItemFactory(getTranslator(), cloudPlayer);
 	}
 
 	@Override
 	public void draw() {
-		for (int i = 0; i < 9; i++) {
-			setItem(i, itemFactory.getBackgroundItem());
+		System.out.println("DAILY DRAW");
+		if (isFirstDraw()) {
+			System.out.println("DAILY DRAW FIRST");
+			setBackgroundItems(0, 8, itemFactory.getBackgroundItem());
+
+			setBackgroundItems(18, 26, itemFactory.getBackgroundItem());
 		}
 
-		boolean hasPremiumReward = cloudPlayer.hasPermission(PREMIUM_REWARD_PERMISSION);
+		boolean hasPremiumReward = getCloudPlayer().hasPermission(PREMIUM_REWARD_PERMISSION);
 		if (hasPremiumReward) {
 			setItem(14, hasClaimed(PREMIUM_REWARD_KEY) ? itemFactory.getClaimedPremiumRewardItem()
 					: itemFactory.getPremiumRewardItem(), event -> {
 				if (hasClaimed(PREMIUM_REWARD_KEY)) {
-					lobbyPlugin.getLocales().sendMessage(cloudPlayer, "dailyClaimAlreadyClaimed");
+					lobbyPlugin.getLocales().sendMessage(getCloudPlayer(), "dailyClaimAlreadyClaimed");
 					return;
 				}
 
@@ -56,35 +59,33 @@ public class DailyRewardInventory extends InventoryBuilder {
 			});
 		}
 
-		setItem(hasPremiumReward ? 12 : 13, hasClaimed(NORMAL_REWARD_KEY)
-				? itemFactory.getClaimedRewardItem() : itemFactory.getRewardItem(), event -> {
+		setItem(hasPremiumReward ? 12 : 13,
+				hasClaimed(NORMAL_REWARD_KEY) ? itemFactory.getClaimedRewardItem()
+						: itemFactory.getRewardItem(), event -> {
 					if (hasClaimed(NORMAL_REWARD_KEY)) {
-						lobbyPlugin.getLocales().sendMessage(cloudPlayer, "dailyClaimAlreadyClaimed");
+						lobbyPlugin.getLocales().sendMessage(getCloudPlayer(), "dailyClaimAlreadyClaimed");
 						return;
 					}
 
 					claimReward(NORMAL_REWARD_KEY, NORMAL_REWARD);
 					buildInventory();
 				});
-
-		for (int i = 18; i < 27; i++) {
-			setItem(i, itemFactory.getBackgroundItem());
-		}
 	}
 
 	private boolean hasClaimed(String key) {
-		return cloudPlayer.extradataContains(key) && (long) cloudPlayer.extradataGet(key)
+		return getCloudPlayer().extradataContains(key) && (long) getCloudPlayer().extradataGet(key)
 				> System.currentTimeMillis();
 	}
 
 	private void claimReward(String key, int claimedCoins) {
 		int currentStreak = calculateCurrentStreak();
 		claimedCoins += 50 * currentStreak;
-		cloudPlayer.addCoins(claimedCoins);
-		cloudPlayer.extradataSet(key, calculateRemainingTime() + System.currentTimeMillis());
-		cloudPlayer.getPlayer().playSound(cloudPlayer.getPlayer().getLocation(), Sound.LEVEL_UP, 1F,
-				1F);
-		lobbyPlugin.getLocales().sendMessage(cloudPlayer, "dailyClaim", claimedCoins, currentStreak);
+		getCloudPlayer().addCoins(claimedCoins);
+		getCloudPlayer().extradataSet(key, calculateRemainingTime() + System.currentTimeMillis());
+		getCloudPlayer().getPlayer().playSound(getCloudPlayer().getPlayer().getLocation(),
+				Sound.LEVEL_UP, 1F, 1F);
+		lobbyPlugin.getLocales().sendMessage(getCloudPlayer(), "dailyClaim", claimedCoins,
+				currentStreak);
 	}
 
 	private long calculateRemainingTime() {
@@ -96,25 +97,25 @@ public class DailyRewardInventory extends InventoryBuilder {
 	}
 
 	private int calculateCurrentStreak() {
-		int currentStreak = cloudPlayer.extradataContains(STREAK_KEY) ? (int) cloudPlayer.extradataGet(
-				STREAK_KEY) : 0;
-		long normalTimestamp = cloudPlayer.extradataContains(NORMAL_REWARD_KEY)
-				? (long) cloudPlayer.extradataGet(NORMAL_REWARD_KEY) : 0;
-		long premiumTimestamp = cloudPlayer.extradataContains(PREMIUM_REWARD_KEY)
-				? (long) cloudPlayer.extradataGet(PREMIUM_REWARD_KEY) : 0;
+		int currentStreak = getCloudPlayer().extradataContains(STREAK_KEY)
+				? (int) getCloudPlayer().extradataGet(STREAK_KEY) : 0;
+		long normalTimestamp = getCloudPlayer().extradataContains(NORMAL_REWARD_KEY)
+				? (long) getCloudPlayer().extradataGet(NORMAL_REWARD_KEY) : 0;
+		long premiumTimestamp = getCloudPlayer().extradataContains(PREMIUM_REWARD_KEY)
+				? (long) getCloudPlayer().extradataGet(PREMIUM_REWARD_KEY) : 0;
 		if (normalTimestamp > System.currentTimeMillis()
 				|| premiumTimestamp > System.currentTimeMillis()) {
 			return currentStreak;
 		}
 
 		if (System.currentTimeMillis() - normalTimestamp > DAY_MILLIS) {
-			cloudPlayer.offlineExtradataRemove(STREAK_KEY);
-			cloudPlayer.extradataSet(STREAK_KEY, 0);
+			getCloudPlayer().offlineExtradataRemove(STREAK_KEY);
+			getCloudPlayer().extradataSet(STREAK_KEY, 0);
 			return 0;
 		}
 
 		currentStreak++;
-		cloudPlayer.extradataSet(STREAK_KEY, currentStreak);
+		getCloudPlayer().extradataSet(STREAK_KEY, currentStreak);
 		return currentStreak;
 	}
 }

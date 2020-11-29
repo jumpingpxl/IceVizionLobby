@@ -1,8 +1,11 @@
 package de.icevizion.lobby.utils.itemfactories.profile;
 
-import de.icevizion.lobby.LobbyPlugin;
+import de.icevizion.aves.inventory.InventoryItem;
+import de.icevizion.aves.inventory.InventoryItemFactory;
+import de.icevizion.aves.item.ItemBuilder;
+import de.icevizion.aves.item.SkullBuilder;
 import de.icevizion.lobby.utils.Locales;
-import de.icevizion.lobby.utils.inventorybuilder.ItemBuilder;
+import net.titan.cloudcore.i18n.Translator;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
 
@@ -10,40 +13,36 @@ import org.bukkit.Material;
  * @author Nico (JumpingPxl) Middendorf
  */
 
-public class ProfileFriendsItemFactory {
+public class ProfileFriendsItemFactory extends InventoryItemFactory {
 
-	private final Locales locales;
-	private final CloudPlayer cloudPlayer;
-
-	public ProfileFriendsItemFactory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
-		this.cloudPlayer = cloudPlayer;
-
-		locales = lobbyPlugin.getLocales();
+	public ProfileFriendsItemFactory(Translator translator, CloudPlayer cloudPlayer) {
+		super(translator, cloudPlayer);
 	}
 
-	public ItemBuilder getNoFriendsItem() {
-		return new ItemBuilder(Material.BARRIER).setDisplayName(locales, cloudPlayer, "friendsEmpty");
+	public InventoryItem getNoFriendsItem() {
+		return createItem(new ItemBuilder(Material.BARRIER)).setDisplayName("friendsEmpty");
 	}
 
-	public ItemBuilder getOnlineFriendItem(CloudPlayer friendPlayer) {
-		return new ItemBuilder(friendPlayer.getSkinValue()).setDisplayName(locales, cloudPlayer,
+	public InventoryItem getOnlineFriendItem(CloudPlayer friendPlayer) {
+		return createItem(
+				new SkullBuilder().setSkinOverValues(friendPlayer.getSkinValue())).setDisplayName(
 				"friendsOnlineName", friendPlayer.getRank().getColor(), friendPlayer.getDisplayName())
-				.setLore(locales, cloudPlayer, "friendsOnlineLore",
-						friendPlayer.getSpigot().getDisplayName());
+				.setLore("friendsOnlineLore", friendPlayer.getSpigot().getDisplayName());
 	}
 
-	public ItemBuilder getOfflineFriendItem(CloudPlayer friendPlayer) {
-		return new ItemBuilder(Material.SKULL_ITEM).setDisplayName(locales, cloudPlayer,
-				"friendsOfflineName", friendPlayer.getRank().getColor(), friendPlayer.getDisplayName())
-				.setLore(locales, cloudPlayer, "friendsOfflineLore",
-						locales.translateTimestampDifference(cloudPlayer, friendPlayer.getLastLogout()));
+	public InventoryItem getOfflineFriendItem(CloudPlayer friendPlayer) {
+		return createItem(new ItemBuilder(Material.SKULL_ITEM)).setDisplayName("friendsOfflineName",
+				friendPlayer.getRank().getColor(), friendPlayer.getDisplayName()).setLore(
+				"friendsOfflineLore",
+				((Locales) getTranslator()).translateTimestampDifference(getCloudPlayer(),
+						friendPlayer.getLastLogout()));
 	}
 
-	public ItemBuilder getPreviousPageItem() {
-		return new ItemBuilder(Material.ARROW).setDisplayName(locales, cloudPlayer, "friendsPreviousPageName");
+	public InventoryItem getPreviousPageItem() {
+		return createItem(new ItemBuilder(Material.ARROW)).setDisplayName("friendsPreviousPageName");
 	}
 
-	public ItemBuilder getNextPageItem() {
-		return new ItemBuilder(Material.ARROW).setDisplayName(locales, cloudPlayer, "friendsNextPageName");
+	public InventoryItem getNextPageItem() {
+		return createItem(new ItemBuilder(Material.ARROW)).setDisplayName("friendsNextPageName");
 	}
 }

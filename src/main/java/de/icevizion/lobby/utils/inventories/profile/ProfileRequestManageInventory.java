@@ -1,10 +1,10 @@
 package de.icevizion.lobby.utils.inventories.profile;
 
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
+import de.icevizion.aves.inventory.events.ClickEvent;
 import de.icevizion.lobby.LobbyPlugin;
 import de.icevizion.lobby.utils.itemfactories.profile.ProfileRequestManageItemFactory;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.function.Consumer;
 
@@ -24,18 +24,16 @@ public class ProfileRequestManageInventory extends ProfileInventory {
 	                                     FriendProfile friendProfile,
 	                                     ProfileRequestsInventory fallback,
 	                                     CloudPlayer requestPlayer) {
-		super(lobbyPlugin, cloudPlayer,
-				lobbyPlugin.getLocales().getString(cloudPlayer, "inventoryRequestManageTitle",
-						requestPlayer.getFullDisplayName()),
-				ProfileInventory.ProfileSite.FRIEND_REQUESTS);
+		super(lobbyPlugin, cloudPlayer, ProfileSite.FRIEND_REQUESTS, "inventoryRequestManageTitle",
+				requestPlayer.getFullDisplayName());
 		this.lobbyPlugin = lobbyPlugin;
 		this.fallback = fallback;
 		this.friendProfile = friendProfile;
 		this.requestPlayer = requestPlayer;
 
-		itemFactory = new ProfileRequestManageItemFactory(lobbyPlugin, cloudPlayer, requestPlayer);
+		itemFactory = new ProfileRequestManageItemFactory(getTranslator(), cloudPlayer, requestPlayer);
 
-		setStaticDraw(true);
+		setDrawOnce(true);
 	}
 
 	@Override
@@ -53,27 +51,24 @@ public class ProfileRequestManageInventory extends ProfileInventory {
 
 			setBackgroundItem(28, getProfileItemFactory().getBackgroundItem());
 
-			getClickEvents().put(getCurrentSite().getIndex(), onCancelClick());
-
-			setItem(21, itemFactory.getAcceptItem(), event -> {
-				event.getWhoClicked().closeInventory();
-				fallback.calculateRequests();
-				lobbyPlugin.getInventoryLoader().openInventory(getCloudPlayer(), fallback);
-				getCloudPlayer().dispatchCommand("friend", "accept", requestPlayer.getDisplayName());
-			});
-
+			setItem(21, itemFactory.getAcceptItem(), onFriendActionClick("accept"));
 			setItem(23, itemFactory.getReminderItem());
+			setItem(25, itemFactory.getDenyItem(), onFriendActionClick("deny"));
 
-			setItem(25, itemFactory.getDenyServer(), event -> {
-				event.getWhoClicked().closeInventory();
-				fallback.calculateRequests();
-				lobbyPlugin.getInventoryLoader().openInventory(getCloudPlayer(), fallback);
-				getCloudPlayer().dispatchCommand("friend", "deny", requestPlayer.getDisplayName());
-			});
+			getClickEvents().put(getCurrentSite().getIndex(), onCancelClick());
 		}
 	}
 
-	private Consumer<InventoryClickEvent> onCancelClick() {
-		return event -> lobbyPlugin.getInventoryLoader().openInventory(getCloudPlayer(), fallback);
+	private Consumer<ClickEvent> onFriendActionClick(String command) {
+		return event -> {
+			event.getPlayer().closeInventory();
+			lobbyPlugin.getInventoryService().openPersonalInventory(getCloudPlayer(), fallback);
+			getCloudPlayer().dispatchCommand("friend", command, requestPlayer.getDisplayName());
+		};
+	}
+
+	private Consumer<ClickEvent> onCancelClick() {
+		return event -> lobbyPlugin.getInventoryService().openPersonalInventory(getCloudPlayer(),
+				fallback);
 	}
 }

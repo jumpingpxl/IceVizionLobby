@@ -1,8 +1,11 @@
 package de.icevizion.lobby.utils.itemfactories;
 
-import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.Locales;
-import de.icevizion.lobby.utils.inventorybuilder.ItemBuilder;
+import de.icevizion.aves.inventory.InventoryItem;
+import de.icevizion.aves.inventory.InventoryItemFactory;
+import de.icevizion.aves.item.ColoredBuilder;
+import de.icevizion.aves.item.ItemBuilder;
+import net.titan.cloudcore.i18n.Translator;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -13,40 +16,33 @@ import java.util.Locale;
  * @author Nico (JumpingPxl) Middendorf
  */
 
-public class GamesItemFactory {
+public class GamesItemFactory extends InventoryItemFactory {
 
-	private final Locales locales;
-	private final Locale locale;
+	public GamesItemFactory(Translator translator, Locale locale) {
+		super(translator, locale);
 
-	public GamesItemFactory(LobbyPlugin lobbyPlugin, Locale locale) {
-		this.locale = locale;
-
-		locales = lobbyPlugin.getLocales();
+		setBackgroundItem(
+				new ColoredBuilder(ColoredBuilder.DyeType.GLASS_PANE).setColor(DyeColor.LIGHT_BLUE));
 	}
 
-	public ItemBuilder getBackgroundItem() {
-		return new ItemBuilder(Material.STAINED_GLASS_PANE).setDurability((short) 3).setDisplayName(
-				"§0");
+	public InventoryItem getSpawnItem() {
+		return createItem(new ItemBuilder(Material.NETHER_STAR)).setDisplayName("spawnName");
 	}
 
-	public ItemBuilder getSpawnItem() {
-		return new ItemBuilder(Material.NETHER_STAR).setDisplayName(locales, locale, "spawnName");
+	public InventoryItem getGuessItItem() {
+		return createItem(new ItemBuilder(Material.BOOK_AND_QUILL)).setDisplayName("guessItName");
 	}
 
-	public ItemBuilder getGuessItItem() {
-		return new ItemBuilder(Material.BOOK_AND_QUILL).setDisplayName(locales, locale, "guessItName");
+	public InventoryItem getKnockBackFFAItem() {
+		return createItem(new ItemBuilder(Material.STICK).addEnchantment(Enchantment.KNOCKBACK, 1)
+				.addItemFlag(ItemFlag.HIDE_ENCHANTS)).setDisplayName("kbffaName");
 	}
 
-	public ItemBuilder getKnockBackFFAItem() {
-		return new ItemBuilder(Material.STICK).addEnchant(Enchantment.KNOCKBACK, 1).addItemFlags(
-				ItemFlag.HIDE_ENCHANTS).setDisplayName(locales, locale, "kbffaName");
+	public InventoryItem getOneLineItem() {
+		return createItem(new ItemBuilder(Material.SANDSTONE)).setDisplayName("oneLineName");
 	}
 
-	public ItemBuilder getOneLineItem() {
-		return new ItemBuilder(Material.SANDSTONE).setDisplayName(locales, locale, "oneLineName");
-	}
-
-	public ItemBuilder getBedWarsItem() {
-		return new ItemBuilder(Material.BED).setDisplayName(locales, locale, "bedWarsName");
+	public InventoryItem getBedWarsItem() {
+		return createItem(new ItemBuilder(Material.BED)).setDisplayName("bedWarsName");
 	}
 }

@@ -1,10 +1,10 @@
 package de.icevizion.lobby.utils.inventories.profile;
 
+import de.icevizion.aves.inventory.events.ClickEvent;
 import de.icevizion.lobby.LobbyPlugin;
 import de.icevizion.lobby.utils.Setting;
 import de.icevizion.lobby.utils.itemfactories.profile.ProfileSettingsItemFactory;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -21,19 +21,15 @@ public class ProfileSettingsInventory extends ProfileInventory {
 	private static final int[][] SETTING_POSITIONS = {{}, {31}, {30, 32}, {30, 31, 32},
 			{29, 30, 32, 33}, {29, 30, 31, 32, 33}};
 
-	private final LobbyPlugin lobbyPlugin;
 	private final ProfileSettingsItemFactory itemFactory;
 	private Setting currentSetting;
 	private int currentSlot;
 	private boolean cooldown;
 
 	public ProfileSettingsInventory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
-		super(lobbyPlugin, cloudPlayer,
-				lobbyPlugin.getLocales().getString(cloudPlayer, "inventorySettingsTitle"),
-				ProfileSite.SETTINGS);
-		this.lobbyPlugin = lobbyPlugin;
+		super(lobbyPlugin, cloudPlayer, ProfileSite.SETTINGS, "inventorySettingsTitle");
 
-		itemFactory = new ProfileSettingsItemFactory(lobbyPlugin, cloudPlayer);
+		itemFactory = new ProfileSettingsItemFactory(getTranslator(), cloudPlayer);
 		currentSlot = 0;
 	}
 
@@ -57,32 +53,32 @@ public class ProfileSettingsInventory extends ProfileInventory {
 		}
 
 		for (int i : SETTING_POSITIONS[5]) {
-			setItem(i, null);
+			removeItem(i);
 		}
 		setSettingItems();
 	}
 
-	private Consumer<InventoryClickEvent> onCategoryClick(Setting setting) {
+	private Consumer<ClickEvent> onCategoryClick(Setting setting) {
 		return event -> {
 			currentSetting = setting;
-			currentSlot = event.getRawSlot();
+			currentSlot = event.getClickedSlot();
 			buildInventory();
 		};
 	}
 
-	private Consumer<InventoryClickEvent> onSettingClick(Setting setting, int i) {
+	private Consumer<ClickEvent> onSettingClick(Setting setting, int i) {
 		return event -> {
 			if (cooldown) {
-				lobbyPlugin.getLocales().sendMessage(getCloudPlayer(), "settingCooldown");
+				getTranslator().sendMessage(getCloudPlayer(), "settingCooldown");
 				return;
 			}
 
 			cooldown = true;
-			lobbyPlugin.getServer().getScheduler().runTaskLater(lobbyPlugin, () -> cooldown = false,
+			getPlugin().getServer().getScheduler().runTaskLater(getPlugin(), () -> cooldown = false,
 					20L);
 			getCloudPlayer().setSetting(setting.getId(), i);
 			if (setting == Setting.PLAYER_VISIBILITY) {
-				lobbyPlugin.getVisibilityTool().changeVisibility(getCloudPlayer(), i);
+				getPlugin().getVisibilityTool().changeVisibility(getCloudPlayer(), i);
 			}
 
 			buildInventory();

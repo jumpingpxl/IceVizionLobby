@@ -9,6 +9,7 @@ import net.titan.cloudcore.player.rank.Rank;
 import net.titan.protocol.utils.TimeUtilities;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
 
 /**
  * @author Nico (JumpingPxl) Middendorf
@@ -29,27 +30,23 @@ public class LobbyScoreboard {
 		Player player = cloudPlayer.getPlayer();
 		ScoreboardBuilder scoreboard = ScoreboardBuilder.create(lobbyPlugin.getLocales(), cloudPlayer);
 
+		scoreboard.setDisplaySlot(DisplaySlot.SIDEBAR);
 		scoreboard.setDisplayName("scoreboardTitle");
 
 		scoreboard.getLine(12).apply();
 		updateRankTeam(cloudPlayer, scoreboard);
 		scoreboard.getLine(10).apply();
 		scoreboard.getLine(9).setValue("scoreboardFriendsTitle");
-
+		updateFriendsTeam(cloudPlayer);
 		scoreboard.getLine(7).apply();
 		scoreboard.getLine(6).setValue("scoreboardCoinsTitle");
-
+		updateCoinsTeam(cloudPlayer);
 		scoreboard.getLine(4).apply();
 		scoreboard.getLine(3).setValue("scoreboardOnlineTimeTitle");
-
+		updateOnlineTimeTeam(cloudPlayer);
 		scoreboard.getLine(1).apply();
 
 		scoreboard.setScoreboard();
-	}
-
-	public void resetScoreboard(CloudPlayer cloudPlayer) {
-		ScoreboardBuilder scoreboard = ScoreboardBuilder.of(lobbyPlugin.getLocales(), cloudPlayer);
-		scoreboard.delete();
 	}
 
 	public void updateRankTeam(CloudPlayer cloudPlayer, ScoreboardBuilder scoreboard) {
@@ -103,7 +100,7 @@ public class LobbyScoreboard {
 				() -> scoreboard.getLine(2)
 						.setPrefix("scoreboardOnlineTimeTeamPrefix",
 								TimeUtilities.getHours(cloudPlayer.getOnlineTime()))
-						.setSuffix("scoreboardOnlineTimeTeamSuffix"));
+						.setSuffix("scoreboardOnlineTimeTeamSuffix").apply());
 	}
 
 	public void updateOnlineTimeTeam(CloudPlayer cloudPlayer) {

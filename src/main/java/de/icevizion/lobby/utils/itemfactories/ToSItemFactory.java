@@ -1,8 +1,11 @@
 package de.icevizion.lobby.utils.itemfactories;
 
-import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.Locales;
-import de.icevizion.lobby.utils.inventorybuilder.ItemBuilder;
+import de.icevizion.aves.inventory.InventoryItem;
+import de.icevizion.aves.inventory.InventoryItemFactory;
+import de.icevizion.aves.item.ColoredBuilder;
+import de.icevizion.aves.item.ItemBuilder;
+import net.titan.cloudcore.i18n.Translator;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 
 import java.util.Locale;
@@ -11,34 +14,27 @@ import java.util.Locale;
  * @author Nico (JumpingPxl) Middendorf
  */
 
-public class ToSItemFactory {
+public class ToSItemFactory extends InventoryItemFactory {
 
-	private final Locales locales;
-	private final Locale locale;
+	public ToSItemFactory(Translator translator, Locale locale) {
+		super(translator, locale);
 
-	public ToSItemFactory(LobbyPlugin lobbyPlugin, Locale locale) {
-		this.locale = locale;
-
-		locales = lobbyPlugin.getLocales();
+		setBackgroundItem(
+				new ColoredBuilder(ColoredBuilder.DyeType.GLASS_PANE).setColor(DyeColor.LIGHT_BLUE));
 	}
 
-	public ItemBuilder getBackgroundItem() {
-		return new ItemBuilder(Material.STAINED_GLASS_PANE).setDurability((short) 3).setDisplayName(
-				"§0");
+	public InventoryItem getInfoItem() {
+		return createItem(new ItemBuilder(Material.BOOK)).setDisplayName("tosInfoName").setLore(
+				"tosInfoLore");
 	}
 
-	public ItemBuilder getInfoItem() {
-		return new ItemBuilder(Material.BOOK).setDisplayName(locales, locale, "tosInfoName").setLore(
-				locales, locale, "tosInfoLore");
+	public InventoryItem getAcceptItem() {
+		return createItem(new ColoredBuilder(ColoredBuilder.DyeType.CLAY_BLOCK).setColor(
+				DyeColor.GREEN)).setDisplayName("tosAcceptName").setLore("tosAcceptLore");
 	}
 
-	public ItemBuilder getAcceptItem() {
-		return new ItemBuilder(Material.STAINED_CLAY).setDurability((short) 13).setDisplayName(locales,
-				locale, "tosAcceptName").setLore(locales, locale, "tosAcceptLore");
-	}
-
-	public ItemBuilder getDenyItem() {
-		return new ItemBuilder(Material.STAINED_CLAY).setDurability((short) 14).setDisplayName(locales,
-				locale, "tosDenyName").setLore(locales, locale, "tosDenyLore");
+	public InventoryItem getDenyItem() {
+		return createItem(new ColoredBuilder(ColoredBuilder.DyeType.CLAY_BLOCK).setColor(
+				DyeColor.GREEN)).setDisplayName("tosDenyName").setLore("tosDenyLore");
 	}
 }

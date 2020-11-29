@@ -1,9 +1,12 @@
 package de.icevizion.lobby.utils.itemfactories.profile;
 
-import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.Locales;
-import de.icevizion.lobby.utils.inventorybuilder.ItemBuilder;
+import de.icevizion.aves.inventory.InventoryItem;
+import de.icevizion.aves.inventory.InventoryItemFactory;
+import de.icevizion.aves.item.ColoredBuilder;
+import de.icevizion.aves.item.ItemBuilder;
+import net.titan.cloudcore.i18n.Translator;
 import net.titan.spigot.player.CloudPlayer;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -12,37 +15,31 @@ import org.bukkit.inventory.ItemFlag;
  * @author Nico (JumpingPxl) Middendorf
  */
 
-public class ProfileItemFactory {
+public class ProfileItemFactory extends InventoryItemFactory {
 
-	private final Locales locales;
-	private final CloudPlayer cloudPlayer;
+	public ProfileItemFactory(Translator translator, CloudPlayer cloudPlayer) {
+		super(translator, cloudPlayer);
 
-	public ProfileItemFactory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
-		this.cloudPlayer = cloudPlayer;
-
-		locales = lobbyPlugin.getLocales();
+		setBackgroundItem(
+				new ColoredBuilder(ColoredBuilder.DyeType.GLASS_PANE).setColor(DyeColor.LIGHT_BLUE));
 	}
 
-	public ItemBuilder getBackgroundItem() {
-		return new ItemBuilder(Material.STAINED_GLASS_PANE).setDurability((short) 3).setDisplayName(
-				"§0");
+	public InventoryItem getFriendsItem() {
+		return createItem(new ItemBuilder(Material.EMERALD)).setDisplayName("friendsName");
 	}
 
-	public ItemBuilder getFriendsItem() {
-		return new ItemBuilder(Material.EMERALD).setDisplayName(locales, cloudPlayer, "friendsName");
+	public InventoryItem getRequestsItem() {
+		return createItem(new ItemBuilder(Material.PAPER)).setDisplayName("requestsName");
 	}
 
-	public ItemBuilder getRequestsItem() {
-		return new ItemBuilder(Material.PAPER).setDisplayName(locales, cloudPlayer, "requestsName");
-	}
-
-	public ItemBuilder getSettingsItem() {
-		return new ItemBuilder(Material.REDSTONE_COMPARATOR).setDisplayName(locales, cloudPlayer,
+	public InventoryItem getSettingsItem() {
+		return createItem(new ItemBuilder(Material.REDSTONE_COMPARATOR)).setDisplayName(
 				"settingsName");
 	}
 
 	public void setCurrentItem(ItemBuilder itemBuilder) {
-		itemBuilder.addEnchant(Enchantment.KNOCKBACK, 1).addItemFlags(ItemFlag.HIDE_ENCHANTS).setLore(
-				locales, cloudPlayer, "currentLore");
+		itemBuilder.addEnchantment(Enchantment.KNOCKBACK, 1)
+				.addItemFlag(ItemFlag.HIDE_ENCHANTS)
+				.setLore(getTranslator(), getLocale(), "currentLore");
 	}
 }

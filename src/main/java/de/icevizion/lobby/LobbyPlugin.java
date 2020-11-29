@@ -1,5 +1,7 @@
 package de.icevizion.lobby;
 
+import de.icevizion.aves.inventory.InventoryService;
+import de.icevizion.aves.scoreboard.nametags.NameTagService;
 import de.icevizion.lobby.commands.LocationCommand;
 import de.icevizion.lobby.listener.WeatherChangeListener;
 import de.icevizion.lobby.listener.block.BlockBreakListener;
@@ -32,8 +34,8 @@ import de.icevizion.lobby.listener.player.PlayerMoveListener;
 import de.icevizion.lobby.listener.player.PlayerQuitListener;
 import de.icevizion.lobby.listener.player.PlayerSpawnListener;
 import de.icevizion.lobby.listener.player.PlayerToggleFlightListener;
+import de.icevizion.lobby.listener.player.SpectateEndListener;
 import de.icevizion.lobby.listener.player.inventory.InventoryClickListener;
-import de.icevizion.lobby.listener.player.inventory.InventoryCloseListener;
 import de.icevizion.lobby.listener.player.item.PlayerDropItemListener;
 import de.icevizion.lobby.listener.player.item.PlayerItemConsumeListener;
 import de.icevizion.lobby.listener.player.item.PlayerPickupItemListener;
@@ -45,7 +47,6 @@ import de.icevizion.lobby.utils.LobbySwitcher;
 import de.icevizion.lobby.utils.Locales;
 import de.icevizion.lobby.utils.LocationProvider;
 import de.icevizion.lobby.utils.VisibilityTool;
-import de.icevizion.lobby.utils.inventorybuilder.InventoryLoader;
 import net.titan.lib.network.spigot.SpigotState;
 import net.titan.lib.redisevent.events.PlayerServerSwitchEvent;
 import net.titan.lib.redisevent.events.ServerAvailableEvent;
@@ -54,16 +55,12 @@ import net.titan.spigot.CloudService;
 import net.titan.spigot.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
-import java.text.SimpleDateFormat;
-
 public class LobbyPlugin extends Plugin {
-
-	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm dd.MM.yyyy");
 
 	private CloudService cloudService;
 	private Locales locales;
 	private LocationProvider locationProvider;
-	private InventoryLoader inventoryLoader;
+	private InventoryService inventoryService;
 	private LobbySwitcher lobbySwitcher;
 	private LobbyScoreboard lobbyScoreboard;
 	private Items items;
@@ -74,6 +71,9 @@ public class LobbyPlugin extends Plugin {
 	@Override
 	public void onEnable() {
 		cloudService = getService(CloudService.class);
+
+		NameTagService nameTagService = getService(NameTagService.class);
+		nameTagService.setActivated(true);
 
 		loadUtilities();
 		registerListener();
@@ -91,7 +91,7 @@ public class LobbyPlugin extends Plugin {
 	private void loadUtilities() {
 		locales = new Locales(this);
 		locationProvider = new LocationProvider(this);
-		inventoryLoader = new InventoryLoader(this);
+		inventoryService = getService(InventoryService.class);
 		inventories = new Inventories(this);
 		lobbySwitcher = new LobbySwitcher(this);
 		lobbyScoreboard = new LobbyScoreboard(this);
@@ -130,8 +130,7 @@ public class LobbyPlugin extends Plugin {
 		cloudService.getRedisEvents().registerListener(ServerUnavailableEvent.class,
 				new ServerUnavailableListener(this));
 
-		pluginManager.registerEvents(new InventoryClickListener(this), this);
-		pluginManager.registerEvents(new InventoryCloseListener(this), this);
+		pluginManager.registerEvents(new InventoryClickListener(), this);
 
 		pluginManager.registerEvents(new PlayerDropItemListener(), this);
 		pluginManager.registerEvents(new PlayerItemConsumeListener(), this);
@@ -146,6 +145,7 @@ public class LobbyPlugin extends Plugin {
 		pluginManager.registerEvents(new PlayerQuitListener(this), this);
 		pluginManager.registerEvents(new PlayerSpawnListener(this), this);
 		pluginManager.registerEvents(new PlayerToggleFlightListener(this), this);
+		pluginManager.registerEvents(new SpectateEndListener(this), this);
 
 		pluginManager.registerEvents(new WeatherChangeListener(), this);
 	}
@@ -162,8 +162,8 @@ public class LobbyPlugin extends Plugin {
 		return locales;
 	}
 
-	public InventoryLoader getInventoryLoader() {
-		return inventoryLoader;
+	public InventoryService getInventoryService() {
+		return inventoryService;
 	}
 
 	public LocationProvider getLocationProvider() {

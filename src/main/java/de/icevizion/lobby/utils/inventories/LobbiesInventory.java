@@ -1,11 +1,10 @@
 package de.icevizion.lobby.utils.inventories;
 
+import de.icevizion.aves.inventory.InventoryRows;
+import de.icevizion.aves.inventory.TranslatedInventory;
 import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.inventorybuilder.InventoryBuilder;
 import de.icevizion.lobby.utils.itemfactories.LobbiesItemFactory;
 import net.titan.lib.network.spigot.IClusterSpigot;
-import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +16,7 @@ import java.util.Map;
  * @author Nico (JumpingPxl) Middendorf
  */
 
-public class LobbiesInventory extends InventoryBuilder {
+public class LobbiesInventory extends TranslatedInventory {
 
 	private static final int[][] LOBBY_POSITIONS = {{4}, {3, 5}, {3, 4, 5}, {2, 3, 5, 6},
 			{2, 3, 4, 5, 6}};
@@ -28,25 +27,23 @@ public class LobbiesInventory extends InventoryBuilder {
 
 	public LobbiesInventory(LobbyPlugin lobbyPlugin, Locale locale, IClusterSpigot currentLobby,
 	                        List<IClusterSpigot> activeLobbies) {
-		super(lobbyPlugin.getLocales().getString(locale, "inventoryLobbiesTitle"),
-				18 + 9 * (int) Math.ceil((double) activeLobbies.size() / LOBBY_POSITIONS.length));
+		super(lobbyPlugin.getLocales(), locale,
+				InventoryRows.getRows(InventoryRows.TWO, LOBBY_POSITIONS.length, activeLobbies.size()),
+				"inventoryLobbiesTitle");
 		this.lobbyPlugin = lobbyPlugin;
 		this.currentLobby = currentLobby;
 
-		itemFactory = new LobbiesItemFactory(lobbyPlugin, locale);
+		itemFactory = new LobbiesItemFactory(getTranslator(), locale);
 		itemPositions = new HashMap<>();
 
 		calculateItemPositions(activeLobbies);
 	}
 
 	@Override
-	public boolean isCacheable() {
-		return true;
-	}
-
-	@Override
 	public void draw() {
+		System.out.println("LOBBIES DRAW");
 		if (isFirstDraw()) {
+			System.out.println("LOBBIES DRAW FIRST");
 			setBackgroundItem(0, itemFactory.getBackgroundItem());
 			setBackgroundItem(8, itemFactory.getBackgroundItem());
 
@@ -104,10 +101,6 @@ public class LobbiesInventory extends InventoryBuilder {
 		}
 
 		setItem(index, itemFactory.getLobbyItem(lobby.getDisplayName(), lobby.getPlayerCount()),
-				event -> {
-					CloudPlayer cloudPlayer = lobbyPlugin.getCloudService().getPlayer(
-							(Player) event.getWhoClicked());
-					cloudPlayer.sendToServer(lobby);
-				});
+				event -> event.getCloudPlayer().sendToServer(lobby));
 	}
 }

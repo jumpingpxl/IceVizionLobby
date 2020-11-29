@@ -6,11 +6,11 @@ import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class PlayerSpectatorListener implements Listener {
+public class SpectateEndListener implements Listener {
 
     private final LobbyPlugin lobbyPlugin;
 
-    public PlayerSpectatorListener(LobbyPlugin lobbyPlugin) {
+    public SpectateEndListener(LobbyPlugin lobbyPlugin) {
         this.lobbyPlugin= lobbyPlugin;
     }
 

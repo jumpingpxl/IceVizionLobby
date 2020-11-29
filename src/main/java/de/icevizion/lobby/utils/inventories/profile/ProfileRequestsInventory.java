@@ -3,11 +3,11 @@ package de.icevizion.lobby.utils.inventories.profile;
 import com.google.common.collect.Maps;
 import de.cosmiqglow.component.friendsystem.spigot.FriendProfile;
 import de.cosmiqglow.component.friendsystem.spigot.FriendSystem;
+import de.icevizion.aves.inventory.InventoryItem;
+import de.icevizion.aves.inventory.events.ClickEvent;
 import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.inventorybuilder.ItemBuilder;
 import de.icevizion.lobby.utils.itemfactories.profile.ProfileRequestsItemFactory;
 import net.titan.spigot.player.CloudPlayer;
-import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.Iterator;
 import java.util.List;
@@ -27,24 +27,22 @@ public class ProfileRequestsInventory extends ProfileInventory {
 	private final LobbyPlugin lobbyPlugin;
 	private final ProfileRequestsItemFactory itemFactory;
 	private final FriendProfile friendProfile;
-	private Map<Integer, Map<Integer, ItemBuilder>> pageItems;
-	private Map<Integer, Map<Integer, Consumer<InventoryClickEvent>>> pageClickEvents;
+	private Map<Integer, Map<Integer, InventoryItem>> pageItems;
+	private Map<Integer, Map<Integer, Consumer<ClickEvent>>> pageClickEvents;
 	private Map<UUID, ProfileRequestManageInventory> cachedProfiles;
 	private List<CloudPlayer> requestList;
 
 	public ProfileRequestsInventory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer) {
-		super(lobbyPlugin, cloudPlayer,
-				lobbyPlugin.getLocales().getString(cloudPlayer, "inventoryRequestsTitle"),
-				ProfileSite.FRIEND_REQUESTS);
+		super(lobbyPlugin, cloudPlayer, ProfileSite.FRIEND_REQUESTS, "inventoryRequestsTitle");
 		this.lobbyPlugin = lobbyPlugin;
 
-		itemFactory = new ProfileRequestsItemFactory(lobbyPlugin, cloudPlayer);
+		itemFactory = new ProfileRequestsItemFactory(getTranslator(), cloudPlayer);
 		friendProfile = FriendSystem.getInstance().getFriendProfile(cloudPlayer);
 		cachedProfiles = Maps.newHashMap();
 		pageItems = Maps.newHashMap();
 		pageClickEvents = Maps.newHashMap();
 
-		setStaticDraw(true);
+		setDrawOnce(true);
 	}
 
 	@Override
@@ -61,7 +59,7 @@ public class ProfileRequestsInventory extends ProfileInventory {
 			List<CloudPlayer> friendList = friendProfile.getRequests();
 			if (friendList.isEmpty()) {
 				setItem(22, itemFactory.getNoRequestsItem());
-				setItems();
+				drawItems();
 				return;
 			}
 
@@ -77,8 +75,8 @@ public class ProfileRequestsInventory extends ProfileInventory {
 	}
 
 	private void calculatePage(int page) {
-		Map<Integer, ItemBuilder> itemMap = Maps.newHashMap();
-		Map<Integer, Consumer<InventoryClickEvent>> eventMap = Maps.newHashMap();
+		Map<Integer, InventoryItem> itemMap = Maps.newHashMap();
+		Map<Integer, Consumer<ClickEvent>> eventMap = Maps.newHashMap();
 		if (page != 0) {
 			itemMap.put(36, itemFactory.getPreviousPageItem());
 			eventMap.put(36, onPageClick(page, page - 1));
@@ -109,7 +107,7 @@ public class ProfileRequestsInventory extends ProfileInventory {
 		pageClickEvents.put(page, eventMap);
 	}
 
-	private Consumer<InventoryClickEvent> onPageClick(int currentPage, int page) {
+	private Consumer<ClickEvent> onPageClick(int currentPage, int page) {
 		return event -> {
 			if (!pageItems.containsKey(page)) {
 				calculatePage(page);
@@ -124,7 +122,7 @@ public class ProfileRequestsInventory extends ProfileInventory {
 		};
 	}
 
-	private Consumer<InventoryClickEvent> onFriendClick(CloudPlayer friendPlayer) {
+	private Consumer<ClickEvent> onFriendClick(CloudPlayer friendPlayer) {
 		return event -> {
 			ProfileRequestManageInventory requestManageInventory;
 			if (cachedProfiles.containsKey(friendPlayer.getUniqueId())) {
@@ -135,14 +133,14 @@ public class ProfileRequestsInventory extends ProfileInventory {
 				cachedProfiles.put(friendPlayer.getUniqueId(), requestManageInventory);
 			}
 
-			lobbyPlugin.getInventoryLoader().openInventory(getCloudPlayer(), requestManageInventory);
+			lobbyPlugin.getInventoryService().openPersonalInventory(getCloudPlayer(), requestManageInventory);
 		};
 	}
 
 	private void setItems(int page) {
-		Map<Integer, Consumer<InventoryClickEvent>> clickEvents = pageClickEvents.get(page);
+		Map<Integer, Consumer<ClickEvent>> clickEvents = pageClickEvents.get(page);
 		pageItems.get(page).forEach(
 				(slot, itemBuilder) -> setItem(slot, itemBuilder, clickEvents.get(slot)));
-		setItems();
+		drawItems();
 	}
 }

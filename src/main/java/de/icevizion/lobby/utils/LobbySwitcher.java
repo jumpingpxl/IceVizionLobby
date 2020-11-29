@@ -1,12 +1,13 @@
 package de.icevizion.lobby.utils;
 
+import de.icevizion.aves.inventory.TranslatedInventory;
 import de.icevizion.lobby.LobbyPlugin;
 import de.icevizion.lobby.utils.inventories.LobbiesInventory;
-import de.icevizion.lobby.utils.inventorybuilder.InventoryBuilder;
 import net.titan.lib.network.spigot.IClusterSpigot;
 import net.titan.lib.network.spigot.SpigotState;
 import net.titan.lib.utils.SpigotComparator;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,13 +46,12 @@ public class LobbySwitcher {
 		}
 
 		List<IClusterSpigot> activeLobbies = getActiveLobbies();
-		getCachedLobbySwitcher().forEach(
-				inventory -> ((LobbiesInventory) inventory).calculateItemPositions(activeLobbies));
+		getCachedLobbySwitcher().stream()
+				.filter(inventory -> !inventory.getViewers().isEmpty())
+				.forEach(inventory -> ((LobbiesInventory) inventory).calculateItemPositions(activeLobbies));
 	}
 
-	private List<InventoryBuilder> getCachedLobbySwitcher() {
-		return lobbyPlugin.getInventoryLoader().getCachedInventories().values().stream().filter(
-				inventoryBuilder -> inventoryBuilder instanceof LobbiesInventory).collect(
-				Collectors.toList());
+	private Collection<TranslatedInventory> getCachedLobbySwitcher() {
+		return lobbyPlugin.getInventoryService().getCachedInventories(LobbiesInventory.class).values();
 	}
 }

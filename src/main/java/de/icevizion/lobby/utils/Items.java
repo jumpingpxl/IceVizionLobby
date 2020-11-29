@@ -1,7 +1,8 @@
 package de.icevizion.lobby.utils;
 
+import de.icevizion.aves.item.ItemBuilder;
+import de.icevizion.aves.item.SkullBuilder;
 import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.inventorybuilder.ItemBuilder;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -42,7 +43,7 @@ public class Items {
 	}
 
 	public ItemBuilder getProfileItem(CloudPlayer cloudPlayer) {
-		return new ItemBuilder(cloudPlayer.getSkinValue()).setDisplayName(lobbyPlugin.getLocales(),
+		return new SkullBuilder().setSkinOverValues(cloudPlayer.getSkinValue()).setDisplayName(lobbyPlugin.getLocales(),
 				cloudPlayer, "itemProfileName");
 	}
 }

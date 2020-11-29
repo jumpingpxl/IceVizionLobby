@@ -1,7 +1,8 @@
 package de.icevizion.lobby.utils.inventories.profile;
 
+import de.icevizion.aves.inventory.InventoryRows;
+import de.icevizion.aves.inventory.PersonalInventory;
 import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.inventorybuilder.InventoryBuilder;
 import de.icevizion.lobby.utils.itemfactories.profile.ProfileItemFactory;
 import net.titan.spigot.player.CloudPlayer;
 
@@ -11,43 +12,39 @@ import java.util.Objects;
  * @author Nico (JumpingPxl) Middendorf
  */
 
-public class ProfileInventory extends InventoryBuilder {
+public class ProfileInventory extends PersonalInventory {
 
 	private final LobbyPlugin lobbyPlugin;
 	private final ProfileItemFactory profileItemFactory;
-	private final CloudPlayer cloudPlayer;
 	private final ProfileSite currentSite;
 	private ProfileFriendsInventory friendsInventory;
 	private ProfileRequestsInventory requestsInventory;
 	private ProfileSettingsInventory settingsInventory;
 
-	public ProfileInventory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer, String title,
-	                        ProfileSite currentSite) {
-		super(title, 54);
+	public ProfileInventory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer,
+	                        ProfileSite currentSite, String key, Object... arguments) {
+		super(lobbyPlugin.getLocales(), cloudPlayer, InventoryRows.SIX, key, arguments);
 		this.lobbyPlugin = lobbyPlugin;
-		this.cloudPlayer = cloudPlayer;
 		this.currentSite = currentSite;
 
-		profileItemFactory = new ProfileItemFactory(lobbyPlugin, cloudPlayer);
+		profileItemFactory = new ProfileItemFactory(getTranslator(), cloudPlayer);
 	}
 
 	@Override
 	public void draw() {
-		for (int i = 36; i < 45; i++) {
-			setBackgroundItem(i, profileItemFactory.getBackgroundItem());
-		}
+		setBackgroundItems(36, 44, profileItemFactory.getBackgroundItem());
 
 		setBackgroundItem(45, profileItemFactory.getBackgroundItem());
 
 		setItem(ProfileSite.FRIEND_LIST.getIndex(), profileItemFactory.getFriendsItem(),
-				event -> lobbyPlugin.getInventoryLoader()
-						.openInventory(cloudPlayer, getFriendsInventory()));
+				event -> lobbyPlugin.getInventoryService()
+						.openPersonalInventory(getCloudPlayer(), getFriendsInventory()));
 		setItem(ProfileSite.FRIEND_REQUESTS.getIndex(), profileItemFactory.getRequestsItem(),
-				event -> lobbyPlugin.getInventoryLoader()
-						.openInventory(cloudPlayer, getRequestsInventory()));
+				event -> lobbyPlugin.getInventoryService()
+						.openPersonalInventory(getCloudPlayer(), getRequestsInventory()));
 		setItem(ProfileSite.SETTINGS.getIndex(), profileItemFactory.getSettingsItem(),
-				event -> lobbyPlugin.getInventoryLoader()
-						.openInventory(cloudPlayer, getSettingsInventory()));
+				event -> lobbyPlugin.getInventoryService()
+						.openPersonalInventory(getCloudPlayer(), getSettingsInventory()));
 
 		setBackgroundItem(53, profileItemFactory.getBackgroundItem());
 
@@ -59,17 +56,13 @@ public class ProfileInventory extends InventoryBuilder {
 		return profileItemFactory;
 	}
 
-	public CloudPlayer getCloudPlayer() {
-		return cloudPlayer;
-	}
-
 	public ProfileSite getCurrentSite() {
 		return currentSite;
 	}
 
 	public final ProfileFriendsInventory getFriendsInventory() {
 		if (Objects.isNull(friendsInventory)) {
-			friendsInventory = new ProfileFriendsInventory(lobbyPlugin, cloudPlayer);
+			friendsInventory = new ProfileFriendsInventory(lobbyPlugin, getCloudPlayer());
 		}
 
 		return friendsInventory;
@@ -77,7 +70,7 @@ public class ProfileInventory extends InventoryBuilder {
 
 	public final ProfileRequestsInventory getRequestsInventory() {
 		if (Objects.isNull(requestsInventory)) {
-			requestsInventory = new ProfileRequestsInventory(lobbyPlugin, cloudPlayer);
+			requestsInventory = new ProfileRequestsInventory(lobbyPlugin, getCloudPlayer());
 		}
 
 		return requestsInventory;
@@ -85,10 +78,14 @@ public class ProfileInventory extends InventoryBuilder {
 
 	public final ProfileSettingsInventory getSettingsInventory() {
 		if (Objects.isNull(settingsInventory)) {
-			settingsInventory = new ProfileSettingsInventory(lobbyPlugin, cloudPlayer);
+			settingsInventory = new ProfileSettingsInventory(lobbyPlugin, getCloudPlayer());
 		}
 
 		return settingsInventory;
+	}
+
+	protected final LobbyPlugin getPlugin() {
+		return lobbyPlugin;
 	}
 
 	public enum ProfileSite {

@@ -18,15 +18,13 @@ public class ProfileFriendRemoveInventory extends ProfileInventory {
 	public ProfileFriendRemoveInventory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer,
 	                                    ProfileFriendManageInventory fallback,
 	                                    CloudPlayer friendPlayer) {
-		super(lobbyPlugin, cloudPlayer, lobbyPlugin.getLocales()
-						.getString(cloudPlayer, "inventoryFriendRemoveTitle",
-								friendPlayer.getFullDisplayName()),
-				ProfileSite.FRIEND_LIST);
+		super(lobbyPlugin, cloudPlayer, ProfileSite.FRIEND_LIST, "inventoryFriendManageTitle",
+				friendPlayer.getFullDisplayName());
 		this.lobbyPlugin = lobbyPlugin;
 		this.fallback = fallback;
 		this.friendPlayer = friendPlayer;
 
-		itemFactory = new ProfileFriendRemoveItemFactory(lobbyPlugin, cloudPlayer, friendPlayer);
+		itemFactory = new ProfileFriendRemoveItemFactory(getTranslator(), cloudPlayer, friendPlayer);
 	}
 
 	@Override
@@ -36,17 +34,16 @@ public class ProfileFriendRemoveInventory extends ProfileInventory {
 			fallback.setLayout(this);
 
 			setItem(21, itemFactory.getConfirmItem(), event -> {
-				event.getWhoClicked().closeInventory();
-				fallback.getFallback().calculateFriends();
-				lobbyPlugin.getInventoryLoader().openInventory(getCloudPlayer(), fallback.getFallback());
+				event.getPlayer().closeInventory();
+				lobbyPlugin.getInventoryService().openPersonalInventory(getCloudPlayer(), fallback.getFallback());
 				getCloudPlayer().dispatchCommand("friend", "remove", friendPlayer.getDisplayName());
 			});
 
 			setItem(23, itemFactory.getReminderItem());
 
 			setItem(25, itemFactory.getAbortItem(), event -> {
-				event.getWhoClicked().closeInventory();
-				lobbyPlugin.getInventoryLoader().openInventory(getCloudPlayer(), fallback);
+				event.getPlayer().closeInventory();
+				lobbyPlugin.getInventoryService().openPersonalInventory(getCloudPlayer(), fallback);
 			});
 		}
 	}

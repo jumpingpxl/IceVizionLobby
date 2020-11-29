@@ -1,8 +1,9 @@
 package de.icevizion.lobby.utils.itemfactories.profile;
 
-import de.icevizion.lobby.LobbyPlugin;
-import de.icevizion.lobby.utils.Locales;
-import de.icevizion.lobby.utils.inventorybuilder.ItemBuilder;
+import de.icevizion.aves.inventory.InventoryItem;
+import de.icevizion.aves.inventory.InventoryItemFactory;
+import de.icevizion.aves.item.ItemBuilder;
+import net.titan.cloudcore.i18n.Translator;
 import net.titan.spigot.player.CloudPlayer;
 import org.bukkit.Material;
 
@@ -10,32 +11,31 @@ import org.bukkit.Material;
  * @author Nico (JumpingPxl) Middendorf
  */
 
-public class ProfileFriendRemoveItemFactory {
+public class ProfileFriendRemoveItemFactory extends InventoryItemFactory {
 
-	private final Locales locales;
-	private final CloudPlayer cloudPlayer;
 	private final CloudPlayer friendPlayer;
 
-	public ProfileFriendRemoveItemFactory(LobbyPlugin lobbyPlugin, CloudPlayer cloudPlayer,
+	public ProfileFriendRemoveItemFactory(Translator translator, CloudPlayer cloudPlayer,
 	                                      CloudPlayer friendPlayer) {
-		this.cloudPlayer = cloudPlayer;
-		this.friendPlayer = friendPlayer;
+		super(translator, cloudPlayer);
 
-		locales = lobbyPlugin.getLocales();
+		this.friendPlayer = friendPlayer;
 	}
 
-	public ItemBuilder getReminderItem() {
-		return new ItemBuilder(Material.BOOK).setDisplayName(locales, cloudPlayer, "removeInfoName",
+	public InventoryItem getReminderItem() {
+		return createItem(new ItemBuilder(Material.BOOK)).setDisplayName("removeInfoName",
 				friendPlayer.getFullDisplayName());
 	}
 
-	public ItemBuilder getConfirmItem() {
-		return new ItemBuilder(Material.STAINED_CLAY).setDurability((short) 13).setDisplayName(locales,
-				cloudPlayer, "removeConfirmName", friendPlayer.getFullDisplayName());
+	public InventoryItem getConfirmItem() {
+		return createItem(
+				new ItemBuilder(Material.STAINED_CLAY).setDurability((short) 13)).setDisplayName(
+				"removeConfirmName", friendPlayer.getFullDisplayName());
 	}
 
-	public ItemBuilder getAbortItem() {
-		return new ItemBuilder(Material.STAINED_CLAY).setDurability((short) 14).setDisplayName(locales,
-				cloudPlayer, "removeAbortName", friendPlayer.getFullDisplayName());
+	public InventoryItem getAbortItem() {
+		return createItem(
+				new ItemBuilder(Material.STAINED_CLAY).setDurability((short) 14)).setDisplayName(
+				"removeAbortName", friendPlayer.getFullDisplayName());
 	}
 }
